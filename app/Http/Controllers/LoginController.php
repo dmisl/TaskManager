@@ -18,7 +18,7 @@ class LoginController extends Controller
             'name' => ['required', 'string', 'max:16'],
             'password' => ['required', 'string'],
         ]);
-        if(Auth::attempt($validated, 1))
+        if(Auth::attempt($validated, 0))
         {
             return redirect()->route('home.index');
         } else

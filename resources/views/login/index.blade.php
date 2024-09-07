@@ -2,12 +2,16 @@
 
 @section('title', "Auth")
 
+@section('style')
+    @vite('resources/css/login.css')
+@endsection
+
 @section('content')
 
     <div class="d-flex user-select-none">
 
         <div style="width: 55%;">
-            <h1 style="margin-left: 100px; margin-top: 150px; font-size: 80px; font-weight: 500; color: black; text-shadow: 2px 4px 3px rgba(0,0,0,0.1);">
+            <h1 class="login__text">
                 Стань <span style="color: rgb(24 127 255); text-decoration: underline;">менеджером</span> свого часу разом з <div class="rainbow__parent"><span class="title__rainbow">Task Buddy</span>!</div>
             </h1>
         </div>
@@ -33,5 +37,23 @@
         </div>
 
     </div>
+
+    <script>
+        const emojis = ['💡', '🚀', '🔥', '🎯', '💼', '📝', '🤖', '📈', '🔔', '🎉'];
+
+        function getRandomEmoji() {
+            return emojis[Math.floor(Math.random() * emojis.length)];
+        }
+
+        const beforeEmoji = document.querySelector('.emoji.before');
+        const afterEmoji = document.querySelector('.emoji.after');
+
+        function addRandomEmojis() {
+            beforeEmoji.textContent = getRandomEmoji();
+            afterEmoji.textContent = getRandomEmoji();
+        }
+
+        addRandomEmojis();
+    </script>
 
 @endsection
