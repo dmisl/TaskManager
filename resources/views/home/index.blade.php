@@ -4,6 +4,10 @@
 
 @section('content')
 
-Something
+<div class="container">
+    <h2 class="text-center mt-5">
+        Привіт, <span class="text-primary">{{ Auth::user()->name }}</span>!
+    </h2>
+</div>
 
 @endsection

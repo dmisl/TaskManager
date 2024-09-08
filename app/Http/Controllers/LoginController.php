@@ -27,4 +27,9 @@ class LoginController extends Controller
             return back()->withInput();
         }
     }
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login.index');
+    }
 }

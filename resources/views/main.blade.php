@@ -12,13 +12,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&display=swap" rel="stylesheet">
-    <style>
-        *
-        {
-            margin: 0;
-            font-family: 'Golos Text', sans-serif;
-        }
-    </style>
+    {{-- CSS STYLING --}}
+    @vite('resources/css/app.css')
     @yield('style')
 </head>
 <body>
@@ -27,11 +22,11 @@
 
     <div class="w-100 vh-100 overflow-hidden">
 
-        <h3 class="title user-select-none">
+        <a href="{{ Auth::check() ? route('home.index') : route('login.index') }}" class="title user-select-none">
             <div class="emoji before"></div>
             <div class="text">Task Buddy</div>
             <div class="emoji after"></div>
-        </h3>
+        </a>
 
         <div class="container"></div>
 
@@ -41,4 +36,5 @@
 
 </body>
 </html>
+@vite('resources/js/emoji.js')
 @vite('resources/js/app.js')

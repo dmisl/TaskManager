@@ -1,41 +1,3 @@
-.title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.title .emoji {
-    font-size: 30px;
-    width: 50px;
-    text-align: center;
-}
-
-.title .text {
-    font-size: 35px;
-    position: relative;
-    text-decoration: none;
-    margin: 5px 0;
-}
-
-.title .text::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -3px;
-    width: 100%;
-    height: 3px;
-    background-color: #000;
-    border-radius: 10px;
-    transform: scaleX(0);
-    transform-origin: bottom right;
-    transition: transform 0.5s ease;
-}
-
-.title .text:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-}
-
 .title__rainbow{
     position: relative;
     color: #000;
@@ -143,4 +105,34 @@
     {
         font-size: 90px;
     }
+}
+.toggle__container
+{
+    overflow: hidden;
+    height: 100%;
+}
+.auth, .reg
+{
+    position: absolute;
+    right: 0%;
+    transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+}
+.auth
+{
+    width: 335px;
+}
+.reg {
+    transform: translateX(100%);
+    opacity: 0;
+    width: 301px;
+}
+
+.animate-out {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.animate-in {
+    transform: translateX(0);
+    opacity: 1;
 }
