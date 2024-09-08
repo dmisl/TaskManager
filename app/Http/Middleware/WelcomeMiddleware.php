@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AuthMiddleware
+class WelcomeMiddleware
 {
     /**
      * Handle an incoming request.
@@ -20,9 +20,11 @@ class AuthMiddleware
         {
             if(!Auth::user()->welcomed)
             {
+                return $next($request);
+            } else
+            {
                 return redirect()->route('welcome.index');
             }
-            return $next($request);
         } else
         {
             return redirect()->route('login.index');

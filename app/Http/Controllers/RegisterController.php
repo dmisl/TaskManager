@@ -21,6 +21,6 @@ class RegisterController extends Controller
             'password' => $validated['pass'],
         ]);
         Auth::login($user);
-        return redirect()->route('home.index');
+        return redirect()->route('welcome.index');
     }
 }
