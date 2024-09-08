@@ -43,6 +43,12 @@
     text-shadow: 2px 4px 3px rgba(0,0,0,0.1);
 }
 
+.custom__underline__parent
+{
+    margin-top: 10%;
+    margin-right: 16%;
+}
+
 @media (max-width: 999px)
 {
     .d-flex > :nth-child(1)
@@ -54,10 +60,25 @@
         width: 100% !important;
         text-align: center !important;
     }
-    .card
+    .custom__underline
+    {
+        text-align: center;
+        margin: 0 !important;
+    }
+    .custom__underline__parent
+    {
+        margin: 0;
+        margin-top: 10%;
+    }
+    .reg, .auth
     {
         margin: 0 !important;
-        margin-top: 150px !important;
+        left: 50%;
+        transform: translate(-50%, 0%);
+    }
+    .animate-in
+    {
+        transform: translate(-50%, 0%) !important;
     }
 }
 @media (min-width: 1000px) and (max-width: 1319px)

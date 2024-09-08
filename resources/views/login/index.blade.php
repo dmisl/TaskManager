@@ -17,7 +17,7 @@
         </div>
 
         <div style="width: 45%; text-align: right; position: relative; overflow: hidden; height: 100%;">
-            <div style="margin-top: 10% !important; margin-right: 16%;">
+            <div class="custom__underline__parent" style="">
                 <p class="custom__underline toggle" style="margin: 0; font-size: 20px;" role="button">Реєстрація ></p><br>
             </div>
             <div class="toggle__container">
