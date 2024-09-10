@@ -81,7 +81,7 @@
     font-size: 55px;
     opacity: 0.4;
 }
-.settings::after
+.settings::before
 {
     content: "⚙️";
     z-index: -1;
@@ -90,9 +90,8 @@
     top: -20px;
     font-size: 55px;
     opacity: 0.4;
-    pointer-events: none;
 }
-.week::after
+.week::before
 {
     content: "📅";
     z-index: -1;
@@ -101,9 +100,8 @@
     top: -25px;
     font-size: 55px;
     opacity: 0.4;
-    pointer-events: none;
 }
-.tasks::after
+.tasks::before
 {
     content: "📝";
     z-index: -1;
@@ -112,9 +110,8 @@
     top: -25px;
     font-size: 55px;
     opacity: 0.4;
-    pointer-events: none;
 }
-.completed::after
+.completed::before
 {
     content: "📖";
     z-index: -1;
@@ -123,9 +120,8 @@
     top: -18px;
     font-size: 55px;
     opacity: 0.4;
-    pointer-events: none;
 }
-.logout::after
+.logout::before
 {
     content: "🚪";
     z-index: -1;
@@ -134,5 +130,14 @@
     top: -20px;
     font-size: 55px;
     opacity: 0.4;
-    pointer-events: none;
+}
+.menu__element::before
+{
+    transition: 0.5s;
+}
+.menu__element:hover::before
+{
+    right: 150px;
+    font-size: 80px;
+    top: -30px;
 }
