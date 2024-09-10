@@ -18,10 +18,10 @@ class AuthMiddleware
     {
         if(Auth::check())
         {
-            if(!Auth::user()->welcomed)
-            {
-                return redirect()->route('welcome.index');
-            }
+            // if(!Auth::user()->welcomed)
+            // {
+            //     return redirect()->route('welcome.index');
+            // }
             return $next($request);
         } else
         {

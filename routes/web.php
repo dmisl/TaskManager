@@ -28,12 +28,12 @@ Route::middleware([AuthMiddleware::class])->group(function () {
 });
 
 // only for new user
-Route::middleware([WelcomeMiddleware::class])->group(function () {
+// Route::middleware([WelcomeMiddleware::class])->group(function () {
 
-    Route::get('welcome', [WelcomeController::class, 'index'])->name('welcome.index');
-    Route::post('welcome', [WelcomeController::class, 'store'])->name('welcome.store');
+//     Route::get('welcome', [WelcomeController::class, 'index'])->name('welcome.index');
+//     Route::post('welcome', [WelcomeController::class, 'store'])->name('welcome.store');
 
-});
+// });
 
 Route::fallback(function () {
     return redirect()->route('home.index');

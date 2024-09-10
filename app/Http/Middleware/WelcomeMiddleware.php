@@ -23,7 +23,7 @@ class WelcomeMiddleware
                 return $next($request);
             } else
             {
-                return redirect()->route('welcome.index');
+                return redirect()->route('home.index');
             }
         } else
         {
