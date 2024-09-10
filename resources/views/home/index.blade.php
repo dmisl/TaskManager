@@ -12,13 +12,13 @@
 
 <div class="menu">
     <div class="card shadow">
-        <div class="menu__element yellow__background">My goals</div>
-        <div class="menu__element green__background">Tasks to do</div>
-        <div class="menu__element blue__background">My week</div>
-        <div class="menu__element red__background">Work I did</div>
-        <div class="menu__element grey__background">Settings</div>
-        <div class="menu__element black__background">Log out</div>
-        <p class="hint">try me</p>
+        <div class="menu__element yellow__background goals">Мої цілі</div>
+        <div class="menu__element green__background tasks">Сьогоднішні завдання</div>
+        <div class="menu__element blue__background week">Мій тиждень</div>
+        <div class="menu__element red__background completed">Виконані завдання</div>
+        <div class="menu__element grey__background settings"><p style="z-index: 10;">Налаштування</p></div>
+        <div class="menu__element black__background logout">Вийти з системи</div>
+        <p class="hint">спробуй</p>
     </div>
 </div>
 
