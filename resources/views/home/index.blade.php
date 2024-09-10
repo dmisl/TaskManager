@@ -18,7 +18,12 @@
         <div class="menu__element red__background">Work I did</div>
         <div class="menu__element grey__background">Settings</div>
         <div class="menu__element black__background">Log out</div>
+        <p class="hint">try me</p>
     </div>
+</div>
+
+<div class="content__container shadow">
+
 </div>
 
 @endsection

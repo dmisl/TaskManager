@@ -27,6 +27,7 @@
             <div class="text">Task Buddy</div>
             <div class="emoji after"></div>
         </a>
+        <p style="text-align: center">become best version of yourself</p>
 
         <div class="container"></div>
 
