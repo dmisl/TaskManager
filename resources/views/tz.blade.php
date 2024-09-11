@@ -133,5 +133,25 @@
             </table>
         </div>
     </div>
+    {{-- FOURTH BLOCK --}}
+    <div class="fourth-block">
+        <div class="fourth-block-container">
+            <h1 class="fourth-block-title">ПРИВІТ, Я ОКСАНА ЧЕРНОВА!</h1>
+            <p class="fourth-block-desc">твоя сирна тренерка та наставниця</p>
+            <div class="fourth-block-flex">
+                <img class="fourth-block-image" src="{{ asset('storage/images/teacher.png') }}">
+                <div class="fourth-block-content">
+                    <p>Друже, я впевнена, що тобі буде цікаво слухати цей курс. Тут ти знайдеш цікаву та пізнавальну інформацію та факти, які зможеш використовувати не тільки на робочому місці, а і в житті.</p>
+                    <ul>
+                        <li>Дипломована сирна експертка з понад 10-ти річним досвідом роботи з сиром та професійною кулінарією</li>
+                        <li>Членкиня міжнародного журі на World Cheese Awards</li>
+                        <li>Одна із засновниць фестивалю ProCheese Awards</li>
+                        <li>Гастромандрівниця та дослідниця сирної культури</li>
+                        <li>Авторка та натхненниця ProCheese Community</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
