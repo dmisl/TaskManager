@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/css/login.css',
                 'resources/css/home.css',
+                'resources/css/style.css',
                 'resources/js/app.js',
                 'resources/js/emoji.js',
             ],

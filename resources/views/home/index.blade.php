@@ -10,7 +10,7 @@
 
 @section('content')
 
-<div class="menu">
+{{-- <div class="menu">
     <div class="card shadow">
         <div class="menu__element yellow__background goals">Мої цілі</div>
         <div class="menu__element green__background tasks">Сьогоднішні завдання</div>
@@ -20,7 +20,7 @@
         <div class="menu__element black__background logout">Вийти з системи</div>
         <p class="hint">спробуй</p>
     </div>
-</div>
+</div> --}}
 
 <div class="content__container shadow">
 
