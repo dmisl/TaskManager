@@ -85,7 +85,7 @@
         <div class="moved__container">
             <div class="left__part"></div>
             <div class="right__part">
-                <div class="flex">
+                <div class="flex" id="custom__scrollbar">
                     <div class="flex__block"></div>
                     <div class="flex__block"></div>
                     <div class="flex__block"></div>

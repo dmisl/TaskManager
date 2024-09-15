@@ -277,7 +277,6 @@
     width: 750px;
     height: 540px;
     margin: 50px 40px 80px 40px;
-    border: 1px solid black;
     position: relative;
 }
 .right__part .flex
@@ -285,10 +284,9 @@
     position: absolute;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     width: 750px;
     height: 540px;
-    gap: 70px;
+    gap: 40px 69px;
     overflow: auto;
     pointer-events: auto;
 }
