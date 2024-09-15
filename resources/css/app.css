@@ -3,6 +3,14 @@
     margin: 0;
     font-family: 'Golos Text', sans-serif;
 }
+body
+{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    max-height: 200vh;
+    overflow-x: hidden;
+}
 .title {
     display: flex;
     align-items: center;

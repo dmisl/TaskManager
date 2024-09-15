@@ -16,11 +16,9 @@
     @vite('resources/css/app.css')
     @yield('style')
 </head>
-<body>
+<body style="background-image: url('{{ asset('storage/images/background.jpg') }}')">
 
-    <div style="width: 100%; height: 100vh; position: absolute; z-index: -99; background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url('{{ asset('storage/images/background.jpg') }}')"></div>
-
-    <div class="w-100 vh-100 overflow-hidden">
+    <div id="app" class="w-100 vh-100" style="display: flex; flex-direction: column;">
 
         <a href="{{ Auth::check() ? route('home.index') : route('login.index') }}" class="title user-select-none">
             <div class="emoji before"></div>
@@ -28,8 +26,6 @@
             <div class="emoji after"></div>
         </a>
         <p style="text-align: center">become best version of yourself</p>
-
-        <div class="container"></div>
 
         @yield('content')
 
