@@ -18,9 +18,9 @@
 </head>
 <body style="background-image: url('{{ asset('storage/images/background.jpg') }}')">
 
-    <div id="app" class="w-100 vh-100" style="display: flex; flex-direction: column;">
+    <div id="app" class="w-100 vh-100" style="display: flex; flex-direction: column;" draggable="false">
 
-        <a href="{{ Auth::check() ? route('home.index') : route('login.index') }}" class="title user-select-none">
+        <a href="{{ Auth::check() ? route('home.index') : route('login.index') }}" class="title user-select-none" draggable="false">
             <div class="emoji before"></div>
             <div class="text">Task Buddy</div>
             <div class="emoji after"></div>

@@ -64,13 +64,15 @@
 
     </div>
 
-<script>
+<script defer>
     let toggle = document.querySelector('.toggle')
     let toggled = false;
+    console.log(document.querySelector('#app').removeAttribute('id'))
 
     toggle.addEventListener('click', toggleAnimation)
 
     function toggleAnimation() {
+        console.log(123)
         const box = document.querySelector('.auth');
         const box2 = document.querySelector('.reg');
 

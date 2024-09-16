@@ -16,7 +16,7 @@
     position: relative;
     top: -60px;
     left: -450px;
-    z-index: 1;
+    z-index: 2;
     /* display: none; */
     /* animation: slide-in-left 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; */
 }
@@ -58,6 +58,12 @@
     text-decoration: none;
     color: black;
 }
+.menu__element p
+{
+    /* position: absolute; */
+    margin-bottom: 0;
+    z-index: 10;
+}
 .hint
 {
     text-align: center;
@@ -84,7 +90,6 @@
     background-color: rgb(255, 255, 255);
     width: 1200px;
     margin-top: 40px;
-    display: none;
 }
 @keyframes dissappear-in-right {
     0% {
@@ -176,7 +181,7 @@
 .goals::before
 {
     content: "🎯";
-    z-index: -1;
+    z-index: 1;
     position: absolute;
     right: 20px;
     top: -20px;
@@ -186,7 +191,7 @@
 .settings::before
 {
     content: "⚙️";
-    z-index: -1;
+    z-index: 1;
     position: absolute;
     right: 20px;
     top: -20px;
@@ -196,7 +201,7 @@
 .week::before
 {
     content: "📅";
-    z-index: -1;
+    z-index: 1;
     position: absolute;
     right: 22px;
     top: -25px;
@@ -206,7 +211,7 @@
 .tasks::before
 {
     content: "📝";
-    z-index: -1;
+    z-index: 1;
     position: absolute;
     right: 15px;
     top: -25px;
@@ -216,7 +221,7 @@
 .completed::before
 {
     content: "📖";
-    z-index: -1;
+    z-index: 1;
     position: absolute;
     right: 20px;
     top: -18px;
@@ -226,7 +231,7 @@
 .logout::before
 {
     content: "🚪";
-    z-index: -1;
+    z-index: 1;
     position: absolute;
     right: 30px;
     top: -20px;
@@ -276,7 +281,7 @@
 {
     width: 750px;
     height: 540px;
-    margin: 50px 40px 80px 40px;
+    margin: 50px 20px 80px 30px;
     position: relative;
 }
 .right__part .flex
@@ -285,8 +290,8 @@
     display: flex;
     flex-wrap: wrap;
     width: 750px;
-    height: 540px;
-    gap: 40px 69px;
+    height: 550px;
+    gap: 35px 69px;
     overflow: auto;
     pointer-events: auto;
 }
@@ -294,5 +299,108 @@
 {
     width: 190px;
     height: 190px;
-    background-color: grey;
+    border-radius: 23px;
+    overflow: hidden;
+}
+.right__part .bigger__flex__block
+{
+    width: 250px;
+    height: 250px;
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: var(--bs-box-shadow) !important;
+}
+.flex__block .hidden__block
+{
+    height: 100%;
+    width: 100%;
+    bottom: 70%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.flex__block .hidden__block:hover
+{
+    bottom: 100%;
+}
+.flex__block .hidden__block p
+{
+    display: inline;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.479);
+    width: 100%;
+    padding: 10px 0;
+    padding-top: 8px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 300;
+}
+.hidden__content
+{
+    position: relative;
+    bottom: 100%;
+    width: 100%;
+    height: 300%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.40);
+    opacity: 0;
+    transition: 0.5s;
+}
+.hidden__content p
+{
+    font-size: 22px;
+    color: white;
+    text-align: center;
+    line-height: 1;
+    margin-bottom: 0;
+    font-weight: 600;
+}
+.hidden__content:hover
+{
+    opacity: 1;
+    height: 100%;
+}
+.flex__block .img__parent
+{
+    width: 190px;
+    height: 190px;
+}
+.bigger__flex__block .img__parent
+{
+    width: 250px;
+    height: 250px;
+}
+.bigger__flex__block .hidden__block
+{
+    height: 100%;
+    width: 100%;
+    bottom: 70%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.bigger__flex__block .hidden__block:hover
+{
+    bottom: 100%;
+}
+.bigger__flex__block .hidden__block p
+{
+    display: inline;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.479);
+    width: 100%;
+    padding: 10px 0;
+    padding-top: 8px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 300;
 }
