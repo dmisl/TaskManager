@@ -83,8 +83,17 @@
             </div>
         </div>
         <div class="moved__container">
-            <div class="left__part"></div>
+            <div class="left__part">
+                <a class="left__part__back" href="#">
+                    <img src="{{ asset('storage/images/back.png') }}" alt="">
+                    <p>назад</p>
+                </a>
+            </div>
             <div class="right__part">
+                <h1 class="right__part__title">Список моїх цілей</h1>
+                <div class="right__part__hint">
+                    <p>нажміть пкм для висвітлення меню</p>
+                </div>
                 <div class="flex" id="custom__scrollbar">
                     <div class="flex__block">
                         <img src="{{ asset('storage/images/new goal.jpg') }}" alt="">
@@ -116,30 +125,7 @@
                             <p>Красиве тіло і ще щось</p>
                         </div>
                     </div>
-                    <div class="flex__block">
-                        <div class="img__parent">
-                            <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                        </div>
-                        <div class="hidden__content">
-                            <p>Красиве тіло і ще щось</p>
-                        </div>
-                    </div>
-                    <div class="flex__block">
-                        <div class="img__parent">
-                            <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                        </div>
-                        <div class="hidden__content">
-                            <p>Красиве тіло і ще щось</p>
-                        </div>
-                    </div>
-                    <div class="flex__block">
-                        <div class="img__parent">
-                            <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                        </div>
-                        <div class="hidden__content">
-                            <p>Красиве тіло і ще щось</p>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -177,6 +163,16 @@
                 image.style.cssText = "width: 100%; object-fit: cover;"
                 image.parentElement.style.cssText = 'position: relative; display: flex; justify-content: center; align-items: center;'
             }
+        });
+
+        document.querySelectorAll('.flex__block, .bigger__flex__block').forEach(block => {
+            block.addEventListener('mouseenter', () => {
+                document.querySelector('.right__part__hint p').classList.add('active');
+            });
+
+            block.addEventListener('mouseleave', () => {
+                document.querySelector('.right__part__hint p').classList.remove('active');
+            });
         });
     };
 
