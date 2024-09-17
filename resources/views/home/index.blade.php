@@ -10,8 +10,8 @@
 
 @section('content')
 
-    <home-parent asset="{{ asset('storage/') }}"></home-parent>
-    <div class="menu__parent d-none">
+    {{-- <home-parent asset="{{ asset('storage/') }}"></home-parent> --}}
+    <div class="menu__parent">
         <div class="menu">
             <div class="card shadow">
                 <a href="#goals" class="menu__element yellow__background goals"><p>Мої цілі</p></a>
@@ -25,8 +25,8 @@
         </div>
     </div>
 
-    <div class="content__container__parent d-none">
-        <div class="content__container">
+    <div class="content__container__parent">
+        <div class="content__container d-none">
             <div class="content">
                 <!-- <component :is='currentComponent'></component> -->
                 <h1 class="content__title">Твій навігатор</h1>
@@ -82,7 +82,7 @@
                 </div>
             </div>
         </div>
-        <div class="moved__container d-none">
+        <div class="moved__container">
             <div class="left__part">
                 <a class="left__part__back" href="#">
                     <img src="{{ asset('storage/images/back.png') }}" alt="">
@@ -95,7 +95,7 @@
                     <p>нажміть пкм для висвітлення меню</p>
                 </div>
                 <div class="flex" id="custom__scrollbar">
-                    <div class="flex__block">
+                    <div class="flex__block goal__create">
                         <img src="{{ asset('storage/images/new goal.jpg') }}" alt="">
                         <div class="hidden__block">
                             <p style="color: white;">Створити нову ціль</p>
@@ -165,7 +165,7 @@
             }
         });
 
-        document.querySelectorAll('.flex__block, .bigger__flex__block').forEach(block => {
+        document.querySelectorAll('.flex__block:not(.goal__create), .bigger__flex__block:not(.goal__create)').forEach(block => {
             block.addEventListener('mouseenter', () => {
                 document.querySelector('.right__part__hint p').classList.add('active');
             });
@@ -175,7 +175,6 @@
             });
         });
     };
-
 
 </script>
 

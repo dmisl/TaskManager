@@ -27,7 +27,12 @@
         </a>
         <p style="text-align: center">become best version of yourself</p>
 
-        @yield('content')
+        <div class="whole__content">
+            @yield('content')
+        </div>
+        {{-- <div class="loader__parent">
+            <div class="loader"></div>
+        </div> --}}
 
     </div>
 

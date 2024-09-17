@@ -6,7 +6,7 @@ import HomeParent from './home/Parent.vue';
 
 const app = createApp({});
 
-// app.config.warnHandler = () => {};
+app.config.warnHandler = () => {};
 
 app.component('HomeParent', HomeParent);
 
