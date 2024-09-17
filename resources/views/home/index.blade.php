@@ -133,14 +133,42 @@
 
 <script defer>
 
+    let contextMenu = document.querySelector(".some__menu");
+
     let flex__blocks = document.querySelectorAll('.flex__block')
     if(flex__blocks.length == 4)
     {
         flex__blocks.forEach(block => {
             block.classList.remove('flex__block')
             block.classList.add('bigger__flex__block')
-        });
+        })
     }
+    document.querySelectorAll('.flex').forEach(block => {
+        block.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            let mouseX = e.clientX || e.touches[0].clientX;
+            let mouseY = e.clientY || e.touches[0].clientY;
+            let menuHeight = contextMenu.getBoundingClientRect().height;
+            let menuWidth = contextMenu.getBoundingClientRect().width;
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+            contextMenu.style.left = mouseX + "px";
+            contextMenu.style.top = mouseY - 226 + "px";
+            contextMenu.classList.remove('d-none');
+            contextMenu.classList.add('d-block');
+            console.log(contextMenu.style)
+            },
+            { passive: false }
+        )
+    });
+
+    document.addEventListener("click", function (e) {
+        console.log('closed')
+        if (!contextMenu.contains(e.target)) {
+            contextMenu.classList.add('d-none');
+            contextMenu.classList.remove('d-block');
+        }
+    });
 
     window.onload = function() {
         let block__images = document.querySelectorAll(".flex__block img")
