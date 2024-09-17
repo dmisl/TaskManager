@@ -10,8 +10,8 @@
 
 @section('content')
 
-    {{-- <home-parent asset="{{ asset('storage/') }}"></home-parent> --}}
-    <div class="menu__parent">
+    <home-parent asset="{{ asset('storage/') }}"></home-parent>
+    <div class="menu__parent d-none">
         <div class="menu">
             <div class="card shadow">
                 <a href="#goals" class="menu__element yellow__background goals"><p>Мої цілі</p></a>
@@ -25,8 +25,8 @@
         </div>
     </div>
 
-    <div class="content__container__parent">
-        <div class="content__container d-none">
+    <div class="content__container__parent d-none">
+        <div class="content__container">
             <div class="content">
                 <!-- <component :is='currentComponent'></component> -->
                 <h1 class="content__title">Твій навігатор</h1>
@@ -82,7 +82,7 @@
                 </div>
             </div>
         </div>
-        <div class="moved__container">
+        <div class="moved__container d-none">
             <div class="left__part">
                 <a class="left__part__back" href="#">
                     <img src="{{ asset('storage/images/back.png') }}" alt="">
@@ -106,7 +106,7 @@
                             <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
                         </div>
                         <div class="hidden__content">
-                            <p>Красиве тіло і ще щось</p>
+                            <p>Фріланс і ще щось</p>
                         </div>
                     </div>
                     <div class="flex__block">
@@ -114,7 +114,7 @@
                             <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
                         </div>
                         <div class="hidden__content">
-                            <p>Красиве тіло і ще щось</p>
+                            <p>Фріланс і ще щось</p>
                         </div>
                     </div>
                     <div class="flex__block">
@@ -122,7 +122,7 @@
                             <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
                         </div>
                         <div class="hidden__content">
-                            <p>Красиве тіло і ще щось</p>
+                            <p>Фріланс і ще щось</p>
                         </div>
                     </div>
 
