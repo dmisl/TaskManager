@@ -8,8 +8,8 @@ body
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    max-height: 200vh;
-    overflow-x: hidden;
+    height: 100vh;
+    overflow: hidden;
 }
 .title {
     display: flex;
@@ -17,6 +17,7 @@ body
     justify-content: center;
     text-decoration: none;
     color: black;
+    z-index: 100;
 }
 
 .title .emoji {

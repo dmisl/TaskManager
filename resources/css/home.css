@@ -417,7 +417,7 @@
     font-size: 17px;
     font-weight: 300;
 }
-.hidden__content
+.flex__block .hidden__content
 {
     position: relative;
     bottom: 100%;
@@ -431,7 +431,7 @@
     opacity: 0;
     transition: 0.5s;
 }
-.hidden__content p
+.flex__block .hidden__content p
 {
     font-size: 22px;
     color: white;
@@ -440,7 +440,7 @@
     margin-bottom: 0;
     font-weight: 600;
 }
-.hidden__content:hover
+.flex__block .hidden__content:hover
 {
     opacity: 1;
     height: 100%;
@@ -510,4 +510,184 @@
 .some__menu p:hover
 {
     background-color: rgb(123, 147, 253);
+}
+.goal__create
+{
+    background-color: white;
+    border-radius: 60px;
+    z-index: 10;
+}
+.goal__create h1
+{
+    font-size: 42px;
+    text-align: center;
+    padding-top: 26px;
+    margin: 0;
+}
+.goal__create .form
+{
+    margin: 0 45px;
+    margin-top: 33px;
+}
+.goal__create .form-item
+{
+    width: 392px;
+}
+.goal__create .form-item input, .goal__create .form-item select
+{
+    margin-top: 9px;
+    padding: 7px 16px;
+    font-size: 23px;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+.goal__create .form-item .label__icon
+{
+    display: flex;
+    justify-content: space-between;
+}
+.goal__create .form-item .label__icon p
+{
+    margin: 0;
+    font-size: 27px;
+    height: 32px;
+}
+.goal__create .form-item .label__icon svg
+{
+    width: 25px;
+    height: 25px;
+    position: relative;
+    top: 7px;
+    right: 7px;
+}
+.goal__create .form-item .error
+{
+    height: 15px;
+}
+.goal__create .form-item .error p
+{
+    font-size: 13px;
+    color: red;
+    margin: 0;
+    margin-left: 5px;
+}
+.goal__create .form-button-parent
+{
+    text-align: center;
+    margin-top: 38px;
+    padding-bottom: 40px;
+}
+.goal__create .form-button-parent button
+{
+    font-size: 27px;
+    padding: 7px 70px;
+}
+.goal__create .preview__parent
+{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.goal__create .preview__parent .preview
+{
+    position: relative;
+    left: -410px;
+    top: -70px;
+    width: 310px;
+    height: 310px;
+    background-color: white;
+    overflow: hidden;
+    border-radius: 35px;
+}
+.goal__create .preview__parent .preview .img__parent
+{
+    width: 310px;
+    height: 310px;
+    position: relative;
+}
+.goal__create .preview__parent .preview .hidden__content
+{
+    height: 310px;
+    position: absolute;
+    z-index: 1;
+    width: 310px;
+    background-color: rgba(0, 0, 0, 0.40);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.goal__create .preview__parent .preview .hidden__content p
+{
+    font-size: 36px;
+    color: white;
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.1;
+    margin: 0;
+}
+.goal__create .freepick__parent
+{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: -1;
+}
+.goal__create .freepick
+{
+    width: 356px;
+    height: 426px;
+    background-color: white;
+    position: fixed;
+    margin-left: 860px;
+    border-radius: 26px;
+    z-index: 10;
+}
+.goal__create .freepick__content
+{
+    padding: 26px 20px;
+}
+.goal__create .freepick__content h2
+{
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+}
+.goal__create .freepick__flex
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 10px;
+    gap: 24px 0;
+}
+.goal__create .freepick__image__parent
+{
+    width: 150px;
+    height: 150px;
+    box-shadow: var(--bs-box-shadow) !important;
+    border-radius: 22px;
+    overflow: hidden;
+}
+.goal__create .freepick_load
+{
+    font-size: 16px;
+    color: #1100FF;
+    text-align: center;
+    cursor: pointer;
+    margin: 0;
+    margin-top: 17px;
 }

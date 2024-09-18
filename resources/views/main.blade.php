@@ -34,7 +34,7 @@
         </a>
         <p style="text-align: center">become best version of yourself</p>
 
-        <div class="whole__content">
+        <div class="whole__content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1;">
             @yield('content')
         </div>
         {{-- <div class="loader__parent">
