@@ -309,7 +309,7 @@
         // DEFAULT VALUE FOR DATE INPUT (LAST DAY OF THIS YEAR)
         let date = document.querySelector('.goal__create .form-item input[type="date"]') // input of type date
         date.value = new Date(new Date().getFullYear(), 11, 31).toISOString().split('T')[0] // default input value of format yyyy-mm-dd
-    
+
         // INPUT TYPE TEXT VALUE TO PREVIEW ELEMENT
         let input = document.querySelector('.goal__create .form-item input[type="text"]') // input of type text
         input.focus() // on load of page focus on text input
@@ -325,6 +325,27 @@
             clearTimeout(typingTimer) // prevent function before text is written
             typingTimer = setTimeout(() => { // do something after text is written
                 console.log(input.value)
+                if(input.value.length > 1)
+                {
+                    const params = new URLSearchParams({
+                        'term': 'танки',
+                        'page': 1,
+                        'limit': 1,
+                        'filters[content_type][vector]': 1,
+                        'filters[vector][style]': 'flat',
+                        'filters[license][freemium]': 1,
+                        'filters[ai-generated][excluded]': 1,
+                    });
+                    const options = {
+                        method: 'GET',
+                        headers: {'Accept-Language': 'uk', 'x-freepik-api-key': 'FPSXf55d7c1832254bc898fea32e415bea35', 'Content-Type': 'image/png'},
+                        // mode: 'no-cors'
+                    };
+                    fetch('https://api.freepik.com/v1/resources', options)
+                        .then(response => response.json())
+                        .then(response => console.log(response))
+                        .catch(err => console.error(err));
+                }
             }, 1000);
         })
         input.addEventListener('keydown', function (e) { // prevent writing more than 45 symbols
