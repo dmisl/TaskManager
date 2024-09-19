@@ -177,8 +177,8 @@
                             </g>
                         </svg>
                     </div>
-                    <input autofocus type="text" class="form-control" placeholder="Знайти роботу">
-                    <div class="error">
+                    <input type="text" class="form-control" placeholder="Знайти роботу">
+                    <div class="error input__error">
                         <p></p>
                     </div>
                 </div>
@@ -204,7 +204,7 @@
                         <option value="6">6</option>
                         <option value="7">7</option>
                     </select>
-                    <div class="error">
+                    <div class="error select__error">
                         <p></p>
                     </div>
                 </div>
@@ -223,7 +223,7 @@
                         </svg>
                     </div>
                     <input class="form-control" type="date">
-                    <div class="error">
+                    <div class="error date__error">
                         <p></p>
                     </div>
                 </div>
@@ -303,6 +303,37 @@
             { passive: false }
         )
     });
+
+        // GOAL CREATE
+
+        // DEFAULT VALUE FOR DATE INPUT (LAST DAY OF THIS YEAR)
+        let date = document.querySelector('.goal__create .form-item input[type="date"]') // input of type date
+        date.value = new Date(new Date().getFullYear(), 11, 31).toISOString().split('T')[0] // default input value of format yyyy-mm-dd
+    
+        // INPUT TYPE TEXT VALUE TO PREVIEW ELEMENT
+        let input = document.querySelector('.goal__create .form-item input[type="text"]') // input of type text
+        input.focus() // on load of page focus on text input
+        let preview__text = document.querySelector('.goal__create .preview__parent .preview .hidden__content p') // preview text element
+        let typingTimer // timer of ending typing
+        let input__error = document.querySelector('.goal__create .form-item .input__error p')
+        input.addEventListener('keyup', function () {
+            preview__text.innerText = input.value // set to input value preview to text
+            if(input.value.length == 0) // if input is empty set default value
+            {
+                preview__text.innerText = `Суть цілі`
+            }
+            clearTimeout(typingTimer) // prevent function before text is written
+            typingTimer = setTimeout(() => { // do something after text is written
+                console.log(input.value)
+            }, 1000);
+        })
+        input.addEventListener('keydown', function (e) { // prevent writing more than 45 symbols
+            if(input.value.length >= 45 && event.key !== 'Backspace' && event.key !== 'Delete')
+            {
+                e.preventDefault()
+                input__error.innerText = `max 40 symbols`
+            }
+        })
     };
 
 </script>

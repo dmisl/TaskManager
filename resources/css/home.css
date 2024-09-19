@@ -649,16 +649,16 @@
 .goal__create .freepick
 {
     width: 356px;
-    height: 426px;
     background-color: white;
     position: fixed;
-    margin-left: 860px;
+    margin-left: 865px;
     border-radius: 26px;
     z-index: 10;
 }
 .goal__create .freepick__content
 {
     padding: 26px 20px;
+    padding-bottom: 15px;
 }
 .goal__create .freepick__content h2
 {
@@ -690,4 +690,5 @@
     cursor: pointer;
     margin: 0;
     margin-top: 17px;
+    text-decoration: underline;
 }
