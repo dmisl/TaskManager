@@ -144,17 +144,24 @@
                     <div class="freepick__content">
                         <h2>Змініть картинку заднього фону</h2>
                         <div class="freepick__flex">
-                            <div class="freepick__image__parent">
-                                <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
+                            <div class="loader__mini__parent">
+                                <div class="loader__mini"></div>
                             </div>
                             <div class="freepick__image__parent">
                                 <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
+                                <div><p>Вибрати</p></div>
                             </div>
                             <div class="freepick__image__parent">
                                 <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
+                                <div><p>Вибрати</p></div>
                             </div>
                             <div class="freepick__image__parent">
                                 <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
+                                <div><p>Вибрати</p></div>
+                            </div>
+                            <div class="freepick__image__parent">
+                                <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
+                                <div><p>Вибрати</p></div>
                             </div>
                         </div>
                         <p class="freepick_load">завантажити інші варіанти</p>
@@ -236,6 +243,19 @@
 
 <script defer>
 
+    function fixImage(element)
+    {
+        let width = element.naturalWidth;
+        let height = element.naturalHeight;
+        if(width > height)
+        {
+            element.style.cssText = `height: 100%;`
+        } else
+        {
+            element.style.cssText = `width: 100%;`
+        }
+    }
+
     let contextMenu = document.querySelector(".some__menu");
 
     document.addEventListener("click", function (e) {
@@ -269,11 +289,11 @@
             } else if(image.offsetWidth > image.offsetHeight)
             {
                 image.style.cssText = "height: 100%; object-fit: cover;"
-                image.parentElement.style.cssText = 'position: relative; display: flex; justify-content: center; align-items: center;'
+                image.parentElement.style.cssText = 'position: relative; display: flex; justify-content: center; align-items: center; flex-direction: column;'
             } else
             {
                 image.style.cssText = "width: 100%; object-fit: cover;"
-                image.parentElement.style.cssText = 'position: relative; display: flex; justify-content: center; align-items: center;'
+                image.parentElement.style.cssText = 'position: relative; display: flex; justify-content: center; align-items: center; flex-direction: column;'
             }
         });
 
@@ -289,74 +309,25 @@
         document.querySelectorAll('.flex__block:not(.goal__create), .flex__block:not(.goal__create) *, .bigger__flex__block:not(.goal__create), .bigger__flex__block:not(.goal__create) *').forEach(block => {
         block.addEventListener('contextmenu', (e) => {
             e.preventDefault();
-            let mouseX = e.clientX || e.touches[0].clientX;
-            let mouseY = e.clientY || e.touches[0].clientY;
-            let menuHeight = contextMenu.getBoundingClientRect().height;
-            let menuWidth = contextMenu.getBoundingClientRect().width;
-            let width = window.innerWidth;
-            let height = window.innerHeight;
-            contextMenu.style.left = mouseX + "px";
-            contextMenu.style.top = mouseY - 226 + "px";
-            contextMenu.classList.remove('d-none');
-            contextMenu.classList.add('d-block');
+                let mouseX = e.clientX || e.touches[0].clientX;
+                let mouseY = e.clientY || e.touches[0].clientY;
+                let menuHeight = contextMenu.getBoundingClientRect().height;
+                let menuWidth = contextMenu.getBoundingClientRect().width;
+                let width = window.innerWidth;
+                let height = window.innerHeight;
+                contextMenu.style.left = mouseX + "px";
+                contextMenu.style.top = mouseY - 226 + "px";
+                contextMenu.classList.remove('d-none');
+                contextMenu.classList.add('d-block');
             },
             { passive: false }
         )
-    });
+        });
 
-        // GOAL CREATE
-
-        // DEFAULT VALUE FOR DATE INPUT (LAST DAY OF THIS YEAR)
-        let date = document.querySelector('.goal__create .form-item input[type="date"]') // input of type date
-        date.value = new Date(new Date().getFullYear(), 11, 31).toISOString().split('T')[0] // default input value of format yyyy-mm-dd
-
-        // INPUT TYPE TEXT VALUE TO PREVIEW ELEMENT
-        let input = document.querySelector('.goal__create .form-item input[type="text"]') // input of type text
-        input.focus() // on load of page focus on text input
-        let preview__text = document.querySelector('.goal__create .preview__parent .preview .hidden__content p') // preview text element
-        let typingTimer // timer of ending typing
-        let input__error = document.querySelector('.goal__create .form-item .input__error p')
-        input.addEventListener('keyup', function () {
-            preview__text.innerText = input.value // set to input value preview to text
-            if(input.value.length == 0) // if input is empty set default value
-            {
-                preview__text.innerText = `Суть цілі`
-            }
-            clearTimeout(typingTimer) // prevent function before text is written
-            typingTimer = setTimeout(() => { // do something after text is written
-                console.log(input.value)
-                if(input.value.length > 1)
-                {
-                    const params = new URLSearchParams({
-                        'term': 'танки',
-                        'page': 1,
-                        'limit': 1,
-                        'filters[content_type][vector]': 1,
-                        'filters[vector][style]': 'flat',
-                        'filters[license][freemium]': 1,
-                        'filters[ai-generated][excluded]': 1,
-                    });
-                    const options = {
-                        method: 'GET',
-                        headers: {'Accept-Language': 'uk', 'x-freepik-api-key': 'FPSXf55d7c1832254bc898fea32e415bea35', 'Content-Type': 'image/png'},
-                        // mode: 'no-cors'
-                    };
-                    fetch('https://api.freepik.com/v1/resources', options)
-                        .then(response => response.json())
-                        .then(response => console.log(response))
-                        .catch(err => console.error(err));
-                }
-            }, 1000);
-        })
-        input.addEventListener('keydown', function (e) { // prevent writing more than 45 symbols
-            if(input.value.length >= 45 && event.key !== 'Backspace' && event.key !== 'Delete')
-            {
-                e.preventDefault()
-                input__error.innerText = `max 40 symbols`
-            }
-        })
     };
 
 </script>
+
+@vite('resources/js/goalCreate.js')
 
 @endsection

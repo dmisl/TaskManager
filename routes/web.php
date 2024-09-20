@@ -22,6 +22,7 @@ Route::middleware([GuestMiddleware::class])->group(function () {
 Route::middleware([AuthMiddleware::class])->group(function () {
 
     Route::get('home', [HomeController::class, 'index'])->name('home.index');
+    Route::get('getImages/{text?}/{limit?}/{page?}', [HomeController::class, 'getImages'])->name('home.getImages');
 
     Route::get('logout', [LoginController::class, 'logout'])->name('login.logout');
 

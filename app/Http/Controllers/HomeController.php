@@ -2,17 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
     public function index()
     {
+        return view('home.index');
+    }
+    public function getImages($text, $limit = 1, $page = 1) : JsonResponse
+    {
         $curl = curl_init();
 
+        $queryParams = [
+            'term' => $text,
+            'page' => $page,
+            'limit' => $limit,
+            'filters[content_type][vector]' => 1,
+            'filters[vector][style]' => 'flat',
+            // 'filters[license][freemium]' => 1,
+            'filters[license][premium]' => 1,
+            'filters[ai-generated][excluded]' => 1,
+        ];
+
+        $queryString = http_build_query($queryParams);
+        $url = "https://api.freepik.com/v1/resources?" . $queryString;
+
+        // Log::info('Request URL: ' . $url);
+
         curl_setopt_array($curl, [
-            CURLOPT_URL => "https://api.freepik.com/v1/resources",
+            CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -27,14 +49,24 @@ class HomeController extends Controller
 
         $response = curl_exec($curl);
         $err = curl_error($curl);
-
         curl_close($curl);
 
         if ($err) {
-        echo "cURL Error #:" . $err;
-        } else {
-        echo $response;
+            return response()->json(['error' => "cURL Error: " . $err], 500);
         }
-        return view('home.index');
+
+
+        $decodedResponse = json_decode($response, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return response()->json(['error' => 'Invalid JSON response from Freepik'], 500);
+        }
+
+        $images = [];
+
+        foreach ($decodedResponse['data'] as $parent) {
+            $images[] = $parent['image']['source']['url'];
+        }
+
+        return response()->json(['images' => $images ,'response' => $decodedResponse]);
     }
 }

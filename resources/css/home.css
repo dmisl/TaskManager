@@ -611,6 +611,10 @@
     width: 310px;
     height: 310px;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 .goal__create .preview__parent .preview .hidden__content
 {
@@ -654,6 +658,7 @@
     margin-left: 865px;
     border-radius: 26px;
     z-index: 10;
+    /* animation: content__container__appear 1s ease; */
 }
 .goal__create .freepick__content
 {
@@ -670,9 +675,11 @@
 {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
     margin-top: 10px;
-    gap: 24px 0;
+    gap: 24px 16px;
+    height: 324px;
 }
 .goal__create .freepick__image__parent
 {
@@ -681,6 +688,41 @@
     box-shadow: var(--bs-box-shadow) !important;
     border-radius: 22px;
     overflow: hidden;
+    transition: 0.5s;
+    cursor: pointer;
+}
+.goal__create .freepick__image__parent div
+{
+    position: absolute;
+    width: 100%;
+    height: 150%;
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+    transition: 0.3s;
+    top: 0%;
+}
+.goal__create .freepick__image__parent div:hover
+{
+    top: -50%;
+}
+.goal__create .freepick__image__parent .selected
+{
+    top: -50% !important;
+}
+.goal__create .freepick__image__parent p
+{
+    width: 100%;
+    z-index: 10;
+    padding: 3px;
+    text-align: center;
+    color: white;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.445);
+}
+.goal__create .freepick__image__parent
+{
+
 }
 .goal__create .freepick_load
 {
