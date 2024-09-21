@@ -14,6 +14,12 @@
 
     <div class="content__container__parent">
         <div class="goal__create">
+            <div class="back__parent">
+                <a href="{{ route('goal.index') }}" class="back">
+                    <img src="{{ asset('storage/images/back.png') }}" alt="">
+                    <p>Назад</p>
+                </a>
+            </div>
             <div class="preview__parent">
                 <div class="preview">
                     <div class="hidden__content">

@@ -11,7 +11,7 @@
 @section('content')
 
     {{-- <home-parent asset="{{ asset('storage/') }}"></home-parent> --}}
-    <div class="menu__parent d-none">
+    <div class="menu__parent">
         <div class="menu">
             <div class="card shadow">
                 <a href="#goals" class="menu__element yellow__background goals"><p>Мої цілі</p></a>
@@ -26,65 +26,9 @@
     </div>
 
     <div class="content__container__parent">
-        <div class="content__container d-none">
-            <div class="content">
-                <!-- <component :is='currentComponent'></component> -->
-                <h1 class="content__title">Твій навігатор</h1>
-                <div class="content__flex">
-                    <a href="#goals" class="content__flex__block">
-                        <div class="content__flex__block-image">
-                            <img src="{{ asset('storage/images/goals.png') }}" style="height: 100%;">
-                        </div>
-                        <div class="content__flex__block-title">
-                            <h2>Мої цілі</h2>
-                        </div>
-                    </a>
-                    <a href="#tasks" class="content__flex__block">
-                        <div class="content__flex__block-image">
-                            <img src="{{ asset('storage/images/todays tasks.jpg') }}" style="width: 101%;">
-                        </div>
-                        <div class="content__flex__block-title">
-                            <h2 style="font-size: 20px;">Сьогоднішні завдання</h2>
-                        </div>
-                    </a>
-                    <a href="#week" class="content__flex__block">
-                        <div class="content__flex__block-image">
-                            <img src="{{ asset('storage/images/my_week.jpg') }}" style="width: 101%;">
-                        </div>
-                        <div class="content__flex__block-title">
-                            <h2>Мій тиждень</h2>
-                        </div>
-                    </a>
-                    <a href="#completed" class="content__flex__block">
-                        <div class="content__flex__block-image">
-                            <img src="{{ asset('storage/images/completed_tasks.jpg') }}" style="width: 101%;">
-                        </div>
-                        <div class="content__flex__block-title">
-                            <h2 style="font-size: 20px;">Виконані завдання</h2>
-                        </div>
-                    </a>
-                    <a href="#settings" class="content__flex__block">
-                        <div class="content__flex__block-image">
-                            <img src="{{ asset('storage/images/settings.jpg') }}" style="width: 101%;">
-                        </div>
-                        <div class="content__flex__block-title">
-                            <h2 style="font-size: 28px;">Налаштування</h2>
-                        </div>
-                    </a>
-                    <a href="#logout" class="content__flex__block">
-                        <div class="content__flex__block-image">
-                            <img src="{{ asset('storage/images/logout.jpg') }}" style="width: 101%;">
-                        </div>
-                        <div class="content__flex__block-title">
-                            <h2 style="font-size: 25px;">Вийти з системи</h2>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="moved__container d-none">
+        <div class="moved__container">
             <div class="left__part">
-                <a class="left__part__back" href="#">
+                <a class="left__part__back" href="{{ route('home.index') }}">
                     <img src="{{ asset('storage/images/back.png') }}" alt="">
                     <p>назад</p>
                 </a>
@@ -95,12 +39,12 @@
                     <p>нажміть пкм для висвітлення меню</p>
                 </div>
                 <div class="flex" id="custom__scrollbar">
-                    <div class="flex__block goal__create">
+                    <a href="{{ route('goal.create') }}" class="flex__block goal__create">
                         <img src="{{ asset('storage/images/new goal.jpg') }}" alt="">
                         <div class="hidden__block">
                             <p style="color: white;">Створити нову ціль</p>
                         </div>
-                    </div>
+                    </a>
                     <div class="flex__block">
                         <div class="img__parent">
                             <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
@@ -125,6 +69,16 @@
                             <p>Фріланс і ще щось</p>
                         </div>
                     </div>
+                    @foreach ($goals as $goal)
+                        <div class="flex__block">
+                            <div class="img__parent">
+                                <img src="{{ $goal->image }}" alt="">
+                            </div>
+                            <div class="hidden__content">
+                                <p>{{ $goal->name }}</p>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -215,11 +169,6 @@
 
     };
 
-    let route__getImages = `{{ route('home.getImages') }}`
-    let asset = `{{ asset('storage/images/') }}`
-
 </script>
-
-@vite('resources/js/goalCreate.js')
 
 @endsection

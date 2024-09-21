@@ -10,7 +10,8 @@ class GoalController extends Controller
 {
     public function index()
     {
-        return view('goal.index');
+        $goals = Auth::user()->goals;
+        return view('goal.index', compact('goals'));
     }
     public function show($id)
     {
