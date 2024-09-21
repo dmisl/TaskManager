@@ -604,6 +604,7 @@
     height: 310px;
     background-color: white;
     overflow: hidden;
+    opacity: 0;
     border-radius: 35px;
 }
 .goal__create .preview__parent .preview .img__parent
@@ -658,7 +659,7 @@
     margin-left: 865px;
     border-radius: 26px;
     z-index: 10;
-    /* animation: content__container__appear 1s ease; */
+    opacity: 0;
 }
 .goal__create .freepick__content
 {
@@ -720,11 +721,7 @@
     margin: 0;
     background-color: rgba(0, 0, 0, 0.445);
 }
-.goal__create .freepick__image__parent
-{
-
-}
-.goal__create .freepick_load
+.goal__create .freepick__load
 {
     font-size: 16px;
     color: #1100FF;

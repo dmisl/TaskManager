@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GoalController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -23,6 +24,11 @@ Route::middleware([AuthMiddleware::class])->group(function () {
 
     Route::get('home', [HomeController::class, 'index'])->name('home.index');
     Route::get('getImages/{text?}/{limit?}/{page?}', [HomeController::class, 'getImages'])->name('home.getImages');
+
+    Route::get('home/goals', [GoalController::class, 'index'])->name('goal.index');
+    Route::get('home/goals/show/{id}', [GoalController::class, 'show'])->name('goal.show');
+    Route::get('home/goals/create', [GoalController::class, 'create'])->name('goal.create');
+    Route::post('home/goals/create', [GoalController::class, 'store'])->name('goal.store');
 
     Route::get('logout', [LoginController::class, 'logout'])->name('login.logout');
 

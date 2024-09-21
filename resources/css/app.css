@@ -205,3 +205,47 @@ body
 @keyframes l20 {
     100% {transform: rotate(1turn)}
 }
+
+@keyframes appear_left {
+    0% {
+        transform: translateX(40%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes disappear_left {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-60%);
+        opacity: 0;
+    }
+}
+
+@keyframes appear_right {
+    0% {
+        transform: translateX(-40%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes disappear_right {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(60%);
+        opacity: 0;
+    }
+}
