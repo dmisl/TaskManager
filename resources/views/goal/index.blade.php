@@ -70,14 +70,14 @@
                         </div>
                     </div>
                     @foreach ($goals as $goal)
-                        <div class="flex__block">
+                        <a href="{{ route('goal.show', [$goal->id]) }}" class="flex__block">
                             <div class="img__parent">
                                 <img src="{{ $goal->image }}" alt="">
                             </div>
                             <div class="hidden__content">
                                 <p>{{ $goal->name }}</p>
                             </div>
-                        </div>
+                        </a>
                     @endforeach
                 </div>
             </div>
@@ -115,6 +115,18 @@
             block.classList.remove('flex__block')
             block.classList.add('bigger__flex__block')
         })
+    } else if(flex__blocks.length < 7)
+    {
+        document.querySelector('.flex').style.overflow = 'visible'
+        flex__blocks.forEach(flex__block => {
+            flex__block.classList.add('shadow')
+        });
+    } else
+    {
+        document.querySelector('.flex').style.overflow = 'auto'
+        flex__blocks.forEach(flex__block => {
+            flex__block.classList.remove('shadow')
+        });
     }
 
     window.onload = function() {

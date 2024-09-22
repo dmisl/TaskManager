@@ -372,6 +372,7 @@
     max-height: 550px;
     gap: 35px 69px;
     overflow: auto;
+    padding-bottom: 30px;
     pointer-events: auto;
 }
 .right__part .flex__block
@@ -380,6 +381,7 @@
     height: 190px;
     border-radius: 23px;
     overflow: hidden;
+    text-decoration: none;
 }
 .right__part .bigger__flex__block
 {
@@ -388,6 +390,7 @@
     border-radius: 50px;
     overflow: hidden;
     box-shadow: var(--bs-box-shadow) !important;
+    text-decoration: none;
 }
 .flex__block .hidden__block
 {
