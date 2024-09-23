@@ -30,12 +30,12 @@
 
     <div id="app" class="w-100 vh-100" style="display: flex; flex-direction: column;" draggable="false">
 
-        <a href="{{ Auth::check() ? route('home.index') : route('login.index') }}" class="title user-select-none" draggable="false">
+        <a href="{{ Auth::check() ? route('home.index') : route('login.index') }}" class="header__title user-select-none" draggable="false">
             <div class="emoji before"></div>
             <div class="text">Task Buddy</div>
             <div class="emoji after"></div>
         </a>
-        <p style="text-align: center">become best version of yourself</p>
+        <p style="text-align: center; margin: 0;">become best version of yourself</p>
 
         <div class="whole__content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1;">
             @yield('content')
