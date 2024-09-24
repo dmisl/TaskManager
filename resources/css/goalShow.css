@@ -39,24 +39,87 @@
     display: flex;
     gap: 0 20px;
     overflow-x: auto;
+    overflow-y: hidden;
     box-sizing: border-box;
-    /* height: 266px; */
+    height: 266px;
+    /* background-color: white; */
+}
+.tasks__flex__block__parent
+{
+    flex: 0 0 240px;
+    height: 234px;
 }
 .tasks__flex__block
 {
-    flex: 0 0 240px;
+    width: 240px;
     display: inline-block;
-    height: 235px;
     border: 1px solid black;
     border-radius: 27px;
     padding-bottom: 23px;
     overflow: hidden;
-    transition: 0.5s;
+    /* transition: 0.5s; */
     background-color: white;
+    align-self: flex-start;
+    position: relative;
 }
-.tasks__flex__block:hover
+.tasks__flex__block .title
 {
-    height: 300px;
+    width: 194px;
+    border-bottom: 2px solid black;
+    margin: 0 auto;
+    font-size: 21px;
+    overflow: hidden;
+    margin-top: 10px;
+    font-weight: 400;
+    text-align: center;
+    height: 30px;
+    z-index: 2;
+    position: relative;
+}
+.tasks__flex__block .flex
+{
+    width: 216px;
+    margin: 0 auto;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 2;
+    position: relative;
+    transition: 0.3s;
+}
+.tasks__flex__block .flex .task
+{
+    flex: 26px 0 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 24px;
+}
+.tasks__flex__block .flex .task p
+{
+    font-size: 15px;
+    height: 18px;
+    margin-bottom: 0;
+    position: relative;
+    top: -2px;
+}
+.tasks__flex__block .flex .task span
+{
+    font-size: 10px;
+}
+.tasks__flex__block .image
+{
+    position: relative;
+    z-index: 0;
+    width: 239px;
+    height: 0;
+    border-radius: 29px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    transition: 0.3s;
 }
 .tasks__flex__block .p5
 {
@@ -105,51 +168,4 @@
 .unfinished .p1
 {
     background-color: #8CFF62 !important;
-}
-.tasks__flex__block .title
-{
-    width: 194px;
-    border-bottom: 2px solid black;
-    margin: 0 auto;
-    font-size: 21px;
-    overflow: hidden;
-    margin-top: 10px;
-    font-weight: 400;
-    text-align: center;
-    height: 30px;
-    z-index: 2;
-    position: relative;
-}
-.tasks__flex__block .flex
-{
-    height: 154px;
-    width: 216px;
-    margin: 0 auto;
-    margin-top: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    z-index: 2;
-    position: relative;
-}
-.tasks__flex__block .flex .task
-{
-    width: 100%;
-    height: 26px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 24px;
-}
-.tasks__flex__block .flex .task p
-{
-    font-size: 15px;
-    height: 18px;
-    margin-bottom: 0;
-    position: relative;
-    top: -2px;
-}
-.tasks__flex__block .flex .task span
-{
-    font-size: 10px;
 }
