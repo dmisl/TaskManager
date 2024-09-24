@@ -275,6 +275,35 @@
         }
     }
 
+    function isElementFullyVisible(container, element) {
+        const containerRect = container.getBoundingClientRect();
+        const elementRect = element.getBoundingClientRect();
+
+        const fullyVisibleVertically = elementRect.top >= containerRect.top && elementRect.bottom <= containerRect.bottom;
+        const fullyVisibleHorizontally = elementRect.left >= containerRect.left && elementRect.right <= containerRect.right;
+
+        return fullyVisibleVertically && fullyVisibleHorizontally;
+    }
+
+    function scrollElementIntoView(container, element) {
+        const containerRect = container.getBoundingClientRect();
+        const elementRect = element.getBoundingClientRect();
+
+        const containerScrollTop = container.scrollTop;
+        const containerScrollLeft = container.scrollLeft;
+
+        document.querySelectorAll('.tasks__flex__block').forEach(flex__block => {
+            flex__block.style.position = 'relative'
+            flex__block.style.marginLeft = '0'
+        });
+
+        if (elementRect.left < containerRect.left) {
+            container.scrollLeft = containerScrollLeft - (containerRect.left - elementRect.left);
+        } else if (elementRect.right > containerRect.right) {
+            container.scrollLeft = containerScrollLeft + (elementRect.right - containerRect.right);
+        }
+    }
+
     // ON LOAD OF THE PAGE
     window.addEventListener('load', function () {
         // HANDLING ELEMENTS` VIEW
@@ -300,6 +329,10 @@
                 let positionRelativeTimeOut = null
                 // ON HOVER WE SHOW WHATS INSIDE THE FLEX BLOCK
                 flex__block.addEventListener('mouseenter', function () {
+                    if(!isElementFullyVisible(document.querySelector('.tasks__flex'), flex__block))
+                    {
+                        scrollElementIntoView(document.querySelector('.tasks__flex'), flex__block)
+                    }
                     clearTimeout(positionRelativeTimeOut)
                     flex__block.style.position = 'absolute'
                     flex.style.maxHeight = flex__height+'px'
