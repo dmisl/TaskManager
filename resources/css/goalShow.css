@@ -61,6 +61,7 @@
     background-color: white;
     align-self: flex-start;
     position: relative;
+    z-index: 20;
 }
 .tasks__flex__block .title
 {
@@ -168,4 +169,52 @@
 .unfinished .p1
 {
     background-color: #8CFF62 !important;
+}
+.days__title
+{
+    width: 400px;
+    margin: 0 auto;
+    border-bottom: 3px solid black;
+    padding-bottom: 10px;
+}
+.days__title h1
+{
+    font-size: 46px;
+    margin: 0;
+    text-align: center;
+    font-weight: 400;
+    margin-top: 16px;
+}
+.days__flex__container
+{
+    padding: 0 45px;
+    margin-top: 13px;
+}
+.days__flex
+{
+    height: 280px;
+    display: flex;
+    gap: 0 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    box-sizing: border-box;
+}
+.days__flex__block__parent
+{
+    flex: 0 0 240px;
+    height: 255px;
+    background-color: white;
+}
+.days__flex__block
+{
+    width: 240px;
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 27px;
+    padding-bottom: 23px;
+    overflow: hidden;
+    /* transition: 0.5s; */
+    background-color: white;
+    align-self: flex-start;
+    position: relative;
 }

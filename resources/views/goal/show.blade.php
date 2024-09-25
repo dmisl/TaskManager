@@ -255,7 +255,31 @@
             </div>
         </div>
         <div class="days">
-
+            <div class="days__title">
+                <h1>Дні тижня</h1>
+            </div>
+            <div class="days__flex__container">
+                <div class="days__flex" id="x-custom__scrollbar">
+                    <div class="days__flex__block__parent">
+                        <div class="days__flex__block"></div>
+                    </div>
+                    <div class="days__flex__block__parent">
+                        <div class="days__flex__block"></div>
+                    </div>
+                    <div class="days__flex__block__parent">
+                        <div class="days__flex__block"></div>
+                    </div>
+                    <div class="days__flex__block__parent">
+                        <div class="days__flex__block"></div>
+                    </div>
+                    <div class="days__flex__block__parent">
+                        <div class="days__flex__block"></div>
+                    </div>
+                    <div class="days__flex__block__parent">
+                        <div class="days__flex__block"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -304,8 +328,53 @@
         }
     }
 
+    let isScrolling = false
+
     // ON LOAD OF THE PAGE
     window.addEventListener('load', function () {
+
+        // SMOOTH SCROLLING
+        let scrollBlocks = document.querySelectorAll('.days__flex, .tasks__flex');
+
+        function handleSmoothScroll(scrollBlock) {
+            let targetScrollLeft = 0
+            let currentScrollLeft = 0
+
+            function smoothScroll() {
+                if (isScrolling) {
+                    const scrollDiff = targetScrollLeft - currentScrollLeft
+
+                    if (Math.abs(scrollDiff) < 1) {
+                        isScrolling = false
+                        return
+                    }
+
+                    currentScrollLeft += scrollDiff * 0.1
+                    scrollBlock.scrollLeft = currentScrollLeft
+
+                    requestAnimationFrame(smoothScroll)
+                }
+            }
+
+            scrollBlock.addEventListener('wheel', function(e) {
+                e.preventDefault()
+
+                targetScrollLeft += e.deltaY
+
+                targetScrollLeft = Math.max(0, Math.min(targetScrollLeft, scrollBlock.scrollWidth - scrollBlock.clientWidth))
+
+                if (!isScrolling) {
+                    isScrolling = true
+                    currentScrollLeft = scrollBlock.scrollLeft
+                    smoothScroll()
+                }
+            })
+        }
+
+        scrollBlocks.forEach(function(scrollBlock) {
+            handleSmoothScroll(scrollBlock)
+        });
+
         // HANDLING ELEMENTS` VIEW
         let flex__blocks = document.querySelectorAll(".tasks__flex__block")
         flex__blocks.forEach(flex__block => {
@@ -329,15 +398,18 @@
                 let positionRelativeTimeOut = null
                 // ON HOVER WE SHOW WHATS INSIDE THE FLEX BLOCK
                 flex__block.addEventListener('mouseenter', function () {
-                    if(!isElementFullyVisible(document.querySelector('.tasks__flex'), flex__block))
+                    if(!isScrolling)
                     {
-                        scrollElementIntoView(document.querySelector('.tasks__flex'), flex__block)
+                        if(!isElementFullyVisible(document.querySelector('.tasks__flex'), flex__block))
+                        {
+                            scrollElementIntoView(document.querySelector('.tasks__flex'), flex__block)
+                        }
+                        clearTimeout(positionRelativeTimeOut)
+                        flex__block.style.position = 'absolute'
+                        flex.style.maxHeight = flex__height+'px'
+                        image.style.bottom = (flex__height+title.offsetHeight+25)+'px'
+                        flex__block.style.marginLeft = `-${document.querySelector('.tasks__flex').scrollLeft}px`
                     }
-                    clearTimeout(positionRelativeTimeOut)
-                    flex__block.style.position = 'absolute'
-                    flex.style.maxHeight = flex__height+'px'
-                    image.style.bottom = (flex__height+title.offsetHeight+25)+'px'
-                    flex__block.style.marginLeft = `-${document.querySelector('.tasks__flex').scrollLeft}px`
                 });
                 // ON LEAVE WE SET FLEX BLOCK TO THE DEFAULT POSITION
                 flex__block.addEventListener('mouseleave', function () {
@@ -349,6 +421,20 @@
                         positionRelativeTimeOut = null
                     }, 300);
                 });
+                // CHECK IF SCROLLING WHILE HOVER
+                flex__block.addEventListener('wheel', function () {
+                    flex.style.transition = '0'
+                    image.style.transition = '0'
+                    flex.style.maxHeight = '154px'
+                    image.style.bottom = (154+title.offsetHeight+25)+'px'
+                    positionRelativeTimeOut = setTimeout(() => {
+                        flex__block.style.position = 'relative'
+                        flex__block.style.marginLeft = '0'
+                        positionRelativeTimeOut = null
+                        flex.style.transition = '0.3s'
+                        image.style.transition = '0.3s'
+                    }, 0);
+                })
             }
         });
     })
