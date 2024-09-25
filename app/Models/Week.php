@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class Week extends Model
 {
     use HasFactory;
 
     public $fillable = [
-        'name', 'desc', 'priority', 'completed', 'goal_id'
+        'start', 'end', 'result',
     ];
 
 }

@@ -261,22 +261,44 @@
             <div class="days__flex__container">
                 <div class="days__flex" id="x-custom__scrollbar">
                     <div class="days__flex__block__parent">
-                        <div class="days__flex__block"></div>
-                    </div>
-                    <div class="days__flex__block__parent">
-                        <div class="days__flex__block"></div>
-                    </div>
-                    <div class="days__flex__block__parent">
-                        <div class="days__flex__block"></div>
-                    </div>
-                    <div class="days__flex__block__parent">
-                        <div class="days__flex__block"></div>
-                    </div>
-                    <div class="days__flex__block__parent">
-                        <div class="days__flex__block"></div>
-                    </div>
-                    <div class="days__flex__block__parent">
-                        <div class="days__flex__block"></div>
+                        <div class="days__flex__block">
+                            <div class="title">
+                                <h1>Понеділок</h1>
+                                <p>23 вересня</p>
+                            </div>
+                            <div class="flex">
+                                <div class="task p5">
+                                    <p>Завершити блок з цілями<span>...</span></p>
+                                </div>
+                                <div class="task p4">
+                                    <p>Завершити блок з цілями<span>...</span></p>
+                                </div>
+                                <div class="task p3">
+                                    <p>Завершити блок з цілями<span>...</span></p>
+                                </div>
+                                <div class="task p2">
+                                    <p>Завершити блок з цілями<span>...</span></p>
+                                </div>
+                                <div class="task p1">
+                                    <p>Завершити блок з цілями<span>...</span></p>
+                                </div>
+                                <div class="task p1">
+                                    <p>Завершити блок з цілями<span>...</span></p>
+                                </div>
+                                <div class="task p1">
+                                    <p>Завершити блок з цілями<span>...</span></p>
+                                </div>
+                                <div class="task p1">
+                                    <p>Завершити блок з цілями<span>...</span></p>
+                                </div>
+                                <div class="task p1">
+                                    <p>Завершити блок з цілями<span>...</span></p>
+                                </div>
+                                <div class="task p1">
+                                    <p>Завершити блок з цілями<span>...</span></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -342,6 +364,25 @@
 
             function smoothScroll() {
                 if (isScrolling) {
+
+
+                    document.querySelectorAll('.tasks__flex__block').forEach(flex__block => {
+                        flex__block.querySelector('.flex').style.transition = '0'
+                        if(flex__block.querySelector('.image'))
+                        {
+                            flex__block.querySelector('.image').style.transition = '0'
+                            flex__block.querySelector('.image').style.bottom = (154+flex__block.querySelector('.title').offsetHeight+25)+'px'
+                        }
+                        flex__block.querySelector('.flex').style.maxHeight = '154px'
+                        flex__block.style.position = 'relative'
+                        flex__block.style.marginLeft = '0'
+                        flex__block.querySelector('.flex').style.transition = '0.3s'
+                        if(flex__block.querySelector('.image'))
+                        {
+                            flex__block.querySelector('.image').style.transition = '0.3s'
+                        }
+                    });
+
                     const scrollDiff = targetScrollLeft - currentScrollLeft
 
                     if (Math.abs(scrollDiff) < 1) {
@@ -436,6 +477,36 @@
                     }, 0);
                 })
             }
+        });
+
+        let days__flex__blocks = document.querySelectorAll(".days__flex__block")
+        days__flex__blocks.forEach(flex__block => {
+            // FLEX BLOCK`S ELEMENTS
+            let title = flex__block.querySelector('.title')
+            let flex = flex__block.querySelector('.flex')
+            // FLEX BLOCK`S ORIGINAL HEIGHT
+            flex.style.overflow = 'visible'
+            let flex__height = flex.offsetHeight
+            let flex__top = flex__height-154+'px'
+            // AFTER DECLARING FLEX HEIGHT HIDE IT
+            flex.style.overflow = 'hidden'
+            flex.style.maxHeight = '154px'
+            // TIMEOUT TO SET THE FLEX BLOCK TO POSITION RELATIVE
+            let positionRelativeTimeOut = null
+            // ON HOVER WE SHOW WHATS INSIDE THE FLEX BLOCK
+            flex__block.addEventListener('mouseenter', function () {
+                clearTimeout(positionRelativeTimeOut)
+                flex__block.style.position = 'absolute'
+                flex.style.maxHeight = flex__height+'px'
+            });
+            // ON LEAVE WE SET FLEX BLOCK TO THE DEFAULT POSITION
+            flex__block.addEventListener('mouseleave', function () {
+                flex.style.maxHeight = '154px'
+                positionRelativeTimeOut = setTimeout(() => {
+                    flex__block.style.position = 'relative'
+                    positionRelativeTimeOut = null
+                }, 300);
+            });
         });
     })
 

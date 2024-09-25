@@ -195,15 +195,13 @@
     height: 280px;
     display: flex;
     gap: 0 20px;
-    overflow-x: auto;
-    overflow-y: hidden;
     box-sizing: border-box;
 }
 .days__flex__block__parent
 {
     flex: 0 0 240px;
-    height: 255px;
-    background-color: white;
+    height: 252px;
+    position: relative;
 }
 .days__flex__block
 {
@@ -213,8 +211,83 @@
     border-radius: 27px;
     padding-bottom: 23px;
     overflow: hidden;
-    /* transition: 0.5s; */
+    transition: 0.3s;
     background-color: white;
     align-self: flex-start;
     position: relative;
+    bottom: 0px;
+    z-index: 30;
+}
+.days__flex__block .title
+{
+    margin: 0 auto;
+    margin-top: 12px;
+    height: 46px;
+    width: 194px;
+    border-bottom: 2px solid black;
+}
+.days__flex__block .title h1
+{
+    font-weight: 400;
+    font-size: 21px;
+    margin: 0;
+    text-align: center;
+}
+.days__flex__block .title p
+{
+    font-size: 11px;
+    text-align: center;
+    margin: 0;
+}
+.days__flex__block .flex
+{
+    width: 216px;
+    margin: 0 auto;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 2;
+    transition: 0.3s;
+}
+.days__flex__block .flex .task
+{
+    flex: 26px 0 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 24px;
+}
+.days__flex__block .flex .task p
+{
+    font-size: 15px;
+    height: 18px;
+    margin-bottom: 0;
+    position: relative;
+    top: -2px;
+}
+.days__flex__block .flex .task span
+{
+    font-size: 10px;
+}
+.days__flex__block .p5
+{
+    background-color: #fd7373 !important;
+}
+.days__flex__block .p4
+{
+    background-color: #ffd448 !important;
+}
+.days__flex__block .p3
+{
+    background-color: #ffff6b !important;
+}
+.days__flex__block .p2
+{
+    background-color: #7cb0ff !important;
+}
+.days__flex__block .p1
+{
+    background-color: #8cff62 !important;
 }
