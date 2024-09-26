@@ -35,11 +35,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -56,6 +51,16 @@ class User extends Authenticatable
     public function tasks(): HasManyThrough
     {
         return $this->hasManyThrough(Task::class, Goal::class);
+    }
+
+    public function weeks(): HasMany
+    {
+        return $this->hasMany(Week::class);
+    }
+
+    public function days(): HasManyThrough
+    {
+        return $this->hasManyThrough(Day::class, Week::class);
     }
 
 }

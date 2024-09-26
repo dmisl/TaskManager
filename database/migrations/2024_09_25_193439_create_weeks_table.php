@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('weeks', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->date('start');
+            $table->date('end');
+            $table->float('result');
+            $table->foreignId('user_id')->constrained();
         });
     }
 
