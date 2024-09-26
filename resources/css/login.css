@@ -157,3 +157,21 @@
     transform: translateX(0);
     opacity: 1;
 }
+.remember__parent
+{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 5px;
+}
+.remember__checkbox
+{
+    width: 15px;
+    height: 15px;
+}
+.remember__label
+{
+    font-size: 15px;
+    height: 21px;
+}

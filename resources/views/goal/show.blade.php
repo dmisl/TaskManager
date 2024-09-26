@@ -308,6 +308,12 @@
 
 <script defer>
 
+    // php to js
+    let smth = @json($days);
+    smth.forEach(element => {
+        console.log(element)
+    });
+
     function fixImage(element)
     {
         let width = element.naturalWidth;

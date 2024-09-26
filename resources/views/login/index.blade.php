@@ -31,9 +31,13 @@
                                 <input class="auth__first form-control py-1" value="{{ old('name') }}" name="name" autofocus id="nickname" type="text" >
                                 <label for="password" style="font-size: 20px; margin-top: 4px;">Ваш пароль</label>
                                 <input class="form-control py-1" value="{{ old('password') }}" name="password" id="password" type="password">
+                                <div class="remember__parent">
+                                    <input class="form-check-input remember__checkbox" checked name="remember" type="checkbox" id="remember">
+                                    <label for="remember" class="remember__label">запам'ятай мене</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-body text-center">
+                        <div class="card-body pt-1 text-center">
                             <button class="btn btn-primary rounded-5">Авторизуватись</button>
                         </div>
                     </form>
