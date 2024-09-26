@@ -52,6 +52,7 @@
 .tasks__flex__block
 {
     width: 240px;
+    min-height: 234px;
     display: inline-block;
     border: 1px solid black;
     border-radius: 27px;
@@ -228,6 +229,7 @@
 }
 .days__flex__block .title h1
 {
+    text-transform: capitalize;
     font-weight: 400;
     font-size: 21px;
     margin: 0;

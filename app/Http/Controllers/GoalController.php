@@ -69,7 +69,8 @@ class GoalController extends Controller
         }
 
         $days = $week->days->merge($nextWeek->days)->sortBy('date');
-        return view('goal.show', compact('week', 'days'));
+        $goals = Auth::user()->goals;
+        return view('goal.show', compact('week', 'days', 'goals'));
     }
     public function create()
     {

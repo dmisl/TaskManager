@@ -16,6 +16,7 @@
             </div>
             <div class="tasks__flex__container">
                 <div class="tasks__flex" id="x-custom__scrollbar">
+                    {{-- UNFINISHED --}}
                     <div class="tasks__flex__block__parent">
                         <div class="tasks__flex__block unfinished">
                             <div class="title">
@@ -40,217 +41,35 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tasks__flex__block__parent">
-                        <div class="tasks__flex__block">
-                            <div class="title">
-                                Знайти роботу програмістом
-                            </div>
-                            <div class="flex">
-                                <div class="task p5">
-                                    <p>Завершити блок з цілями<span>...</span></p>
+                    @foreach($goals as $goal)
+                        <div class="tasks__flex__block__parent">
+                            <div class="tasks__flex__block">
+                                <div class="title">
+                                    {{ $goal->name }}
                                 </div>
-                                <div class="task p4">
-                                    <p>Завершити блок з цілями<span>...</span></p>
+                                <div class="flex">
+                                    <div class="task p5">
+                                        <p>Завершити блок з цілями<span>...</span></p>
+                                    </div>
+                                    <div class="task p4">
+                                        <p>Завершити блок з цілями<span>...</span></p>
+                                    </div>
+                                    <div class="task p3">
+                                        <p>Завершити блок з цілями<span>...</span></p>
+                                    </div>
+                                    <div class="task p2">
+                                        <p>Завершити блок з цілями<span>...</span></p>
+                                    </div>
+                                    <div class="task p1">
+                                        <p>Завершити блок з цілями<span>...</span></p>
+                                    </div>
                                 </div>
-                                <div class="task p3">
-                                    <p>Завершити блок з цілями<span>...</span></p>
+                                <div class="image">
+                                    <img src="{{ $goal->image }}" alt="">
                                 </div>
-                                <div class="task p2">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                            </div>
-                            <div class="image">
-                                <img src="{{ asset('storage/images/work.jpg') }}" alt="">
                             </div>
                         </div>
-                    </div>
-                    <div class="tasks__flex__block__parent">
-                        <div class="tasks__flex__block">
-                            <div class="title">
-                                Знайти роботу програмістом
-                            </div>
-                            <div class="flex">
-                                <div class="task p5">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p4">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p3">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p2">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                            </div>
-                            <div class="image">
-                                <img src="{{ asset('storage/images/work.jpg') }}" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tasks__flex__block__parent">
-                        <div class="tasks__flex__block">
-                            <div class="title">
-                                Знайти роботу програмістом
-                            </div>
-                            <div class="flex">
-                                <div class="task p5">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p4">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p3">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p2">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                            </div>
-                            <div class="image">
-                                <img src="{{ asset('storage/images/work.jpg') }}" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tasks__flex__block__parent">
-                        <div class="tasks__flex__block">
-                            <div class="title">
-                                Знайти роботу програмістом
-                            </div>
-                            <div class="flex">
-                                <div class="task p5">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p4">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p3">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p2">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                            </div>
-                            <div class="image">
-                                <img src="{{ asset('storage/images/work.jpg') }}" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tasks__flex__block__parent">
-                        <div class="tasks__flex__block">
-                            <div class="title">
-                                Знайти роботу програмістом
-                            </div>
-                            <div class="flex">
-                                <div class="task p5">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p4">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p3">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p2">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                            </div>
-                            <div class="image">
-                                <img src="{{ asset('storage/images/work.jpg') }}" alt="">
-                            </div>
-                        </div>
-                    </div>
-
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -313,6 +132,11 @@
 // ON LOAD OF THE PAGE
 window.addEventListener('load', function () {
 
+    if(!(document.querySelector('.tasks__flex').scrollWidth > document.querySelector('.tasks__flex').clientWidth))
+    {
+        document.querySelector('.tasks__flex').style.height = '234px'
+    }
+
     // php to js
         // let smth = @json($days);
         // smth.forEach(element => {
@@ -344,7 +168,7 @@ window.addEventListener('load', function () {
                 flex.style.overflow = 'hidden'
                 flex.style.maxHeight = '154px'
                 // SET IMAGE TO DEFAULT POSITION
-                image.style.bottom = (154+title.offsetHeight+25)+'px'
+                image.style.bottom = (flex.offsetHeight+title.offsetHeight+25)+'px'
                 // TIMEOUT TO SET THE FLEX BLOCK TO POSITION RELATIVE
                 let positionRelativeTimeOut = null
                 // ON HOVER WE SHOW WHATS INSIDE THE FLEX BLOCK
@@ -357,6 +181,7 @@ window.addEventListener('load', function () {
                         }
                         clearTimeout(positionRelativeTimeOut)
                         flex__block.style.position = 'absolute'
+                        flex__block.style.zIndex = '40'
                         flex.style.maxHeight = flex__height+'px'
                         image.style.bottom = (flex__height+title.offsetHeight+25)+'px'
                         flex__block.style.marginLeft = `-${document.querySelector('.tasks__flex').scrollLeft}px`
@@ -365,11 +190,12 @@ window.addEventListener('load', function () {
                 // ON LEAVE WE SET FLEX BLOCK TO THE DEFAULT POSITION
                 flex__block.addEventListener('mouseleave', function () {
                     flex.style.maxHeight = '154px'
-                    image.style.bottom = (154+title.offsetHeight+25)+'px'
                     positionRelativeTimeOut = setTimeout(() => {
                         flex__block.style.position = 'relative'
                         flex__block.style.marginLeft = '0'
                         positionRelativeTimeOut = null
+                        flex__block.style.zIndex = '20'
+                        image.style.bottom = (flex.offsetHeight+title.offsetHeight+25)+'px'
                     }, 300);
                 });
                 // CHECK IF SCROLLING WHILE HOVER
@@ -395,35 +221,64 @@ window.addEventListener('load', function () {
             // FLEX BLOCK`S ELEMENTS
             let title = flex__block.querySelector('.title')
             let flex = flex__block.querySelector('.flex')
-            // FLEX BLOCK`S ORIGINAL HEIGHT
-            flex.style.overflow = 'visible'
-            let flex__height = flex.offsetHeight
-            let flex__top = flex__height-154+'px'
-            // AFTER DECLARING FLEX HEIGHT HIDE IT
-            flex.style.overflow = 'hidden'
-            flex.style.maxHeight = '154px'
-            // SHOW FULL CONTENT ON HOVER
-                // TIMEOUT TO SET THE FLEX BLOCK TO POSITION RELATIVE
-                let positionRelativeTimeOut = null
-                // ON HOVER WE SHOW WHATS INSIDE THE FLEX BLOCK
-                flex__block.addEventListener('mouseenter', function () {
-                    clearTimeout(positionRelativeTimeOut)
-                    flex__block.style.position = 'absolute'
-                    flex.style.maxHeight = flex__height+'px'
-                });
-                // ON LEAVE WE SET FLEX BLOCK TO THE DEFAULT POSITION
-                flex__block.addEventListener('mouseleave', function () {
-                    flex.style.maxHeight = '154px'
-                    positionRelativeTimeOut = setTimeout(() => {
-                        flex__block.style.position = 'relative'
-                        positionRelativeTimeOut = null
-                    }, 300);
-                });
-            let title__h1 = title.querySelector('h1')
-            console.log(title__h1.innerText)
+            // BEFORE SHOWING ELEMENT
+            let title__p = title.querySelector('p')
+            if(!isWithinFiveDays(title__p.innerText))
+            {
+                flex__block.parentElement.remove()
+            } else
+            {
+                title__p.innerText = new Date(title__p.innerText).toLocaleDateString('uk-UA', { day: 'numeric', month: 'long' })
+                let title__h1 = title.querySelector('h1')
+                title__h1.innerText = getDayName(title__h1.innerText)
+                // FLEX BLOCK`S ORIGINAL HEIGHT
+                flex.style.overflow = 'visible'
+                let flex__height = flex.offsetHeight
+                let flex__top = flex__height-154+'px'
+                // AFTER DECLARING FLEX HEIGHT HIDE IT
+                flex.style.overflow = 'hidden'
+                flex.style.maxHeight = '154px'
+                // SHOW FULL CONTENT ON HOVER
+                    // TIMEOUT TO SET THE FLEX BLOCK TO POSITION RELATIVE
+                    let positionRelativeTimeOut = null
+                    // ON HOVER WE SHOW WHATS INSIDE THE FLEX BLOCK
+                    flex__block.addEventListener('mouseenter', function () {
+                        clearTimeout(positionRelativeTimeOut)
+                        flex__block.style.position = 'absolute'
+                        flex.style.maxHeight = flex__height+'px'
+                    });
+                    // ON LEAVE WE SET FLEX BLOCK TO THE DEFAULT POSITION
+                    flex__block.addEventListener('mouseleave', function () {
+                        flex.style.maxHeight = '154px'
+                        positionRelativeTimeOut = setTimeout(() => {
+                            flex__block.style.position = 'relative'
+                            positionRelativeTimeOut = null
+                        }, 300);
+                    });
+            }
+
         });
 })
 
+// GET DAY NAME
+function getDayName(dayNumber) {
+    const date = new Date();
+    const currentDay = date.getDay()
+    const offset = (currentDay === 0 ? 7 : currentDay) - 1
+    date.setDate(date.getDate() - offset + (dayNumber - 1));
+    return date.toLocaleDateString('uk-UA', { weekday: 'long' });
+}
+// IS IT TODAY OR 4 DAYS LATER
+function isWithinFiveDays(dateString) {
+    let givenDate = new Date(dateString);
+    let today = new Date();
+    today.setHours(0, 0, 0, 0); // Reset to midnight for accurate comparison
+
+    let fiveDaysLater = new Date(today);
+    fiveDaysLater.setDate(today.getDate() + 5); // Calculate date 5 days later
+
+    return givenDate >= today && givenDate <= fiveDaysLater;
+}
 // FIX IMAGES` VIEW
     function fixImage(element)
     {
