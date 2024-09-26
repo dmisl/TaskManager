@@ -19,26 +19,21 @@ class GoalController extends Controller
     }
     public function show($id)
     {
-        // get auth user (becouse when I use Auth::user() for some reason it doesnt work)
-        $user = User::find(Auth::id());
-        // get todays date
         $today = Carbon::today()->format('Y-m-d');
-        // get week which contains todays date
+        $user = User::find(Auth::id());
         $week = $user->weeks()->where('start', '<=', $today)->where('end', '>=', $today)->first();
-        // if week doesnt exist - create it
-        if(!$week)
-        {
-            // getting date of start and end of this week
+
+        if (!$week) {
             $start = Carbon::now()->startOfWeek(Carbon::MONDAY)->format('Y-m-d');
             $end = Carbon::now()->endOfWeek(Carbon::SUNDAY)->format('Y-m-d');
-            // creating new week
+
             $week = Week::create([
                 'start' => $start,
                 'end' => $end,
                 'result' => null,
                 'user_id' => $user->id,
             ]);
-            // creating week`s days
+
             for ($i = 1; $i <= 7; $i++) {
                 $dayDate = Carbon::parse($start)->addDays($i - 1)->format('Y-m-d');
                 Day::create([
@@ -49,7 +44,31 @@ class GoalController extends Controller
                 ]);
             }
         }
-        $days = $week->days;
+
+        $nextWeekStart = Carbon::parse($week->end)->addDay()->startOfWeek(Carbon::MONDAY)->format('Y-m-d');
+        $nextWeekEnd = Carbon::parse($nextWeekStart)->endOfWeek(Carbon::SUNDAY)->format('Y-m-d');
+        $nextWeek = $user->weeks()->where('start', $nextWeekStart)->where('end', $nextWeekEnd)->first();
+
+        if (!$nextWeek) {
+            $nextWeek = Week::create([
+                'start' => $nextWeekStart,
+                'end' => $nextWeekEnd,
+                'result' => null,
+                'user_id' => $user->id,
+            ]);
+
+            for ($i = 1; $i <= 7; $i++) {
+                $dayDate = Carbon::parse($nextWeekStart)->addDays($i - 1)->format('Y-m-d');
+                Day::create([
+                    'date' => $dayDate,
+                    'day_number' => $i,
+                    'result' => null,
+                    'week_id' => $nextWeek->id
+                ]);
+            }
+        }
+
+        $days = $week->days->merge($nextWeek->days)->sortBy('date');
         return view('goal.show', compact('week', 'days'));
     }
     public function create()
