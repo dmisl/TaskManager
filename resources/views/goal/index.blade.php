@@ -99,37 +99,36 @@
         }
     }
 
-    let contextMenu = document.querySelector(".some__menu");
-
-    document.addEventListener("click", function (e) {
-        if (!contextMenu.contains(e.target)) {
-            contextMenu.classList.add('d-none');
-            contextMenu.classList.remove('d-block');
-        }
-    });
-
-    let flex__blocks = document.querySelectorAll('.flex__block')
-    if(flex__blocks.length == 4)
-    {
-        flex__blocks.forEach(block => {
-            block.classList.remove('flex__block')
-            block.classList.add('bigger__flex__block')
-        })
-    } else if(flex__blocks.length < 7)
-    {
-        document.querySelector('.flex').style.overflow = 'visible'
-        flex__blocks.forEach(flex__block => {
-            flex__block.classList.add('shadow')
-        });
-    } else
-    {
-        document.querySelector('.flex').style.overflow = 'auto'
-        flex__blocks.forEach(flex__block => {
-            flex__block.classList.remove('shadow')
-        });
-    }
-
     window.onload = function() {
+        let contextMenu = document.querySelector(".some__menu");
+
+        document.addEventListener("click", function (e) {
+            if (!contextMenu.contains(e.target)) {
+                contextMenu.classList.add('d-none');
+                contextMenu.classList.remove('d-block');
+            }
+        });
+
+        let flex__blocks = document.querySelectorAll('.flex__block')
+        if(flex__blocks.length == 4)
+        {
+            flex__blocks.forEach(block => {
+                block.classList.remove('flex__block')
+                block.classList.add('bigger__flex__block')
+            })
+        } else if(flex__blocks.length < 7)
+        {
+            document.querySelector('.flex').style.overflow = 'visible'
+            flex__blocks.forEach(flex__block => {
+                flex__block.classList.add('shadow')
+            });
+        } else
+        {
+            document.querySelector('.flex').style.overflow = 'auto'
+            flex__blocks.forEach(flex__block => {
+                flex__block.classList.remove('shadow')
+            });
+        }
         let block__images = document.querySelectorAll(".flex__block img, .preview img, .freepick__image__parent img")
         if(block__images.length == 0) {
             block__images = document.querySelectorAll('.bigger__flex__block img')
@@ -178,6 +177,12 @@
             { passive: false }
         )
         });
+
+        // ON LOAD AND HANDLE OF ELEMENTS SHOW THEM
+        let loader__parent = document.querySelector('.loader__parent')
+        loader__parent.style.display = 'none'
+        let whole__content = document.querySelector('.whole__content')
+        whole__content.style.animation = 'appear__opacity 0.5s forwards'
 
     };
 

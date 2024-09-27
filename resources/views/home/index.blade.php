@@ -73,36 +73,47 @@
 
 <script defer>
 
-    function fixImage(element)
-    {
-        let width = element.naturalWidth;
-        let height = element.naturalHeight;
-        if(width > height)
+    window.addEventListener('load', function () {
+
+        function fixImage(element)
         {
-            element.style.cssText = `height: 100%;`
-        } else
+            let width = element.naturalWidth;
+            let height = element.naturalHeight;
+            if(width > height)
+            {
+                element.style.cssText = `height: 100%;`
+            } else
+            {
+                element.style.cssText = `width: 100%;`
+            }
+        }
+
+        let contextMenu = document.querySelector(".some__menu");
+
+        document.addEventListener("click", function (e) {
+            if (!contextMenu.contains(e.target)) {
+                contextMenu.classList.add('d-none');
+                contextMenu.classList.remove('d-block');
+            }
+        });
+
+        let flex__blocks = document.querySelectorAll('.flex__block')
+        if(flex__blocks.length == 4)
         {
-            element.style.cssText = `width: 100%;`
+            flex__blocks.forEach(block => {
+                block.classList.remove('flex__block')
+                block.classList.add('bigger__flex__block')
+            })
         }
-    }
 
-    let contextMenu = document.querySelector(".some__menu");
+        // ON LOAD AND HANDLE OF ELEMENTS SHOW THEM
+        let loader__parent = document.querySelector('.loader__parent')
+        loader__parent.style.display = 'none'
+        let whole__content = document.querySelector('.whole__content')
+        whole__content.style.animation = 'appear__opacity 0.5s forwards'
 
-    document.addEventListener("click", function (e) {
-        if (!contextMenu.contains(e.target)) {
-            contextMenu.classList.add('d-none');
-            contextMenu.classList.remove('d-block');
-        }
-    });
+    })
 
-    let flex__blocks = document.querySelectorAll('.flex__block')
-    if(flex__blocks.length == 4)
-    {
-        flex__blocks.forEach(block => {
-            block.classList.remove('flex__block')
-            block.classList.add('bigger__flex__block')
-        })
-    }
 
 </script>
 

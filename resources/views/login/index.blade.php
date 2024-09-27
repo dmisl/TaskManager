@@ -69,35 +69,45 @@
     </div>
 
 <script defer>
-    let toggle = document.querySelector('.toggle')
-    let toggled = false;
-    console.log(document.querySelector('#app').removeAttribute('id'))
 
-    toggle.addEventListener('click', toggleAnimation)
+    window.addEventListener('load', function () {
 
-    function toggleAnimation() {
-        console.log(123)
-        const box = document.querySelector('.auth');
-        const box2 = document.querySelector('.reg');
+        let toggle = document.querySelector('.toggle')
+        let toggled = false;
 
-        if (!toggled) {
-            box.classList.add('animate-out');
-            box2.classList.add('animate-in');
-            setTimeout(() => {
-                document.querySelector('.reg__first').focus()
-                toggle.innerText = 'Авторизація >'
-            }, 1000);
-        } else {
-            box.classList.remove('animate-out');
-            box2.classList.remove('animate-in');
-            setTimeout(() => {
-                document.querySelector('.auth__first').focus()
-                toggle.innerText = 'Реєстрація >'
-            }, 1000);
+        toggle.addEventListener('click', toggleAnimation)
+
+        function toggleAnimation() {
+            const box = document.querySelector('.auth');
+            const box2 = document.querySelector('.reg');
+
+            if (!toggled) {
+                box.classList.add('animate-out');
+                box2.classList.add('animate-in');
+                setTimeout(() => {
+                    document.querySelector('.reg__first').focus()
+                    toggle.innerText = 'Авторизація >'
+                }, 1000);
+            } else {
+                box.classList.remove('animate-out');
+                box2.classList.remove('animate-in');
+                setTimeout(() => {
+                    document.querySelector('.auth__first').focus()
+                    toggle.innerText = 'Реєстрація >'
+                }, 1000);
+            }
+
+            toggled = !toggled;
         }
 
-        toggled = !toggled;
-    }
+        // ON LOAD AND HANDLE OF ELEMENTS SHOW THEM
+        let loader__parent = document.querySelector('.loader__parent')
+        loader__parent.style.display = 'none'
+        let whole__content = document.querySelector('.whole__content')
+        whole__content.style.opacity = '1'
+
+    })
+
 </script>
 
 @endsection

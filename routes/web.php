@@ -4,6 +4,7 @@ use App\Http\Controllers\GoalController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\GuestMiddleware;
@@ -29,6 +30,7 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::get('home/goals/show/{id}', [GoalController::class, 'show'])->name('goal.show');
     Route::get('home/goals/create', [GoalController::class, 'create'])->name('goal.create');
     Route::post('home/goals/create', [GoalController::class, 'store'])->name('goal.store');
+    Route::post('home/task/create', [TaskController::class, 'store'])->name('task.store');
 
     Route::get('logout', [LoginController::class, 'logout'])->name('login.logout');
 

@@ -37,12 +37,12 @@
         </a>
         <p style="text-align: center; margin: 0;">become best version of yourself</p>
 
-        <div class="whole__content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1;">
+        <div class="whole__content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; opacity: 0;">
             @yield('content')
         </div>
-        {{-- <div class="loader__parent">
+        <div class="loader__parent">
             <div class="loader"></div>
-        </div> --}}
+        </div>
 
     </div>
 

@@ -49,20 +49,10 @@
                                 </div>
                                 <div class="flex">
                                     <div class="task p5">
+                                        <img src="{{ asset('storage/images/completed.png') }}" alt="" class="completed">
                                         <p>Завершити блок з цілями<span>...</span></p>
                                     </div>
-                                    <div class="task p4">
-                                        <p>Завершити блок з цілями<span>...</span></p>
-                                    </div>
-                                    <div class="task p3">
-                                        <p>Завершити блок з цілями<span>...</span></p>
-                                    </div>
-                                    <div class="task p2">
-                                        <p>Завершити блок з цілями<span>...</span></p>
-                                    </div>
-                                    <div class="task p1">
-                                        <p>Завершити блок з цілями<span>...</span></p>
-                                    </div>
+                                    <div class="task__create" goal_id="{{ $goal->id }}">+</div>
                                 </div>
                                 <div class="image">
                                     <img src="{{ $goal->image }}" alt="">
@@ -85,6 +75,9 @@
                                 <div class="title">
                                     <h1>{{ $day['day_number'] }}</h1>
                                     <p>{{ $day['date'] }}</p>
+                                    <div class="progress" style="width: 216px; border: 1px solid black; margin: 0 auto; height: 8px;" role="progressbar" aria-label="Success striped example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 60%; background-color: rgb(73, 230, 0);"></div>
+                                    </div>
                                 </div>
                                 <div class="flex">
                                     <div class="task p5">
@@ -124,6 +117,18 @@
                 </div>
             </div>
         </div>
+        <div class="task__create__modal flex">
+
+            <div class="task__create">
+                <div class="title">
+                    <h1>Нове завдання<span>🚀</span></h1>
+                </div>
+                <form action="{{ route('task.store') }}" method="POST">
+                    
+                </form>
+            </div>
+
+        </div>
     </div>
 </div>
 
@@ -132,16 +137,13 @@
 // ON LOAD OF THE PAGE
 window.addEventListener('load', function () {
 
+    let whole__content = document.querySelector('.whole__content')
+    let loader__parent = document.querySelector('.loader__parent')
+
     if(!(document.querySelector('.tasks__flex').scrollWidth > document.querySelector('.tasks__flex').clientWidth))
     {
         document.querySelector('.tasks__flex').style.height = '234px'
     }
-
-    // php to js
-        // let smth = @json($days);
-        // smth.forEach(element => {
-        //     console.log(element.date)
-        // });
 
     // ADDING SMOOTH SCROLLING
         let scrollBlocks = document.querySelectorAll('.days__flex, .tasks__flex');
@@ -258,6 +260,32 @@ window.addEventListener('load', function () {
             }
 
         });
+    let task__creates = document.querySelectorAll('.task__create')
+    task__creates.forEach(task__create => {
+        task__create.addEventListener('click', function (e) {
+            // GET GOAL ID OF TASK WE WANT CREATE IN
+            // console.log(e.target.attributes.goal_id.value)
+            task__create__modal.classList.add('d-flex')
+            task__create__modal.classList.remove('d-hidden')
+            task__create__modal.style.animation = 'appear__opacity 0.5s forwards'
+        })
+    });
+    let task__create__modal = document.querySelector('.task__create__modal')
+    // task__create__modal.addEventListener('click', function (e) {
+    //     if(e.target.classList.contains('task__create__modal'))
+    //     {
+    //         task__create__modal.style.animation = 'disappear__opacity 0.5s forwards'
+    //         setTimeout(() => {
+    //             task__create__modal.classList.remove('d-flex')
+    //             task__create__modal.classList.add('d-hidden')
+    //         }, 500);
+    //     }
+    // })
+
+    // WHEN ALL CONTENT IS HANDLED AND LOADED SHOW CONTENT
+    loader__parent.style.display = 'none'
+    whole__content.style.opacity = '1'
+
 })
 
 // GET DAY NAME
