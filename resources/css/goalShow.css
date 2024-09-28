@@ -379,6 +379,13 @@
     height: 32px;
     padding-right: 6px;
 }
+.task__create__modal .task__create form .error
+{
+    font-size: 11px;
+    margin: 0;
+    color: red;
+    height: 12px;
+}
 .task__create__modal .task__create form .form-submit
 {
     text-align: center;
@@ -397,10 +404,6 @@
 {
     margin: 0;
     position: relative;
-}
-.task__create__modal .task__create form .form-item
-{
-    margin-top: 12px;
 }
 .task__create__modal .task__create form .form-item label
 {
@@ -422,3 +425,4 @@
     resize: none;
     overflow: hidden;
 }
+

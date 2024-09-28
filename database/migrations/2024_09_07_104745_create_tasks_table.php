@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('desc');
             $table->integer('priority');
-            $table->boolean('completed');
+            $table->boolean('completed')->default(false);
             $table->foreignId('goal_id')->constrained();
             $table->foreignId('day_id')->nullable()->constrained();
         });

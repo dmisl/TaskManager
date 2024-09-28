@@ -117,13 +117,15 @@
                 </div>
             </div>
         </div>
-        <div class="task__create__modal flex">
+        <div class="task__create__modal d-none">
 
             <div class="task__create">
                 <div class="title">
                     <h1>Нове завдання<span>🚀</span></h1>
                 </div>
                 <form action="{{ route('task.store') }}" method="POST">
+                    @csrf
+                    <input class="task__goal_id" type="hidden" name="goal_id">
                     <div class="priority__parent">
                         <div class="d-flex justify-content-between">
                             <label for="priority">Рівень приорітету<span style="color: red;">*</span></label>
@@ -167,6 +169,7 @@
                             </svg>
                         </div>
                     </div>
+                    <p class="error priority__error"></p>
                     <div class="form-item">
                         <div class="d-flex justify-content-between">
                             <label for="name">Суть завдання<span style="color: red;">*</span></label>
@@ -183,6 +186,7 @@
                         </div>
                         <input class="form-control task__name" name="name" id="name" type="text" placeholder="Посадити редиску">
                     </div>
+                    <p class="error name__error"></p>
                     <div class="form-item">
                         <div class="d-flex justify-content-between">
                             <label for="desc">Детальніший опис завдання</label>
@@ -337,42 +341,77 @@ window.addEventListener('load', function () {
             }
 
         });
-    let task__creates = document.querySelectorAll('.tasks__flex__block .task__create')
-    task__creates.forEach(task__create => {
-        task__create.addEventListener('click', function (e) {
-            // GET GOAL ID OF TASK WE WANT CREATE IN
-            // console.log(e.target.attributes.goal_id.value)
-            console.log(1)
-            task__create__modal.classList.add('d-flex')
-            task__create__modal.classList.remove('d-hidden')
-            task__create__modal.style.animation = 'appear__opacity 0.5s forwards'
-        })
-    });
-    let task__create__modal = document.querySelector('.task__create__modal')
-    // task__create__modal.addEventListener('click', function (e) {
-    //     if(e.target.classList.contains('task__create__modal'))
-    //     {
-    //         task__create__modal.style.animation = 'disappear__opacity 0.5s forwards'
-    //         setTimeout(() => {
-    //             task__create__modal.classList.remove('d-flex')
-    //             task__create__modal.classList.add('d-hidden')
-    //         }, 500);
-    //     }
-    // })
-    function task__create__validation()
-    {
-        let task__priority = document.querySelector('.task__create__modal .task__priority')
-        let task__name = document.querySelector('.task__create__modal .task__name')
-        let task__desc = document.querySelector('.task__create__modal .task__desc')
-        console.log(task__priority.value, task__name.value, task__desc.value)
-    }
-    let task__create__submit = document.querySelector('.task__create .form-submit button')
-    task__create__submit.addEventListener('mouseenter', task__create__validation)
+
     // HANDLING MODAL
+        let task__creates = document.querySelectorAll('.tasks__flex__block .task__create')
+        task__creates.forEach(task__create => {
+            task__create.addEventListener('click', function (e) {
+                // GET GOAL ID OF TASK WE WANT CREATE IN
+                document.querySelector('.task__create__modal .task__goal_id').value = task__create.attributes.goal_id.value
+                task__create__modal.classList.add('d-flex')
+                task__create__modal.classList.remove('d-none')
+                task__create__modal.style.animation = 'appear__opacity 0.5s forwards'
+                task__create__modal.querySelector('.task__create').style.animation = 'appear__bottom 0.5s forwards'
+            })
+        });
+        let task__create__modal = document.querySelector('.task__create__modal')
+        task__create__modal.addEventListener('click', function (e) {
+            if(e.target.classList.contains('task__create__modal'))
+            {
+                task__create__modal.style.animation = 'disappear__opacity 0.5s forwards'
+                task__create__modal.querySelector('.task__create').style.animation = 'disappear__bottom 0.5s forwards'
+                setTimeout(() => {
+                    task__create__modal.classList.remove('d-flex')
+                    task__create__modal.classList.add('d-none')
+                }, 500);
+            }
+        })
+        let task__form = document.querySelector('.task__create__modal form')
+        task__form.addEventListener('submit', function (e) {
+            if(!task__create__validation())
+            {
+                e.preventDefault()
+            }
+        })
+        function task__create__validation()
+        {
+            let task__priority = document.querySelector('.task__create__modal .task__priority')
+            let task__name = document.querySelector('.task__create__modal .task__name')
+            let task__priority__error = document.querySelector('.task__create__modal .priority__error')
+            let task__name__error = document.querySelector('.task__create__modal .name__error')
+            if(!task__priority.value)
+            {
+                task__priority__error.innerHTML = `виберіть рівень приорітету`
+                return false
+            } else
+            {
+                task__priority__error.innerHTML = ``
+            }
+            if(task__name.value.length < 5)
+            {
+                task__name__error.innerHTML = `впишіть суть завдання`
+                return false
+            } else
+            {
+                task__name__error.innerHTML = ``
+            }
+            return true
+        }
+        let task__create__submit = document.querySelector('.task__create .form-submit button')
+        task__create__submit.addEventListener('mouseenter', function () {
+            if(!task__create__validation())
+            {
+                task__create__submit.setAttribute('disabled', '')
+            } else
+            {
+                task__create__submit.removeAttribute('disabled')
+            }
+        })
 
         tippy('.task__create__modal .priority__parent .flex', {
             placement: 'right',
             content: 'Виберіть',
+            sticky: true,
             interactive: true,
             hideOnClick: false,
             delay: [0, 1000000000],
