@@ -41,6 +41,7 @@
                             </div>
                         </div>
                     </div>
+                    {{-- SHOWING ALL GOALS AS FLEX BLOCKS --}}
                     @foreach($goals as $goal)
                         <div class="tasks__flex__block__parent">
                             <div class="tasks__flex__block">
@@ -48,10 +49,45 @@
                                     {{ $goal->name }}
                                 </div>
                                 <div class="flex">
-                                    <div class="task p5">
-                                        <img src="{{ asset('storage/images/completed.png') }}" alt="" class="completed">
-                                        <p>Завершити блок з цілями<span>...</span></p>
-                                    </div>
+                                    {{-- HANDLING 5TH PRIORITY TASKS --}}
+                                    {{-- IF THERE IS NO NEEDED AMOUNT OF TASKS --}}
+                                    @if($goal->tasks()->where('priority', 5)->get()->count() < $goal->tasks_number)
+                                        @foreach($goal->tasks()->where('priority', 5)->get() as $task)
+                                            <div class="task p5">
+                                                <img src="{{ asset('storage/images/completed.png') }}" alt="" class="completed">
+                                                <div class="scrolling__parent">
+                                                    <p>{{ $task->name }}</p>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                        @for ($i = 0; $i < $goal->tasks_number-$goal->tasks()->where('priority', 5)->get()->count(); $i++)
+                                            <div class="task p5">
+                                                <img src="{{ asset('storage/images/completed.png') }}" alt="" class="completed">
+                                                <div class="scrolling__parent">
+                                                    <p>
+                                                        Щось набагато цікавіше для перевірки
+                                                        Щось набагато цікавіше для перевірки
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        @endfor
+                                    {{-- IF THERE IS NEEDED AMOUNT OF TASKS JUST SHOW THEM --}}
+                                    @else
+                                        @foreach($goal->tasks()->where('priority', 5)->get() as $task)
+                                            <div class="task p5">
+                                                <img src="{{ asset('storage/images/completed.png') }}" alt="" class="completed">
+                                                <p>{{ $task->name }}</p>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                    {{-- SHOWING ALL TASKS WHICH DOES NOT HAVE 5TH PRIORITY --}}
+                                    @foreach($goal->tasks()->where('priority', '<', 5) as $task)
+                                        <div class="task p{{ $task->priority }}">
+                                            <img src="{{ asset('storage/images/completed.png') }}" alt="" class="completed">
+                                            <p>{{ $task->name }}</p>
+                                        </div>
+                                    @endforeach
+                                    {{-- TASK CREATE BUTTON --}}
                                     <div class="task__create" goal_id="{{ $goal->id }}">+</div>
                                 </div>
                                 <div class="image">
@@ -297,6 +333,24 @@ window.addEventListener('load', function () {
                 })
             }
         });
+        // SCROLLING TEXT FOR TASKS WHICH YOU`RE HOVERED ON
+        let tasks = document.querySelectorAll('.tasks__flex__block .task')
+        tasks.forEach(task => {
+            task.addEventListener('mouseover', function () {
+                let scrolling__text = task.querySelector('.scrolling__parent p')
+                if(scrolling__text.offsetWidth > 195)
+                {
+                    scrolling__text.style.animation = 'scroll-text 5s linear infinite'
+                }
+            })
+            task.addEventListener('mouseleave', function () {
+                let scrolling__text = task.querySelector('.scrolling__parent p')
+                if(scrolling__text.offsetWidth > 195)
+                {
+                    scrolling__text.style.animation = ''
+                }
+            })
+        });
 
     // HANDLING DAY__BLOCKS` VIEW
         let days__flex__blocks = document.querySelectorAll(".days__flex__block")
@@ -495,8 +549,8 @@ window.addEventListener('load', function () {
         });
 
     // ON LOAD AND HANDLE OF ELEMENTS SHOW THEM
-    loader__parent.style.display = 'none'
-    whole__content.style.animation = 'appear__opacity 0.5s forwards'
+        loader__parent.style.display = 'none'
+        whole__content.style.animation = 'appear__opacity 0.5s forwards'
 
 })
 

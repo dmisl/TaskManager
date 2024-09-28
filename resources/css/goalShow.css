@@ -112,6 +112,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 24px;
+    position: relative;
 }
 .tasks__flex__block .flex .task .completed
 {
@@ -123,17 +124,35 @@
     z-index: 1;
     opacity: 0;
 }
-.tasks__flex__block .flex .task p
+.tasks__flex__block .flex .task span
 {
+    font-size: 10px;
+}
+.tasks__flex__block .flex .task .scrolling__parent
+{
+    width: 195px;
+    margin: 0 auto;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.tasks__flex__block .flex .task .scrolling__parent p
+{
+    text-align: left;
     font-size: 15px;
     height: 18px;
     margin-bottom: 0;
     position: relative;
-    top: -2px;
+    white-space: nowrap;
+    display: inline-block;
+    /* animation: scroll-text 5s linear infinite; */
 }
-.tasks__flex__block .flex .task span
-{
-    font-size: 10px;
+@keyframes scroll-text {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 .tasks__flex__block .image
 {
