@@ -17,30 +17,50 @@
             <div class="tasks__flex__container">
                 <div class="tasks__flex" id="x-custom__scrollbar">
                     {{-- UNFINISHED --}}
-                    <div class="tasks__flex__block__parent">
-                        <div class="tasks__flex__block unfinished">
-                            <div class="title">
-                                Незавершені
-                            </div>
-                            <div class="flex">
-                                <div class="task p5">
-                                    <p>Завершити блок з цілями<span>...</span></p>
+                        <div class="tasks__flex__block__parent">
+                            <div class="tasks__flex__block unfinished">
+                                <div class="title">
+                                    Незавершені
                                 </div>
-                                <div class="task p4">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p3">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p2">
-                                    <p>Завершити блок з цілями<span>...</span></p>
-                                </div>
-                                <div class="task p1">
-                                    <p>Завершити блок з цілями<span>...</span></p>
+                                <div class="flex">
+                                    <div class="task p5">
+                                        <div class="scrolling__parent">
+                                            <p>
+                                                Завершити блок з цілями<span>...</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="task p4">
+                                        <div class="scrolling__parent">
+                                            <p>
+                                                Завершити блок з цілями<span>...</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="task p3">
+                                        <div class="scrolling__parent">
+                                            <p>
+                                                Завершити блок з цілями<span>...</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="task p2">
+                                        <div class="scrolling__parent">
+                                            <p>
+                                                Завершити блок з цілями<span>...</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="task p1">
+                                        <div class="scrolling__parent">
+                                            <p>
+                                                Завершити блок з цілями<span>...</span>
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     {{-- SHOWING ALL GOALS AS FLEX BLOCKS --}}
                     @foreach($goals as $goal)
                         <div class="tasks__flex__block__parent">
@@ -56,17 +76,18 @@
                                             <div class="task p5">
                                                 <img src="{{ asset('storage/images/completed.png') }}" alt="" class="completed">
                                                 <div class="scrolling__parent">
-                                                    <p>{{ $task->name }}</p>
+                                                    <p>
+                                                        {{ $task->name }}
+                                                    </p>
                                                 </div>
                                             </div>
                                         @endforeach
                                         @for ($i = 0; $i < $goal->tasks_number-$goal->tasks()->where('priority', 5)->get()->count(); $i++)
-                                            <div class="task p5">
+                                            <div class="task p5 required" goal_id="{{ $goal->id }}">
                                                 <img src="{{ asset('storage/images/completed.png') }}" alt="" class="completed">
                                                 <div class="scrolling__parent">
                                                     <p>
-                                                        Щось набагато цікавіше для перевірки
-                                                        Щось набагато цікавіше для перевірки
+                                                        Обов'язкове завдання
                                                     </p>
                                                 </div>
                                             </div>
@@ -76,17 +97,25 @@
                                         @foreach($goal->tasks()->where('priority', 5)->get() as $task)
                                             <div class="task p5">
                                                 <img src="{{ asset('storage/images/completed.png') }}" alt="" class="completed">
-                                                <p>{{ $task->name }}</p>
+                                                <div class="scrolling__parent">
+                                                    <p>
+                                                        {{ $task->name }}
+                                                    </p>
+                                                </div>
                                             </div>
                                         @endforeach
                                     @endif
                                     {{-- SHOWING ALL TASKS WHICH DOES NOT HAVE 5TH PRIORITY --}}
-                                    @foreach($goal->tasks()->where('priority', '<', 5) as $task)
-                                        <div class="task p{{ $task->priority }}">
-                                            <img src="{{ asset('storage/images/completed.png') }}" alt="" class="completed">
-                                            <p>{{ $task->name }}</p>
-                                        </div>
-                                    @endforeach
+                                        @foreach($goal->tasks()->where('priority', '<', 5) as $task)
+                                            <div class="task p{{ $task->priority }}">
+                                                <img src="{{ asset('storage/images/completed.png') }}" alt="" class="completed">
+                                                <div class="scrolling__parent">
+                                                        <p>
+                                                            {{ $task->name }}
+                                                        </p>
+                                                    </div>
+                                            </div>
+                                        @endforeach
                                     {{-- TASK CREATE BUTTON --}}
                                     <div class="task__create" goal_id="{{ $goal->id }}">+</div>
                                 </div>
@@ -257,10 +286,11 @@ window.addEventListener('load', function () {
     let whole__content = document.querySelector('.whole__content')
     let loader__parent = document.querySelector('.loader__parent')
 
-    if(!(document.querySelector('.tasks__flex').scrollWidth > document.querySelector('.tasks__flex').clientWidth))
-    {
-        document.querySelector('.tasks__flex').style.height = '234px'
-    }
+    // IF TASK FLEX DOESNT HAVE SCROLL BAR
+        if(!(document.querySelector('.tasks__flex').scrollWidth > document.querySelector('.tasks__flex').clientWidth))
+        {
+            document.querySelector('.tasks__flex').style.height = '234px'
+        }
 
     // ADDING SMOOTH SCROLLING
         let scrollBlocks = document.querySelectorAll('.days__flex, .tasks__flex');
@@ -322,7 +352,7 @@ window.addEventListener('load', function () {
                     flex.style.transition = '0'
                     image.style.transition = '0'
                     flex.style.maxHeight = '154px'
-                    image.style.bottom = (154+title.offsetHeight+25)+'px'
+                    image.style.bottom = (flex__height+title.offsetHeight+25)+'px'
                     positionRelativeTimeOut = setTimeout(() => {
                         flex__block.style.position = 'relative'
                         flex__block.style.marginLeft = '0'
@@ -334,21 +364,32 @@ window.addEventListener('load', function () {
             }
         });
         // SCROLLING TEXT FOR TASKS WHICH YOU`RE HOVERED ON
-        let tasks = document.querySelectorAll('.tasks__flex__block .task')
-        tasks.forEach(task => {
-            task.addEventListener('mouseover', function () {
-                let scrolling__text = task.querySelector('.scrolling__parent p')
-                if(scrolling__text.offsetWidth > 195)
-                {
-                    scrolling__text.style.animation = 'scroll-text 5s linear infinite'
-                }
-            })
-            task.addEventListener('mouseleave', function () {
-                let scrolling__text = task.querySelector('.scrolling__parent p')
-                if(scrolling__text.offsetWidth > 195)
-                {
-                    scrolling__text.style.animation = ''
-                }
+            let tasks = document.querySelectorAll('.tasks__flex__block .task')
+            tasks.forEach(task => {
+                task.querySelector('.scrolling__parent p').setAttribute('default_text', task.querySelector('.scrolling__parent p').innerHTML)
+                task.addEventListener('mouseover', function () {
+                    let scrolling__text = task.querySelector('.scrolling__parent p')
+                    if(scrolling__text.offsetWidth > 196)
+                    {
+                        scrolling__text.innerHTML = scrolling__text.attributes.default_text.value+scrolling__text.attributes.default_text.value
+                        scrolling__text.style.animation = 'scroll-text 5s linear infinite'
+                    }
+                })
+                task.addEventListener('mouseleave', function () {
+                    let scrolling__text = task.querySelector('.scrolling__parent p')
+                    if(scrolling__text.offsetWidth > 196)
+                    {
+                        scrolling__text.style.animation = ''
+                    }
+                })
+            });
+        // REQUIRED BLOCKS ADD CLICK EVENT TO CREATING WITH 5TH PRIORITY
+        let requireds = document.querySelectorAll('.required')
+        requireds.forEach(required => {
+            required.addEventListener('click', function () {
+                task__create__modal__open(required)
+                document.querySelectorAll('.priority')[4].dispatchEvent(new MouseEvent('click', { bubbles: true }))
+                document.querySelectorAll('.priority')[4].dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
             })
         });
 
@@ -397,15 +438,19 @@ window.addEventListener('load', function () {
         });
 
     // HANDLING MODAL
+        function task__create__modal__open(element)
+        {
+            // GET GOAL ID OF TASK WE WANT CREATE IN
+            document.querySelector('.task__create__modal .task__goal_id').value = element.attributes.goal_id.value
+            task__create__modal.classList.add('d-flex')
+            task__create__modal.classList.remove('d-none')
+            task__create__modal.style.animation = 'appear__opacity 0.5s forwards'
+            task__create__modal.querySelector('.task__create').style.animation = 'appear__bottom 0.5s forwards'
+        }
         let task__creates = document.querySelectorAll('.tasks__flex__block .task__create')
         task__creates.forEach(task__create => {
-            task__create.addEventListener('click', function (e) {
-                // GET GOAL ID OF TASK WE WANT CREATE IN
-                document.querySelector('.task__create__modal .task__goal_id').value = task__create.attributes.goal_id.value
-                task__create__modal.classList.add('d-flex')
-                task__create__modal.classList.remove('d-none')
-                task__create__modal.style.animation = 'appear__opacity 0.5s forwards'
-                task__create__modal.querySelector('.task__create').style.animation = 'appear__bottom 0.5s forwards'
+            task__create.addEventListener('click', function () {
+                task__create__modal__open(task__create)
             })
         });
         let task__create__modal = document.querySelector('.task__create__modal')
@@ -420,73 +465,78 @@ window.addEventListener('load', function () {
                 }, 500);
             }
         })
-        let task__form = document.querySelector('.task__create__modal form')
-        task__form.addEventListener('submit', function (e) {
-            if(!task__create__validation())
+        // PREVENTING FORM FROM SENDING IF VALIDATION
+            let task__form = document.querySelector('.task__create__modal form')
+            task__form.addEventListener('submit', function (e) {
+                if(!task__create__validation())
+                {
+                    e.preventDefault()
+                }
+            })
+        // FORM VALIDATION FUNCTION
+            function task__create__validation()
             {
-                e.preventDefault()
+                let task__priority = document.querySelector('.task__create__modal .task__priority')
+                let task__name = document.querySelector('.task__create__modal .task__name')
+                let task__priority__error = document.querySelector('.task__create__modal .priority__error')
+                let task__name__error = document.querySelector('.task__create__modal .name__error')
+                if(!task__priority.value)
+                {
+                    task__priority__error.innerHTML = `виберіть рівень приорітету`
+                    return false
+                } else
+                {
+                    task__priority__error.innerHTML = ``
+                }
+                if(task__name.value.length < 5)
+                {
+                    task__name__error.innerHTML = `впишіть суть завдання`
+                    return false
+                } else
+                {
+                    task__name__error.innerHTML = ``
+                }
+                return true
             }
-        })
-        function task__create__validation()
-        {
-            let task__priority = document.querySelector('.task__create__modal .task__priority')
-            let task__name = document.querySelector('.task__create__modal .task__name')
-            let task__priority__error = document.querySelector('.task__create__modal .priority__error')
-            let task__name__error = document.querySelector('.task__create__modal .name__error')
-            if(!task__priority.value)
-            {
-                task__priority__error.innerHTML = `виберіть рівень приорітету`
-                return false
-            } else
-            {
-                task__priority__error.innerHTML = ``
-            }
-            if(task__name.value.length < 5)
-            {
-                task__name__error.innerHTML = `впишіть суть завдання`
-                return false
-            } else
-            {
-                task__name__error.innerHTML = ``
-            }
-            return true
-        }
-        let task__create__submit = document.querySelector('.task__create .form-submit button')
-        task__create__submit.addEventListener('mouseenter', function () {
-            if(!task__create__validation())
-            {
-                task__create__submit.setAttribute('disabled', '')
-            } else
-            {
-                task__create__submit.removeAttribute('disabled')
-            }
-        })
+        // SUBMIT BUTTON HANDLING
+            let task__create__submit = document.querySelector('.task__create .form-submit button')
+            task__create__submit.addEventListener('mouseenter', function () {
+                if(!task__create__validation())
+                {
+                    task__create__submit.setAttribute('disabled', '')
+                } else
+                {
+                    task__create__submit.removeAttribute('disabled')
+                }
+            })
 
-        tippy('.task__create__modal .priority__parent .flex', {
-            placement: 'right',
-            content: 'Виберіть',
-            sticky: true,
-            interactive: true,
-            hideOnClick: false,
-            delay: [0, 1000000000],
-        })
+        // ADDING TIPPIES
+            tippy('.task__create__modal .priority__parent .flex', {
+                placement: 'right',
+                content: 'Виберіть',
+                sticky: true,
+                interactive: true,
+                hideOnClick: false,
+                delay: [0, 1000000000],
+            })
 
-        tippy('.task__create__modal .priority__hint', {
-            placement: 'top',
-            content: `Рівень пріоритету відображає важливість цього завдання для найшвидшого досягнення вашої мети. Рекомендуємо розглянути справжню вартість цього завдання для досягнення вашої цілі і наскільки воно вам допоможе.`,
-            hideOnClick: false,
-        })
-        tippy('.task__create__modal .name__hint', {
-            placement: 'top',
-            content: `Короткий опис суті вашого завдання: наприклад, вам потрібно прибрати в кімнаті (позбутися непотрібних речей та прибрати підлогу). Якщо ви хочете додати більше деталей, скористайтеся полем нижче.`,
-            hideOnClick: false,
-        })
-        tippy('.task__create__modal .desc__hint', {
-            placement: 'top',
-            content: `Введіть більш детальніший опис завдання (необов'язково), включаючи важливі деталі та кроки, які потрібно виконати.`,
-            hideOnClick: false,
-        })
+            tippy('.task__create__modal .priority__hint', {
+                placement: 'top',
+                content: `Рівень пріоритету відображає важливість цього завдання для найшвидшого досягнення вашої мети. Рекомендуємо розглянути справжню вартість цього завдання для досягнення вашої цілі і наскільки воно вам допоможе.`,
+                hideOnClick: false,
+            })
+            tippy('.task__create__modal .name__hint', {
+                placement: 'top',
+                content: `Короткий опис суті вашого завдання: наприклад, вам потрібно прибрати в кімнаті (позбутися непотрібних речей та прибрати підлогу). Якщо ви хочете додати більше деталей, скористайтеся полем нижче.`,
+                hideOnClick: false,
+            })
+            tippy('.task__create__modal .desc__hint', {
+                placement: 'top',
+                content: `Введіть більш детальніший опис завдання (необов'язково), включаючи важливі деталі та кроки, які потрібно виконати.`,
+                hideOnClick: false,
+            })
 
+        // PRIORITY BAR HANDING
         let priority__flex = document.querySelector('.priority__parent .flex')
         priority__flex._tippy.show()
         let priorities = document.querySelectorAll('.priority')
@@ -504,7 +554,7 @@ window.addEventListener('load', function () {
                 selected = index
                 document.querySelector('.task__priority').value = index+1
             })
-            priority.addEventListener('mouseenter', function () {
+            priority.addEventListener('mouseover', function () {
                 priority__flex._tippy.setContent(priority_levels[index])
                 priorities.forEach(pp => {
                     pp.innerHTML = `
