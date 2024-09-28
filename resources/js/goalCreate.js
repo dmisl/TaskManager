@@ -269,6 +269,12 @@ window.addEventListener('load', function () {
         return true
     }
 
+    // ON LOAD AND HANDLE OF ELEMENTS SHOW THEM
+    let loader__parent = document.querySelector('.loader__parent')
+    loader__parent.style.display = 'none'
+    let whole__content = document.querySelector('.whole__content')
+    whole__content.style.animation = 'appear__opacity 0.5s forwards'
+
 }
 )
 

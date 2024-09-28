@@ -334,7 +334,6 @@
 .task__create__modal .task__create
 {
     width: 416px;
-    height: 426px;
     border-radius: 47px;
     background-color: white;
 }
@@ -361,4 +360,65 @@
 {
     width: 350px;
     margin: 0 auto;
+}
+.task__create__modal .task__create form .priority__parent
+{
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    font-size: 20px;
+}
+.task__create__modal .task__create form .priority__parent .flex
+{
+    display: flex;
+    width: 160px;
+}
+.task__create__modal .task__create form .priority__parent .flex svg
+{
+    width: 32px;
+    height: 32px;
+    padding-right: 6px;
+}
+.task__create__modal .task__create form .form-submit
+{
+    text-align: center;
+    padding-bottom: 25px;
+}
+.task__create__modal .task__create form .form-submit button
+{
+    margin-top: 30px;
+    border: 0px;
+    background-color: rgb(114, 255, 71);
+    font-size: 21px;
+    padding: 3px 35px;
+    border-radius: 40px;
+}
+.task__create__modal .task__create form .form-submit button p
+{
+    margin: 0;
+    position: relative;
+}
+.task__create__modal .task__create form .form-item
+{
+    margin-top: 12px;
+}
+.task__create__modal .task__create form .form-item label
+{
+    font-size: 20px;
+}
+.task__create__modal .task__create form .form-item input
+{
+    border: 1px solid black;
+    font-size: 16px;
+    border-radius: 0 13px 13px 13px;
+    padding: 3px 12px;
+}
+.task__create__modal .task__create form .form-item textarea
+{
+    border: 1px solid black;
+    font-size: 16px;
+    border-radius: 0 13px 13px 13px;
+    padding: 3px 12px;
+    resize: none;
+    overflow: hidden;
 }
