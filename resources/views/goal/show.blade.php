@@ -146,7 +146,7 @@
                                 </div>
                                 <div class="flex" day="{{ $day->day_number }}">
                                     <div class="task p5">
-                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="'display: block;">
                                         <div class="scrolling__parent">
                                             <p>
                                                 Щось реально дуже цікаве ага.
@@ -154,7 +154,7 @@
                                         </div>
                                     </div>
                                     <div class="task p4">
-                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: block;">
                                         <div class="scrolling__parent">
                                             <p>
                                                 Щось реально дуже цікаве ага.
@@ -162,7 +162,7 @@
                                         </div>
                                     </div>
                                     <div class="task p3">
-                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: block;">
                                         <div class="scrolling__parent">
                                             <p>
                                                 Щось реально дуже цікаве ага.
@@ -170,7 +170,7 @@
                                         </div>
                                     </div>
                                     <div class="task p2">
-                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: block;">
                                         <div class="scrolling__parent">
                                             <p>
                                                 Щось реально дуже цікаве ага.
@@ -178,7 +178,7 @@
                                         </div>
                                     </div>
                                     <div class="task p1">
-                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: block;">
                                         <div class="scrolling__parent">
                                             <p>
                                                 Щось реально дуже цікаве ага.
@@ -186,7 +186,7 @@
                                         </div>
                                     </div>
                                     <div class="task p1">
-                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: block;">
                                         <div class="scrolling__parent">
                                             <p>
                                                 Щось реально дуже цікаве ага.
@@ -194,7 +194,7 @@
                                         </div>
                                     </div>
                                     <div class="task p1">
-                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: block;">
                                         <div class="scrolling__parent">
                                             <p>
                                                 Щось реально дуже цікаве ага.
@@ -202,7 +202,7 @@
                                         </div>
                                     </div>
                                     <div class="task p1">
-                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: block;">
                                         <div class="scrolling__parent">
                                             <p>
                                                 Щось реально дуже цікаве ага.
@@ -210,7 +210,7 @@
                                         </div>
                                     </div>
                                     <div class="task p1">
-                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: block;">
                                         <div class="scrolling__parent">
                                             <p>
                                                 Щось реально дуже цікаве ага.
@@ -699,12 +699,10 @@ window.addEventListener('load', function () {
         dropAreas.forEach(dropArea => {
             let flex = dropArea.querySelector('.flex')
             dropArea.querySelectorAll('.task').forEach(task => {
-                let underline = document.createElement('div')
-                underline.classList.add('dragging__underline')
                 task.addEventListener('dragover', function (e) {
                     if(!task.querySelector('.underline'))
                     {
-                        task.append(underline)
+                        task.classList.add('dragging__underline')
                     }
                     if(!flex.querySelector('.task__preview'))
                     {
@@ -723,7 +721,7 @@ window.addEventListener('load', function () {
                     {
                         flex.querySelector('.task__preview').remove()
                     }
-                    underline.remove()
+                    task.classList.remove('dragging__underline')
                 })
                 task.addEventListener('drop', function () {
                     if(!flex.querySelector('.task__preview'))
