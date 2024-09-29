@@ -12,7 +12,7 @@ class Task extends Model
     use HasFactory;
 
     public $fillable = [
-        'name', 'desc', 'priority', 'completed', 'goal_id', 'day_id',
+        'name', 'desc', 'priority', 'completed', 'goal_id', 'day_id', 'position'
     ];
 
     public function day(): BelongsTo

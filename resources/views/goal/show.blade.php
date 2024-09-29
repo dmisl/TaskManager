@@ -82,7 +82,7 @@
                                             </div>
                                         @endfor
                                         @foreach($goal->tasks()->where('priority', 5)->get() as $task)
-                                            <div class="task p5">
+                                            <div class="task p5" task_id="{{ $task->id }}">
                                                 <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
                                                 <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="{{ $task->day_id ? 'display: none;' : 'display: block;' }}">
                                                 <div class="scrolling__parent">
@@ -704,18 +704,18 @@ window.addEventListener('load', function () {
                 task.addEventListener('dragover', function (e) {
                     if(!task.querySelector('.underline'))
                     {
-                        if(!flex.querySelector('.task__preview'))
-                        {
-                            let new__task = document.createElement('div')
-                            new__task.classList.add('task__preview')
-                            draggingElement.classList.forEach(clas => {
-                                new__task.classList.add(clas)
-                            });
-                            new__task.innerHTML = draggingElement.innerHTML
-                            appendAfter(new__task, task)
-                            new__task.querySelector('.replace').remove()
-                        }
                         task.append(underline)
+                    }
+                    if(!flex.querySelector('.task__preview'))
+                    {
+                        let new__task = document.createElement('div')
+                        new__task.classList.add('task__preview')
+                        draggingElement.classList.forEach(clas => {
+                            new__task.classList.add(clas)
+                        });
+                        new__task.innerHTML = draggingElement.innerHTML
+                        appendAfter(new__task, task)
+                        new__task.querySelector('.replace').remove()
                     }
                 })
                 task.addEventListener('dragleave', function (e) {
@@ -741,6 +741,9 @@ window.addEventListener('load', function () {
                     {
                         flex.querySelector('.task__preview').classList.remove('task__preview')
                     }
+                    draggingElement.querySelector('.replace').remove()
+                    draggingElement.removeAttribute('draggable')
+                    draggingElement.style.cursor = 'pointer'
                     underline.remove()
                     days__flex__block__handle()
                     updateDropAreas()
