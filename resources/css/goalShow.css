@@ -114,7 +114,6 @@
     border-radius: 24px;
     font-weight: 500;
     position: relative;
-    cursor: pointer;
 }
 .tasks__flex__block .flex .task .completed
 {
@@ -124,7 +123,17 @@
     right: 0;
     top: 0;
     z-index: 1;
-    opacity: 0;
+}
+.tasks__flex__block .flex .task .replace
+{
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    background-color: white;
+    border-radius: 100%;
 }
 .tasks__flex__block .flex .task.required
 {
@@ -270,7 +279,7 @@
     align-self: flex-start;
     position: relative;
     bottom: 0px;
-    z-index: 30;
+    z-index: 50;
 }
 .days__flex__block .title
 {
@@ -312,15 +321,67 @@
     justify-content: center;
     align-items: center;
     border-radius: 24px;
+    font-weight: 500;
     position: relative;
 }
-.days__flex__block .flex .task p
+.days__flex__block .flex .task .completed
 {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
+.days__flex__block .flex .task .replace
+{
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    background-color: white;
+    border-radius: 100%;
+}
+.days__flex__block .flex .task.required
+{
+    background-color: white !important;
+    color: red;
+    font-weight: 500;
+    text-align: center;
+    border: 1px solid red;
+}
+.days__flex__block .flex .task span
+{
+    font-size: 10px;
+}
+.days__flex__block .flex .task .scrolling__parent
+{
+    width: 195px;
+    margin: 0 auto;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.days__flex__block .flex .task .scrolling__parent p
+{
+    text-align: left;
     font-size: 15px;
     height: 18px;
     margin-bottom: 0;
     position: relative;
-    top: -2px;
+    white-space: nowrap;
+    display: inline-block;
+    /* animation: scroll-text 5s linear infinite; */
+}
+.dragging__underline
+{
+    position: absolute;
+    height: 5px;
+    background: rgb(253,255,255);
+    background: linear-gradient(90deg, rgba(253,255,255,1) 0%, rgba(250,61,255,1) 50%, rgba(255,255,255,1) 100%);
+    width: 100%;
+    margin-top: 30px;
 }
 .days__flex__block .flex .task span
 {
@@ -454,4 +515,7 @@
     resize: none;
     overflow: hidden;
 }
-
+.dragging
+{
+    opacity: 1 !important;
+}

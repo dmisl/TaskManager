@@ -72,19 +72,8 @@
                                     {{-- HANDLING 5TH PRIORITY TASKS --}}
                                     {{-- IF THERE IS NO NEEDED AMOUNT OF TASKS --}}
                                     @if($goal->tasks()->where('priority', 5)->get()->count() < $goal->tasks_number)
-                                        @foreach($goal->tasks()->where('priority', 5)->get() as $task)
-                                            <div class="task p5">
-                                                <img src="{{ asset('storage/images/completed.png') }}" alt="" class="completed">
-                                                <div class="scrolling__parent">
-                                                    <p>
-                                                        {{ $task->name }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        @endforeach
                                         @for ($i = 0; $i < $goal->tasks_number-$goal->tasks()->where('priority', 5)->get()->count(); $i++)
                                             <div class="task p5 required" goal_id="{{ $goal->id }}">
-                                                <img src="{{ asset('storage/images/completed.png') }}" alt="" class="completed">
                                                 <div class="scrolling__parent">
                                                     <p>
                                                         Обов'язкове завдання
@@ -92,6 +81,17 @@
                                                 </div>
                                             </div>
                                         @endfor
+                                        @foreach($goal->tasks()->where('priority', 5)->get() as $task)
+                                            <div class="task p5">
+                                                <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                                <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="{{ $task->day_id ? 'display: none;' : 'display: block;' }}">
+                                                <div class="scrolling__parent">
+                                                    <p>
+                                                        {{ $task->name }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     {{-- IF THERE IS NEEDED AMOUNT OF TASKS JUST SHOW THEM --}}
                                     @else
                                         @foreach($goal->tasks()->where('priority', 5)->get() as $task)
@@ -144,36 +144,78 @@
                                         <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 60%; background-color: rgb(73, 230, 0);"></div>
                                     </div>
                                 </div>
-                                <div class="flex">
+                                <div class="flex" day="{{ $day->day_number }}">
                                     <div class="task p5">
-                                        <p>Завершити блок з цілями<span>...</span></p>
+                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                        <div class="scrolling__parent">
+                                            <p>
+                                                Щось реально дуже цікаве ага.
+                                            </p>
+                                        </div>
                                     </div>
                                     <div class="task p4">
-                                        <p>Завершити блок з цілями<span>...</span></p>
+                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                        <div class="scrolling__parent">
+                                            <p>
+                                                Щось реально дуже цікаве ага.
+                                            </p>
+                                        </div>
                                     </div>
                                     <div class="task p3">
-                                        <p>Завершити блок з цілями<span>...</span></p>
+                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                        <div class="scrolling__parent">
+                                            <p>
+                                                Щось реально дуже цікаве ага.
+                                            </p>
+                                        </div>
                                     </div>
                                     <div class="task p2">
-                                        <p>Завершити блок з цілями<span>...</span></p>
+                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                        <div class="scrolling__parent">
+                                            <p>
+                                                Щось реально дуже цікаве ага.
+                                            </p>
+                                        </div>
                                     </div>
                                     <div class="task p1">
-                                        <p>Завершити блок з цілями<span>...</span></p>
+                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                        <div class="scrolling__parent">
+                                            <p>
+                                                Щось реально дуже цікаве ага.
+                                            </p>
+                                        </div>
                                     </div>
                                     <div class="task p1">
-                                        <p>Завершити блок з цілями<span>...</span></p>
+                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                        <div class="scrolling__parent">
+                                            <p>
+                                                Щось реально дуже цікаве ага.
+                                            </p>
+                                        </div>
                                     </div>
                                     <div class="task p1">
-                                        <p>Завершити блок з цілями<span>...</span></p>
+                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                        <div class="scrolling__parent">
+                                            <p>
+                                                Щось реально дуже цікаве ага.
+                                            </p>
+                                        </div>
                                     </div>
                                     <div class="task p1">
-                                        <p>Завершити блок з цілями<span>...</span></p>
+                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                        <div class="scrolling__parent">
+                                            <p>
+                                                Щось реально дуже цікаве ага.
+                                            </p>
+                                        </div>
                                     </div>
                                     <div class="task p1">
-                                        <p>Завершити блок з цілями<span>...</span></p>
-                                    </div>
-                                    <div class="task p1">
-                                        <p>Завершити блок з цілями<span>...</span></p>
+                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                        <div class="scrolling__parent">
+                                            <p>
+                                                Щось реально дуже цікаве ага.
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -363,9 +405,16 @@ window.addEventListener('load', function () {
                 })
             }
         });
-        // SCROLLING TEXT FOR TASKS WHICH YOU`RE HOVERED ON
-            let tasks = document.querySelectorAll('.tasks__flex__block .task')
+        // SCROLLING TEXT FOR TASKS WHICH YOU`RE HOVERED ON + CURSOR IF IT`S NOT REPLACED
+            let tasks = document.querySelectorAll('.tasks__flex__block .task, .days__flex__block .task')
             tasks.forEach(task => {
+                if(task.querySelector(".replace"))
+                {
+                    if(task.querySelector('.replace').style.display == 'block')
+                    {
+                        task.style.cursor = 'grab'
+                    }
+                }
                 task.querySelector('.scrolling__parent p').setAttribute('default_text', task.querySelector('.scrolling__parent p').innerHTML)
                 task.addEventListener('mouseover', function () {
                     let scrolling__text = task.querySelector('.scrolling__parent p')
@@ -392,50 +441,83 @@ window.addEventListener('load', function () {
                 document.querySelectorAll('.priority')[4].dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
             })
         });
+        // HINT ON REQUIRED TASKS HOVER
+            tippy('.required', {
+                placement: 'right',
+                content: 'Це важливе завдання для досягнення вашої цілі цього тижня. Натисніть на нього, щоб внести необхідну інформацію.',
+                sticky: true,
+            })
+            tippy('.tasks__flex__block .task__create', {
+                placement: 'right',
+                content: 'Створити нове завдання',
+                sticky: true,
+            })
+            tippy('.tasks__flex__block .completed', {
+                placement: 'right',
+                content: 'Це завдання виконано',
+                sticky: true,
+            })
+            tippy('.tasks__flex__block .replace', {
+                placement: 'right',
+                content: 'Перетягніть це завдання на день, до якого ви хотіли б його виконати',
+                sticky: true,
+            })
 
     // HANDLING DAY__BLOCKS` VIEW
-        let days__flex__blocks = document.querySelectorAll(".days__flex__block")
-        days__flex__blocks.forEach(flex__block => {
-            // FLEX BLOCK`S ELEMENTS
-            let title = flex__block.querySelector('.title')
-            let flex = flex__block.querySelector('.flex')
-            // BEFORE SHOWING ELEMENT
-            let title__p = title.querySelector('p')
-            if(!isWithinFiveDays(title__p.innerText))
-            {
-                flex__block.parentElement.remove()
-            } else
-            {
-                title__p.innerText = new Date(title__p.innerText).toLocaleDateString('uk-UA', { day: 'numeric', month: 'long' })
-                let title__h1 = title.querySelector('h1')
-                title__h1.innerText = getDayName(title__h1.innerText)
-                // FLEX BLOCK`S ORIGINAL HEIGHT
-                flex.style.overflow = 'visible'
-                let flex__height = flex.offsetHeight
-                let flex__top = flex__height-154+'px'
-                // AFTER DECLARING FLEX HEIGHT HIDE IT
-                flex.style.overflow = 'hidden'
-                flex.style.maxHeight = '154px'
-                // SHOW FULL CONTENT ON HOVER
-                    // TIMEOUT TO SET THE FLEX BLOCK TO POSITION RELATIVE
-                    let positionRelativeTimeOut = null
-                    // ON HOVER WE SHOW WHATS INSIDE THE FLEX BLOCK
-                    flex__block.addEventListener('mouseenter', function () {
-                        clearTimeout(positionRelativeTimeOut)
-                        flex__block.style.position = 'absolute'
-                        flex.style.maxHeight = flex__height+'px'
-                    });
-                    // ON LEAVE WE SET FLEX BLOCK TO THE DEFAULT POSITION
-                    flex__block.addEventListener('mouseleave', function () {
-                        flex.style.maxHeight = '154px'
-                        positionRelativeTimeOut = setTimeout(() => {
-                            flex__block.style.position = 'relative'
-                            positionRelativeTimeOut = null
-                        }, 300);
-                    });
-            }
-
-        });
+        let handled = false
+        function days__flex__block__handle()
+        {
+            let days__flex__blocks = document.querySelectorAll(".days__flex__block")
+            days__flex__blocks.forEach(flex__block => {
+                // FLEX BLOCK`S ELEMENTS
+                let title = flex__block.querySelector('.title')
+                let flex = flex__block.querySelector('.flex')
+                // BEFORE SHOWING ELEMENT
+                let title__p = title.querySelector('p')
+                if(!isWithinFiveDays(title__p.innerText) && !handled)
+                {
+                    flex__block.parentElement.remove()
+                } else
+                {
+                    if(!handled)
+                    {
+                        title__p.innerText = new Date(title__p.innerText).toLocaleDateString('uk-UA', { day: 'numeric', month: 'long' })
+                        let title__h1 = title.querySelector('h1')
+                        title__h1.innerText = getDayName(title__h1.innerText)
+                    }
+                    flex.style.maxHeight = ''
+                    // FLEX BLOCK`S ORIGINAL HEIGHT
+                    flex.style.overflow = 'visible'
+                    let flex__height = flex.offsetHeight
+                    console.log(flex__height)
+                    let flex__top = flex__height-154+'px'
+                    // AFTER DECLARING FLEX HEIGHT HIDE IT
+                    flex.style.overflow = 'hidden'
+                    flex.style.maxHeight = '154px'
+                    // SHOW FULL CONTENT ON HOVER
+                        // TIMEOUT TO SET THE FLEX BLOCK TO POSITION RELATIVE
+                        let positionRelativeTimeOut = null
+                        // ON HOVER WE SHOW WHATS INSIDE THE FLEX BLOCK
+                        flex__block.addEventListener('mouseenter', function () {
+                            console.log(1)
+                            clearTimeout(positionRelativeTimeOut)
+                            flex__block.style.position = 'absolute'
+                            flex.style.maxHeight = flex__height+'px'
+                        });
+                        // ON LEAVE WE SET FLEX BLOCK TO THE DEFAULT POSITION
+                        flex__block.addEventListener('mouseleave', function () {
+                            flex.style.maxHeight = '154px'
+                            positionRelativeTimeOut = setTimeout(() => {
+                                flex__block.style.position = 'relative'
+                                positionRelativeTimeOut = null
+                            }, 300);
+                        });
+                }
+            });
+            handled = true
+        }
+        days__flex__block__handle()
+        days__flex__block__handle()
 
     // HANDLING MODAL
         function task__create__modal__open(element)
@@ -602,126 +684,215 @@ window.addEventListener('load', function () {
         loader__parent.style.display = 'none'
         whole__content.style.animation = 'appear__opacity 0.5s forwards'
 
+    // DRAGGING ELEMENTS
+    let draggableElements = document.querySelectorAll('.task:has(.replace)')
+    let draggingElement = null
+    draggableElements.forEach(draggable => {
+        draggable.setAttribute('draggable', 'true')
+        draggable.addEventListener('dragstart', function() {
+            draggingElement = draggable
+        })
+    });
+    function updateDropAreas()
+    {
+        let dropAreas = document.querySelectorAll('.days__flex__block')
+        dropAreas.forEach(dropArea => {
+            let flex = dropArea.querySelector('.flex')
+            dropArea.querySelectorAll('.task').forEach(task => {
+                let underline = document.createElement('div')
+                underline.classList.add('dragging__underline')
+                task.addEventListener('dragover', function (e) {
+                    if(!task.querySelector('.underline'))
+                    {
+                        if(!flex.querySelector('.task__preview'))
+                        {
+                            let new__task = document.createElement('div')
+                            new__task.classList.add('task__preview')
+                            draggingElement.classList.forEach(clas => {
+                                new__task.classList.add(clas)
+                            });
+                            new__task.innerHTML = draggingElement.innerHTML
+                            appendAfter(new__task, task)
+                            new__task.querySelector('.replace').remove()
+                        }
+                        task.append(underline)
+                    }
+                })
+                task.addEventListener('dragleave', function (e) {
+                    if(flex.querySelector('.task__preview'))
+                    {
+                        flex.querySelector('.task__preview').remove()
+                    }
+                    underline.remove()
+                })
+                task.addEventListener('drop', function () {
+                    if(!flex.querySelector('.task__preview'))
+                    {
+                        let new__task = document.createElement('div')
+                        new__task.classList.add('task__preview')
+                        draggingElement.classList.forEach(clas => {
+                            new__task.classList.add(clas)
+                        });
+                        new__task.innerHTML = draggingElement.innerHTML
+                        appendAfter(new__task, task)
+                        new__task.querySelector('.replace').remove()
+                        new__task.classList.remove('task__preview')
+                    } else
+                    {
+                        flex.querySelector('.task__preview').classList.remove('task__preview')
+                    }
+                    underline.remove()
+                    days__flex__block__handle()
+                    updateDropAreas()
+                })
+            });
+            dropArea.addEventListener('dragover', function (e) {
+                e.preventDefault();
+                dropArea.dispatchEvent(new MouseEvent('mouseenter'))
+            })
+            dropArea.addEventListener('dragleave', function (e) {
+                if(e.target.classList.contains('days__flex__block'))
+                {
+                    dropArea.dispatchEvent(new MouseEvent('mouseleave'))
+                }
+            })
+        });
+    }
+    updateDropAreas()
 })
 
-// GET DAY NAME
-function getDayName(dayNumber) {
-    const date = new Date();
-    const currentDay = date.getDay()
-    const offset = (currentDay === 0 ? 7 : currentDay) - 1
-    date.setDate(date.getDate() - offset + (dayNumber - 1));
-    return date.toLocaleDateString('uk-UA', { weekday: 'long' });
-}
-// IS IT TODAY OR 4 DAYS LATER
-function isWithinFiveDays(dateString) {
-    let givenDate = new Date(dateString);
-    let today = new Date();
-    today.setHours(0, 0, 0, 0); // Reset to midnight for accurate comparison
+// ADDITIONAL FUNCTIONS
 
-    let fiveDaysLater = new Date(today);
-    fiveDaysLater.setDate(today.getDate() + 5); // Calculate date 5 days later
-
-    return givenDate >= today && givenDate <= fiveDaysLater;
-}
-// FIX IMAGES` VIEW
-    function fixImage(element)
-    {
-        let width = element.naturalWidth;
-        let height = element.naturalHeight;
-        if(width > height)
-        {
-            element.style.cssText = `height: 239px;`
-        } else
-        {
-            element.style.cssText = `width: 239px;`
+    // GET DAY NAME
+        function getDayName(dayNumber) {
+            const date = new Date();
+            const currentDay = date.getDay()
+            const offset = (currentDay === 0 ? 7 : currentDay) - 1
+            date.setDate(date.getDate() - offset + (dayNumber - 1));
+            return date.toLocaleDateString('uk-UA', { weekday: 'long' });
         }
-    }
+    // IS IT TODAY OR 4 DAYS LATER
+        function isWithinFiveDays(dateString) {
+            let givenDate = new Date(dateString);
+            let today = new Date();
+            today.setHours(0, 0, 0, 0); // Reset to midnight for accurate comparison
 
-// SMOOTH SCROLLING FUNCTIONS
-    let isScrolling = false
+            let fiveDaysLater = new Date(today);
+            fiveDaysLater.setDate(today.getDate() + 5); // Calculate date 5 days later
 
-    function isElementFullyVisible(container, element) {
-        const containerRect = container.getBoundingClientRect();
-        const elementRect = element.getBoundingClientRect();
-
-        const fullyVisibleVertically = elementRect.top >= containerRect.top && elementRect.bottom <= containerRect.bottom;
-        const fullyVisibleHorizontally = elementRect.left >= containerRect.left && elementRect.right <= containerRect.right;
-
-        return fullyVisibleVertically && fullyVisibleHorizontally;
-    }
-
-    function scrollElementIntoView(container, element) {
-        const containerRect = container.getBoundingClientRect();
-        const elementRect = element.getBoundingClientRect();
-
-        const containerScrollTop = container.scrollTop;
-        const containerScrollLeft = container.scrollLeft;
-
-        document.querySelectorAll('.tasks__flex__block').forEach(flex__block => {
-            flex__block.style.position = 'relative'
-            flex__block.style.marginLeft = '0'
-        });
-
-        if (elementRect.left < containerRect.left) {
-            container.scrollLeft = containerScrollLeft - (containerRect.left - elementRect.left);
-        } else if (elementRect.right > containerRect.right) {
-            container.scrollLeft = containerScrollLeft + (elementRect.right - containerRect.right);
+            return givenDate >= today && givenDate <= fiveDaysLater;
         }
-    }
+    // FIX IMAGES` VIEW
+        function fixImage(element)
+        {
+            let width = element.naturalWidth;
+            let height = element.naturalHeight;
+            if(width > height)
+            {
+                element.style.cssText = `height: 239px;`
+            } else
+            {
+                element.style.cssText = `width: 239px;`
+            }
+        }
 
-    function handleSmoothScroll(scrollBlock) {
-        let targetScrollLeft = 0
-        let currentScrollLeft = 0
+    // SMOOTH SCROLLING FUNCTIONS
+        let isScrolling = false
 
-        function smoothScroll() {
-            if (isScrolling) {
+        function isElementFullyVisible(container, element) {
+            const containerRect = container.getBoundingClientRect();
+            const elementRect = element.getBoundingClientRect();
+
+            const fullyVisibleVertically = elementRect.top >= containerRect.top && elementRect.bottom <= containerRect.bottom;
+            const fullyVisibleHorizontally = elementRect.left >= containerRect.left && elementRect.right <= containerRect.right;
+
+            return fullyVisibleVertically && fullyVisibleHorizontally;
+        }
+
+        function scrollElementIntoView(container, element) {
+            const containerRect = container.getBoundingClientRect();
+            const elementRect = element.getBoundingClientRect();
+
+            const containerScrollTop = container.scrollTop;
+            const containerScrollLeft = container.scrollLeft;
+
+            document.querySelectorAll('.tasks__flex__block').forEach(flex__block => {
+                flex__block.style.position = 'relative'
+                flex__block.style.marginLeft = '0'
+            });
+
+            if (elementRect.left < containerRect.left) {
+                container.scrollLeft = containerScrollLeft - (containerRect.left - elementRect.left);
+            } else if (elementRect.right > containerRect.right) {
+                container.scrollLeft = containerScrollLeft + (elementRect.right - containerRect.right);
+            }
+        }
+
+        function handleSmoothScroll(scrollBlock) {
+            let targetScrollLeft = 0
+            let currentScrollLeft = 0
+
+            function smoothScroll() {
+                if (isScrolling) {
 
 
-                document.querySelectorAll('.tasks__flex__block').forEach(flex__block => {
-                    flex__block.querySelector('.flex').style.transition = '0'
-                    if(flex__block.querySelector('.image'))
-                    {
-                        flex__block.querySelector('.image').style.transition = '0'
-                        flex__block.querySelector('.image').style.bottom = (154+flex__block.querySelector('.title').offsetHeight+25)+'px'
+                    document.querySelectorAll('.tasks__flex__block').forEach(flex__block => {
+                        flex__block.querySelector('.flex').style.transition = '0'
+                        if(flex__block.querySelector('.image'))
+                        {
+                            flex__block.querySelector('.image').style.transition = '0'
+                            flex__block.querySelector('.image').style.bottom = (154+flex__block.querySelector('.title').offsetHeight+25)+'px'
+                        }
+                        flex__block.querySelector('.flex').style.maxHeight = '154px'
+                        flex__block.style.position = 'relative'
+                        flex__block.style.marginLeft = '0'
+                        flex__block.querySelector('.flex').style.transition = '0.3s'
+                        if(flex__block.querySelector('.image'))
+                        {
+                            flex__block.querySelector('.image').style.transition = '0.3s'
+                        }
+                    });
+
+                    const scrollDiff = targetScrollLeft - currentScrollLeft
+
+                    if (Math.abs(scrollDiff) < 1) {
+                        isScrolling = false
+                        return
                     }
-                    flex__block.querySelector('.flex').style.maxHeight = '154px'
-                    flex__block.style.position = 'relative'
-                    flex__block.style.marginLeft = '0'
-                    flex__block.querySelector('.flex').style.transition = '0.3s'
-                    if(flex__block.querySelector('.image'))
-                    {
-                        flex__block.querySelector('.image').style.transition = '0.3s'
-                    }
-                });
 
-                const scrollDiff = targetScrollLeft - currentScrollLeft
+                    currentScrollLeft += scrollDiff * 0.1
+                    scrollBlock.scrollLeft = currentScrollLeft
 
-                if (Math.abs(scrollDiff) < 1) {
-                    isScrolling = false
-                    return
+                    requestAnimationFrame(smoothScroll)
                 }
+            }
 
-                currentScrollLeft += scrollDiff * 0.1
-                scrollBlock.scrollLeft = currentScrollLeft
+            scrollBlock.addEventListener('wheel', function(e) {
+                e.preventDefault()
 
-                requestAnimationFrame(smoothScroll)
+                targetScrollLeft += e.deltaY
+
+                targetScrollLeft = Math.max(0, Math.min(targetScrollLeft, scrollBlock.scrollWidth - scrollBlock.clientWidth))
+
+                if (!isScrolling) {
+                    isScrolling = true
+                    currentScrollLeft = scrollBlock.scrollLeft
+                    smoothScroll()
+                }
+            })
+        }
+    // APPEND AFTER
+        function appendAfter(newElement, targetElement) {
+            const parent = targetElement.parentNode;
+
+            if (parent.lastChild === targetElement) {
+                parent.appendChild(newElement);
+            } else {
+                parent.insertBefore(newElement, targetElement.nextSibling);
             }
         }
 
-        scrollBlock.addEventListener('wheel', function(e) {
-            e.preventDefault()
-
-            targetScrollLeft += e.deltaY
-
-            targetScrollLeft = Math.max(0, Math.min(targetScrollLeft, scrollBlock.scrollWidth - scrollBlock.clientWidth))
-
-            if (!isScrolling) {
-                isScrolling = true
-                currentScrollLeft = scrollBlock.scrollLeft
-                smoothScroll()
-            }
-        })
-    }
+// DRAGGING ELEMENTS
 
 </script>
 
