@@ -700,7 +700,7 @@ window.addEventListener('load', function () {
             let flex = dropArea.querySelector('.flex')
             dropArea.querySelectorAll('.task').forEach(task => {
                 task.addEventListener('dragover', function (e) {
-                    if(!task.querySelector('.underline'))
+                    if(!task.classList.contains('dragging__underline'))
                     {
                         task.classList.add('dragging__underline')
                     }
@@ -742,7 +742,7 @@ window.addEventListener('load', function () {
                     draggingElement.querySelector('.replace').remove()
                     draggingElement.removeAttribute('draggable')
                     draggingElement.style.cursor = 'pointer'
-                    underline.remove()
+                    task.classList.remove('dragging__underline')
                     days__flex__block__handle()
                     updateDropAreas()
                 })
