@@ -276,6 +276,16 @@ window.addEventListener('load', function () {
             // FLEX BLOCK`S ELEMENTS
             let title = flex__block.querySelector('.title')
             let flex = flex__block.querySelector('.flex')
+            let tasks = flex.querySelectorAll('.task')
+            tasks.forEach(task => {
+                if(task.querySelector(".replace"))
+                {
+                    if(task.querySelector('.replace').style.display == 'block')
+                    {
+                        task.style.cursor = 'grab'
+                    }
+                }
+            });
             let image = flex__block.querySelector('.image')
             // IF BLOCK HAS IMAGE (NOT UNFINISHED) - FIX THE IMAGE
             if(image && image.querySelector('img'))
@@ -334,37 +344,6 @@ window.addEventListener('load', function () {
                 })
             }
         });
-        // SCROLLING TEXT FOR TASKS WHICH YOU`RE HOVERED ON + CURSOR IF IT`S NOT REPLACED
-            function updateScrollingText()
-            {
-                let tasks = document.querySelectorAll('.tasks__flex__block .task, .days__flex__block .task')
-                tasks.forEach(task => {
-                    if(task.querySelector(".replace"))
-                    {
-                        if(task.querySelector('.replace').style.display == 'block')
-                        {
-                            task.style.cursor = 'grab'
-                        }
-                    }
-                    task.querySelector('.scrolling__parent p').setAttribute('default_text', task.querySelector('.scrolling__parent p').innerHTML)
-                    task.addEventListener('mouseover', function () {
-                        let scrolling__text = task.querySelector('.scrolling__parent p')
-                        if(scrolling__text.offsetWidth > 196)
-                        {
-                            scrolling__text.innerHTML = scrolling__text.attributes.default_text.value+scrolling__text.attributes.default_text.value
-                            scrolling__text.style.animation = 'scroll-text 5s linear infinite'
-                        }
-                    })
-                    task.addEventListener('mouseleave', function () {
-                        let scrolling__text = task.querySelector('.scrolling__parent p')
-                        if(scrolling__text.offsetWidth > 196)
-                        {
-                            scrolling__text.style.animation = ''
-                        }
-                    })
-                });
-            }
-            updateScrollingText()
         // REQUIRED BLOCKS ADD CLICK EVENT TO CREATING WITH 5TH PRIORITY
         let requireds = document.querySelectorAll('.required')
         requireds.forEach(required => {
@@ -415,7 +394,6 @@ window.addEventListener('load', function () {
                 flex.append(new__task)
             } else
             {
-                console.log(1)
                 new__task.classList.add('task__preview')
                 appendAfter(new__task, after__task)
             }
@@ -745,6 +723,30 @@ window.addEventListener('load', function () {
 
 // ADDITIONAL FUNCTIONS
 
+    // SCROLLING TEXT FOR TASKS WHICH YOU`RE HOVERED ON + CURSOR IF IT`S NOT REPLACED
+    function updateScrollingText()
+        {
+            let tasks = document.querySelectorAll('.tasks__flex__block .task, .days__flex__block .task')
+            tasks.forEach(task => {
+                task.querySelector('.scrolling__parent p').setAttribute('default_text', task.querySelector('.scrolling__parent p').innerHTML)
+                task.addEventListener('mouseover', function () {
+                    let scrolling__text = task.querySelector('.scrolling__parent p')
+                    if(scrolling__text.offsetWidth > 196)
+                    {
+                        scrolling__text.innerHTML = scrolling__text.attributes.default_text.value+scrolling__text.attributes.default_text.value
+                        scrolling__text.style.animation = 'scroll-text 5s linear infinite'
+                    }
+                })
+                task.addEventListener('mouseleave', function () {
+                    let scrolling__text = task.querySelector('.scrolling__parent p')
+                    if(scrolling__text.offsetWidth > 196)
+                    {
+                        scrolling__text.style.animation = ''
+                    }
+                })
+            });
+        }
+        updateScrollingText()
     // GET DAY NAME
         function getDayName(dayNumber) {
             const date = new Date();
