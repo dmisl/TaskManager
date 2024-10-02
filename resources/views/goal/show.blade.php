@@ -145,78 +145,7 @@
                                     </div>
                                 </div>
                                 <div class="flex" day="{{ $day->day_number }}">
-                                    <div class="task p5">
-                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="'display: block;">
-                                        <div class="scrolling__parent">
-                                            <p>
-                                                Щось реально дуже цікаве ага.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="task p4">
-                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: block;">
-                                        <div class="scrolling__parent">
-                                            <p>
-                                                Щось реально дуже цікаве ага.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="task p3">
-                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: block;">
-                                        <div class="scrolling__parent">
-                                            <p>
-                                                Щось реально дуже цікаве ага.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="task p2">
-                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: block;">
-                                        <div class="scrolling__parent">
-                                            <p>
-                                                Щось реально дуже цікаве ага.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="task p1">
-                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: block;">
-                                        <div class="scrolling__parent">
-                                            <p>
-                                                Щось реально дуже цікаве ага.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="task p1">
-                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: block;">
-                                        <div class="scrolling__parent">
-                                            <p>
-                                                Щось реально дуже цікаве ага.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="task p1">
-                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: block;">
-                                        <div class="scrolling__parent">
-                                            <p>
-                                                Щось реально дуже цікаве ага.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="task p1">
-                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: block;">
-                                        <div class="scrolling__parent">
-                                            <p>
-                                                Щось реально дуже цікаве ага.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="task p1">
-                                        <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: block;">
-                                        <div class="scrolling__parent">
-                                            <p>
-                                                Щось реально дуже цікаве ага.
-                                            </p>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -472,6 +401,10 @@ window.addEventListener('load', function () {
                 // FLEX BLOCK`S ELEMENTS
                 let title = flex__block.querySelector('.title')
                 let flex = flex__block.querySelector('.flex')
+                if(flex.offsetHeight < 154)
+                {
+                    flex.style.height = '154px'
+                }
                 // BEFORE SHOWING ELEMENT
                 let title__p = title.querySelector('p')
                 if(!isWithinFiveDays(title__p.innerText) && !handled)
@@ -485,33 +418,59 @@ window.addEventListener('load', function () {
                         let title__h1 = title.querySelector('h1')
                         title__h1.innerText = getDayName(title__h1.innerText)
                     }
-                    flex.style.maxHeight = ''
-                    // FLEX BLOCK`S ORIGINAL HEIGHT
-                    flex.style.overflow = 'visible'
-                    let flex__height = flex.offsetHeight
-                    console.log(flex__height)
-                    let flex__top = flex__height-154+'px'
-                    // AFTER DECLARING FLEX HEIGHT HIDE IT
-                    flex.style.overflow = 'hidden'
-                    flex.style.maxHeight = '154px'
-                    // SHOW FULL CONTENT ON HOVER
-                        // TIMEOUT TO SET THE FLEX BLOCK TO POSITION RELATIVE
-                        let positionRelativeTimeOut = null
-                        // ON HOVER WE SHOW WHATS INSIDE THE FLEX BLOCK
-                        flex__block.addEventListener('mouseenter', function () {
-                            console.log(1)
-                            clearTimeout(positionRelativeTimeOut)
-                            flex__block.style.position = 'absolute'
-                            flex.style.maxHeight = flex__height+'px'
-                        });
-                        // ON LEAVE WE SET FLEX BLOCK TO THE DEFAULT POSITION
-                        flex__block.addEventListener('mouseleave', function () {
-                            flex.style.maxHeight = '154px'
-                            positionRelativeTimeOut = setTimeout(() => {
-                                flex__block.style.position = 'relative'
-                                positionRelativeTimeOut = null
-                            }, 300);
-                        });
+                    // check if day has tasks inside it
+                    if(!flex.querySelector('.task'))
+                    {
+                        if(flex.querySelector('.first__task'))
+                        {
+                            flex.querySelector('.first__task').remove()
+                        }
+                        let first__task
+                        first__task = document.createElement('div')
+                        first__task.classList.add('first__task')
+                        first__task.innerHTML = `Перетягніть сюди своє перше завдання`
+                        flex.append(first__task)
+                        first__task.addEventListener('dragenter', function () {
+                            first__task.innerHTML = `Відпустіть мишку щоб розмістити тут своє завдання`
+                        })
+                        first__task.addEventListener('dragleave', function () {
+                            first__task.innerHTML = `Перетягніть сюди своє перше завдання`
+                        })
+                        first__task.addEventListener('drop', function () {
+                            console.log(draggingElement)
+                        })
+                    } else
+                    {
+                        if(flex.querySelector('.first__task'))
+                        {
+                            flex.querySelector('.first__task').remove()
+                        }
+                        flex.style.maxHeight = ''
+                        // FLEX BLOCK`S ORIGINAL HEIGHT
+                        flex.style.overflow = 'visible'
+                        let flex__height = flex.offsetHeight
+                        let flex__top = flex__height-154+'px'
+                        // AFTER DECLARING FLEX HEIGHT HIDE IT
+                        flex.style.overflow = 'hidden'
+                        flex.style.maxHeight = '154px'
+                        // SHOW FULL CONTENT ON HOVER
+                            // TIMEOUT TO SET THE FLEX BLOCK TO POSITION RELATIVE
+                            let positionRelativeTimeOut = null
+                            // ON HOVER WE SHOW WHATS INSIDE THE FLEX BLOCK
+                            flex__block.addEventListener('mouseenter', function () {
+                                clearTimeout(positionRelativeTimeOut)
+                                flex__block.style.position = 'absolute'
+                                flex.style.maxHeight = flex__height+'px'
+                            });
+                            // ON LEAVE WE SET FLEX BLOCK TO THE DEFAULT POSITION
+                            flex__block.addEventListener('mouseleave', function () {
+                                flex.style.maxHeight = '154px'
+                                positionRelativeTimeOut = setTimeout(() => {
+                                    flex__block.style.position = 'relative'
+                                    positionRelativeTimeOut = null
+                                }, 300);
+                            });
+                    }
                 }
             });
             handled = true
