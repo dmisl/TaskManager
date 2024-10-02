@@ -335,32 +335,36 @@ window.addEventListener('load', function () {
             }
         });
         // SCROLLING TEXT FOR TASKS WHICH YOU`RE HOVERED ON + CURSOR IF IT`S NOT REPLACED
-            let tasks = document.querySelectorAll('.tasks__flex__block .task, .days__flex__block .task')
-            tasks.forEach(task => {
-                if(task.querySelector(".replace"))
-                {
-                    if(task.querySelector('.replace').style.display == 'block')
+            function updateScrollingText()
+            {
+                let tasks = document.querySelectorAll('.tasks__flex__block .task, .days__flex__block .task')
+                tasks.forEach(task => {
+                    if(task.querySelector(".replace"))
                     {
-                        task.style.cursor = 'grab'
+                        if(task.querySelector('.replace').style.display == 'block')
+                        {
+                            task.style.cursor = 'grab'
+                        }
                     }
-                }
-                task.querySelector('.scrolling__parent p').setAttribute('default_text', task.querySelector('.scrolling__parent p').innerHTML)
-                task.addEventListener('mouseover', function () {
-                    let scrolling__text = task.querySelector('.scrolling__parent p')
-                    if(scrolling__text.offsetWidth > 196)
-                    {
-                        scrolling__text.innerHTML = scrolling__text.attributes.default_text.value+scrolling__text.attributes.default_text.value
-                        scrolling__text.style.animation = 'scroll-text 5s linear infinite'
-                    }
-                })
-                task.addEventListener('mouseleave', function () {
-                    let scrolling__text = task.querySelector('.scrolling__parent p')
-                    if(scrolling__text.offsetWidth > 196)
-                    {
-                        scrolling__text.style.animation = ''
-                    }
-                })
-            });
+                    task.querySelector('.scrolling__parent p').setAttribute('default_text', task.querySelector('.scrolling__parent p').innerHTML)
+                    task.addEventListener('mouseover', function () {
+                        let scrolling__text = task.querySelector('.scrolling__parent p')
+                        if(scrolling__text.offsetWidth > 196)
+                        {
+                            scrolling__text.innerHTML = scrolling__text.attributes.default_text.value+scrolling__text.attributes.default_text.value
+                            scrolling__text.style.animation = 'scroll-text 5s linear infinite'
+                        }
+                    })
+                    task.addEventListener('mouseleave', function () {
+                        let scrolling__text = task.querySelector('.scrolling__parent p')
+                        if(scrolling__text.offsetWidth > 196)
+                        {
+                            scrolling__text.style.animation = ''
+                        }
+                    })
+                });
+            }
+            updateScrollingText()
         // REQUIRED BLOCKS ADD CLICK EVENT TO CREATING WITH 5TH PRIORITY
         let requireds = document.querySelectorAll('.required')
         requireds.forEach(required => {
@@ -393,6 +397,31 @@ window.addEventListener('load', function () {
             })
 
     // HANDLING DAY__BLOCKS` VIEW
+        function handle__new__task(flex, after__task = 0)
+        {
+            let new__task = document.createElement('div')
+            if(draggingElement.querySelector('.replace'))
+            {
+                draggingElement.querySelector('.replace').remove()
+            }
+            draggingElement.style.cursor = 'pointer'
+            for (let attribute of draggingElement.attributes) {
+                new__task.setAttribute(attribute.name, attribute.value)
+            }
+            new__task.innerHTML = draggingElement.innerHTML
+            new__task.querySelector('p').style.animation = ''
+            if(!after__task)
+            {
+                flex.append(new__task)
+            } else
+            {
+                console.log(1)
+                new__task.classList.add('task__preview')
+                appendAfter(new__task, after__task)
+            }
+            updateDropAreas()
+            updateScrollingText()
+        }
         let handled = false
         function days__flex__block__handle()
         {
@@ -437,7 +466,8 @@ window.addEventListener('load', function () {
                             first__task.innerHTML = `Перетягніть сюди своє перше завдання`
                         })
                         first__task.addEventListener('drop', function () {
-                            console.log(draggingElement)
+                            first__task.remove()
+                            handle__new__task(flex)
                         })
                     } else
                     {
@@ -652,59 +682,51 @@ window.addEventListener('load', function () {
             draggingElement = draggable
         })
     });
+    function day__task__dragover(e) {
+        let task = e.currentTarget
+        let flex = task.parentElement
+        if(!task.classList.contains('dragging__underline'))
+        {
+            task.classList.add('dragging__underline')
+        }
+        if(!flex.querySelector('.task__preview'))
+        {
+            handle__new__task(flex, task)
+        }
+    }
+    function day__task__dragleave(e) {
+        let task = e.currentTarget
+        let flex = task.parentElement
+        if(task && flex)
+        {
+            if(flex.querySelector('.task__preview'))
+            {
+                flex.querySelector('.task__preview').remove()
+            }
+            task.classList.remove('dragging__underline')
+        }
+    }
+    function day__task__drop(e) {
+        let task = e.currentTarget
+        let flex = task.parentElement
+        if(!flex.querySelector('.task__preview'))
+        {
+            handle__new__task(flex, task)
+        } else
+        {
+            flex.querySelector('.task__preview').classList.remove('task__preview')
+        }
+        task.classList.remove('dragging__underline')
+    }
     function updateDropAreas()
     {
         let dropAreas = document.querySelectorAll('.days__flex__block')
         dropAreas.forEach(dropArea => {
             let flex = dropArea.querySelector('.flex')
             dropArea.querySelectorAll('.task').forEach(task => {
-                task.addEventListener('dragover', function (e) {
-                    if(!task.classList.contains('dragging__underline'))
-                    {
-                        task.classList.add('dragging__underline')
-                    }
-                    if(!flex.querySelector('.task__preview'))
-                    {
-                        let new__task = document.createElement('div')
-                        new__task.classList.add('task__preview')
-                        draggingElement.classList.forEach(clas => {
-                            new__task.classList.add(clas)
-                        });
-                        new__task.innerHTML = draggingElement.innerHTML
-                        appendAfter(new__task, task)
-                        new__task.querySelector('.replace').remove()
-                    }
-                })
-                task.addEventListener('dragleave', function (e) {
-                    if(flex.querySelector('.task__preview'))
-                    {
-                        flex.querySelector('.task__preview').remove()
-                    }
-                    task.classList.remove('dragging__underline')
-                })
-                task.addEventListener('drop', function () {
-                    if(!flex.querySelector('.task__preview'))
-                    {
-                        let new__task = document.createElement('div')
-                        new__task.classList.add('task__preview')
-                        draggingElement.classList.forEach(clas => {
-                            new__task.classList.add(clas)
-                        });
-                        new__task.innerHTML = draggingElement.innerHTML
-                        appendAfter(new__task, task)
-                        new__task.querySelector('.replace').remove()
-                        new__task.classList.remove('task__preview')
-                    } else
-                    {
-                        flex.querySelector('.task__preview').classList.remove('task__preview')
-                    }
-                    draggingElement.querySelector('.replace').remove()
-                    draggingElement.removeAttribute('draggable')
-                    draggingElement.style.cursor = 'pointer'
-                    task.classList.remove('dragging__underline')
-                    days__flex__block__handle()
-                    updateDropAreas()
-                })
+                task.addEventListener('dragover', day__task__dragover)
+                task.addEventListener('dragleave', day__task__dragleave)
+                task.addEventListener('drop', day__task__drop)
             });
             dropArea.addEventListener('dragover', function (e) {
                 e.preventDefault();
