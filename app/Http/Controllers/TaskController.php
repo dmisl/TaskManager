@@ -27,4 +27,10 @@ class TaskController extends Controller
         }
         return back();
     }
+    public function changeDate(Request $request)
+    {
+        return response()->json([
+            'data' => 'something'
+        ]);
+    }
 }

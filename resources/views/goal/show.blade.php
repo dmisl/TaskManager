@@ -257,6 +257,18 @@ window.addEventListener('load', function () {
     let whole__content = document.querySelector('.whole__content')
     let loader__parent = document.querySelector('.loader__parent')
 
+    let something = {
+        name: 'hello'
+    }
+
+    axios.post(`{{ route('task.changeDate') }}`,something)
+    .then(res => {
+        console.log(res)
+    })
+    .catch(err => {
+        console.error(err);
+    })
+
     // IF TASK FLEX DOESNT HAVE SCROLL BAR
         if(!(document.querySelector('.tasks__flex').scrollWidth > document.querySelector('.tasks__flex').clientWidth))
         {
