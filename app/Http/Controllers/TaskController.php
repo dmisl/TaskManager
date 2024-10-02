@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Day;
 use App\Models\Goal;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -27,10 +28,15 @@ class TaskController extends Controller
         }
         return back();
     }
-    public function changeDate(Request $request)
+    public function changeDay(Request $request)
     {
+        $day = Day::find($request->day_id);
+        $task = Task::find($request->task_id);
+        $task->update([
+            'day_id' => $day->id
+        ]);
         return response()->json([
-            'data' => 'something'
+            'data' => $task
         ]);
     }
 }

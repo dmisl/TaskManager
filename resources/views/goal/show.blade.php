@@ -144,7 +144,7 @@
                                         <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 60%; background-color: rgb(73, 230, 0);"></div>
                                     </div>
                                 </div>
-                                <div class="flex" day="{{ $day->day_number }}">
+                                <div class="flex" day_id="{{ $day->id }}">
 
                                 </div>
                             </div>
@@ -260,14 +260,6 @@ window.addEventListener('load', function () {
     let something = {
         name: 'hello'
     }
-
-    axios.post(`{{ route('task.changeDate') }}`,something)
-    .then(res => {
-        console.log(res)
-    })
-    .catch(err => {
-        console.error(err);
-    })
 
     // IF TASK FLEX DOESNT HAVE SCROLL BAR
         if(!(document.querySelector('.tasks__flex').scrollWidth > document.querySelector('.tasks__flex').clientWidth))
@@ -388,7 +380,7 @@ window.addEventListener('load', function () {
             })
 
     // HANDLING DAY__BLOCKS` VIEW
-        function handle__new__task(flex, after__task = 0)
+        function handle__new__task(flex, after__task = 0, drop = 1)
         {
             let new__task = document.createElement('div')
             if(draggingElement.querySelector('.replace'))
@@ -408,6 +400,23 @@ window.addEventListener('load', function () {
             {
                 new__task.classList.add('task__preview')
                 appendAfter(new__task, after__task)
+            }
+            if(drop)
+            {
+                let params = {
+                    day_id: flex.attributes.day_id.value,
+                    task_id: new__task.attributes.task_id.value
+                }
+                axios.post(`{{ route('task.changeDay') }}`, params)
+                .then(res => {
+                    console.log(res.data)
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+            } else
+            {
+                console.log(2)
             }
             updateDropAreas()
             updateScrollingText()
@@ -681,7 +690,7 @@ window.addEventListener('load', function () {
         }
         if(!flex.querySelector('.task__preview'))
         {
-            handle__new__task(flex, task)
+            handle__new__task(flex, task, 0)
         }
     }
     function day__task__dragleave(e) {
@@ -706,6 +715,17 @@ window.addEventListener('load', function () {
         {
             flex.querySelector('.task__preview').classList.remove('task__preview')
         }
+        let params = {
+            day_id: flex.attributes.day_id.value,
+            task_id: new__task.attributes.task_id.value
+        }
+        axios.post(`{{ route('task.changeDay') }}`, params)
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => {
+            console.error(err);
+        })
         task.classList.remove('dragging__underline')
     }
     function updateDropAreas()
