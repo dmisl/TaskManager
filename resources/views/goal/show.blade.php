@@ -17,7 +17,7 @@
             <div class="tasks__flex__container">
                 <div class="tasks__flex" id="x-custom__scrollbar">
                     {{-- UNFINISHED --}}
-                        <div class="tasks__flex__block__parent">
+                        {{-- <div class="tasks__flex__block__parent">
                             <div class="tasks__flex__block unfinished">
                                 <div class="title">
                                     Незавершені
@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     {{-- SHOWING ALL GOALS AS FLEX BLOCKS --}}
                     @foreach($goals as $goal)
                         <div class="tasks__flex__block__parent">
@@ -82,9 +82,11 @@
                                             </div>
                                         @endfor
                                         @foreach($goal->tasks()->where('priority', 5)->get() as $task)
-                                            <div class="task p5" task_id="{{ $task->id }}">
+                                            <div class="task p5" task_id="{{ $task->id }}" has_day="{{ $task->day_id ? 1 : 0 }}">
                                                 <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                                @if(!$task->day_id)
                                                 <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="{{ $task->day_id ? 'display: none;' : 'display: block;' }}">
+                                                @endif
                                                 <div class="scrolling__parent">
                                                     <p>
                                                         {{ $task->name }}
@@ -145,7 +147,14 @@
                                     </div>
                                 </div>
                                 <div class="flex" day_id="{{ $day->id }}">
-
+                                    @foreach($day->tasks as $task)
+                                        <div class="task p5" task_id="{{ $task->id }}" has_day="1">
+                                            <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: none;">
+                                            <div class="scrolling__parent" style="user-select: none;">
+                                                <p style="user-select: none;">{{ $task->name }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -388,6 +397,7 @@ window.addEventListener('load', function () {
                 draggingElement.querySelector('.replace').remove()
             }
             draggingElement.style.cursor = 'pointer'
+            draggingElement.setAttribute('has_day', 1)
             for (let attribute of draggingElement.attributes) {
                 new__task.setAttribute(attribute.name, attribute.value)
             }
@@ -396,6 +406,9 @@ window.addEventListener('load', function () {
             if(!after__task)
             {
                 flex.append(new__task)
+            } else if(drop == 1 && flex.querySelector('.task__preview'))
+            {
+
             } else
             {
                 new__task.classList.add('task__preview')
@@ -414,9 +427,17 @@ window.addEventListener('load', function () {
                 .catch(err => {
                     console.error(err);
                 })
-            } else
+            }
+            if(drop && draggingElement.parentElement.parentElement.classList.contains('days__flex__block'))
             {
-                console.log(2)
+                if(draggingElement.parentElement.querySelectorAll('.task').length == 1)
+                {
+                    draggingElement.remove()
+                    days__flex__block__handle()
+                } else
+                {
+                    draggingElement.remove()
+                }
             }
             updateDropAreas()
             updateScrollingText()
@@ -673,14 +694,19 @@ window.addEventListener('load', function () {
         whole__content.style.animation = 'appear__opacity 0.5s forwards'
 
     // DRAGGING ELEMENTS
-    let draggableElements = document.querySelectorAll('.task:has(.replace)')
     let draggingElement = null
-    draggableElements.forEach(draggable => {
-        draggable.setAttribute('draggable', 'true')
-        draggable.addEventListener('dragstart', function() {
-            draggingElement = draggable
-        })
-    });
+    function day__task__dragstart(e) {
+        draggingElement = e.currentTarget
+        if(e.currentTarget.parentElement.parentElement.classList.contains('days__flex__block'))
+        {
+            let flex = e.currentTarget.parentElement
+            flex.querySelectorAll('.task').forEach(task => {
+                task.removeEventListener('dragover', day__task__dragover)
+                task.removeEventListener('dragleave', day__task__dragleave)
+                task.removeEventListener('drop', day__task__drop)
+            });
+        }
+    }
     function day__task__dragover(e) {
         let task = e.currentTarget
         let flex = task.parentElement
@@ -708,28 +734,20 @@ window.addEventListener('load', function () {
     function day__task__drop(e) {
         let task = e.currentTarget
         let flex = task.parentElement
-        if(!flex.querySelector('.task__preview'))
-        {
-            handle__new__task(flex, task)
-        } else
+        handle__new__task(flex, task, 1)
+        if(flex.querySelector('.task__preview'))
         {
             flex.querySelector('.task__preview').classList.remove('task__preview')
         }
-        let params = {
-            day_id: flex.attributes.day_id.value,
-            task_id: new__task.attributes.task_id.value
-        }
-        axios.post(`{{ route('task.changeDay') }}`, params)
-        .then(res => {
-            console.log(res.data)
-        })
-        .catch(err => {
-            console.error(err);
-        })
         task.classList.remove('dragging__underline')
     }
     function updateDropAreas()
     {
+        let draggableElements = document.querySelectorAll('.tasks__flex .task[has_day="0"], .days__flex .task')
+        draggableElements.forEach(draggable => {
+            draggable.setAttribute('draggable', 'true')
+            draggable.addEventListener('dragstart', day__task__dragstart)
+        });
         let dropAreas = document.querySelectorAll('.days__flex__block')
         dropAreas.forEach(dropArea => {
             let flex = dropArea.querySelector('.flex')
@@ -756,10 +774,16 @@ window.addEventListener('load', function () {
 // ADDITIONAL FUNCTIONS
 
     // SCROLLING TEXT FOR TASKS WHICH YOU`RE HOVERED ON + CURSOR IF IT`S NOT REPLACED
-    function updateScrollingText()
+        function updateScrollingText()
         {
             let tasks = document.querySelectorAll('.tasks__flex__block .task, .days__flex__block .task')
             tasks.forEach(task => {
+                if(task.parentElement.parentElement.classList.contains('tasks__flex__block') && task.querySelector('.replace'))
+                {
+                    task.style.cursor = 'grab'
+                } else {
+                    task.style.cursor = 'pointer'
+                }
                 task.querySelector('.scrolling__parent p').setAttribute('default_text', task.querySelector('.scrolling__parent p').innerHTML)
                 task.addEventListener('mouseover', function () {
                     let scrolling__text = task.querySelector('.scrolling__parent p')
@@ -908,7 +932,6 @@ window.addEventListener('load', function () {
             }
         }
 
-// DRAGGING ELEMENTS
 
 </script>
 
