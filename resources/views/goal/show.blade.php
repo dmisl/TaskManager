@@ -265,11 +265,8 @@ window.addEventListener('load', function () {
 
     let whole__content = document.querySelector('.whole__content')
     let loader__parent = document.querySelector('.loader__parent')
-
-    let something = {
-        name: 'hello'
-    }
-
+    // HANDLING UNFINISHED TASKS BLOCK
+    
     // IF TASK FLEX DOESNT HAVE SCROLL BAR
         if(!(document.querySelector('.tasks__flex').scrollWidth > document.querySelector('.tasks__flex').clientWidth))
         {
@@ -422,10 +419,8 @@ window.addEventListener('load', function () {
                 }
                 axios.post(`{{ route('task.changeDay') }}`, params)
                 .then(res => {
-                    console.log(res.data)
                 })
                 .catch(err => {
-                    console.error(err);
                 })
             }
             if(drop && draggingElement.parentElement.parentElement.classList.contains('days__flex__block'))
@@ -694,81 +689,81 @@ window.addEventListener('load', function () {
         whole__content.style.animation = 'appear__opacity 0.5s forwards'
 
     // DRAGGING ELEMENTS
-    let draggingElement = null
-    function day__task__dragstart(e) {
-        draggingElement = e.currentTarget
-        if(e.currentTarget.parentElement.parentElement.classList.contains('days__flex__block'))
-        {
-            let flex = e.currentTarget.parentElement
-            flex.querySelectorAll('.task').forEach(task => {
-                task.removeEventListener('dragover', day__task__dragover)
-                task.removeEventListener('dragleave', day__task__dragleave)
-                task.removeEventListener('drop', day__task__drop)
-            });
+        let draggingElement = null
+        function day__task__dragstart(e) {
+            draggingElement = e.currentTarget
+            if(e.currentTarget.parentElement.parentElement.classList.contains('days__flex__block'))
+            {
+                let flex = e.currentTarget.parentElement
+                flex.querySelectorAll('.task').forEach(task => {
+                    task.removeEventListener('dragover', day__task__dragover)
+                    task.removeEventListener('dragleave', day__task__dragleave)
+                    task.removeEventListener('drop', day__task__drop)
+                });
+            }
         }
-    }
-    function day__task__dragover(e) {
-        let task = e.currentTarget
-        let flex = task.parentElement
-        if(!task.classList.contains('dragging__underline'))
-        {
-            task.classList.add('dragging__underline')
+        function day__task__dragover(e) {
+            let task = e.currentTarget
+            let flex = task.parentElement
+            if(!task.classList.contains('dragging__underline'))
+            {
+                task.classList.add('dragging__underline')
+            }
+            if(!flex.querySelector('.task__preview'))
+            {
+                handle__new__task(flex, task, 0)
+            }
         }
-        if(!flex.querySelector('.task__preview'))
-        {
-            handle__new__task(flex, task, 0)
+        function day__task__dragleave(e) {
+            let task = e.currentTarget
+            let flex = task.parentElement
+            if(task && flex)
+            {
+                if(flex.querySelector('.task__preview'))
+                {
+                    flex.querySelector('.task__preview').remove()
+                }
+                task.classList.remove('dragging__underline')
+            }
         }
-    }
-    function day__task__dragleave(e) {
-        let task = e.currentTarget
-        let flex = task.parentElement
-        if(task && flex)
-        {
+        function day__task__drop(e) {
+            let task = e.currentTarget
+            let flex = task.parentElement
+            handle__new__task(flex, task, 1)
             if(flex.querySelector('.task__preview'))
             {
-                flex.querySelector('.task__preview').remove()
+                flex.querySelector('.task__preview').classList.remove('task__preview')
             }
             task.classList.remove('dragging__underline')
         }
-    }
-    function day__task__drop(e) {
-        let task = e.currentTarget
-        let flex = task.parentElement
-        handle__new__task(flex, task, 1)
-        if(flex.querySelector('.task__preview'))
+        function updateDropAreas()
         {
-            flex.querySelector('.task__preview').classList.remove('task__preview')
-        }
-        task.classList.remove('dragging__underline')
-    }
-    function updateDropAreas()
-    {
-        let draggableElements = document.querySelectorAll('.tasks__flex .task[has_day="0"], .days__flex .task')
-        draggableElements.forEach(draggable => {
-            draggable.setAttribute('draggable', 'true')
-            draggable.addEventListener('dragstart', day__task__dragstart)
-        });
-        let dropAreas = document.querySelectorAll('.days__flex__block')
-        dropAreas.forEach(dropArea => {
-            let flex = dropArea.querySelector('.flex')
-            dropArea.querySelectorAll('.task').forEach(task => {
-                task.addEventListener('dragover', day__task__dragover)
-                task.addEventListener('dragleave', day__task__dragleave)
-                task.addEventListener('drop', day__task__drop)
+            let draggableElements = document.querySelectorAll('.tasks__flex .task[has_day="0"], .days__flex .task')
+            draggableElements.forEach(draggable => {
+                draggable.setAttribute('draggable', 'true')
+                draggable.addEventListener('dragstart', day__task__dragstart)
             });
-            dropArea.addEventListener('dragover', function (e) {
-                e.preventDefault();
-                dropArea.dispatchEvent(new MouseEvent('mouseenter'))
-            })
-            dropArea.addEventListener('dragleave', function (e) {
-                if(e.target.classList.contains('days__flex__block'))
-                {
-                    dropArea.dispatchEvent(new MouseEvent('mouseleave'))
-                }
-            })
-        });
-    }
-    updateDropAreas()
+            let dropAreas = document.querySelectorAll('.days__flex__block')
+            dropAreas.forEach(dropArea => {
+                let flex = dropArea.querySelector('.flex')
+                dropArea.querySelectorAll('.task').forEach(task => {
+                    task.addEventListener('dragover', day__task__dragover)
+                    task.addEventListener('dragleave', day__task__dragleave)
+                    task.addEventListener('drop', day__task__drop)
+                });
+                dropArea.addEventListener('dragover', function (e) {
+                    e.preventDefault();
+                    dropArea.dispatchEvent(new MouseEvent('mouseenter'))
+                })
+                dropArea.addEventListener('dragleave', function (e) {
+                    if(e.target.classList.contains('days__flex__block'))
+                    {
+                        dropArea.dispatchEvent(new MouseEvent('mouseleave'))
+                    }
+                })
+            });
+        }
+        updateDropAreas()
 })
 
 // ADDITIONAL FUNCTIONS
