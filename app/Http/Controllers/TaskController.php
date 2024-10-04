@@ -32,9 +32,12 @@ class TaskController extends Controller
     {
         $day = Day::find($request->day_id);
         $task = Task::find($request->task_id);
-        $task->update([
-            'day_id' => $day->id
-        ]);
+        if($day->week->user->id == Auth::id() && $task->goal->user->id == Auth::id())
+        {
+            $task->update([
+                'day_id' => $day->id
+            ]);
+        }
         return response()->json([
             'data' => $task
         ]);

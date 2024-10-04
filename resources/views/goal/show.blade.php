@@ -82,7 +82,7 @@
                                             </div>
                                         @endfor
                                         @foreach($goal->tasks()->where('priority', 5)->get() as $task)
-                                            <div class="task p5" task_id="{{ $task->id }}" has_day="{{ $task->day_id ? 1 : 0 }}">
+                                            <div class="task p5" task_id="{{ $task->id }}" day_id="{{ $task->day_id }}" has_day="{{ $task->day_id ? 1 : 0 }}">
                                                 <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
                                                 @if(!$task->day_id)
                                                 <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="{{ $task->day_id ? 'display: none;' : 'display: block;' }}">
@@ -266,7 +266,11 @@ window.addEventListener('load', function () {
     let whole__content = document.querySelector('.whole__content')
     let loader__parent = document.querySelector('.loader__parent')
     // HANDLING UNFINISHED TASKS BLOCK
-    
+    let allTasks = document.querySelectorAll('.tasks__flex .task:not(.required)')
+    allTasks.forEach(task => {
+        console.log(task.attributes)
+    });
+    // get all available tasks and handle them to show or hide becouse was completed yesterday + get them to unfinished block
     // IF TASK FLEX DOESNT HAVE SCROLL BAR
         if(!(document.querySelector('.tasks__flex').scrollWidth > document.querySelector('.tasks__flex').clientWidth))
         {

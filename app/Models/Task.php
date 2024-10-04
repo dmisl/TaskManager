@@ -15,6 +15,11 @@ class Task extends Model
         'name', 'desc', 'priority', 'completed', 'goal_id', 'day_id', 'position'
     ];
 
+    public function goal(): BelongsTo
+    {
+        return $this->belongsTo(Goal::class);
+    }
+
     public function day(): BelongsTo
     {
         return $this->belongsTo(Day::class);
