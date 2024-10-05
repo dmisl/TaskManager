@@ -602,3 +602,19 @@
     margin-left: 13px;
     margin-top: 4px;
 }
+.task__show__modal .task__show .content .date
+{
+    width: 260px;
+    height: 73px;
+    border-radius: 17px;
+    background-color: #FF9393;
+    margin-left: 17px;
+}
+.task__show__modal .task__show .content .date .text
+{
+    padding-top: 4px;
+    font-size: 22px;
+    margin-left: 15px;
+    color: #211AFF;
+    text-decoration: underline;
+}

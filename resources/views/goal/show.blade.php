@@ -299,6 +299,7 @@
                         </div>
                         <div class="date">
                             <h1>Потрібно виконати до</h1>
+                            <h1 class="text">6 жовтня, 2024</h1>
                         </div>
                     </div>
                 </div>
