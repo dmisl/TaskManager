@@ -302,6 +302,34 @@
                             <h1 class="text">6 жовтня, 2024</h1>
                         </div>
                     </div>
+                    <div class="flex__parent">
+                        <div class="left">
+                            <div class="desc">
+                                <h1>Детальніший опис</h1>
+                                <p>Якийсь більш детальніший опис цього завдання типу щось там доробити чи більше описані кроки до виконання</p>
+                            </div>
+                            <div class="goal">
+                                <h1>Відноситься до цілі:</h1>
+                                <h1 class="text">Знайти роботу програмістом</p>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="comment__parent">
+                                <div class="comments">
+                                    <div class="comment" style="font-size: 0;">
+                                        <p>Якийсь справді дуже цікавий коментар доданий до завдання</p>
+                                        <p class="datetime">2022-02-24 04:00:00</p>
+                                    </div>
+                                </div>
+                                <div class="comment__input__parent">
+                                    <input type="text" placeholder="Додати коментар">
+                                    <div class="submit__parent">
+                                        <img src="{{ asset('storage/images/send.png') }}" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
