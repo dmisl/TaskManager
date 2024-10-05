@@ -587,7 +587,7 @@
     border-radius: 17px;
     background-color: #ffd76a;
 }
-.task__show__modal .task__show .content .priority h1
+.task__show__modal .task__show .content h1
 {
     font-size: 21px;
     padding-top: 7px;
@@ -595,5 +595,10 @@
     margin-left: 14px;
     font-weight: 400;
 }
-
-
+.task__show__modal .task__show .content .priority__levels
+{
+    display: flex;
+    gap: 4px;
+    margin-left: 13px;
+    margin-top: 4px;
+}
