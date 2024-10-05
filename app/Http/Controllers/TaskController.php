@@ -16,6 +16,7 @@ class TaskController extends Controller
             'goal_id' => ['required'],
             'priority' => ['required', 'min:1', 'max:5'],
             'name' => ['required', 'string', 'min:5', 'max:50'],
+            'desc' => ['max:100'],
         ]);
         if(Goal::find($request->goal_id)->user_id == Auth::id())
         {
@@ -52,6 +53,7 @@ class TaskController extends Controller
             'date' => $task->day->date,
             'desc' => $task->desc,
             'priority' => $task->priority,
+            'comments' => $task->comments
         ]);
     }
 }
