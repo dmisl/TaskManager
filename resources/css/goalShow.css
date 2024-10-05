@@ -536,9 +536,9 @@
 }
 .task__show__modal .task__show
 {
-    width: 664px;
     height: 416px;
-    border-radius: 40px;
+    padding: 0 50px;
+    border-radius: 50px;
     background-color: white;
 }
 .task__show__modal .task__show .title
@@ -576,7 +576,6 @@
 .task__show__modal .task__show .content
 {
     width: 605px;
-    margin-left: 25px;
     margin-top: 16px;
     height: auto;
 }

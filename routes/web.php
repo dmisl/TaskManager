@@ -30,6 +30,7 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::get('home/goals/show/{id}', [GoalController::class, 'show'])->name('goal.show');
     Route::get('home/goals/create', [GoalController::class, 'create'])->name('goal.create');
     Route::post('home/goals/create', [GoalController::class, 'store'])->name('goal.store');
+    Route::post('home/task/getData', [TaskController::class, 'getData'])->name('task.getData');
     Route::post('home/task/create', [TaskController::class, 'store'])->name('task.store');
     Route::post('home/task/changeDay', [TaskController::class, 'changeDay'])->name('task.changeDay');
 

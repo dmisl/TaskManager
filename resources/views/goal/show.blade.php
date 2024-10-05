@@ -255,7 +255,7 @@
             </div>
 
         </div>
-        <div class="task__show__modal">
+        <div class="task__show__modal d-none">
             <div class="task__show">
                 <div class="title">
                     <div class="name">Назва завдання</div>
@@ -472,6 +472,7 @@ window.addEventListener('load', function () {
             }
             draggingElement.style.cursor = 'pointer'
             draggingElement.setAttribute('has_day', 1)
+            draggingElement.setAttribute('day_id', flex.attributes.day_id.value)
             for (let attribute of draggingElement.attributes) {
                 new__task.setAttribute(attribute.name, attribute.value)
             }
@@ -513,6 +514,7 @@ window.addEventListener('load', function () {
             }
             updateDropAreas()
             updateScrollingText()
+            update__task__shows()
         }
         let handled = false
         let available__days
@@ -603,6 +605,30 @@ window.addEventListener('load', function () {
         days__flex__block__handle()
     // HANDLING MODAL
         // TASK SHOW MODAL
+            let task__show__modal = document.querySelector('.task__show__modal')
+            function update__task__shows()
+            {
+                let task__shows = document.querySelectorAll('.tasks__flex .task:not(.required), .days__flex .task')
+                task__shows.forEach(task__show => {
+                    task__show.addEventListener('click', task__show__modal__open)
+                })
+            }
+            function task__show__modal__open(e)
+            {
+                let task = e.currentTarget
+                axios.post(`{{ route('task.getData') }}`,{id: task.attributes.task_id.value})
+                .then(res => {
+                    console.log(res.data)
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+                task__show__modal.classList.add('d-flex')
+                task__show__modal.classList.remove('d-none')
+                task__show__modal.style.animation = 'appear__opacity 0.5s forwards'
+                task__show__modal.querySelector('.task__show').style.animation = 'appear__bottom 0.5s forwards'
+            }
+            update__task__shows()
         // TASK CREATE MODAL
             function task__create__modal__open(element)
             {

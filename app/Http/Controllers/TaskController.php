@@ -42,4 +42,16 @@ class TaskController extends Controller
             'data' => $task
         ]);
     }
+    public function getData(Request $request)
+    {
+        $task = Task::find($request->id);
+        return response()->json([
+            'name' => $task->name,
+            'goal_id' => $task->goal_id,
+            'goal_name' => $task->goal->name,
+            'date' => $task->day->date,
+            'desc' => $task->desc,
+            'priority' => $task->priority,
+        ]);
+    }
 }
