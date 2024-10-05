@@ -255,7 +255,7 @@
             </div>
 
         </div>
-        <div class="task__show__modal d-none">
+        <div class="task__show__modal">
             <div class="task__show">
                 <div class="title">
                     <div class="name">Назва завдання</div>
@@ -329,6 +329,12 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="complete__parent">
+                    <div class="complete">
+                        <p>Позначити як виконане</p>
+                        <img style="width: 374px; position: relative; top: -195px; z-index: 0;" src="{{ asset('storage/images/complete__background.jpg') }}" alt="">
                     </div>
                 </div>
             </div>
