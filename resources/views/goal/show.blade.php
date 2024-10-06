@@ -623,13 +623,31 @@ window.addEventListener('load', function () {
                     }, 500);
                 }
             })
+            function task__show__create__comment(text, date, preview = 0)
+            {
+                comments__parent = task__show__modal.querySelector('.comments')
+                let new__comment = document.createElement('div')
+                new__comment.classList.add('comment')
+                if(preview)
+                {
+                    new__comment.classList.add('comment__preview')
+                }
+                let comment__text = document.createElement('p')
+                comment__text.innerHTML = text
+                let comment__date = document.createElement('p')
+                comment__date.classList.add('datetime')
+                comment__date.innerHTML = date
+                comments__parent.append(new__comment)
+                new__comment.append(comment__text)
+                new__comment.append(comment__date)
+            }
             function update__task__shows()
             {
                 let task__shows = document.querySelectorAll('.tasks__flex .task:not(.required), .days__flex .task')
                 task__shows.forEach(task__show => {
                     task__show.addEventListener('click', task__show__modal__open)
                 })
-                task__shows[0].click()
+                task__shows[1].click()
             }
             function task__show__modal__open(e)
             {
@@ -667,15 +685,74 @@ window.addEventListener('load', function () {
                     }
                     let goal = task__show__modal.querySelector('.goal .text')
                     goal.innerHTML = taskData.goal_name
+                    let comments = document.querySelector('.comments')
+                    comments.innerHTML = ``
+                    if(taskData.comments.length == 0)
+                    {
+                        task__show__create__comment(`Додайте коментар до завдання за допомогою поля нижче`, `2022-02-24 04:20:00`)
+                    } else
+                    {
+                        taskData.comments.forEach(comment => {
+                            task__show__create__comment(comment.text, comment.created_at)
+                        });
+                    }
                     task__show__modal.classList.add('d-flex')
                     task__show__modal.classList.remove('d-none')
                     task__show__modal.style.animation = 'appear__opacity 0.5s forwards'
                     task__show__modal.querySelector('.task__show').style.animation = 'appear__bottom 0.5s forwards'
                 })
                 .catch(err => {
-                    console.error(err);
+                    // console.error(err);
                 })
             }
+            let task__show__input = task__show__modal.querySelector('input')
+            let task__show__submit = task__show__modal.querySelector('.submit__parent')
+            let default__comment = false
+            task__show__input.addEventListener('keyup', function (e) {
+                if(e.code == 'Enter')
+                {
+                    task__show__submit.click()
+                    default__comment = false
+                }
+                let comments = task__show__modal.querySelector('.comments')
+                if(task__show__input.value.length > 0)
+                {
+                    if(comments.querySelectorAll('.comment').length == 1 && comments.querySelector('.comment .datetime').innerHTML == '2022-02-24 04:20:00')
+                    {
+                        default__comment = true
+                        comments.querySelector('.comment').remove()
+                    }
+                    if(!comments.querySelector('.comment__preview'))
+                    {
+                        task__show__create__comment(task__show__input.value, new Date().toISOString().replace('T', ' ').substring(0, 19), 1)
+                    } else
+                    {
+                        comments.querySelector('.comment__preview p').innerHTML = task__show__input.value
+                        comments.querySelector('.comment__preview .datetime').innerHTML = new Date().toISOString().replace('T', ' ').substring(0, 19)
+                    }
+                    console.log()
+                } else
+                {
+                    if(default__comment && comments.querySelector('.comment .datetime').innerHTML !== '2022-02-24 04:20:00' && e.code !== 'Enter')
+                    {
+                        default__comment = false
+                        console.log('this created')
+                        task__show__create__comment(`Додайте коментар до завдання за допомогою поля нижче`, `2022-02-24 04:20:00`)
+                    }
+                    if(comments.querySelector('.comment__preview'))
+                    {
+                        comments.querySelector('.comment__preview').remove()
+                    }
+                }
+            })
+            task__show__submit.addEventListener('click', function () {
+                if(task__show__input.value.length > 5)
+                {
+                    task__show__modal.querySelector('.comment__preview').classList.remove('comment__preview')
+                    task__show__input.value = ''
+                    default__comment = false
+                }
+            })
             update__task__shows()
         // TASK CREATE MODAL
             function task__create__modal__open(element)

@@ -557,6 +557,8 @@
 {
     font-size: 34px;
     flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .task__show__modal .task__show .title .flex
 {
@@ -714,6 +716,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+}
+.task__show__modal .task__show .content .submit__parent:hover
+{
+    background-color: rgb(63, 255, 143);
 }
 .task__show__modal .task__show .content .submit__parent img
 {
@@ -739,6 +746,7 @@
     text-align: right;
     padding: 2px 0;
     margin-right: 9px;
+    font-size: 0;
 }
 .task__show__modal .task__show .content .comment p
 {
