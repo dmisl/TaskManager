@@ -707,6 +707,7 @@ window.addEventListener('load', function () {
                     task__show__modal.style.animation = 'appear__opacity 0.5s forwards'
                     task__show__modal.querySelector('.task__show').style.animation = 'appear__bottom 0.5s forwards'
                     updateScrollingText()
+                    // if()
                 })
                 .catch(err => {
                     // console.error(err);
@@ -764,6 +765,17 @@ window.addEventListener('load', function () {
                     task__show__input.value = ''
                     default__comment = false
                 }
+            })
+            task__show__modal.querySelector('.complete').addEventListener('click', function ()
+            {
+                axios.post(`{{ route('task.complete') }}`,{task_id: task__show__modal.querySelector('.task_id').value})
+                .then(res => {
+                    console.log(res)
+                    task__show__modal.click()
+                })
+                .catch(err => {
+                    console.error(err);
+                })
             })
             update__task__shows()
         // TASK CREATE MODAL

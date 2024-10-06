@@ -805,6 +805,11 @@
     overflow: hidden;
     box-shadow: 0px 0px 9px 1px rgba(235, 75, 255, 1);
     cursor: pointer;
+    transition: 0.2s;
+}
+.task__show__modal .task__show .complete:hover
+{
+    box-shadow: 0px 0px 9px 1px rgb(25, 255, 44);
 }
 .task__show__modal .task__show .complete p
 {

@@ -73,4 +73,20 @@ class TaskController extends Controller
             'data' => 'error'
         ]);
     }
+    public function complete(Request $request)
+    {
+        $task = Task::find($request->task_id);
+        if($task->goal->user->id == Auth::id())
+        {
+            $task->update([
+                'completed' => 1
+            ]);
+            return response()->json([
+                'data' => 'success'
+            ]);
+        }
+        return response()->json([
+            'data' => 'error'
+        ]);
+    }
 }
