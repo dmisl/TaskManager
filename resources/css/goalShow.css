@@ -166,6 +166,12 @@
     display: inline-block;
     /* animation: scroll-text 5s linear infinite; */
 }
+.task__show__modal .scrolling__parent
+{
+    margin-left: 15px;
+    width: 315px;
+    overflow: hidden;
+}
 @keyframes scroll-text {
     0% {
         transform: translateX(0);
@@ -620,6 +626,13 @@
     margin-left: 15px;
     color: #211AFF;
     text-decoration: underline;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.task__show__modal .task__show .content .date .text:hover
+{
+    text-decoration: none;
 }
 .task__show__modal .task__show .flex__parent
 {
@@ -657,15 +670,21 @@
     background-color: #8AFF84;
     margin-top: 16px;
     max-width: 345px;
+    overflow: hidden;
 }
 .task__show__modal .task__show .content .goal .text
 {
     display: inline-block;
     padding-top: 4px;
     font-size: 22px;
-    margin-left: 15px;
     color: #211AFF;
     text-decoration: underline;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.task__show__modal .task__show .content .goal .text:hover
+{
+    text-decoration: none;
 }
 .task__show__modal .task__show .content .right
 {
