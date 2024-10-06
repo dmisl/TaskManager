@@ -33,6 +33,7 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::post('home/task/getData', [TaskController::class, 'getData'])->name('task.getData');
     Route::post('home/task/create', [TaskController::class, 'store'])->name('task.store');
     Route::post('home/task/changeDay', [TaskController::class, 'changeDay'])->name('task.changeDay');
+    Route::post('home/task/createComment', [TaskController::class, 'createComment'])->name('task.createComment');
 
     Route::get('logout', [LoginController::class, 'logout'])->name('login.logout');
 

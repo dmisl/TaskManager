@@ -160,6 +160,25 @@ body
     border-radius: 8px;
     background-color: #6d6d6d;
 }
+#custom__left__scrollbar
+{
+    direction: rtl;
+}
+#custom__left__scrollbar::-webkit-scrollbar {
+    width: 7px;
+}
+
+#custom__left__scrollbar::-webkit-scrollbar-track {
+    border-radius: 8px;
+    background-color: rgb(152, 0, 199);
+    border: 1px solid rgb(152, 0, 199);
+    box-shadow: inset 0 0 50px rgb(152, 0, 199);
+}
+
+#custom__left__scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #740065;
+}
 .loader__parent
 {
     display: flex;

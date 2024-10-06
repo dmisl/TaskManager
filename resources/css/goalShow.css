@@ -570,6 +570,7 @@
 {
     width: 34px;
     height: 34px;
+    cursor: pointer;
 }
 .task__show__modal .task__show .title .flex .close
 {
@@ -730,13 +731,15 @@
 .task__show__modal .task__show .content .comments
 {
     max-height: 136px;
-    width: 100%;
+    width: 230px;
+    margin-left: 10px;
     margin-bottom: 9px;
     gap: 9px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: end;
+    align-items: start;
+    overflow: auto;
 }
 .task__show__modal .task__show .content .comment
 {

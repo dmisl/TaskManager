@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Day;
 use App\Models\Goal;
 use App\Models\Task;
@@ -54,6 +55,22 @@ class TaskController extends Controller
             'desc' => $task->desc,
             'priority' => $task->priority,
             'comments' => $task->comments
+        ]);
+    }
+    public function createComment(Request $request)
+    {
+        if(Task::find($request->task_id)->goal->user->id == Auth::id())
+        {
+            Comment::create([
+                'text' => $request->text,
+                'task_id' => $request->task_id
+            ]);
+            return response()->json([
+                'data' => 'success'
+            ]);
+        }
+        return response()->json([
+            'data' => 'error'
         ]);
     }
 }

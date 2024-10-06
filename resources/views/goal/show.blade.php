@@ -315,7 +315,7 @@
                         </div>
                         <div class="right">
                             <div class="comment__parent">
-                                <div class="comments">
+                                <div class="comments" id="custom__left__scrollbar">
                                     <div class="comment" style="font-size: 0;">
                                         <p>Якийсь справді дуже цікавий коментар доданий до завдання</p>
                                         <p class="datetime">2022-02-24 04:00:00</p>
@@ -326,6 +326,7 @@
                                     <div class="submit__parent">
                                         <img src="{{ asset('storage/images/send.png') }}">
                                     </div>
+                                    <input type="hidden" class="task_id">
                                 </div>
                             </div>
                         </div>
@@ -612,8 +613,9 @@ window.addEventListener('load', function () {
     // HANDLING MODAL
         // TASK SHOW MODAL
             let task__show__modal = document.querySelector('.task__show__modal')
-            task__show__modal.addEventListener('click', function (e) {
-                if(e.target.classList.contains('task__show__modal'))
+            task__show__modal.addEventListener('click', task__show__modal__close)
+            function task__show__modal__close(e) {
+                if(e.target.classList.contains('task__show__modal') || e.target.classList.contains('close'))
                 {
                     task__show__modal.style.animation = 'disappear__opacity 0.5s forwards'
                     task__show__modal.querySelector('.task__show').style.animation = 'disappear__bottom 0.5s forwards'
@@ -622,7 +624,7 @@ window.addEventListener('load', function () {
                         task__show__modal.classList.add('d-none')
                     }, 500);
                 }
-            })
+            }
             function task__show__create__comment(text, date, preview = 0)
             {
                 comments__parent = task__show__modal.querySelector('.comments')
@@ -652,11 +654,12 @@ window.addEventListener('load', function () {
             function task__show__modal__open(e)
             {
                 let task = e.currentTarget
+                task__show__modal.querySelector('.task_id').value = task.attributes.task_id.value
+                task__show__modal.querySelector('.comment__parent input').value = ''
                 let taskData
                 axios.post(`{{ route('task.getData') }}`,{id: task.attributes.task_id.value})
                 .then(res => {
                     taskData = res.data
-                    console.log(taskData)
                     task__show__modal.querySelector('.name').innerHTML = taskData.name
                     let priorities = task__show__modal.querySelectorAll('.priority__levels svg')
                     for (let i = 0; i < taskData.priority; i++) {
@@ -693,9 +696,10 @@ window.addEventListener('load', function () {
                     } else
                     {
                         taskData.comments.forEach(comment => {
-                            task__show__create__comment(comment.text, comment.created_at)
+                            task__show__create__comment(comment.text, new Date(comment.created_at).toISOString().replace('T', ' ').substring(0, 19))
                         });
                     }
+                    comments.scrollTop = comments.scrollHeight
                     task__show__modal.classList.add('d-flex')
                     task__show__modal.classList.remove('d-none')
                     task__show__modal.style.animation = 'appear__opacity 0.5s forwards'
@@ -730,13 +734,11 @@ window.addEventListener('load', function () {
                         comments.querySelector('.comment__preview p').innerHTML = task__show__input.value
                         comments.querySelector('.comment__preview .datetime').innerHTML = new Date().toISOString().replace('T', ' ').substring(0, 19)
                     }
-                    console.log()
                 } else
                 {
                     if(default__comment && comments.querySelector('.comment .datetime').innerHTML !== '2022-02-24 04:20:00' && e.code !== 'Enter')
                     {
                         default__comment = false
-                        console.log('this created')
                         task__show__create__comment(`Додайте коментар до завдання за допомогою поля нижче`, `2022-02-24 04:20:00`)
                     }
                     if(comments.querySelector('.comment__preview'))
@@ -748,6 +750,13 @@ window.addEventListener('load', function () {
             task__show__submit.addEventListener('click', function () {
                 if(task__show__input.value.length > 5)
                 {
+                    axios.post(`{{ route('task.createComment') }}`,{text: task__show__input.value, task_id: task__show__modal.querySelector('.task_id').value})
+                    .then(res => {
+                        console.log(res.data)
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    })
                     task__show__modal.querySelector('.comment__preview').classList.remove('comment__preview')
                     task__show__input.value = ''
                     default__comment = false
