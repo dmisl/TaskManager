@@ -82,7 +82,7 @@
                                             </div>
                                         @endfor
                                         @foreach($goal->tasks()->where('priority', 5)->get() as $task)
-                                            <div class="task p5" task_id="{{ $task->id }}" day_id="{{ $task->day_id }}" has_day="{{ $task->day_id ? 1 : 0 }}">
+                                            <div class="task p5" task_id="{{ $task->id }}" day_id="{{ $task->day_id }}" has_day="{{ $task->day_id ? 1 : 0 }}" completed="{{ $task->completed ? 1 : 0 }}">
                                                 <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
                                                 @if(!$task->day_id)
                                                 <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="{{ $task->day_id ? 'display: none;' : 'display: block;' }}">
@@ -148,7 +148,7 @@
                                 </div>
                                 <div class="flex" day_id="{{ $day->id }}">
                                     @foreach($day->tasks as $task)
-                                        <div class="task p5" task_id="{{ $task->id }}" has_day="1">
+                                        <div class="task p5" task_id="{{ $task->id }}" has_day="1" day_id="{{ $day->id }}" completed="{{ $task->completed ? 1 : 0 }}">
                                             <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: none;">
                                             <div class="scrolling__parent" style="user-select: none;">
                                                 <p style="user-select: none;">{{ $task->name }}</p>
@@ -616,6 +616,12 @@ window.addEventListener('load', function () {
         // TASK SHOW MODAL
             let task__show__modal = document.querySelector('.task__show__modal')
             task__show__modal.addEventListener('click', task__show__modal__close)
+            tippy('.task__show__modal .edit', {
+                content: "Редагувати завдання",
+            });
+            tippy('.task__show__modal .delete', {
+                content: "Видалити завдання",
+            });
             function task__show__modal__close(e) {
                 if(e.target.classList.contains('task__show__modal') || e.target.classList.contains('close'))
                 {
@@ -702,12 +708,22 @@ window.addEventListener('load', function () {
                         });
                     }
                     comments.scrollTop = comments.scrollHeight
+                    if(task.attributes.completed.value == 1)
+                    {
+                        task__show__modal.querySelector('.complete').classList.add('d-none')
+                        task__show__modal.querySelector('.edit').classList.add('d-none')
+                        task__show__modal.querySelector('.delete').classList.add('d-none')
+                    } else
+                    {
+                        task__show__modal.querySelector('.complete').classList.remove('d-none')
+                        task__show__modal.querySelector('.edit').classList.remove('d-none')
+                        task__show__modal.querySelector('.delete').classList.remove('d-none')
+                    }
                     task__show__modal.classList.add('d-flex')
                     task__show__modal.classList.remove('d-none')
                     task__show__modal.style.animation = 'appear__opacity 0.5s forwards'
                     task__show__modal.querySelector('.task__show').style.animation = 'appear__bottom 0.5s forwards'
                     updateScrollingText()
-                    // if()
                 })
                 .catch(err => {
                     // console.error(err);
