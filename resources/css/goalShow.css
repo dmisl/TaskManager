@@ -607,10 +607,15 @@
 .task__show__modal .task__show .content .priority__levels
 {
     display: flex;
-    gap: 4px;
     margin-left: 13px;
     margin-top: 4px;
+    width: 150px;
 }
+.task__show__modal .task__show .content .priority__level
+{
+    padding-right: 4px;
+}
+
 .task__show__modal .task__show .content .date
 {
     width: 260px;

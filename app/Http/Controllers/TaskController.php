@@ -44,6 +44,22 @@ class TaskController extends Controller
             'data' => $task
         ]);
     }
+    public function changePriority(Request $request)
+    {
+        $task = Task::find($request->task_id);
+        if($task->goal->user->id == Auth::id())
+        {
+            $task->update([
+                'priority' => $request->priority
+            ]);
+            return response()->json([
+                'data' => 'success'
+            ]);
+        }
+        return response()->json([
+            'data' => 'error'
+        ]);
+    }
     public function getData(Request $request)
     {
         $task = Task::find($request->id);
