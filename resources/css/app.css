@@ -327,7 +327,6 @@ body
 {
     position: absolute;
     width: 275px;
-    height: 100vh;
     z-index: 2000;
     bottom: 0;
     right: 20px;

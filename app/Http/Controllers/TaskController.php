@@ -53,11 +53,12 @@ class TaskController extends Controller
                 'priority' => $request->priority
             ]);
             return response()->json([
-                'data' => 'success'
+                'data' => 'success',
+                'name' => $task->name
             ]);
         }
         return response()->json([
-            'data' => 'error'
+            'data' => 'error',
         ]);
     }
     public function getData(Request $request)

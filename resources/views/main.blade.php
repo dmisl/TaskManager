@@ -48,12 +48,7 @@
         <div class="loader__parent">
             <div class="loader"></div>
         </div>
-        <div class="alert__parent d-none">
-            <div class="alert">
-                <div class="title"><p>Сповіщення</p></div>
-                <div class="content">Зміна рівня приорітету завдання “Посадити редуску ” успішно збережена</div>
-            </div>
-        </div>
+        <div class="alert__parent d-none"></div>
 
     </div>
 
@@ -61,3 +56,39 @@
 </html>
 @vite('resources/js/emoji.js')
 @vite('resources/js/app.js')
+<script>
+    // CREATE ALERT
+    function create__alert(header, text)
+    {
+        let alert__parent = document.querySelector('.alert__parent')
+        alert__parent.classList.remove('d-none')
+        let alert = document.createElement('div')
+        alert.classList.add('alert')
+        alert.style.opacity = '0'
+        alert__parent.append(alert)
+        let alert__title = document.createElement('div')
+        alert__title.classList.add('title')
+        alert.append(alert__title)
+        let alert__title__p = document.createElement('p')
+        alert__title__p.innerHTML = header
+        alert__title.append(alert__title__p)
+        let alert__content = document.createElement('div')
+        alert__content.classList.add('content')
+        alert.append(alert__content)
+        let alert__content__p = document.createElement('p')
+        alert__content__p.innerHTML = text
+        alert__content.append(alert__content__p)
+        alert.style.animation = 'appear__bottom 1s forwards'
+        setTimeout(() => {
+            alert.style.opacity = '1'
+            alert.style.animation = 'disappear_right 1s forwards'
+            setTimeout(() => {
+                alert.remove()
+                if(alert__parent.children.length == 0)
+                {
+                    alert__parent.classList.add('d-none')
+                }
+            }, 1000);
+        }, 9000);
+    }
+</script>

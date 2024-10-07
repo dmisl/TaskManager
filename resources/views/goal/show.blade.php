@@ -449,7 +449,7 @@ window.addEventListener('load', function () {
             required.addEventListener('click', function () {
                 task__create__modal__open(required)
                 document.querySelectorAll('.priority')[4].dispatchEvent(new MouseEvent('click', { bubbles: true }))
-                document.querySelectorAll('.priority')[4].dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
+                document.querySelectorAll('.priority')[4].dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
             })
         });
         // HINT ON REQUIRED TASKS HOVER
@@ -792,7 +792,6 @@ window.addEventListener('load', function () {
             {
                 axios.post(`{{ route('task.complete') }}`,{task_id: task__show__modal.querySelector('.task_id').value})
                 .then(res => {
-                    console.log(res)
                     task__show__modal.click()
                 })
                 .catch(err => {
@@ -984,9 +983,7 @@ window.addEventListener('load', function () {
 })
 
 // ADDITIONAL FUNCTIONS
-
-    // PRIORITY BAR HANDLING
-    // PRIORITY BAR HANDING
+    // PRIORITY BAR HANLDING
         function create__priority__bar(parent, level = 0)
         {
             let priority__flex = parent.classList.contains('task__show__modal') ? parent.querySelector('.priority__levels') : parent.querySelector('.priority__parent .flex')
@@ -1017,7 +1014,6 @@ window.addEventListener('load', function () {
                     {
                         axios.post(`{{ route('task.changePriority') }}`,{priority: index+1, task_id: document.querySelector('.task__show__modal .task_id').value})
                         .then(res => {
-                            console.log(res)
                             document.querySelectorAll(`.task[task_id="${document.querySelector('.task__show__modal .task_id').value}"]`).forEach(tasky => {
                                 tasky.classList.forEach(className => {
                                     if(className.startsWith('p'))
@@ -1027,6 +1023,7 @@ window.addEventListener('load', function () {
                                 })
                                 tasky.classList.add(`p${index+1}`)
                             })
+                            create__alert('Сповіщення', `Зміна рівня приорітету завдання <b>"${res.data.name}"</b> успішно збережена`)
                         })
                         .catch(err => {
                             console.error(err);
@@ -1034,7 +1031,6 @@ window.addEventListener('load', function () {
                     }
                 })
                 priority.addEventListener('mouseenter', function () {
-                    console.log('mouseover')
                     priority__flex._tippy.setContent(priority_levels[index])
                     priorities.forEach(pp => {
                         pp.innerHTML = `
@@ -1096,7 +1092,7 @@ window.addEventListener('load', function () {
                 let computedStyle = window.getComputedStyle(task)
                 let maxWidth = computedStyle.getPropertyValue('width')
                 maxWidth = parseFloat(maxWidth)
-                task.addEventListener('mouseover', function () {
+                task.addEventListener('mouseenter', function () {
                     let scrolling__text = task.querySelector('.scrolling__parent p')
                     if(scrolling__text.offsetWidth > maxWidth+1)
                     {
