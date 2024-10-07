@@ -48,6 +48,12 @@
         <div class="loader__parent">
             <div class="loader"></div>
         </div>
+        <div class="alert__parent d-none">
+            <div class="alert">
+                <div class="title"><p>Сповіщення</p></div>
+                <div class="content">Зміна рівня приорітету завдання “Посадити редуску ” успішно збережена</div>
+            </div>
+        </div>
 
     </div>
 

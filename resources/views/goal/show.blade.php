@@ -1018,6 +1018,15 @@ window.addEventListener('load', function () {
                         axios.post(`{{ route('task.changePriority') }}`,{priority: index+1, task_id: document.querySelector('.task__show__modal .task_id').value})
                         .then(res => {
                             console.log(res)
+                            document.querySelectorAll(`.task[task_id="${document.querySelector('.task__show__modal .task_id').value}"]`).forEach(tasky => {
+                                tasky.classList.forEach(className => {
+                                    if(className.startsWith('p'))
+                                    {
+                                        tasky.classList.remove(className)
+                                    }
+                                })
+                                tasky.classList.add(`p${index+1}`)
+                            })
                         })
                         .catch(err => {
                             console.error(err);
