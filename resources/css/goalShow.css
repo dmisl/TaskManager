@@ -675,7 +675,6 @@
 .task__show__modal .task__show .content .goal .text
 {
     display: inline-block;
-    padding-top: 4px;
     font-size: 22px;
     color: #211AFF;
     text-decoration: underline;

@@ -793,6 +793,15 @@ window.addEventListener('load', function () {
                     console.error(err);
                 })
             })
+            function task__show__modal__edit()
+            {
+                let priority = task__show__modal.querySelector('.priority')
+                let date = task__show__modal.querySelector('.date')
+                let goal = task__show__modal.querySelector('.goal')
+                let desc = task__show__modal.querySelector('.desc')
+                console.log(priority, date, goal, desc)
+            }
+            task__show__modal__edit()
             update__task__shows()
         // TASK CREATE MODAL
             function task__create__modal__open(element)
