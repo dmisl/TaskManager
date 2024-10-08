@@ -97,8 +97,11 @@
                                     {{-- IF THERE IS NEEDED AMOUNT OF TASKS JUST SHOW THEM --}}
                                     @else
                                         @foreach($goal->tasks()->where('priority', 5)->get() as $task)
-                                            <div class="task p5">
-                                                <img src="{{ asset('storage/images/completed.png') }}" alt="" class="completed">
+                                            <div class="task p5" task_id="{{ $task->id }}" day_id="{{ $task->day_id }}" has_day="{{ $task->day_id ? 1 : 0 }}" completed="{{ $task->completed ? 1 : 0 }}">
+                                                <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                                @if(!$task->day_id)
+                                                <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="{{ $task->day_id ? 'display: none;' : 'display: block;' }}">
+                                                @endif
                                                 <div class="scrolling__parent">
                                                     <p>
                                                         {{ $task->name }}
@@ -108,14 +111,17 @@
                                         @endforeach
                                     @endif
                                     {{-- SHOWING ALL TASKS WHICH DOES NOT HAVE 5TH PRIORITY --}}
-                                        @foreach($goal->tasks()->where('priority', '<', 5) as $task)
-                                            <div class="task p{{ $task->priority }}">
-                                                <img src="{{ asset('storage/images/completed.png') }}" alt="" class="completed">
+                                        @foreach($goal->tasks()->where('priority', '<', 5)->get() as $task)
+                                            <div class="task p{{ $task->priority }}" task_id="{{ $task->id }}" day_id="{{ $task->day_id }}" has_day="{{ $task->day_id ? 1 : 0 }}" completed="{{ $task->completed ? 1 : 0 }}">
+                                                <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                                @if(!$task->day_id)
+                                                <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="{{ $task->day_id ? 'display: none;' : 'display: block;' }}">
+                                                @endif
                                                 <div class="scrolling__parent">
-                                                        <p>
-                                                            {{ $task->name }}
-                                                        </p>
-                                                    </div>
+                                                    <p>
+                                                        {{ $task->name }}
+                                                    </p>
+                                                </div>
                                             </div>
                                         @endforeach
                                     {{-- TASK CREATE BUTTON --}}
@@ -638,6 +644,7 @@ window.addEventListener('load', function () {
                             task__show__modal.classList.add('d-none')
                         }, 500);
                     }
+                    task__show__modal__edit__close()
                 }
                 function task__show__create__comment(text, date, preview = 0)
                 {
@@ -730,8 +737,8 @@ window.addEventListener('load', function () {
                         task__show__modal.classList.remove('d-none')
                         task__show__modal.style.animation = 'appear__opacity 0.5s forwards'
                         task__show__modal.querySelector('.task__show').style.animation = 'appear__bottom 0.5s forwards'
+                        task__show__modal.querySelector('.edit').addEventListener('click', task__show__modal__edit)
                         updateScrollingText()
-                        task__show__modal__edit()
                     })
                     .catch(err => {
                         // console.error(err);
@@ -800,64 +807,80 @@ window.addEventListener('load', function () {
                         console.error(err);
                     })
                 })
-            function task__show__modal__edit()
-            {
-                let priority = task__show__modal.querySelector('.priority')
-                let goal = task__show__modal.querySelector('.goal')
-                let desc = task__show__modal.querySelector('.desc')
-                create__priority__bar(task__show__modal, priority__level)
-                let desc__input = desc.querySelector('.input')
-                let desc__p = desc.querySelector('p')
-                desc__input.classList.remove('d-none')
-                desc__input.value = desc__p.innerText == 'Тут може бути ваш більш детальніший опис завдання або його перебігу' ? '' : desc__p.innerText
-                desc__p.classList.add('d-none')
-                let timeout
-                let previous_value = desc__input.value
-                desc__input.addEventListener('keyup', function () {
-                    if(desc__input.value !== previous_value)
+                function task__show__modal__edit(e)
+                {
+                    task__show__modal.querySelector('.edit').src = `{{ asset('storage/images/completed.png') }}`
+                    // task__show__modal.querySelector('.edit').removeEventListener('click', task__show__modal__edit)
+                    // task__show__modal.querySelector('.edit').addEventListener('click', task__show__modal__edit__close)
+                    console.log(task__show__modal.querySelector('.edit').src)
+                    console.log(task__show__modal.querySelector('.edit'))
+                    let priority = task__show__modal.querySelector('.priority')
+                    let goal = task__show__modal.querySelector('.goal')
+                    let desc = task__show__modal.querySelector('.desc')
+                    create__priority__bar(task__show__modal, priority__level)
+                    let desc__input = desc.querySelector('.input')
+                    let desc__p = desc.querySelector('p')
+                    desc__input.classList.remove('d-none')
+                    desc__input.value = desc__p.innerText == 'Тут може бути ваш більш детальніший опис завдання або його перебігу' ? '' : desc__p.innerText
+                    desc__p.classList.add('d-none')
+                    let timeout
+                    let previous_value = desc__input.value
+                    desc__input.addEventListener('keyup', function () {
+                        if(desc__input.value !== previous_value)
+                        {
+                            clearTimeout(timeout);
+                            timeout = setTimeout(() => {
+                                axios.post(`{{ route('task.changeDesc') }}`,{desc: desc__input.value, task_id: document.querySelector('.task__show__modal .task_id').value})
+                                .then(res => {
+                                    create__alert('Сповіщення', `Зміна детальнішого опису завдання <b>"${res.data.name}"</b> успішно збережена`)
+                                    desc__p.innerText = desc__input.value
+                                    previous_value = desc__input.value
+                                })
+                                .catch(err => {
+                                    console.error(err);
+                                })
+                            }, 1000);
+                        }
+                    });
+                    desc__input.addEventListener('keydown', function (e) {
+                        if(desc__input.value.length > 100 && e.code !== 'Backspace' && e.code !== 'Delete' && e.code !== 'Esc')
+                        {
+                            e.preventDefault()
+                        }
+                    })
+                }
+                function task__show__modal__edit__close(e)
+                {
+                    if(e && e.target)
                     {
-                        clearTimeout(timeout);
-                        timeout = setTimeout(() => {
-                            axios.post(`{{ route('task.changeDesc') }}`,{desc: desc__input.value, task_id: document.querySelector('.task__show__modal .task_id').value})
-                            .then(res => {
-                                create__alert('Сповіщення', `Зміна детальнішого опису завдання <b>"${res.data.name}"</b> успішно збережена`)
-                                desc__p.innerText = desc__input.value
-                                previous_value = desc__input.value
-                            })
-                            .catch(err => {
-                                console.error(err);
-                            })
-                        }, 1000);
-                    }
-                });
-                desc__input.addEventListener('keydown', function (e) {
-                    console.log()
-                    if(desc__input.value.length > 100 && e.code !== 'Backspace' && e.code !== 'Delete' && e.code !== 'Esc')
+                        e.target.removeEventListener('click', task__show__modal__edit__close)
+                        e.target.addEventListener('click', task__show__modal__edit)
+                        e.target.src = `{{ asset('storage/images/edit.png') }}`
+                    } else
                     {
-                        e.preventDefault()
+                        task__show__modal.querySelector('.edit').removeEventListener('click', task__show__modal__edit__close)
+                        task__show__modal.querySelector('.edit').addEventListener('click', task__show__modal__edit)
+                        task__show__modal.querySelector('.edit').src = `{{ asset('storage/images/edit.png') }}`
                     }
-                })
-                // task__show__modal__edit__close()
-            }
-            function task__show__modal__edit__close()
-            {
-                console.log(2)
-                let priority = task__show__modal.querySelector('.priority')
-                priority.querySelectorAll('.priority__level').forEach(priority__level => {
-                    let new__level = priority__level.cloneNode(true);
-                    priority__level.parentNode.removeChild(priority__level);
-                    priority.querySelector('.priority__levels').appendChild(new__level)
-                })
-                priority.querySelector('.priority__levels')._tippy.hide()
-                let goal = task__show__modal.querySelector('.goal')
-                let desc = task__show__modal.querySelector('.desc')
-                // create__priority__bar(task__show__modal, priority__level)
-                let desc__input = desc.querySelector('.input')
-                let desc__p = desc.querySelector('p')
-                desc__input.classList.add('d-none')
-                desc__p.classList.remove('d-none')
-            }
-            update__task__shows()
+                    let priority = task__show__modal.querySelector('.priority')
+                    priority.querySelectorAll('.priority__level').forEach(priority__level => {
+                        let new__level = priority__level.cloneNode(true);
+                        priority__level.parentNode.removeChild(priority__level);
+                        priority.querySelector('.priority__levels').appendChild(new__level)
+                    })
+                    if(priority.querySelector('.priority__levels')._tippy)
+                    {
+                        priority.querySelector('.priority__levels')._tippy.destroy()
+                    }
+                    let goal = task__show__modal.querySelector('.goal')
+                    let desc = task__show__modal.querySelector('.desc')
+                    // create__priority__bar(task__show__modal, priority__level)
+                    let desc__input = desc.querySelector('.input')
+                    let desc__p = desc.querySelector('p')
+                    desc__input.classList.add('d-none')
+                    desc__p.classList.remove('d-none')
+                }
+                update__task__shows()
         // TASK CREATE MODAL
             function task__create__modal__open(element)
             {
