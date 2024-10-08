@@ -61,6 +61,26 @@ class TaskController extends Controller
             'data' => 'error',
         ]);
     }
+    public function changeDesc(Request $request)
+    {
+        $validated = $request->validate([
+            'desc' => ['required', 'max:100'],
+        ]);
+        $task = Task::find($request->task_id);
+        if($task->goal->user->id == Auth::id())
+        {
+            $task->update([
+                'desc' => $request->desc
+            ]);
+            return response()->json([
+                'data' => 'success',
+                'name' => $task->name
+            ]);
+        }
+        return response()->json([
+            'data' => 'error',
+        ]);
+    }
     public function getData(Request $request)
     {
         $task = Task::find($request->id);

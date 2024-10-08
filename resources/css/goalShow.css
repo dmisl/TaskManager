@@ -658,14 +658,37 @@
     margin-top: 17px;
     border-radius: 17px;
     background-color: #A1F6FF;
+    text-align: center;
+    padding-bottom: 10px;
+}
+.task__show__modal .task__show .content .desc h1
+{
+    text-align: left;
 }
 .task__show__modal .task__show .content .desc p
 {
+    text-align: left;
     font-size: 14px;
     width: 334px;
     margin: 0 auto;
     padding: 5px 0;
-    padding-bottom: 10px;
+}
+.task__show__modal .task__show .content .desc textarea
+{
+    font-size: 14px;
+    width: 342px;
+    max-height: 65px;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-top: 8px;
+    padding: 0 5px;
+    border: 0;
+    resize: none;
+    border-radius: 5px
+}
+.task__show__modal .task__show .content .desc textarea:focus
+{
+    outline: 0.3px solid black;
 }
 .task__show__modal .task__show .content .goal
 {

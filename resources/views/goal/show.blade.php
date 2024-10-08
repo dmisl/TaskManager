@@ -304,9 +304,10 @@
                     </div>
                     <div class="flex__parent">
                         <div class="left">
-                            <div class="desc">
+                            <div class="desc" style="font-size: 0;">
                                 <h1>Детальніший опис</h1>
                                 <p>Якийсь більш детальніший опис цього завдання типу щось там доробити чи більше описані кроки до виконання</p>
+                                <textarea class="input d-none" placeholder="Впишіть новий опис до вашого завдання. (Зміни застосуються автоматично)" cols="3" rows="10">Якийсь більш детальніший опис цього завдання типу щось там доробити чи більше описані кроки до виконання</textarea>
                             </div>
                             <div class="goal">
                                 <h1>Відноситься до цілі:</h1>
@@ -617,194 +618,244 @@ window.addEventListener('load', function () {
         days__flex__block__handle()
     // HANDLING MODAL
         // TASK SHOW MODAL
-            let task__show__modal = document.querySelector('.task__show__modal')
-            task__show__modal.addEventListener('click', task__show__modal__close)
-            let priority__level
-            tippy('.task__show__modal .edit', {
-                content: "Редагувати завдання",
-            });
-            tippy('.task__show__modal .delete', {
-                content: "Видалити завдання",
-            });
-            function task__show__modal__close(e) {
-                if(e.target.classList.contains('task__show__modal') || e.target.classList.contains('close'))
-                {
-                    task__show__modal.style.animation = 'disappear__opacity 0.5s forwards'
-                    task__show__modal.querySelector('.task__show').style.animation = 'disappear__bottom 0.5s forwards'
-                    setTimeout(() => {
-                        task__show__modal.classList.remove('d-flex')
-                        task__show__modal.classList.add('d-none')
-                    }, 500);
-                }
-            }
-            function task__show__create__comment(text, date, preview = 0)
-            {
-                comments__parent = task__show__modal.querySelector('.comments')
-                let new__comment = document.createElement('div')
-                new__comment.classList.add('comment')
-                if(preview)
-                {
-                    new__comment.classList.add('comment__preview')
-                }
-                let comment__text = document.createElement('p')
-                comment__text.innerHTML = text
-                let comment__date = document.createElement('p')
-                comment__date.classList.add('datetime')
-                comment__date.innerHTML = date
-                comments__parent.append(new__comment)
-                new__comment.append(comment__text)
-                new__comment.append(comment__date)
-            }
-            function update__task__shows()
-            {
-                let task__shows = document.querySelectorAll('.tasks__flex .task:not(.required), .days__flex .task')
-                task__shows.forEach(task__show => {
-                    task__show.addEventListener('click', task__show__modal__open)
-                })
-                task__shows[0].click()
-            }
-            function task__show__modal__open(e)
-            {
-                let task = e.currentTarget
-                task__show__modal.querySelector('.task_id').value = task.attributes.task_id.value
-                task__show__modal.querySelector('.comment__parent input').value = ''
-                let taskData
-                axios.post(`{{ route('task.getData') }}`,{id: task.attributes.task_id.value})
-                .then(res => {
-                    taskData = res.data
-                    priority__level = taskData.priority
-                    task__show__modal.querySelector('.name').innerHTML = taskData.name
-                    let priorities = task__show__modal.querySelectorAll('.priority__levels svg')
-                    for (let i = 0; i < taskData.priority; i++) {
-                        priorities[i].innerHTML = `
-                            <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
-                                <path d="M 45 2.024 C 45 2.024 45 2.024 45 2.024 c -1.398 0 -2.649 0.778 -3.268 2.031 L 29.959 27.911 c -0.099 0.2 -0.29 0.338 -0.51 0.37 L 3.122 32.107 c -1.383 0.201 -2.509 1.151 -2.941 2.48 c -0.432 1.329 -0.079 2.76 0.922 3.736 l 19.049 18.569 c 0.16 0.156 0.233 0.38 0.195 0.599 L 15.85 83.71 c -0.236 1.377 0.319 2.743 1.449 3.564 c 1.129 0.821 2.6 0.927 3.839 0.279 l 23.547 -12.381 c 0.098 -0.051 0.206 -0.077 0.314 -0.077 C 51.721 53.905 50.301 28.878 45 2.024 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,200,80); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
-                                <path d="M 45 2.024 C 45 2.024 45 2.024 45 2.024 c 1.398 0 2.649 0.778 3.268 2.031 l 11.773 23.856 c 0.099 0.2 0.29 0.338 0.51 0.37 l 26.326 3.826 c 1.383 0.201 2.509 1.151 2.941 2.48 c 0.432 1.329 0.079 2.76 -0.922 3.736 L 69.847 56.892 c -0.16 0.156 -0.233 0.38 -0.195 0.599 L 74.15 83.71 c 0.236 1.377 -0.319 2.743 -1.449 3.564 c -1.129 0.821 -2.6 0.927 -3.839 0.279 L 45.315 75.172 c -0.098 -0.051 -0.206 -0.077 -0.314 -0.077 C 37.08 54.593 38.849 29.395 45 2.024 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,220,100); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
-                            </g>
-                        `
-                    }
-                    let date = task__show__modal.querySelector('.date .text')
-                    const options = {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric'
-                    };
-                    date.innerHTML = new Intl.DateTimeFormat('uk-UA', options).format(new Date(taskData.date));
-                    date.innerHTML = date.innerHTML.replace(' р.', '').replace(/ (\d{4})/, ', $1');
-                    let desc = task__show__modal.querySelector('.desc p')
-                    if(taskData.desc.length == 0)
+            // HANDLING DEFAULT VIEW
+                let task__show__modal = document.querySelector('.task__show__modal')
+                task__show__modal.addEventListener('click', task__show__modal__close)
+                let priority__level
+                tippy('.task__show__modal .edit', {
+                    content: "Редагувати завдання",
+                });
+                tippy('.task__show__modal .delete', {
+                    content: "Видалити завдання",
+                });
+                function task__show__modal__close(e) {
+                    if(e.target.classList.contains('task__show__modal') || e.target.classList.contains('close'))
                     {
-                        desc.innerHTML = 'Тут може бути ваш більш детальніший опис завдання або його перебігу'
+                        task__show__modal.style.animation = 'disappear__opacity 0.5s forwards'
+                        task__show__modal.querySelector('.task__show').style.animation = 'disappear__bottom 0.5s forwards'
+                        setTimeout(() => {
+                            task__show__modal.classList.remove('d-flex')
+                            task__show__modal.classList.add('d-none')
+                        }, 500);
+                    }
+                }
+                function task__show__create__comment(text, date, preview = 0)
+                {
+                    comments__parent = task__show__modal.querySelector('.comments')
+                    let new__comment = document.createElement('div')
+                    new__comment.classList.add('comment')
+                    if(preview)
+                    {
+                        new__comment.classList.add('comment__preview')
+                    }
+                    let comment__text = document.createElement('p')
+                    comment__text.innerHTML = text
+                    let comment__date = document.createElement('p')
+                    comment__date.classList.add('datetime')
+                    comment__date.innerHTML = date
+                    comments__parent.append(new__comment)
+                    new__comment.append(comment__text)
+                    new__comment.append(comment__date)
+                }
+                function update__task__shows()
+                {
+                    let task__shows = document.querySelectorAll('.tasks__flex .task:not(.required), .days__flex .task')
+                    task__shows.forEach(task__show => {
+                        task__show.addEventListener('click', task__show__modal__open)
+                    })
+                    task__shows[0].click()
+                }
+                function task__show__modal__open(e)
+                {
+                    let task = e.currentTarget
+                    task__show__modal.querySelector('.task_id').value = task.attributes.task_id.value
+                    task__show__modal.querySelector('.comment__parent input').value = ''
+                    let taskData
+                    axios.post(`{{ route('task.getData') }}`,{id: task.attributes.task_id.value})
+                    .then(res => {
+                        taskData = res.data
+                        priority__level = taskData.priority
+                        task__show__modal.querySelector('.name').innerHTML = taskData.name
+                        let priorities = task__show__modal.querySelectorAll('.priority__levels svg')
+                        for (let i = 0; i < taskData.priority; i++) {
+                            priorities[i].innerHTML = `
+                                <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
+                                    <path d="M 45 2.024 C 45 2.024 45 2.024 45 2.024 c -1.398 0 -2.649 0.778 -3.268 2.031 L 29.959 27.911 c -0.099 0.2 -0.29 0.338 -0.51 0.37 L 3.122 32.107 c -1.383 0.201 -2.509 1.151 -2.941 2.48 c -0.432 1.329 -0.079 2.76 0.922 3.736 l 19.049 18.569 c 0.16 0.156 0.233 0.38 0.195 0.599 L 15.85 83.71 c -0.236 1.377 0.319 2.743 1.449 3.564 c 1.129 0.821 2.6 0.927 3.839 0.279 l 23.547 -12.381 c 0.098 -0.051 0.206 -0.077 0.314 -0.077 C 51.721 53.905 50.301 28.878 45 2.024 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,200,80); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                                    <path d="M 45 2.024 C 45 2.024 45 2.024 45 2.024 c 1.398 0 2.649 0.778 3.268 2.031 l 11.773 23.856 c 0.099 0.2 0.29 0.338 0.51 0.37 l 26.326 3.826 c 1.383 0.201 2.509 1.151 2.941 2.48 c 0.432 1.329 0.079 2.76 -0.922 3.736 L 69.847 56.892 c -0.16 0.156 -0.233 0.38 -0.195 0.599 L 74.15 83.71 c 0.236 1.377 -0.319 2.743 -1.449 3.564 c -1.129 0.821 -2.6 0.927 -3.839 0.279 L 45.315 75.172 c -0.098 -0.051 -0.206 -0.077 -0.314 -0.077 C 37.08 54.593 38.849 29.395 45 2.024 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,220,100); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                                </g>
+                            `
+                        }
+                        let date = task__show__modal.querySelector('.date .text')
+                        const options = {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric'
+                        };
+                        date.innerHTML = new Intl.DateTimeFormat('uk-UA', options).format(new Date(taskData.date));
+                        date.innerHTML = date.innerHTML.replace(' р.', '').replace(/ (\d{4})/, ', $1');
+                        let desc = task__show__modal.querySelector('.desc p')
+                        if(taskData.desc.length == 0)
+                        {
+                            desc.innerHTML = 'Тут може бути ваш більш детальніший опис завдання або його перебігу'
+                        } else
+                        {
+                            desc.innerHTML = taskData.desc
+                        }
+                        let goal = task__show__modal.querySelector('.goal .text')
+                        goal.innerHTML = taskData.goal_name
+                        let comments = document.querySelector('.comments')
+                        comments.innerHTML = ``
+                        if(taskData.comments.length == 0)
+                        {
+                            task__show__create__comment(`Додайте коментар до завдання за допомогою поля нижче`, `2022-02-24 04:20:00`)
+                        } else
+                        {
+                            taskData.comments.forEach(comment => {
+                                task__show__create__comment(comment.text, new Date(comment.created_at).toISOString().replace('T', ' ').substring(0, 19))
+                            });
+                        }
+                        comments.scrollTop = comments.scrollHeight
+                        if(task.attributes.completed.value == 1)
+                        {
+                            task__show__modal.querySelector('.complete').classList.add('d-none')
+                            task__show__modal.querySelector('.edit').classList.add('d-none')
+                            task__show__modal.querySelector('.delete').classList.add('d-none')
+                        } else
+                        {
+                            task__show__modal.querySelector('.complete').classList.remove('d-none')
+                            task__show__modal.querySelector('.edit').classList.remove('d-none')
+                            task__show__modal.querySelector('.delete').classList.remove('d-none')
+                        }
+                        task__show__modal.classList.add('d-flex')
+                        task__show__modal.classList.remove('d-none')
+                        task__show__modal.style.animation = 'appear__opacity 0.5s forwards'
+                        task__show__modal.querySelector('.task__show').style.animation = 'appear__bottom 0.5s forwards'
+                        updateScrollingText()
+                        task__show__modal__edit()
+                    })
+                    .catch(err => {
+                        // console.error(err);
+                    })
+                }
+                let task__show__input = task__show__modal.querySelector('input')
+                let task__show__submit = task__show__modal.querySelector('.submit__parent')
+                let default__comment = false
+                task__show__input.addEventListener('keyup', function (e) {
+                    if(e.code == 'Enter')
+                    {
+                        task__show__submit.click()
+                        default__comment = false
+                    }
+                    let comments = task__show__modal.querySelector('.comments')
+                    if(task__show__input.value.length > 0)
+                    {
+                        if(comments.querySelectorAll('.comment').length == 1 && comments.querySelector('.comment .datetime').innerHTML == '2022-02-24 04:20:00')
+                        {
+                            default__comment = true
+                            comments.querySelector('.comment').remove()
+                        }
+                        if(!comments.querySelector('.comment__preview'))
+                        {
+                            task__show__create__comment(task__show__input.value, new Date().toISOString().replace('T', ' ').substring(0, 19), 1)
+                        } else
+                        {
+                            comments.querySelector('.comment__preview p').innerHTML = task__show__input.value
+                            comments.querySelector('.comment__preview .datetime').innerHTML = new Date().toISOString().replace('T', ' ').substring(0, 19)
+                        }
                     } else
                     {
-                        desc.innerHTML = taskData.desc
-                    }
-                    let goal = task__show__modal.querySelector('.goal .text')
-                    goal.innerHTML = taskData.goal_name
-                    let comments = document.querySelector('.comments')
-                    comments.innerHTML = ``
-                    if(taskData.comments.length == 0)
-                    {
-                        task__show__create__comment(`Додайте коментар до завдання за допомогою поля нижче`, `2022-02-24 04:20:00`)
-                    } else
-                    {
-                        taskData.comments.forEach(comment => {
-                            task__show__create__comment(comment.text, new Date(comment.created_at).toISOString().replace('T', ' ').substring(0, 19))
-                        });
+                        if(default__comment && comments.querySelector('.comment .datetime').innerHTML !== '2022-02-24 04:20:00' && e.code !== 'Enter')
+                        {
+                            default__comment = false
+                            task__show__create__comment(`Додайте коментар до завдання за допомогою поля нижче`, `2022-02-24 04:20:00`)
+                        }
+                        if(comments.querySelector('.comment__preview'))
+                        {
+                            comments.querySelector('.comment__preview').remove()
+                        }
                     }
                     comments.scrollTop = comments.scrollHeight
-                    if(task.attributes.completed.value == 1)
-                    {
-                        task__show__modal.querySelector('.complete').classList.add('d-none')
-                        task__show__modal.querySelector('.edit').classList.add('d-none')
-                        task__show__modal.querySelector('.delete').classList.add('d-none')
-                    } else
-                    {
-                        task__show__modal.querySelector('.complete').classList.remove('d-none')
-                        task__show__modal.querySelector('.edit').classList.remove('d-none')
-                        task__show__modal.querySelector('.delete').classList.remove('d-none')
-                    }
-                    task__show__modal.classList.add('d-flex')
-                    task__show__modal.classList.remove('d-none')
-                    task__show__modal.style.animation = 'appear__opacity 0.5s forwards'
-                    task__show__modal.querySelector('.task__show').style.animation = 'appear__bottom 0.5s forwards'
-                    updateScrollingText()
-                    task__show__modal__edit(task__show__modal, priority__level)
                 })
-                .catch(err => {
-                    // console.error(err);
-                })
-            }
-            let task__show__input = task__show__modal.querySelector('input')
-            let task__show__submit = task__show__modal.querySelector('.submit__parent')
-            let default__comment = false
-            task__show__input.addEventListener('keyup', function (e) {
-                if(e.code == 'Enter')
-                {
-                    task__show__submit.click()
-                    default__comment = false
-                }
-                let comments = task__show__modal.querySelector('.comments')
-                if(task__show__input.value.length > 0)
-                {
-                    if(comments.querySelectorAll('.comment').length == 1 && comments.querySelector('.comment .datetime').innerHTML == '2022-02-24 04:20:00')
+                task__show__submit.addEventListener('click', function () {
+                    if(task__show__input.value.length > 5)
                     {
-                        default__comment = true
-                        comments.querySelector('.comment').remove()
-                    }
-                    if(!comments.querySelector('.comment__preview'))
-                    {
-                        task__show__create__comment(task__show__input.value, new Date().toISOString().replace('T', ' ').substring(0, 19), 1)
-                    } else
-                    {
-                        comments.querySelector('.comment__preview p').innerHTML = task__show__input.value
-                        comments.querySelector('.comment__preview .datetime').innerHTML = new Date().toISOString().replace('T', ' ').substring(0, 19)
-                    }
-                } else
-                {
-                    if(default__comment && comments.querySelector('.comment .datetime').innerHTML !== '2022-02-24 04:20:00' && e.code !== 'Enter')
-                    {
+                        axios.post(`{{ route('task.createComment') }}`,{text: task__show__input.value, task_id: task__show__modal.querySelector('.task_id').value})
+                        .then(res => {
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        })
+                        task__show__modal.querySelector('.comment__preview').classList.remove('comment__preview')
+                        task__show__input.value = ''
                         default__comment = false
-                        task__show__create__comment(`Додайте коментар до завдання за допомогою поля нижче`, `2022-02-24 04:20:00`)
                     }
-                    if(comments.querySelector('.comment__preview'))
-                    {
-                        comments.querySelector('.comment__preview').remove()
-                    }
-                }
-                comments.scrollTop = comments.scrollHeight
-            })
-            task__show__submit.addEventListener('click', function () {
-                if(task__show__input.value.length > 5)
+                })
+                task__show__modal.querySelector('.complete').addEventListener('click', function ()
                 {
-                    axios.post(`{{ route('task.createComment') }}`,{text: task__show__input.value, task_id: task__show__modal.querySelector('.task_id').value})
+                    axios.post(`{{ route('task.complete') }}`,{task_id: task__show__modal.querySelector('.task_id').value})
                     .then(res => {
+                        task__show__modal.click()
                     })
                     .catch(err => {
                         console.error(err);
                     })
-                    task__show__modal.querySelector('.comment__preview').classList.remove('comment__preview')
-                    task__show__input.value = ''
-                    default__comment = false
-                }
-            })
-            task__show__modal.querySelector('.complete').addEventListener('click', function ()
-            {
-                axios.post(`{{ route('task.complete') }}`,{task_id: task__show__modal.querySelector('.task_id').value})
-                .then(res => {
-                    task__show__modal.click()
                 })
-                .catch(err => {
-                    console.error(err);
-                })
-            })
             function task__show__modal__edit()
             {
                 let priority = task__show__modal.querySelector('.priority')
-                let date = task__show__modal.querySelector('.date')
                 let goal = task__show__modal.querySelector('.goal')
                 let desc = task__show__modal.querySelector('.desc')
                 create__priority__bar(task__show__modal, priority__level)
+                let desc__input = desc.querySelector('.input')
+                let desc__p = desc.querySelector('p')
+                desc__input.classList.remove('d-none')
+                desc__input.value = desc__p.innerText == 'Тут може бути ваш більш детальніший опис завдання або його перебігу' ? '' : desc__p.innerText
+                desc__p.classList.add('d-none')
+                let timeout
+                let previous_value = desc__input.value
+                desc__input.addEventListener('keyup', function () {
+                    if(desc__input.value !== previous_value)
+                    {
+                        clearTimeout(timeout);
+                        timeout = setTimeout(() => {
+                            axios.post(`{{ route('task.changeDesc') }}`,{desc: desc__input.value, task_id: document.querySelector('.task__show__modal .task_id').value})
+                            .then(res => {
+                                create__alert('Сповіщення', `Зміна детальнішого опису завдання <b>"${res.data.name}"</b> успішно збережена`)
+                                desc__p.innerText = desc__input.value
+                                previous_value = desc__input.value
+                            })
+                            .catch(err => {
+                                console.error(err);
+                            })
+                        }, 1000);
+                    }
+                });
+                desc__input.addEventListener('keydown', function (e) {
+                    console.log()
+                    if(desc__input.value.length > 100 && e.code !== 'Backspace' && e.code !== 'Delete' && e.code !== 'Esc')
+                    {
+                        e.preventDefault()
+                    }
+                })
+                // task__show__modal__edit__close()
+            }
+            function task__show__modal__edit__close()
+            {
+                console.log(2)
+                let priority = task__show__modal.querySelector('.priority')
+                priority.querySelectorAll('.priority__level').forEach(priority__level => {
+                    let new__level = priority__level.cloneNode(true);
+                    priority__level.parentNode.removeChild(priority__level);
+                    priority.querySelector('.priority__levels').appendChild(new__level)
+                })
+                priority.querySelector('.priority__levels')._tippy.hide()
+                let goal = task__show__modal.querySelector('.goal')
+                let desc = task__show__modal.querySelector('.desc')
+                // create__priority__bar(task__show__modal, priority__level)
+                let desc__input = desc.querySelector('.input')
+                let desc__p = desc.querySelector('p')
+                desc__input.classList.add('d-none')
+                desc__p.classList.remove('d-none')
             }
             update__task__shows()
         // TASK CREATE MODAL
