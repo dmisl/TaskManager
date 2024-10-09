@@ -643,8 +643,8 @@ window.addEventListener('load', function () {
                             task__show__modal.classList.remove('d-flex')
                             task__show__modal.classList.add('d-none')
                         }, 500);
+                        task__show__modal__edit__close()
                     }
-                    task__show__modal__edit__close()
                 }
                 function task__show__create__comment(text, date, preview = 0)
                 {
@@ -670,7 +670,7 @@ window.addEventListener('load', function () {
                     task__shows.forEach(task__show => {
                         task__show.addEventListener('click', task__show__modal__open)
                     })
-                    task__shows[0].click()
+                    task__shows[1].click()
                 }
                 function task__show__modal__open(e)
                 {
@@ -732,6 +732,8 @@ window.addEventListener('load', function () {
                             task__show__modal.querySelector('.complete').classList.remove('d-none')
                             task__show__modal.querySelector('.edit').classList.remove('d-none')
                             task__show__modal.querySelector('.delete').classList.remove('d-none')
+                            task__show__modal.querySelector('.edit').removeEventListener('click', task__show__modal__edit)
+                            task__show__modal.querySelector('.edit').addEventListener('click', task__show__modal__edit)
                         }
                         task__show__modal.classList.add('d-flex')
                         task__show__modal.classList.remove('d-none')
@@ -741,7 +743,7 @@ window.addEventListener('load', function () {
                         updateScrollingText()
                     })
                     .catch(err => {
-                        // console.error(err);
+                        console.error(err);
                     })
                 }
                 let task__show__input = task__show__modal.querySelector('input')
@@ -810,8 +812,8 @@ window.addEventListener('load', function () {
                 function task__show__modal__edit(e)
                 {
                     task__show__modal.querySelector('.edit').src = `{{ asset('storage/images/completed.png') }}`
-                    // task__show__modal.querySelector('.edit').removeEventListener('click', task__show__modal__edit)
-                    // task__show__modal.querySelector('.edit').addEventListener('click', task__show__modal__edit__close)
+                    task__show__modal.querySelector('.edit').removeEventListener('click', task__show__modal__edit)
+                    task__show__modal.querySelector('.edit').addEventListener('click', task__show__modal__edit__close)
                     console.log(task__show__modal.querySelector('.edit').src)
                     console.log(task__show__modal.querySelector('.edit'))
                     let priority = task__show__modal.querySelector('.priority')
@@ -851,6 +853,7 @@ window.addEventListener('load', function () {
                 }
                 function task__show__modal__edit__close(e)
                 {
+                    console.log('closed')
                     if(e && e.target)
                     {
                         e.target.removeEventListener('click', task__show__modal__edit__close)
