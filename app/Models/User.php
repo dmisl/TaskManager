@@ -63,4 +63,9 @@ class User extends Authenticatable
         return $this->hasManyThrough(Day::class, Week::class);
     }
 
+    public function checks(): HasMany
+    {
+        return $this->hasMany(Check::class);
+    }
+
 }

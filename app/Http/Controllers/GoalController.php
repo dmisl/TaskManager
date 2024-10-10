@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Check;
 use App\Models\Day;
 use App\Models\Goal;
 use App\Models\User;
@@ -70,7 +71,29 @@ class GoalController extends Controller
 
         $days = $week->days->merge($nextWeek->days)->sortBy('date');
         $goals = Auth::user()->goals;
-        return view('goal.show', compact('week', 'days', 'goals'));
+
+        // CHECK FOR NOT COMPLETED DAYS
+        $notCompleted = [];
+        if(!Check::query()->where(['date' => $today])->first())
+        {
+            $weeksBeforeToday = $user->weeks()->where('end', '<', $today)->get();
+            foreach ($weeksBeforeToday as $week) {
+                foreach ($week->days as $day) {
+                    foreach ($day->tasks as $task) {
+                        if (!$task->completed) {
+                            $notCompleted[] = $task;
+                        }
+                    }
+                }
+            }
+            Check::create([
+                'date' => $today,
+                'type' => 1,
+                'user_id' => $user->id,
+            ]);
+        }
+
+        return view('goal.show', compact('week', 'days', 'goals', 'notCompleted'));
     }
     public function create()
     {

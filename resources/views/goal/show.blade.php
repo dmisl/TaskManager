@@ -670,7 +670,7 @@ window.addEventListener('load', function () {
                     task__shows.forEach(task__show => {
                         task__show.addEventListener('click', task__show__modal__open)
                     })
-                    task__shows[1].click()
+                    // task__shows[1].click()
                 }
                 function task__show__modal__open(e)
                 {
