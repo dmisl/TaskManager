@@ -81,7 +81,7 @@ class GoalController extends Controller
                 foreach ($week->days as $day) {
                     foreach ($day->tasks as $task) {
                         if (!$task->completed) {
-                            $notCompleted[] = $task;
+                            $notCompleted[] = $task->id;
                         }
                     }
                 }
@@ -90,8 +90,15 @@ class GoalController extends Controller
                 'date' => $today,
                 'type' => 1,
                 'user_id' => $user->id,
+                'tasks' => $notCompleted,
             ]);
+        } else
+        {
+            $notCompleted = Check::query()->where(['date' => $today])->first()->tasks;
+            dd($notCompleted);
         }
+
+        dd($notCompleted);
 
         return view('goal.show', compact('week', 'days', 'goals', 'notCompleted'));
     }

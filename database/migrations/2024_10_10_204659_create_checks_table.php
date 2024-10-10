@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('date');
             $table->integer('type');
             $table->foreignId('user_id')->constrained();
+            $table->json('tasks')->nullable();
         });
     }
 

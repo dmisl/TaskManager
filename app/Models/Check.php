@@ -11,11 +11,15 @@ class Check extends Model
     use HasFactory;
 
     public $fillable = [
-        'date', 'type', 'user_id'
+        'date', 'type', 'user_id', 'tasks'
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
+
+    protected $casts = [
+        'tasks' => 'array'
+    ];
 }
