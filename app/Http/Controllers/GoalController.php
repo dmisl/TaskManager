@@ -92,13 +92,12 @@ class GoalController extends Controller
                 'user_id' => $user->id,
                 'tasks' => $notCompleted,
             ]);
+            dd(1);
         } else
         {
             $notCompleted = Check::query()->where(['date' => $today])->first()->tasks;
-            dd($notCompleted);
         }
 
-        dd($notCompleted);
 
         return view('goal.show', compact('week', 'days', 'goals', 'notCompleted'));
     }

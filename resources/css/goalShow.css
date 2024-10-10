@@ -70,7 +70,7 @@
     border-bottom: 2px solid black;
     margin: 0 auto;
     font-size: 21px;
-    overflow: hidden;
+    white-space: nowrap;
     margin-top: 10px;
     font-weight: 400;
     text-align: center;

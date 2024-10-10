@@ -582,6 +582,7 @@ window.addEventListener('load', function () {
                             first__task.innerHTML = `Перетягніть сюди своє перше завдання`
                         })
                         first__task.addEventListener('drop', function () {
+                            create__alert('Сповіщення', 'Завдання було успішно перенесено.<br><b>Дані збережено</b>')
                             first__task.remove()
                             handle__new__task(flex)
                         })
@@ -814,8 +815,6 @@ window.addEventListener('load', function () {
                     task__show__modal.querySelector('.edit').src = `{{ asset('storage/images/completed.png') }}`
                     task__show__modal.querySelector('.edit').removeEventListener('click', task__show__modal__edit)
                     task__show__modal.querySelector('.edit').addEventListener('click', task__show__modal__edit__close)
-                    console.log(task__show__modal.querySelector('.edit').src)
-                    console.log(task__show__modal.querySelector('.edit'))
                     let priority = task__show__modal.querySelector('.priority')
                     let goal = task__show__modal.querySelector('.goal')
                     let desc = task__show__modal.querySelector('.desc')
@@ -853,7 +852,6 @@ window.addEventListener('load', function () {
                 }
                 function task__show__modal__edit__close(e)
                 {
-                    console.log('closed')
                     if(e && e.target)
                     {
                         e.target.removeEventListener('click', task__show__modal__edit__close)
@@ -1023,6 +1021,7 @@ window.addEventListener('load', function () {
             let task = e.currentTarget
             let flex = task.parentElement
             handle__new__task(flex, task, 1)
+            create__alert('Сповіщення', 'Завдання було успішно перенесено.<br><b>Дані збережено</b>')
             if(flex.querySelector('.task__preview'))
             {
                 flex.querySelector('.task__preview').classList.remove('task__preview')
