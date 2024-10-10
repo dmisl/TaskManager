@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('priority');
             $table->boolean('completed')->default(false);
             $table->foreignId('goal_id')->constrained();
-            $table->foreignId('day_id')->nullable()->constrained();
             $table->integer('position')->nullable();
         });
     }
