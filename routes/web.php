@@ -37,6 +37,7 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::post('home/task/changeDesc', [TaskController::class, 'changeDesc'])->name('task.changeDesc');
     Route::post('home/task/createComment', [TaskController::class, 'createComment'])->name('task.createComment');
     Route::post('home/task/complete', [TaskController::class, 'complete'])->name('task.complete');
+    Route::post('home/task/delete', [TaskController::class, 'delete'])->name('task.delete');
 
     Route::get('logout', [LoginController::class, 'logout'])->name('login.logout');
 

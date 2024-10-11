@@ -157,7 +157,7 @@
                                 <div class="flex" day_id="{{ $day->id }}">
                                     @foreach($day->tasks as $task)
                                         <div class="task p{{ $task->priority }}" task_id="{{ $task->id }}" has_day="1" day_id="{{ $day->id }}" completed="{{ $task->completed ? 1 : 0 }}">
-                                            <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: none;">
+                                            <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: {{ $task->completed ? 'block' : 'none' }};">
                                             <div class="scrolling__parent" style="user-select: none;">
                                                 <p style="user-select: none;">{{ $task->name }}</p>
                                             </div>
@@ -264,93 +264,103 @@
 
         </div>
         <div class="task__show__modal d-none">
-            <div class="task__show">
-                <div class="title">
-                    <div class="name">Назва завдання</div>
-                    <div class="flex">
-                        <img class="edit" src="{{ asset('storage/images/edit.png') }}">
-                        <img class="delete" src="{{ asset('storage/images/delete.png') }}">
-                        <img class="close" src="{{ asset('storage/images/close.png') }}">
-                    </div>
-                </div>
-                <div class="content">
-                    <div class="d-flex">
-                        <div class="priority">
-                            <h1>Рівень приорітету</h1>
-                            <div class="priority__levels">
-                                <svg class="priority__level" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="26" viewBox="0 0 256 256" xml:space="preserve">
-                                    <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
-                                        <path d="M 69.671 88.046 c -0.808 0 -1.62 -0.195 -2.37 -0.59 L 45 75.732 L 22.7 87.456 c -1.727 0.907 -3.779 0.757 -5.356 -0.388 c -1.577 -1.146 -2.352 -3.052 -2.023 -4.972 l 4.259 -24.832 L 1.539 39.678 c -1.396 -1.361 -1.889 -3.358 -1.287 -5.213 c 0.603 -1.854 2.176 -3.181 4.105 -3.461 l 24.932 -3.622 L 40.44 4.79 C 41.303 3.041 43.05 1.955 45 1.955 c 0 0 0 0 0.001 0 c 1.949 0 3.696 1.086 4.559 2.834 l 11.15 22.592 l 24.932 3.623 c 1.93 0.28 3.503 1.606 4.105 3.461 c 0.603 1.854 0.109 3.851 -1.287 5.213 L 70.419 57.264 l 4.26 24.832 c 0.329 1.921 -0.446 3.827 -2.023 4.972 C 71.764 87.717 70.721 88.046 69.671 88.046 z M 7.055 36.676 l 17.058 16.628 c 1.198 1.167 1.746 2.85 1.462 4.502 l -4.027 23.479 l 21.086 -11.086 c 1.481 -0.779 3.25 -0.779 4.732 0 l 21.085 11.086 l -4.027 -23.48 c -0.283 -1.649 0.264 -3.333 1.463 -4.501 l 17.058 -16.628 L 59.372 33.25 c -1.658 -0.242 -3.089 -1.282 -3.829 -2.783 L 45 9.106 L 34.457 30.468 c -0.74 1.5 -2.171 2.54 -3.827 2.782 L 7.055 36.676 z M 84.779 36.942 h 0.011 H 84.779 z M 44.18 7.444 c 0 0 0 0.001 0.001 0.002 L 44.18 7.444 C 44.18 7.445 44.18 7.445 44.18 7.444 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
-                                    </g>
-                                </svg>
-                                <svg class="priority__level" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="26" viewBox="0 0 256 256" xml:space="preserve">
-                                    <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
-                                        <path d="M 69.671 88.046 c -0.808 0 -1.62 -0.195 -2.37 -0.59 L 45 75.732 L 22.7 87.456 c -1.727 0.907 -3.779 0.757 -5.356 -0.388 c -1.577 -1.146 -2.352 -3.052 -2.023 -4.972 l 4.259 -24.832 L 1.539 39.678 c -1.396 -1.361 -1.889 -3.358 -1.287 -5.213 c 0.603 -1.854 2.176 -3.181 4.105 -3.461 l 24.932 -3.622 L 40.44 4.79 C 41.303 3.041 43.05 1.955 45 1.955 c 0 0 0 0 0.001 0 c 1.949 0 3.696 1.086 4.559 2.834 l 11.15 22.592 l 24.932 3.623 c 1.93 0.28 3.503 1.606 4.105 3.461 c 0.603 1.854 0.109 3.851 -1.287 5.213 L 70.419 57.264 l 4.26 24.832 c 0.329 1.921 -0.446 3.827 -2.023 4.972 C 71.764 87.717 70.721 88.046 69.671 88.046 z M 7.055 36.676 l 17.058 16.628 c 1.198 1.167 1.746 2.85 1.462 4.502 l -4.027 23.479 l 21.086 -11.086 c 1.481 -0.779 3.25 -0.779 4.732 0 l 21.085 11.086 l -4.027 -23.48 c -0.283 -1.649 0.264 -3.333 1.463 -4.501 l 17.058 -16.628 L 59.372 33.25 c -1.658 -0.242 -3.089 -1.282 -3.829 -2.783 L 45 9.106 L 34.457 30.468 c -0.74 1.5 -2.171 2.54 -3.827 2.782 L 7.055 36.676 z M 84.779 36.942 h 0.011 H 84.779 z M 44.18 7.444 c 0 0 0 0.001 0.001 0.002 L 44.18 7.444 C 44.18 7.445 44.18 7.445 44.18 7.444 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
-                                    </g>
-                                </svg>
-                                <svg class="priority__level" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="26" viewBox="0 0 256 256" xml:space="preserve">
-                                    <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
-                                        <path d="M 69.671 88.046 c -0.808 0 -1.62 -0.195 -2.37 -0.59 L 45 75.732 L 22.7 87.456 c -1.727 0.907 -3.779 0.757 -5.356 -0.388 c -1.577 -1.146 -2.352 -3.052 -2.023 -4.972 l 4.259 -24.832 L 1.539 39.678 c -1.396 -1.361 -1.889 -3.358 -1.287 -5.213 c 0.603 -1.854 2.176 -3.181 4.105 -3.461 l 24.932 -3.622 L 40.44 4.79 C 41.303 3.041 43.05 1.955 45 1.955 c 0 0 0 0 0.001 0 c 1.949 0 3.696 1.086 4.559 2.834 l 11.15 22.592 l 24.932 3.623 c 1.93 0.28 3.503 1.606 4.105 3.461 c 0.603 1.854 0.109 3.851 -1.287 5.213 L 70.419 57.264 l 4.26 24.832 c 0.329 1.921 -0.446 3.827 -2.023 4.972 C 71.764 87.717 70.721 88.046 69.671 88.046 z M 7.055 36.676 l 17.058 16.628 c 1.198 1.167 1.746 2.85 1.462 4.502 l -4.027 23.479 l 21.086 -11.086 c 1.481 -0.779 3.25 -0.779 4.732 0 l 21.085 11.086 l -4.027 -23.48 c -0.283 -1.649 0.264 -3.333 1.463 -4.501 l 17.058 -16.628 L 59.372 33.25 c -1.658 -0.242 -3.089 -1.282 -3.829 -2.783 L 45 9.106 L 34.457 30.468 c -0.74 1.5 -2.171 2.54 -3.827 2.782 L 7.055 36.676 z M 84.779 36.942 h 0.011 H 84.779 z M 44.18 7.444 c 0 0 0 0.001 0.001 0.002 L 44.18 7.444 C 44.18 7.445 44.18 7.445 44.18 7.444 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
-                                    </g>
-                                </svg>
-                                <svg class="priority__level" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="26" viewBox="0 0 256 256" xml:space="preserve">
-                                    <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
-                                        <path d="M 69.671 88.046 c -0.808 0 -1.62 -0.195 -2.37 -0.59 L 45 75.732 L 22.7 87.456 c -1.727 0.907 -3.779 0.757 -5.356 -0.388 c -1.577 -1.146 -2.352 -3.052 -2.023 -4.972 l 4.259 -24.832 L 1.539 39.678 c -1.396 -1.361 -1.889 -3.358 -1.287 -5.213 c 0.603 -1.854 2.176 -3.181 4.105 -3.461 l 24.932 -3.622 L 40.44 4.79 C 41.303 3.041 43.05 1.955 45 1.955 c 0 0 0 0 0.001 0 c 1.949 0 3.696 1.086 4.559 2.834 l 11.15 22.592 l 24.932 3.623 c 1.93 0.28 3.503 1.606 4.105 3.461 c 0.603 1.854 0.109 3.851 -1.287 5.213 L 70.419 57.264 l 4.26 24.832 c 0.329 1.921 -0.446 3.827 -2.023 4.972 C 71.764 87.717 70.721 88.046 69.671 88.046 z M 7.055 36.676 l 17.058 16.628 c 1.198 1.167 1.746 2.85 1.462 4.502 l -4.027 23.479 l 21.086 -11.086 c 1.481 -0.779 3.25 -0.779 4.732 0 l 21.085 11.086 l -4.027 -23.48 c -0.283 -1.649 0.264 -3.333 1.463 -4.501 l 17.058 -16.628 L 59.372 33.25 c -1.658 -0.242 -3.089 -1.282 -3.829 -2.783 L 45 9.106 L 34.457 30.468 c -0.74 1.5 -2.171 2.54 -3.827 2.782 L 7.055 36.676 z M 84.779 36.942 h 0.011 H 84.779 z M 44.18 7.444 c 0 0 0 0.001 0.001 0.002 L 44.18 7.444 C 44.18 7.445 44.18 7.445 44.18 7.444 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
-                                    </g>
-                                </svg>
-                                <svg class="priority__level" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="26" viewBox="0 0 256 256" xml:space="preserve">
-                                    <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
-                                        <path d="M 69.671 88.046 c -0.808 0 -1.62 -0.195 -2.37 -0.59 L 45 75.732 L 22.7 87.456 c -1.727 0.907 -3.779 0.757 -5.356 -0.388 c -1.577 -1.146 -2.352 -3.052 -2.023 -4.972 l 4.259 -24.832 L 1.539 39.678 c -1.396 -1.361 -1.889 -3.358 -1.287 -5.213 c 0.603 -1.854 2.176 -3.181 4.105 -3.461 l 24.932 -3.622 L 40.44 4.79 C 41.303 3.041 43.05 1.955 45 1.955 c 0 0 0 0 0.001 0 c 1.949 0 3.696 1.086 4.559 2.834 l 11.15 22.592 l 24.932 3.623 c 1.93 0.28 3.503 1.606 4.105 3.461 c 0.603 1.854 0.109 3.851 -1.287 5.213 L 70.419 57.264 l 4.26 24.832 c 0.329 1.921 -0.446 3.827 -2.023 4.972 C 71.764 87.717 70.721 88.046 69.671 88.046 z M 7.055 36.676 l 17.058 16.628 c 1.198 1.167 1.746 2.85 1.462 4.502 l -4.027 23.479 l 21.086 -11.086 c 1.481 -0.779 3.25 -0.779 4.732 0 l 21.085 11.086 l -4.027 -23.48 c -0.283 -1.649 0.264 -3.333 1.463 -4.501 l 17.058 -16.628 L 59.372 33.25 c -1.658 -0.242 -3.089 -1.282 -3.829 -2.783 L 45 9.106 L 34.457 30.468 c -0.74 1.5 -2.171 2.54 -3.827 2.782 L 7.055 36.676 z M 84.779 36.942 h 0.011 H 84.779 z M 44.18 7.444 c 0 0 0 0.001 0.001 0.002 L 44.18 7.444 C 44.18 7.445 44.18 7.445 44.18 7.444 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
-                                    </g>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="date">
-                            <h1>Потрібно виконати до</h1>
-                            <h1 class="text">6 жовтня, 2024</h1>
+            <div class="d-flex task__show__delete__parent">
+                <div class="task__show">
+                    <div class="title">
+                        <div class="name">Назва завдання</div>
+                        <div class="flex">
+                            <img class="edit" src="{{ asset('storage/images/edit.png') }}">
+                            <img class="delete" src="{{ asset('storage/images/delete.png') }}">
+                            <img class="close" src="{{ asset('storage/images/close.png') }}">
                         </div>
                     </div>
-                    <div class="flex__parent">
-                        <div class="left">
-                            <div class="desc" style="font-size: 0;">
-                                <h1>Детальніший опис</h1>
-                                <p>Якийсь більш детальніший опис цього завдання типу щось там доробити чи більше описані кроки до виконання</p>
-                                <textarea class="input d-none" placeholder="Впишіть новий опис до вашого завдання. (Зміни застосуються автоматично)" cols="3" rows="10">Якийсь більш детальніший опис цього завдання типу щось там доробити чи більше описані кроки до виконання</textarea>
-                            </div>
-                            <div class="goal">
-                                <h1>Відноситься до цілі:</h1>
-                                <div class="scrolling__parent">
-                                    <p class="text">Знайти роботу програмістом</p>
+                    <div class="content">
+                        <div class="d-flex">
+                            <div class="priority">
+                                <h1>Рівень приорітету</h1>
+                                <div class="priority__levels">
+                                    <svg class="priority__level" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="26" viewBox="0 0 256 256" xml:space="preserve">
+                                        <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
+                                            <path d="M 69.671 88.046 c -0.808 0 -1.62 -0.195 -2.37 -0.59 L 45 75.732 L 22.7 87.456 c -1.727 0.907 -3.779 0.757 -5.356 -0.388 c -1.577 -1.146 -2.352 -3.052 -2.023 -4.972 l 4.259 -24.832 L 1.539 39.678 c -1.396 -1.361 -1.889 -3.358 -1.287 -5.213 c 0.603 -1.854 2.176 -3.181 4.105 -3.461 l 24.932 -3.622 L 40.44 4.79 C 41.303 3.041 43.05 1.955 45 1.955 c 0 0 0 0 0.001 0 c 1.949 0 3.696 1.086 4.559 2.834 l 11.15 22.592 l 24.932 3.623 c 1.93 0.28 3.503 1.606 4.105 3.461 c 0.603 1.854 0.109 3.851 -1.287 5.213 L 70.419 57.264 l 4.26 24.832 c 0.329 1.921 -0.446 3.827 -2.023 4.972 C 71.764 87.717 70.721 88.046 69.671 88.046 z M 7.055 36.676 l 17.058 16.628 c 1.198 1.167 1.746 2.85 1.462 4.502 l -4.027 23.479 l 21.086 -11.086 c 1.481 -0.779 3.25 -0.779 4.732 0 l 21.085 11.086 l -4.027 -23.48 c -0.283 -1.649 0.264 -3.333 1.463 -4.501 l 17.058 -16.628 L 59.372 33.25 c -1.658 -0.242 -3.089 -1.282 -3.829 -2.783 L 45 9.106 L 34.457 30.468 c -0.74 1.5 -2.171 2.54 -3.827 2.782 L 7.055 36.676 z M 84.779 36.942 h 0.011 H 84.779 z M 44.18 7.444 c 0 0 0 0.001 0.001 0.002 L 44.18 7.444 C 44.18 7.445 44.18 7.445 44.18 7.444 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                                        </g>
+                                    </svg>
+                                    <svg class="priority__level" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="26" viewBox="0 0 256 256" xml:space="preserve">
+                                        <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
+                                            <path d="M 69.671 88.046 c -0.808 0 -1.62 -0.195 -2.37 -0.59 L 45 75.732 L 22.7 87.456 c -1.727 0.907 -3.779 0.757 -5.356 -0.388 c -1.577 -1.146 -2.352 -3.052 -2.023 -4.972 l 4.259 -24.832 L 1.539 39.678 c -1.396 -1.361 -1.889 -3.358 -1.287 -5.213 c 0.603 -1.854 2.176 -3.181 4.105 -3.461 l 24.932 -3.622 L 40.44 4.79 C 41.303 3.041 43.05 1.955 45 1.955 c 0 0 0 0 0.001 0 c 1.949 0 3.696 1.086 4.559 2.834 l 11.15 22.592 l 24.932 3.623 c 1.93 0.28 3.503 1.606 4.105 3.461 c 0.603 1.854 0.109 3.851 -1.287 5.213 L 70.419 57.264 l 4.26 24.832 c 0.329 1.921 -0.446 3.827 -2.023 4.972 C 71.764 87.717 70.721 88.046 69.671 88.046 z M 7.055 36.676 l 17.058 16.628 c 1.198 1.167 1.746 2.85 1.462 4.502 l -4.027 23.479 l 21.086 -11.086 c 1.481 -0.779 3.25 -0.779 4.732 0 l 21.085 11.086 l -4.027 -23.48 c -0.283 -1.649 0.264 -3.333 1.463 -4.501 l 17.058 -16.628 L 59.372 33.25 c -1.658 -0.242 -3.089 -1.282 -3.829 -2.783 L 45 9.106 L 34.457 30.468 c -0.74 1.5 -2.171 2.54 -3.827 2.782 L 7.055 36.676 z M 84.779 36.942 h 0.011 H 84.779 z M 44.18 7.444 c 0 0 0 0.001 0.001 0.002 L 44.18 7.444 C 44.18 7.445 44.18 7.445 44.18 7.444 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                                        </g>
+                                    </svg>
+                                    <svg class="priority__level" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="26" viewBox="0 0 256 256" xml:space="preserve">
+                                        <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
+                                            <path d="M 69.671 88.046 c -0.808 0 -1.62 -0.195 -2.37 -0.59 L 45 75.732 L 22.7 87.456 c -1.727 0.907 -3.779 0.757 -5.356 -0.388 c -1.577 -1.146 -2.352 -3.052 -2.023 -4.972 l 4.259 -24.832 L 1.539 39.678 c -1.396 -1.361 -1.889 -3.358 -1.287 -5.213 c 0.603 -1.854 2.176 -3.181 4.105 -3.461 l 24.932 -3.622 L 40.44 4.79 C 41.303 3.041 43.05 1.955 45 1.955 c 0 0 0 0 0.001 0 c 1.949 0 3.696 1.086 4.559 2.834 l 11.15 22.592 l 24.932 3.623 c 1.93 0.28 3.503 1.606 4.105 3.461 c 0.603 1.854 0.109 3.851 -1.287 5.213 L 70.419 57.264 l 4.26 24.832 c 0.329 1.921 -0.446 3.827 -2.023 4.972 C 71.764 87.717 70.721 88.046 69.671 88.046 z M 7.055 36.676 l 17.058 16.628 c 1.198 1.167 1.746 2.85 1.462 4.502 l -4.027 23.479 l 21.086 -11.086 c 1.481 -0.779 3.25 -0.779 4.732 0 l 21.085 11.086 l -4.027 -23.48 c -0.283 -1.649 0.264 -3.333 1.463 -4.501 l 17.058 -16.628 L 59.372 33.25 c -1.658 -0.242 -3.089 -1.282 -3.829 -2.783 L 45 9.106 L 34.457 30.468 c -0.74 1.5 -2.171 2.54 -3.827 2.782 L 7.055 36.676 z M 84.779 36.942 h 0.011 H 84.779 z M 44.18 7.444 c 0 0 0 0.001 0.001 0.002 L 44.18 7.444 C 44.18 7.445 44.18 7.445 44.18 7.444 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                                        </g>
+                                    </svg>
+                                    <svg class="priority__level" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="26" viewBox="0 0 256 256" xml:space="preserve">
+                                        <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
+                                            <path d="M 69.671 88.046 c -0.808 0 -1.62 -0.195 -2.37 -0.59 L 45 75.732 L 22.7 87.456 c -1.727 0.907 -3.779 0.757 -5.356 -0.388 c -1.577 -1.146 -2.352 -3.052 -2.023 -4.972 l 4.259 -24.832 L 1.539 39.678 c -1.396 -1.361 -1.889 -3.358 -1.287 -5.213 c 0.603 -1.854 2.176 -3.181 4.105 -3.461 l 24.932 -3.622 L 40.44 4.79 C 41.303 3.041 43.05 1.955 45 1.955 c 0 0 0 0 0.001 0 c 1.949 0 3.696 1.086 4.559 2.834 l 11.15 22.592 l 24.932 3.623 c 1.93 0.28 3.503 1.606 4.105 3.461 c 0.603 1.854 0.109 3.851 -1.287 5.213 L 70.419 57.264 l 4.26 24.832 c 0.329 1.921 -0.446 3.827 -2.023 4.972 C 71.764 87.717 70.721 88.046 69.671 88.046 z M 7.055 36.676 l 17.058 16.628 c 1.198 1.167 1.746 2.85 1.462 4.502 l -4.027 23.479 l 21.086 -11.086 c 1.481 -0.779 3.25 -0.779 4.732 0 l 21.085 11.086 l -4.027 -23.48 c -0.283 -1.649 0.264 -3.333 1.463 -4.501 l 17.058 -16.628 L 59.372 33.25 c -1.658 -0.242 -3.089 -1.282 -3.829 -2.783 L 45 9.106 L 34.457 30.468 c -0.74 1.5 -2.171 2.54 -3.827 2.782 L 7.055 36.676 z M 84.779 36.942 h 0.011 H 84.779 z M 44.18 7.444 c 0 0 0 0.001 0.001 0.002 L 44.18 7.444 C 44.18 7.445 44.18 7.445 44.18 7.444 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                                        </g>
+                                    </svg>
+                                    <svg class="priority__level" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="26" viewBox="0 0 256 256" xml:space="preserve">
+                                        <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
+                                            <path d="M 69.671 88.046 c -0.808 0 -1.62 -0.195 -2.37 -0.59 L 45 75.732 L 22.7 87.456 c -1.727 0.907 -3.779 0.757 -5.356 -0.388 c -1.577 -1.146 -2.352 -3.052 -2.023 -4.972 l 4.259 -24.832 L 1.539 39.678 c -1.396 -1.361 -1.889 -3.358 -1.287 -5.213 c 0.603 -1.854 2.176 -3.181 4.105 -3.461 l 24.932 -3.622 L 40.44 4.79 C 41.303 3.041 43.05 1.955 45 1.955 c 0 0 0 0 0.001 0 c 1.949 0 3.696 1.086 4.559 2.834 l 11.15 22.592 l 24.932 3.623 c 1.93 0.28 3.503 1.606 4.105 3.461 c 0.603 1.854 0.109 3.851 -1.287 5.213 L 70.419 57.264 l 4.26 24.832 c 0.329 1.921 -0.446 3.827 -2.023 4.972 C 71.764 87.717 70.721 88.046 69.671 88.046 z M 7.055 36.676 l 17.058 16.628 c 1.198 1.167 1.746 2.85 1.462 4.502 l -4.027 23.479 l 21.086 -11.086 c 1.481 -0.779 3.25 -0.779 4.732 0 l 21.085 11.086 l -4.027 -23.48 c -0.283 -1.649 0.264 -3.333 1.463 -4.501 l 17.058 -16.628 L 59.372 33.25 c -1.658 -0.242 -3.089 -1.282 -3.829 -2.783 L 45 9.106 L 34.457 30.468 c -0.74 1.5 -2.171 2.54 -3.827 2.782 L 7.055 36.676 z M 84.779 36.942 h 0.011 H 84.779 z M 44.18 7.444 c 0 0 0 0.001 0.001 0.002 L 44.18 7.444 C 44.18 7.445 44.18 7.445 44.18 7.444 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                                        </g>
+                                    </svg>
                                 </div>
                             </div>
+                            <div class="date">
+                                <h1>Потрібно виконати до</h1>
+                                <h1 class="text">6 жовтня, 2024</h1>
+                            </div>
                         </div>
-                        <div class="right">
-                            <div class="comment__parent">
-                                <div class="comments" id="custom__left__scrollbar">
-                                    <div class="comment" style="font-size: 0;">
-                                        <p>Якийсь справді дуже цікавий коментар доданий до завдання</p>
-                                        <p class="datetime">2022-02-24 04:00:00</p>
+                        <div class="flex__parent">
+                            <div class="left">
+                                <div class="desc" style="font-size: 0;">
+                                    <h1>Детальніший опис</h1>
+                                    <p>Якийсь більш детальніший опис цього завдання типу щось там доробити чи більше описані кроки до виконання</p>
+                                    <textarea class="input d-none" placeholder="Впишіть новий опис до вашого завдання. (Зміни застосуються автоматично)" cols="3" rows="10">Якийсь більш детальніший опис цього завдання типу щось там доробити чи більше описані кроки до виконання</textarea>
+                                </div>
+                                <div class="goal">
+                                    <h1>Відноситься до цілі:</h1>
+                                    <div class="scrolling__parent">
+                                        <p class="text">Знайти роботу програмістом</p>
                                     </div>
                                 </div>
-                                <div class="comment__input__parent">
-                                    <input type="text" placeholder="Додати коментар">
-                                    <div class="submit__parent">
-                                        <img src="{{ asset('storage/images/send.png') }}">
+                            </div>
+                            <div class="right">
+                                <div class="comment__parent">
+                                    <div class="comments" id="custom__left__scrollbar">
+                                        <div class="comment" style="font-size: 0;">
+                                            <p>Якийсь справді дуже цікавий коментар доданий до завдання</p>
+                                            <p class="datetime">2022-02-24 04:00:00</p>
+                                        </div>
                                     </div>
-                                    <input type="hidden" class="task_id">
+                                    <div class="comment__input__parent">
+                                        <input type="text" placeholder="Додати коментар">
+                                        <div class="submit__parent">
+                                            <img src="{{ asset('storage/images/send.png') }}">
+                                        </div>
+                                        <input type="hidden" class="task_id">
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="hidden__form">
+                            <input type="hidden" class="task__priority">
+                        </div>
                     </div>
-                    <div class="hidden__form">
-                        <input type="hidden" class="task__priority">
+                    <div class="complete__parent">
+                        <div class="complete">
+                            <p>Позначити як виконане</p>
+                            <img src="{{ asset('storage/images/complete__background.jpg') }}">
+                        </div>
                     </div>
                 </div>
-                <div class="complete__parent">
-                    <div class="complete">
-                        <p>Позначити як виконане</p>
-                        <img src="{{ asset('storage/images/complete__background.jpg') }}">
+                <div class="task__show__delete d-none">
+                    <p>Ви справді хочете <span>видалити це завдання</span></p>
+                    <div class="d-flex text-center">
+                        <button class="yes"><p>Так</p></button>
+                        <button class="no"><p>Ні</p></button>
                     </div>
+                    <img src="{{ asset('storage/images/delete_background.jpg') }}" style="width: 268px; position: absolute; top: 0; z-index: -1;">
                 </div>
             </div>
         </div>
@@ -638,10 +648,14 @@ window.addEventListener('load', function () {
                     content: "Видалити завдання",
                 });
                 function task__show__modal__close(e) {
-                    if(e.target.classList.contains('task__show__modal') || e.target.classList.contains('close'))
+                    if(e.target.classList.contains('task__show__modal') || e.target.classList.contains('close') || e.target.classList.contains('task__show__delete__parent'))
                     {
                         task__show__modal.style.animation = 'disappear__opacity 0.5s forwards'
                         task__show__modal.querySelector('.task__show').style.animation = 'disappear__bottom 0.5s forwards'
+                        if(!task__show__modal.querySelector('.task__show__delete').classList.contains('d-none'))
+                        {
+                            task__show__modal__delete__close()
+                        }
                         setTimeout(() => {
                             task__show__modal.classList.remove('d-flex')
                             task__show__modal.classList.add('d-none')
@@ -673,7 +687,7 @@ window.addEventListener('load', function () {
                     task__shows.forEach(task__show => {
                         task__show.addEventListener('click', task__show__modal__open)
                     })
-                    // task__shows[1].click()
+                    task__shows[1].click()
                 }
                 function task__show__modal__open(e)
                 {
@@ -735,6 +749,8 @@ window.addEventListener('load', function () {
                             task__show__modal.querySelector('.complete').classList.remove('d-none')
                             task__show__modal.querySelector('.edit').classList.remove('d-none')
                             task__show__modal.querySelector('.delete').classList.remove('d-none')
+                            task__show__modal.querySelector('.delete').removeEventListener('click', task__show__modal__delete)
+                            task__show__modal.querySelector('.delete').addEventListener('click', task__show__modal__delete)
                             task__show__modal.querySelector('.edit').removeEventListener('click', task__show__modal__edit)
                             task__show__modal.querySelector('.edit').addEventListener('click', task__show__modal__edit)
                         }
@@ -815,6 +831,38 @@ window.addEventListener('load', function () {
                         console.error(err);
                     })
                 })
+                let task__show__delete = task__show__modal.querySelector('.task__show__delete')
+                task__show__delete.querySelector('.yes').addEventListener('click', function () {
+                    axios.post(`{{ route('task.delete') }}`,{task_id: task__show__modal.querySelector('.task_id').value})
+                    .then(res => {
+                        task__show__modal.click()
+                        document.querySelectorAll(`.task[task_id="${task__show__modal.querySelector('.task_id').value}"]`).forEach(task__delete => {
+                            task__delete.remove()
+                        });
+                        updateDropAreas()
+                        create__alert('Сповіщення', 'Завдання було успішно видалене')
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    })
+                })
+                task__show__delete.querySelector('.no').addEventListener('click', task__show__modal__delete__close)
+                function task__show__modal__delete(e)
+                {
+                    task__show__modal.querySelector('.delete').removeEventListener('click', task__show__modal__delete)
+                    task__show__modal.querySelector('.delete').addEventListener('click', task__show__modal__delete__close)
+                    task__show__delete.classList.remove('d-none')
+                    task__show__delete.style.animation = 'appear_left 0.5s forwards'
+                }
+                function task__show__modal__delete__close(e)
+                {
+                    task__show__delete.style.animation = 'disappear_right 0.5s forwards'
+                    setTimeout(() => {
+                        task__show__modal.querySelector('.delete').removeEventListener('click', task__show__modal__delete__close)
+                        task__show__modal.querySelector('.delete').addEventListener('click', task__show__modal__delete)
+                        task__show__delete.classList.add('d-none')
+                    }, 500);
+                }
                 function task__show__modal__edit(e)
                 {
                     task__show__modal.querySelector('.edit').src = `{{ asset('storage/images/completed.png') }}`
@@ -1170,7 +1218,10 @@ window.addEventListener('load', function () {
                         task.style.cursor = 'pointer'
                     }
                 }
-                task.querySelector('.scrolling__parent p').setAttribute('default_text', task.querySelector('.scrolling__parent p').innerHTML)
+                if(!task.querySelector('.scrolling__parent p').attributes.default_text)
+                {
+                    task.querySelector('.scrolling__parent p').setAttribute('default_text', task.querySelector('.scrolling__parent p').innerHTML)
+                }
                 let computedStyle = task.classList.contains('task') ? window.getComputedStyle(task.querySelector('.scrolling__parent')) : window.getComputedStyle(task)
                 let maxWidth = computedStyle.getPropertyValue('width')
                 maxWidth = parseFloat(maxWidth)

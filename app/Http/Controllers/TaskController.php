@@ -126,4 +126,18 @@ class TaskController extends Controller
             'data' => 'error'
         ]);
     }
+    public function delete(Request $request)
+    {
+        $task = Task::find($request->task_id);
+        if($task->goal->user->id == Auth::id())
+        {
+            $task->delete();
+            return response()->json([
+                'data' => 'success'
+            ]);
+        }
+        return response()->json([
+            'data' => 'error'
+        ]);
+    }
 }
