@@ -804,6 +804,9 @@ window.addEventListener('load', function () {
                 })
                 task__show__modal.querySelector('.complete').addEventListener('click', function ()
                 {
+                    document.querySelectorAll(`.task[task_id="${task__show__modal.querySelector('.task_id').value}"]`).forEach(current__task => {
+                        current__task.querySelector('.completed').style.display = 'block'
+                    })
                     axios.post(`{{ route('task.complete') }}`,{task_id: task__show__modal.querySelector('.task_id').value})
                     .then(res => {
                         task__show__modal.click()
@@ -1186,6 +1189,7 @@ window.addEventListener('load', function () {
                         if(scrolling__text.offsetWidth > maxWidth+1)
                         {
                             scrolling__text.style.animation = ''
+                            scrolling__text.innerHTML = scrolling__text.attributes.default_text.value
                         }
                     })
                 } else
