@@ -630,6 +630,37 @@ window.addEventListener('load', function () {
                                 }, 300);
                             });
                     }
+                    // progress bar
+                    let progress = flex__block.querySelector('.progress-bar')
+                    let completed__length = 0
+                    if(flex.querySelector('.task'))
+                    {
+                        flex.querySelectorAll('.task').forEach(task => {
+                            if(task.attributes.completed.value == 1)
+                            {
+                                completed__length++
+                            }
+                        })
+                        let completed__percent = Math.floor(completed__length/flex.querySelectorAll('.task').length*100)
+                        progress.style.width = completed__percent+'%'
+                        if(completed__percent < 6)
+                        {
+                            progress.style.width = '10%'
+                            progress.style.backgroundColor = 'rgb(253 80 80)'
+                        } else if(completed__percent >= 6 && completed__percent < 45)
+                        {
+                            progress.style.width = completed__percent+'%'
+                            progress.style.backgroundColor = 'rgb(255 185 98)'
+                        } else
+                        {
+                            progress.style.width = completed__percent+'%'
+                            progress.style.backgroundColor = `rgb(73, 230, 0)`
+                        }
+                    } else
+                    {
+                        progress.style.width = '100%'
+                        progress.style.backgroundColor = 'rgb(173 173 173)'
+                    }
                 }
             });
             handled = true
@@ -687,7 +718,7 @@ window.addEventListener('load', function () {
                     task__shows.forEach(task__show => {
                         task__show.addEventListener('click', task__show__modal__open)
                     })
-                    task__shows[1].click()
+                    // task__shows[1].click()
                 }
                 function task__show__modal__open(e)
                 {
@@ -822,10 +853,12 @@ window.addEventListener('load', function () {
                 {
                     document.querySelectorAll(`.task[task_id="${task__show__modal.querySelector('.task_id').value}"]`).forEach(current__task => {
                         current__task.querySelector('.completed').style.display = 'block'
+                        current__task.setAttribute('completed', '1')
                     })
                     axios.post(`{{ route('task.complete') }}`,{task_id: task__show__modal.querySelector('.task_id').value})
                     .then(res => {
                         task__show__modal.click()
+                        days__flex__block__handle()
                     })
                     .catch(err => {
                         console.error(err);

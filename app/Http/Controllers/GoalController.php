@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Check;
 use App\Models\Day;
 use App\Models\Goal;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\Week;
 use Carbon\Carbon;
@@ -98,6 +99,9 @@ class GoalController extends Controller
             $notCompleted = Check::query()->where(['date' => $today])->first()->tasks;
         }
 
+        // foreach (Task::all() as $task) {
+        //     $task->update(['completed' => 0]);
+        // }
 
         return view('goal.show', compact('week', 'days', 'goals', 'notCompleted'));
     }
