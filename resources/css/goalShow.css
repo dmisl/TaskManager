@@ -73,10 +73,16 @@
     white-space: nowrap;
     margin-top: 10px;
     font-weight: 400;
-    text-align: center;
     height: 30px;
     z-index: 2;
     position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+.tasks__flex__block .title p
+{
+    margin-bottom: 0;
+    display: inline-block;
 }
 .tasks__flex__block .flex
 {

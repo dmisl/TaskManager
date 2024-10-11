@@ -65,8 +65,10 @@
                     @foreach($goals as $goal)
                         <div class="tasks__flex__block__parent">
                             <div class="tasks__flex__block">
-                                <div class="title">
-                                    {{ $goal->name }}
+                                <div class="scrolling__parent title" style="user-select: none;">
+                                    <p>
+                                        {{ $goal->name }}
+                                    </p>
                                 </div>
                                 <div class="flex">
                                     {{-- HANDLING 5TH PRIORITY TASKS --}}
@@ -154,7 +156,7 @@
                                 </div>
                                 <div class="flex" day_id="{{ $day->id }}">
                                     @foreach($day->tasks as $task)
-                                        <div class="task p5" task_id="{{ $task->id }}" has_day="1" day_id="{{ $day->id }}" completed="{{ $task->completed ? 1 : 0 }}">
+                                        <div class="task p{{ $task->priority }}" task_id="{{ $task->id }}" has_day="1" day_id="{{ $day->id }}" completed="{{ $task->completed ? 1 : 0 }}">
                                             <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: none;">
                                             <div class="scrolling__parent" style="user-select: none;">
                                                 <p style="user-select: none;">{{ $task->name }}</p>
@@ -1056,6 +1058,7 @@ window.addEventListener('load', function () {
             });
         }
         updateDropAreas()
+    updateScrollingText()
 })
 
 // ADDITIONAL FUNCTIONS
@@ -1153,7 +1156,7 @@ window.addEventListener('load', function () {
     // SCROLLING TEXT FOR TASKS WHICH YOU`RE HOVERED ON + CURSOR IF IT`S NOT REPLACED
         function updateScrollingText()
         {
-            let tasks = document.querySelectorAll('.tasks__flex__block .task, .days__flex__block .task, .task__show__modal .goal')
+            let tasks = document.querySelectorAll('.tasks__flex__block .task, .days__flex__block .task, .task__show__modal .goal, .tasks__flex__block .title')
             tasks.forEach(task => {
                 if(!task.classList.contains('task__show__modal'))
                 {
@@ -1165,27 +1168,37 @@ window.addEventListener('load', function () {
                     }
                 }
                 task.querySelector('.scrolling__parent p').setAttribute('default_text', task.querySelector('.scrolling__parent p').innerHTML)
-                let computedStyle = window.getComputedStyle(task)
+                let computedStyle = task.classList.contains('task') ? window.getComputedStyle(task.querySelector('.scrolling__parent')) : window.getComputedStyle(task)
                 let maxWidth = computedStyle.getPropertyValue('width')
                 maxWidth = parseFloat(maxWidth)
-                task.addEventListener('mouseenter', function () {
+                if(!task.classList.contains('title'))
+                {
+                    task.addEventListener('mouseenter', function () {
+                        let scrolling__text = task.querySelector('.scrolling__parent p')
+                        if(scrolling__text.offsetWidth > maxWidth+1)
+                        {
+                            scrolling__text.innerHTML = scrolling__text.attributes.default_text.value+' '+scrolling__text.attributes.default_text.value
+                            scrolling__text.style.animation = 'scroll-text 5s linear infinite'
+                        }
+                    })
+                    task.addEventListener('mouseleave', function () {
+                        let scrolling__text = task.querySelector('.scrolling__parent p')
+                        if(scrolling__text.offsetWidth > maxWidth+1)
+                        {
+                            scrolling__text.style.animation = ''
+                        }
+                    })
+                } else
+                {
                     let scrolling__text = task.querySelector('.scrolling__parent p')
                     if(scrolling__text.offsetWidth > maxWidth+1)
                     {
                         scrolling__text.innerHTML = scrolling__text.attributes.default_text.value+' '+scrolling__text.attributes.default_text.value
                         scrolling__text.style.animation = 'scroll-text 5s linear infinite'
                     }
-                })
-                task.addEventListener('mouseleave', function () {
-                    let scrolling__text = task.querySelector('.scrolling__parent p')
-                    if(scrolling__text.offsetWidth > maxWidth+1)
-                    {
-                        scrolling__text.style.animation = ''
-                    }
-                })
+                }
             });
         }
-        updateScrollingText()
     // GET DAY NAME
         function getDayName(dayNumber) {
             const date = new Date();
