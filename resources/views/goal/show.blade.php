@@ -429,7 +429,7 @@ window.addEventListener('load', function () {
                         }
                         clearTimeout(positionRelativeTimeOut)
                         flex__block.style.position = 'absolute'
-                        flex__block.style.zIndex = '40'
+                        flex__block.style.zIndex = '60'
                         flex.style.maxHeight = flex__height+'px'
                         image.style.bottom = (flex__height+title.offsetHeight+25)+'px'
                         flex__block.style.marginLeft = `-${document.querySelector('.tasks__flex').scrollLeft}px`

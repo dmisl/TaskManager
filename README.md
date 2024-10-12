@@ -1,66 +1,134 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+![Alt text](https://api.centous.com/wp-content/uploads/2023/08/laravelvuejs.png)
+---
+## 📋 Roadmap
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+- [About](#about)
+- [Tech Stack](#tech_stack)
+- [Server Requiremenets](#requirements)
+- [Running the Program](#running)
+- [Features](#features)
 
-## About Laravel
+> [!WARNING]  
+> Note: Task Buddy is currently under development, and we're continuously working on new features and improvements. Stay tuned for updates!
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🧐 About <a id = "about"></a>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Task Buddy** is a <ins>productivity app</ins> designed to help you stay disciplined and achieve your goals by managing your daily tasks with ease and efficiency. Whether you're setting long-term goals or handling everyday to-dos, Task Buddy offers a robust set of features to keep you on track and make the process effortless. Best of all, it's completely **free to use**!
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🏗️ Tech Stack <a id = "tech_stack"></a>
 
-## Learning Laravel
+- [PHP](https://www.php.net/)
+- [Laravel](https://laravel.com/)
+- [Vite](https://vitejs.dev/)
+- [Native JS](https://vuejs.org/)
+<!-- - [Vue](https://vuejs.org/) -->
+- [Tippy.js](https://atomiks.github.io/tippyjs/)
+<!-- - [Dragula.js](https://bevacqua.github.io/dragula/) -->
+- [Freepik API](https://www.freepik.com/api)
+- [Axios](https://github.com/axios/axios)
+- [MySQL database](https://www.mysql.com/)
+- [Bootstrap](https://getbootstrap.com/)
+- [Figma](https://www.figma.com/)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## ⚙️ Requiremenets <a id = "requirements"></a>
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+> [!WARNING]
+> In development
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Server requirements to run locally:
+- PHP >= 8.2
+<!-- - [Node.js](https://nodejs.org/en/download) (LTS) -->
+- MySQL 8.0
 
-## Laravel Sponsors
+To run on Docker:
+- [Docker](https://www.docker.com/products/docker-desktop/)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🚀 Running the Program <a id = "running"></a>
 
-### Premium Partners
+> [!WARNING]
+> In development
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+To run the program locally, simply clone the repository and execute the start script:
+```
+git clone https://github.com/dmisl/TaskBuddy.git
+cd <project_directory>
+php start.php
+```
+This script automates all necessary setup steps, including installing PHP/JS dependencies, setting up environment variables, running migrations, starting the development server, and launching the WebSocket server (Laravel Reverb).
 
-## Contributing
+Once the script completes, your program will be up and running, ready for you to use.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+To run the program using Docker:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Before running Docker commands, update the .env file with your database configuration.
 
-## Security Vulnerabilities
+```
+DB_HOST=database
+DB_USERNAME=someone
+DB_PASSWORD=secret
+```
+then run
+```
+php start.php
+docker-compose build
+docker-compose up
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+This will set up the program environment using Docker, allowing you to run it seamlessly. (If you encounter any issues with the environment run `docker-compose down` then `docker-compose up`)
 
-## License
+## 💡 Features <a id = "features"></a>
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Task Buddy Features
+
+## 1. Task Management
+- **Description:** Serves as the core functionality of Task Buddy, enabling users to create, organize, and manage tasks effectively.
+- **Functionality:** Users can add, edit, and delete tasks, set due dates, and categorize tasks based on priority levels.
+
+## 2. Goal Setting
+- **Description:** Allows users to define and track personal or professional goals.
+- **Functionality:** Users can create specific, measurable goals and break them down into smaller, actionable tasks to enhance focus and accountability.
+
+## 3. Priority Levels
+- **Description:** Helps users prioritize their tasks based on urgency and importance.
+- **Functionality:** Users can assign priority levels (high, medium, low) to tasks, enabling better time management and decision-making.
+
+## 4. Progress Tracking
+- **Description:** Provides an overview of progress towards goals and tasks.
+- **Functionality:** Users can view completed tasks and monitor their progress through visual statistics and completion rates.
+
+## 5. Comments and Notes
+- **Description:** Allows users to add notes or comments to individual tasks for better context.
+- **Functionality:** Users can include important information or reminders related to each task, aiding in organization and clarity.
+
+## 6. Statistics and Analytics
+- **Description:** Offers insights into task completion rates and productivity trends.
+- **Functionality:** Users can analyze their productivity over time through charts and metrics, helping them understand their work habits.
+
+## 7. Freepik API Integration
+- **Description:** Enhances user experience by allowing the integration of custom visuals and icons.
+- **Functionality:** Users can personalize tasks and goals with icons and images sourced from Freepik, making the interface more engaging.
+
+## 8. User-Friendly Interface
+- **Description:** Designed for simplicity and ease of use, making task management accessible to everyone.
+- **Functionality:** Intuitive navigation and a minimalistic layout ensure users can quickly add and manage tasks without unnecessary complexity.
+
+## 9. Alerts and Notifications
+- **Description:** Keeps users informed about upcoming deadlines and reminders.
+- **Functionality:** Users receive notifications for upcoming due dates and task reminders, ensuring they stay on track.
+
+## 10. Cloud Sync
+- **Description:** Provides seamless access to tasks and goals across multiple devices.
+- **Functionality:** Users can synchronize their data with cloud services, enabling them to access their tasks anytime, anywhere.
+
+## 11. Collaboration Features
+- **Description:** Enables teamwork by allowing users to share tasks and goals with others.
+- **Functionality:** Users can invite collaborators to work on shared tasks or goals, enhancing productivity through teamwork.
+
+## 12. Feedback System
+- **Description:** Encourages user feedback for continuous improvement.
+- **Functionality:** Users can submit feedback and suggestions for new features, helping to shape the future of Task Buddy.
+
+> [!NOTE]
+> Task structure is in development
