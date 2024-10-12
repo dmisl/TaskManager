@@ -1,4 +1,6 @@
 ![Alt text](https://api.centous.com/wp-content/uploads/2023/08/laravelvuejs.png)
+> [!WARNING]  
+> Note: Task Buddy is currently under development, and we're continuously working on new features and improvements. Stay tuned for updates!
 ---
 ## 📋 Roadmap
 
@@ -7,9 +9,6 @@
 - [Server Requiremenets](#requirements)
 - [Running the Program](#running)
 - [Features](#features)
-
-> [!WARNING]  
-> Note: Task Buddy is currently under development, and we're continuously working on new features and improvements. Stay tuned for updates!
 
 ## 🧐 About <a id = "about"></a>
 
