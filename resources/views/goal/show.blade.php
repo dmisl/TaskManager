@@ -27,9 +27,7 @@
                                     @foreach($notCompleted as $task)
                                         <div class="task p{{ $task->priority }}" task_id="{{ $task->id }}" day_id="{{ $task->day_id }}" has_day="{{ $task->day_id ? 1 : 0 }}" completed="{{ $task->completed ? 1 : 0 }}">
                                             <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
-                                            @if(!$task->day_id)
-                                            <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="{{ $task->day_id ? 'display: none;' : 'display: block;' }}">
-                                            @endif
+                                            <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="display: block;">
                                             <div class="scrolling__parent">
                                                 <p>
                                                     {{ $task->name }}
@@ -425,6 +423,21 @@ window.addEventListener('load', function () {
                     }, 0);
                 })
             }
+            // HANDLING UNFINISHED BLOCK
+            else
+            {
+                let day_IDs = []
+                document.querySelectorAll('.days__flex__block .flex').forEach(day => {
+                    day_IDs.push(day.attributes.day_id.value)
+                })
+                tasks.forEach(task => {
+                    if(day_IDs.includes(`${task.attributes.day_id.value}`))
+                    {
+                        task.querySelector('.replace').remove()
+                        task.addEventListener('click', task__show__modal__open)
+                    }
+                });
+            }
         });
         // REQUIRED BLOCKS ADD CLICK EVENT TO CREATING WITH 5TH PRIORITY
         let requireds = document.querySelectorAll('.required')
@@ -461,7 +474,7 @@ window.addEventListener('load', function () {
         function handle__new__task(flex, after__task = 0, drop = 1)
         {
             let new__task = document.createElement('div')
-            if(draggingElement.querySelector('.replace'))
+            if(draggingElement.querySelector('.replace') && drop == 1)
             {
                 draggingElement.querySelector('.replace').remove()
             }
@@ -483,6 +496,7 @@ window.addEventListener('load', function () {
             {
                 new__task.classList.add('task__preview')
                 appendAfter(new__task, after__task)
+                new__task.querySelector('.replace').remove()
             }
             if(drop)
             {
@@ -691,11 +705,10 @@ window.addEventListener('load', function () {
                 }
                 function update__task__shows()
                 {
-                    let task__shows = document.querySelectorAll('.tasks__flex .task:not(.required), .days__flex .task')
+                    let task__shows = document.querySelectorAll('.tasks__flex__block:not(.unfinished) .task:not(.required), .days__flex .task')
                     task__shows.forEach(task__show => {
                         task__show.addEventListener('click', task__show__modal__open)
                     })
-                    // task__shows[1].click()
                 }
                 function task__show__modal__open(e)
                 {
@@ -1092,7 +1105,7 @@ window.addEventListener('load', function () {
         }
         function updateDropAreas()
         {
-            let draggableElements = document.querySelectorAll('.tasks__flex .task[has_day="0"], .days__flex .task')
+            let draggableElements = document.querySelectorAll('.tasks__flex .task[has_day="0"], .days__flex .task, .tasks__flex__block.unfinished .task')
             draggableElements.forEach(draggable => {
                 draggable.setAttribute('draggable', 'true')
                 draggable.addEventListener('dragstart', day__task__dragstart)

@@ -23,13 +23,14 @@ class GoalController extends Controller
     {
         $user = User::find(Auth::id());
         $goals = Auth::user()->goals;
+        Task::find(5)->update(['day_id' => 6]);
 
-        $today = Carbon::today()->format('Y-m-d');
+        $today = Carbon::now('Europe/Warsaw')->format('Y-m-d');
         $week = $user->weeks()->where('start', '<=', $today)->where('end', '>=', $today)->first();
 
         // CHECKING AND CREATING WEEKS IF ITS NOT CREATED
-            $start = Carbon::now()->startOfWeek(Carbon::MONDAY)->format('Y-m-d');
-            $end = Carbon::now()->endOfWeek(Carbon::SUNDAY)->format('Y-m-d');
+            $start = Carbon::now('Europe/Warsaw')->startOfWeek(Carbon::MONDAY)->format('Y-m-d');
+            $end = Carbon::now('Europe/Warsaw')->endOfWeek(Carbon::SUNDAY)->format('Y-m-d');
 
             if (!$week) {
 
@@ -77,8 +78,7 @@ class GoalController extends Controller
             }
 
         // GETTING DAYS FROM THIS AND NEXT WEEK
-            $days = $week->days->merge($nextWeek->days)->sortBy('date');
-
+            $days = Day::whereBetween('date', [$today, Carbon::today('Europe/Warsaw')->addDays(4)])->get()->sortBy('date');
         // HANDLING DAY CHECK
             $notCompletedID = [];
             if(!Check::query()->where('date', $today)->first())
@@ -106,14 +106,15 @@ class GoalController extends Controller
             }
 
         // PRIORITY TASKS
-        $priorityTasks = [];
-        foreach ($week->days as $day) {
-            foreach ($day->tasks as $task) {
-                if($task->priority == 5) { $priorityTasks[] = $task; }
+            $priorityTasks = [];
+            foreach ($week->days as $day) {
+                foreach ($day->tasks as $task) {
+                    if($task->priority == 5) { $priorityTasks[] = $task; }
+                }
             }
-        }
 
-        $notCompleted = Task::whereIn('id', $notCompletedID)->get();
+            $notCompleted = Task::whereIn('id', $notCompletedID)->get();
+
 
         return view('goal.show', compact('week', 'days', 'goals', 'notCompleted', 'priorityTasks'));
     }
