@@ -492,6 +492,7 @@ window.addEventListener('load', function () {
                 }
                 axios.post(`{{ route('task.changeDay') }}`, params)
                 .then(res => {
+                    create__alert('Сповіщення', 'Завдання було успішно перенесено.<br><b>Дані збережено</b>')
                 })
                 .catch(err => {
                 })
@@ -558,7 +559,6 @@ window.addEventListener('load', function () {
                             first__task.innerHTML = `Перетягніть сюди своє перше завдання`
                         })
                         first__task.addEventListener('drop', function () {
-                            create__alert('Сповіщення', 'Завдання було успішно перенесено.<br><b>Дані збережено</b>')
                             first__task.remove()
                             handle__new__task(flex)
                         })
@@ -1084,7 +1084,6 @@ window.addEventListener('load', function () {
             let task = e.currentTarget
             let flex = task.parentElement
             handle__new__task(flex, task, 1)
-            create__alert('Сповіщення', 'Завдання було успішно перенесено.<br><b>Дані збережено</b>')
             if(flex.querySelector('.task__preview'))
             {
                 flex.querySelector('.task__preview').classList.remove('task__preview')
