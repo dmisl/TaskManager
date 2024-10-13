@@ -21,89 +21,100 @@ class GoalController extends Controller
     }
     public function show($id)
     {
-        $today = Carbon::today()->format('Y-m-d');
         $user = User::find(Auth::id());
+        $goals = Auth::user()->goals;
+
+        $today = Carbon::today()->format('Y-m-d');
         $week = $user->weeks()->where('start', '<=', $today)->where('end', '>=', $today)->first();
 
-        if (!$week) {
+        // CHECKING AND CREATING WEEKS IF ITS NOT CREATED
             $start = Carbon::now()->startOfWeek(Carbon::MONDAY)->format('Y-m-d');
             $end = Carbon::now()->endOfWeek(Carbon::SUNDAY)->format('Y-m-d');
 
-            $week = Week::create([
-                'start' => $start,
-                'end' => $end,
-                'result' => null,
-                'user_id' => $user->id,
-            ]);
+            if (!$week) {
 
-            for ($i = 1; $i <= 7; $i++) {
-                $dayDate = Carbon::parse($start)->addDays($i - 1)->format('Y-m-d');
-                Day::create([
-                    'date' => $dayDate,
-                    'day_number' => $i,
+                $week = Week::create([
+                    'start' => $start,
+                    'end' => $end,
                     'result' => null,
-                    'week_id' => $week->id
+                    'user_id' => $user->id,
                 ]);
+
+                for ($i = 1; $i <= 7; $i++) {
+                    $dayDate = Carbon::parse($start)->addDays($i - 1)->format('Y-m-d');
+                    Day::create([
+                        'date' => $dayDate,
+                        'day_number' => $i,
+                        'result' => null,
+                        'week_id' => $week->id,
+                        'user_id' => $user->id,
+                    ]);
+                }
             }
-        }
 
-        $nextWeekStart = Carbon::parse($week->end)->addDay()->startOfWeek(Carbon::MONDAY)->format('Y-m-d');
-        $nextWeekEnd = Carbon::parse($nextWeekStart)->endOfWeek(Carbon::SUNDAY)->format('Y-m-d');
-        $nextWeek = $user->weeks()->where('start', $nextWeekStart)->where('end', $nextWeekEnd)->first();
+            $nextWeekStart = Carbon::parse($week->end)->addDay()->startOfWeek(Carbon::MONDAY)->format('Y-m-d');
+            $nextWeekEnd = Carbon::parse($nextWeekStart)->endOfWeek(Carbon::SUNDAY)->format('Y-m-d');
+            $nextWeek = $user->weeks()->where('start', $nextWeekStart)->where('end', $nextWeekEnd)->first();
 
-        if (!$nextWeek) {
-            $nextWeek = Week::create([
-                'start' => $nextWeekStart,
-                'end' => $nextWeekEnd,
-                'result' => null,
-                'user_id' => $user->id,
-            ]);
-
-            for ($i = 1; $i <= 7; $i++) {
-                $dayDate = Carbon::parse($nextWeekStart)->addDays($i - 1)->format('Y-m-d');
-                Day::create([
-                    'date' => $dayDate,
-                    'day_number' => $i,
+            if (!$nextWeek) {
+                $nextWeek = Week::create([
+                    'start' => $nextWeekStart,
+                    'end' => $nextWeekEnd,
                     'result' => null,
-                    'week_id' => $nextWeek->id
+                    'user_id' => $user->id,
                 ]);
+
+                for ($i = 1; $i <= 7; $i++) {
+                    $dayDate = Carbon::parse($nextWeekStart)->addDays($i - 1)->format('Y-m-d');
+                    Day::create([
+                        'date' => $dayDate,
+                        'day_number' => $i,
+                        'result' => null,
+                        'week_id' => $nextWeek->id,
+                        'user_id' => $user->id,
+                    ]);
+                }
             }
-        }
 
-        $days = $week->days->merge($nextWeek->days)->sortBy('date');
-        $goals = Auth::user()->goals;
+        // GETTING DAYS FROM THIS AND NEXT WEEK
+            $days = $week->days->merge($nextWeek->days)->sortBy('date');
 
-        // CHECK FOR NOT COMPLETED DAYS
-        $notCompleted = [];
-        if(!Check::query()->where(['date' => $today])->first())
-        {
-            $weeksBeforeToday = $user->weeks()->where('end', '<', $today)->get();
-            foreach ($weeksBeforeToday as $week) {
-                foreach ($week->days as $day) {
-                    foreach ($day->tasks as $task) {
-                        if (!$task->completed) {
-                            $notCompleted[] = $task->id;
+        // HANDLING DAY CHECK
+            $notCompletedID = [];
+            if(!Check::query()->where('date', $today)->first())
+            {
+                $weeksBeforeToday = $user->weeks()->where('end', '<=', $today)->get();
+                foreach ($weeksBeforeToday as $week) {
+                    foreach ($week->days as $day) {
+                        foreach ($day->tasks as $task) {
+                            if (!$task->completed) {
+                                $notCompletedID[] = $task->id;
+                            }
                         }
                     }
                 }
+                Check::create([
+                    'date' => $today,
+                    'type' => 1,
+                    'user_id' => $user->id,
+                    'tasks' => $notCompletedID,
+                ]);
+            } else
+            {
+                $notCompletedID = Check::query()->where(['date' => $today])->first()->tasks;
             }
-            Check::create([
-                'date' => $today,
-                'type' => 1,
-                'user_id' => $user->id,
-                'tasks' => $notCompleted,
-            ]);
-            dd(1);
-        } else
-        {
-            $notCompleted = Check::query()->where(['date' => $today])->first()->tasks;
+
+        // PRIORITY TASKS
+        $priorityTasks = [];
+        foreach ($week->days as $day) {
+            foreach ($day->tasks as $task) {
+                if($task->priority == 5) { $priorityTasks[] = $task; }
+            }
         }
 
-        // foreach (Task::all() as $task) {
-        //     $task->update(['completed' => 0]);
-        // }
+        $notCompleted = Task::whereIn('id', $notCompletedID)->get();
 
-        return view('goal.show', compact('week', 'days', 'goals', 'notCompleted'));
+        return view('goal.show', compact('week', 'days', 'goals', 'notCompleted', 'priorityTasks'));
     }
     public function create()
     {

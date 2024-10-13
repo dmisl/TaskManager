@@ -17,50 +17,30 @@
             <div class="tasks__flex__container">
                 <div class="tasks__flex" id="x-custom__scrollbar">
                     {{-- UNFINISHED --}}
-                        {{-- <div class="tasks__flex__block__parent">
+                        @if(count($notCompleted) !== 0)
+                        <div class="tasks__flex__block__parent">
                             <div class="tasks__flex__block unfinished">
-                                <div class="title">
+                                <div class="title unfinished">
                                     Незавершені
                                 </div>
                                 <div class="flex">
-                                    <div class="task p5">
-                                        <div class="scrolling__parent">
-                                            <p>
-                                                Завершити блок з цілями<span>...</span>
-                                            </p>
+                                    @foreach($notCompleted as $task)
+                                        <div class="task p{{ $task->priority }}" task_id="{{ $task->id }}" day_id="{{ $task->day_id }}" has_day="{{ $task->day_id ? 1 : 0 }}" completed="{{ $task->completed ? 1 : 0 }}">
+                                            <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                            @if(!$task->day_id)
+                                            <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="{{ $task->day_id ? 'display: none;' : 'display: block;' }}">
+                                            @endif
+                                            <div class="scrolling__parent">
+                                                <p>
+                                                    {{ $task->name }}
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="task p4">
-                                        <div class="scrolling__parent">
-                                            <p>
-                                                Завершити блок з цілями<span>...</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="task p3">
-                                        <div class="scrolling__parent">
-                                            <p>
-                                                Завершити блок з цілями<span>...</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="task p2">
-                                        <div class="scrolling__parent">
-                                            <p>
-                                                Завершити блок з цілями<span>...</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="task p1">
-                                        <div class="scrolling__parent">
-                                            <p>
-                                                Завершити блок з цілями<span>...</span>
-                                            </p>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
+                        @endif
                     {{-- SHOWING ALL GOALS AS FLEX BLOCKS --}}
                     @foreach($goals as $goal)
                         <div class="tasks__flex__block__parent">
@@ -73,8 +53,8 @@
                                 <div class="flex">
                                     {{-- HANDLING 5TH PRIORITY TASKS --}}
                                     {{-- IF THERE IS NO NEEDED AMOUNT OF TASKS --}}
-                                    @if($goal->tasks()->where('priority', 5)->get()->count() < $goal->tasks_number)
-                                        @for ($i = 0; $i < $goal->tasks_number-$goal->tasks()->where('priority', 5)->get()->count(); $i++)
+                                    {{-- @if($goal->tasks()->where('priority', 5)->get()->count() < $goal->tasks_number) --}}
+                                        @for ($i = 0; $i < $goal->tasks_number - count($priorityTasks); $i++)
                                             <div class="task p5 required" goal_id="{{ $goal->id }}">
                                                 <div class="scrolling__parent">
                                                     <p>
@@ -83,7 +63,7 @@
                                                 </div>
                                             </div>
                                         @endfor
-                                        @foreach($goal->tasks()->where('priority', 5)->get() as $task)
+                                        @foreach($goal->tasks()->where('priority', 5)->where(function ($query) { $query->whereDoesntHave('day')->orWhereHas('day', fn($q) => $q->where('date', '>=', now()->startOfDay())); })->get(); as $task)
                                             <div class="task p5" task_id="{{ $task->id }}" day_id="{{ $task->day_id }}" has_day="{{ $task->day_id ? 1 : 0 }}" completed="{{ $task->completed ? 1 : 0 }}">
                                                 <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
                                                 @if(!$task->day_id)
@@ -96,24 +76,8 @@
                                                 </div>
                                             </div>
                                         @endforeach
-                                    {{-- IF THERE IS NEEDED AMOUNT OF TASKS JUST SHOW THEM --}}
-                                    @else
-                                        @foreach($goal->tasks()->where('priority', 5)->get() as $task)
-                                            <div class="task p5" task_id="{{ $task->id }}" day_id="{{ $task->day_id }}" has_day="{{ $task->day_id ? 1 : 0 }}" completed="{{ $task->completed ? 1 : 0 }}">
-                                                <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
-                                                @if(!$task->day_id)
-                                                <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="{{ $task->day_id ? 'display: none;' : 'display: block;' }}">
-                                                @endif
-                                                <div class="scrolling__parent">
-                                                    <p>
-                                                        {{ $task->name }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    @endif
                                     {{-- SHOWING ALL TASKS WHICH DOES NOT HAVE 5TH PRIORITY --}}
-                                        @foreach($goal->tasks()->where('priority', '<', 5)->get() as $task)
+                                        @foreach($goal->tasks()->where('priority', '<', 5)->where(function ($query) { $query->whereDoesntHave('day')->orWhereHas('day', fn($q) => $q->where('date', '>=', now()->startOfDay())); })->get(); as $task)
                                             <div class="task p{{ $task->priority }}" task_id="{{ $task->id }}" day_id="{{ $task->day_id }}" has_day="{{ $task->day_id ? 1 : 0 }}" completed="{{ $task->completed ? 1 : 0 }}">
                                                 <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
                                                 @if(!$task->day_id)
@@ -655,6 +619,19 @@ window.addEventListener('load', function () {
                         {
                             progress.style.width = completed__percent+'%'
                             progress.style.backgroundColor = `rgb(73, 230, 0)`
+                        }
+                        if(!progress.hasAttribute('percent'))
+                        {
+                            progress.setAttribute('percent', completed__percent)
+                        } else if(progress.hasAttribute('percent') && progress.attributes.percent.value !== completed__percent)
+                        {
+                            axios.post(`{{ route('day.store') }}`,{ result: completed__percent ,day_id: progress.parentElement.parentElement.parentElement.querySelector('.flex').attributes.day_id.value })
+                            .then(res => {
+                                console.log(res)
+                            })
+                            .catch(err => {
+                                console.error(err);
+                            })
                         }
                     } else
                     {
@@ -1240,7 +1217,7 @@ window.addEventListener('load', function () {
     // SCROLLING TEXT FOR TASKS WHICH YOU`RE HOVERED ON + CURSOR IF IT`S NOT REPLACED
         function updateScrollingText()
         {
-            let tasks = document.querySelectorAll('.tasks__flex__block .task, .days__flex__block .task, .task__show__modal .goal, .tasks__flex__block .title')
+            let tasks = document.querySelectorAll('.tasks__flex__block .task, .days__flex__block .task, .task__show__modal .goal, .tasks__flex__block .title:not(.unfinished)')
             tasks.forEach(task => {
                 if(!task.classList.contains('task__show__modal'))
                 {
@@ -1251,7 +1228,7 @@ window.addEventListener('load', function () {
                         task.style.cursor = 'pointer'
                     }
                 }
-                if(!task.querySelector('.scrolling__parent p').attributes.default_text)
+                if(!task.querySelector('.scrolling__parent p').hasAttribute('default_text'))
                 {
                     task.querySelector('.scrolling__parent p').setAttribute('default_text', task.querySelector('.scrolling__parent p').innerHTML)
                 }

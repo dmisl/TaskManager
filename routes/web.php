@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DayController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
@@ -24,12 +25,17 @@ Route::middleware([GuestMiddleware::class])->group(function () {
 Route::middleware([AuthMiddleware::class])->group(function () {
 
     Route::get('home', [HomeController::class, 'index'])->name('home.index');
-    Route::get('getImages/{text?}/{limit?}/{page?}', [HomeController::class, 'getImages'])->name('home.getImages');
+    Route::get('logout', [LoginController::class, 'logout'])->name('login.logout');
+
+    // GOAL ROUTES
 
     Route::get('home/goals', [GoalController::class, 'index'])->name('goal.index');
     Route::get('home/goals/show/{id}', [GoalController::class, 'show'])->name('goal.show');
     Route::get('home/goals/create', [GoalController::class, 'create'])->name('goal.create');
     Route::post('home/goals/create', [GoalController::class, 'store'])->name('goal.store');
+
+    // TASK ROUTES
+
     Route::post('home/task/getData', [TaskController::class, 'getData'])->name('task.getData');
     Route::post('home/task/create', [TaskController::class, 'store'])->name('task.store');
     Route::post('home/task/changeDay', [TaskController::class, 'changeDay'])->name('task.changeDay');
@@ -39,7 +45,13 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::post('home/task/complete', [TaskController::class, 'complete'])->name('task.complete');
     Route::post('home/task/delete', [TaskController::class, 'delete'])->name('task.delete');
 
-    Route::get('logout', [LoginController::class, 'logout'])->name('login.logout');
+    // DAY ROUTES
+
+    Route::post('home/day/store', [DayController::class, 'store'])->name('day.store');
+
+    // FREEPIK
+
+    Route::get('getImages/{text?}/{limit?}/{page?}', [HomeController::class, 'getImages'])->name('home.getImages');
 
 });
 

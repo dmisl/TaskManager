@@ -12,7 +12,7 @@ class Day extends Model
     use HasFactory;
 
     public $fillable = [
-        'date', 'day_number', 'result', 'week_id'
+        'date', 'day_number', 'result', 'week_id', 'user_id'
     ];
 
     public function week(): BelongsTo
@@ -23,6 +23,11 @@ class Day extends Model
     public function tasks(): HasMany
     {
         return $this->hasMany(Task::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
 }

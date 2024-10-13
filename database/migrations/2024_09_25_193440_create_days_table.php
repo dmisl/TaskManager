@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('day_number');
             $table->float('result')->nullable();
             $table->foreignId('week_id')->constrained();
+            $table->foreignId('user_id')->constrained();
         });
     }
 
