@@ -625,7 +625,7 @@ window.addEventListener('load', function () {
                             progress.setAttribute('percent', completed__percent)
                         } else if(progress.hasAttribute('percent') && progress.attributes.percent.value !== completed__percent)
                         {
-                            axios.post(`{{ route('day.store') }}`,{ result: completed__percent ,day_id: progress.parentElement.parentElement.parentElement.querySelector('.flex').attributes.day_id.value })
+                            axios.post(`{{ route('day.changeResult') }}`,{ result: completed__percent ,day_id: progress.parentElement.parentElement.parentElement.querySelector('.flex').attributes.day_id.value })
                             .then(res => {
                                 console.log(res)
                             })

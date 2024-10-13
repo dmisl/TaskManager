@@ -47,7 +47,7 @@ Route::middleware([AuthMiddleware::class])->group(function () {
 
     // DAY ROUTES
 
-    Route::post('home/day/store', [DayController::class, 'store'])->name('day.store');
+    Route::post('home/day/changeResult', [DayController::class, 'changeResult'])->name('day.changeResult');
 
     // FREEPIK
 

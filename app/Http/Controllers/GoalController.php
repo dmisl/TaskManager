@@ -87,12 +87,13 @@ class GoalController extends Controller
                 foreach ($weeksBeforeToday as $week) {
                     foreach ($week->days as $day) {
                         foreach ($day->tasks as $task) {
-                            if (!$task->completed) {
+                            if (!$task->completed && $task->day->date < $today) {
                                 $notCompletedID[] = $task->id;
                             }
                         }
                     }
                 }
+
                 Check::create([
                     'date' => $today,
                     'type' => 1,
