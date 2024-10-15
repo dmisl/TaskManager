@@ -1062,31 +1062,25 @@ window.addEventListener('load', function () {
                             let new__task = document.createElement('div')
                             new__task.classList.add('task')
                             new__task.classList.add(`p${priority}`)
-                            Object.assign(new__task, {
-                                task_id: res.data.id,
-                                day_id: '',
-                                has_day: 0,
-                                completed: 0,
-                            })
-                            // new__task.setAttribute('task_id', res.data.id)
-                            // new__task.setAttribute('day_id', '')
-                            // new__task.setAttribute('has_day', '0')
-                            // new__task.setAttribute('completed', '0')
+                            new__task.setAttribute('task_id', res.data.id)
+                            new__task.setAttribute('day_id', '')
+                            new__task.setAttribute('has_day', '0')
+                            new__task.setAttribute('completed', '0')
                             flex.insertBefore(new__task, flex.querySelector('.task__create'))
                             new__task.innerHTML = `
                                 <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
                                 <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="{{ $task->day_id ? 'display: none;' : 'display: block;' }}">
                                 <div class="scrolling__parent">
                                     <p>
-                                        {{ $task->name }}
+                                        ${name}
                                     </p>
                                 </div>
                             `
                             create__alert('Сповіщення', `Завдання <b>"${name}"</b> було успішно створене`)
+                            task__create__modal.click()
                             updateDropAreas()
                             updateScrollingText()
                             handle__task__blocks()
-                            task__create__modal.click()
                         })
                         .catch(err => {
                             console.error(err);
@@ -1172,6 +1166,7 @@ window.addEventListener('load', function () {
         function updateDropAreas()
         {
             let draggableElements = document.querySelectorAll('.tasks__flex .task[has_day="0"], .days__flex .task, .tasks__flex__block.unfinished .task')
+            console.log(draggableElements)
             draggableElements.forEach(draggable => {
                 draggable.setAttribute('draggable', 'true')
                 draggable.addEventListener('dragstart', day__task__dragstart)
