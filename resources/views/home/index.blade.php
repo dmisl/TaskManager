@@ -31,7 +31,7 @@
                             <img src="{{ asset('storage/images/todays tasks.jpg') }}" style="width: 101%;">
                         </div>
                         <div class="content__flex__block-title">
-                            <h2 style="font-size: 20px;">Сьогоднішні завдання</h2>
+                            <h2>Сьогоднішні завдання</h2>
                         </div>
                     </a>
                     <a href="#week" class="content__flex__block">
@@ -47,7 +47,7 @@
                             <img src="{{ asset('storage/images/completed_tasks.jpg') }}" style="width: 101%;">
                         </div>
                         <div class="content__flex__block-title">
-                            <h2 style="font-size: 20px;">Виконані завдання</h2>
+                            <h2>Виконані завдання</h2>
                         </div>
                     </a>
                     <a href="#settings" class="content__flex__block">
@@ -55,7 +55,7 @@
                             <img src="{{ asset('storage/images/settings.jpg') }}" style="width: 101%;">
                         </div>
                         <div class="content__flex__block-title">
-                            <h2 style="font-size: 28px;">Налаштування</h2>
+                            <h2>Налаштування</h2>
                         </div>
                     </a>
                     <a href="#logout" class="content__flex__block">
@@ -63,7 +63,7 @@
                             <img src="{{ asset('storage/images/logout.jpg') }}" style="width: 101%;">
                         </div>
                         <div class="content__flex__block-title">
-                            <h2 style="font-size: 25px;">Вийти з системи</h2>
+                            <h2>Вийти з системи</h2>
                         </div>
                     </a>
                 </div>
@@ -74,6 +74,9 @@
 <script defer>
 
     window.addEventListener('load', function () {
+
+        console.log(document.body.offsetWidth)
+        console.log(document.body.offsetHeight)
 
         function fixImage(element)
         {
