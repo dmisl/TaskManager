@@ -731,7 +731,7 @@ window.addEventListener('load', function () {
                 }
                 function update__task__shows()
                 {
-                    let task__shows = document.querySelectorAll('.tasks__flex__block:not(.unfinished) .task:not(.required), .days__flex .task')
+                    let task__shows = document.querySelectorAll('.tasks__flex__block:not(.unfinished) .task:not(.required)[has_day="1"], .days__flex .task')
                     task__shows.forEach(task__show => {
                         task__show.addEventListener('click', task__show__modal__open)
                     })
@@ -742,7 +742,6 @@ window.addEventListener('load', function () {
                     task__show__modal.querySelector('.task_id').value = task.attributes.task_id.value
                     task__show__modal.querySelector('.comment__parent input').value = ''
                     let taskData
-                    console.log(task)
                     axios.post(`{{ route('task.getData') }}`,{id: task.attributes.task_id.value})
                     .then(res => {
                         taskData = res.data
