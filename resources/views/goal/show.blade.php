@@ -889,6 +889,7 @@ window.addEventListener('load', function () {
                             task__delete.remove()
                         });
                         updateDropAreas()
+                        days__flex__block__handle()
                         create__alert('Сповіщення', 'Завдання було успішно видалене')
                     })
                     .catch(err => {
@@ -1058,7 +1059,6 @@ window.addEventListener('load', function () {
                         let flex = document.querySelector(`.flex[goal_id="${goal_id}"]`)
                         axios.post(`{{ route('task.store') }}`,{goal_id: goal_id, priority: priority, name: name, desc: desc})
                         .then(res => {
-                            console.log(res)
                             let new__task = document.createElement('div')
                             new__task.classList.add('task')
                             new__task.classList.add(`p${priority}`)
@@ -1082,9 +1082,11 @@ window.addEventListener('load', function () {
                                     </p>
                                 </div>
                             `
+                            create__alert('Сповіщення', `Завдання <b>"${name}"</b> було успішно створене`)
                             updateDropAreas()
                             updateScrollingText()
                             handle__task__blocks()
+                            task__create__modal.click()
                         })
                         .catch(err => {
                             console.error(err);
