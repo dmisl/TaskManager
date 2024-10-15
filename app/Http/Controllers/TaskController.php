@@ -21,14 +21,17 @@ class TaskController extends Controller
         ]);
         if(Goal::find($request->goal_id)->user_id == Auth::id())
         {
-            Task::create([
+            $task = Task::create([
                 'name' => $request->name,
                 'priority' => $request->priority,
                 'desc' => $request->desc ? $request->desc : '',
                 'goal_id' => $request->goal_id,
             ]);
+            return response()->json(['id' => $task->id]);
         }
-        return back();
+        return response()->json([
+            'data' => 'error'
+        ]);
     }
     public function changeDay(Request $request)
     {

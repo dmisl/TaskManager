@@ -48,10 +48,9 @@
                                         {{ $goal->name }}
                                     </p>
                                 </div>
-                                <div class="flex">
+                                <div class="flex" goal_id="{{ $goal->id }}">
                                     {{-- HANDLING 5TH PRIORITY TASKS --}}
                                     {{-- IF THERE IS NO NEEDED AMOUNT OF TASKS --}}
-                                    {{-- @if($goal->tasks()->where('priority', 5)->get()->count() < $goal->tasks_number) --}}
                                         @for ($i = 0; $i < $goal->tasks_number - count($priorityTasks); $i++)
                                             <div class="task p5 required" goal_id="{{ $goal->id }}">
                                                 <div class="scrolling__parent">
@@ -62,31 +61,35 @@
                                             </div>
                                         @endfor
                                         @foreach($goal->tasks()->where('priority', 5)->where(function ($query) { $query->whereDoesntHave('day')->orWhereHas('day', fn($q) => $q->where('date', '>=', now()->startOfDay())); })->get(); as $task)
-                                            <div class="task p5" task_id="{{ $task->id }}" day_id="{{ $task->day_id }}" has_day="{{ $task->day_id ? 1 : 0 }}" completed="{{ $task->completed ? 1 : 0 }}">
-                                                <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
-                                                @if(!$task->day_id)
-                                                <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="{{ $task->day_id ? 'display: none;' : 'display: block;' }}">
-                                                @endif
-                                                <div class="scrolling__parent">
-                                                    <p>
-                                                        {{ $task->name }}
-                                                    </p>
+                                            @if(!in_array($task->id, $notCompletedID))
+                                                <div class="task p5" task_id="{{ $task->id }}" day_id="{{ $task->day_id }}" has_day="{{ $task->day_id ? 1 : 0 }}" completed="{{ $task->completed ? 1 : 0 }}">
+                                                    <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                                    @if(!$task->day_id)
+                                                    <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="{{ $task->day_id ? 'display: none;' : 'display: block;' }}">
+                                                    @endif
+                                                    <div class="scrolling__parent">
+                                                        <p>
+                                                            {{ $task->name }}
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @endif
                                         @endforeach
                                     {{-- SHOWING ALL TASKS WHICH DOES NOT HAVE 5TH PRIORITY --}}
                                         @foreach($goal->tasks()->where('priority', '<', 5)->where(function ($query) { $query->whereDoesntHave('day')->orWhereHas('day', fn($q) => $q->where('date', '>=', now()->startOfDay())); })->get(); as $task)
-                                            <div class="task p{{ $task->priority }}" task_id="{{ $task->id }}" day_id="{{ $task->day_id }}" has_day="{{ $task->day_id ? 1 : 0 }}" completed="{{ $task->completed ? 1 : 0 }}">
-                                                <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
-                                                @if(!$task->day_id)
-                                                <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="{{ $task->day_id ? 'display: none;' : 'display: block;' }}">
-                                                @endif
-                                                <div class="scrolling__parent">
-                                                    <p>
-                                                        {{ $task->name }}
-                                                    </p>
+                                            @if(!in_array($task->id, $notCompletedID))
+                                                <div class="task p{{ $task->priority }}" task_id="{{ $task->id }}" day_id="{{ $task->day_id }}" has_day="{{ $task->day_id ? 1 : 0 }}" completed="{{ $task->completed ? 1 : 0 }}">
+                                                    <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                                    @if(!$task->day_id)
+                                                    <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="{{ $task->day_id ? 'display: none;' : 'display: block;' }}">
+                                                    @endif
+                                                    <div class="scrolling__parent">
+                                                        <p>
+                                                            {{ $task->name }}
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @endif
                                         @endforeach
                                     {{-- TASK CREATE BUTTON --}}
                                     <div class="task__create" goal_id="{{ $goal->id }}">+</div>
@@ -135,11 +138,10 @@
         <div class="task__create__modal d-none">
 
             <div class="task__create">
-                <div class="title">
-                    <h1>Нове завдання<span>🚀</span></h1>
-                </div>
-                <form action="{{ route('task.store') }}" method="POST">
-                    @csrf
+                <div class="form">
+                    <div class="title">
+                        <h1>Нове завдання<span>🚀</span></h1>
+                    </div>
                     <input class="task__goal_id" type="hidden" name="goal_id">
                     <div class="priority__parent">
                         <div class="d-flex justify-content-between">
@@ -221,7 +223,7 @@
                     <div class="form-submit">
                         <button type="submit"><p>Створити</p></button>
                     </div>
-                </form>
+                </div>
             </div>
 
         </div>
@@ -351,26 +353,44 @@ window.addEventListener('load', function () {
         });
 
     // HANDLING TASK__BLOCKS` VIEW
-        let flex__blocks = document.querySelectorAll(".tasks__flex__block")
-        flex__blocks.forEach(flex__block => {
-            // FLEX BLOCK`S ELEMENTS
-            let title = flex__block.querySelector('.title')
-            let flex = flex__block.querySelector('.flex')
-            let tasks = flex.querySelectorAll('.task')
-            tasks.forEach(task => {
-                if(task.querySelector(".replace"))
-                {
-                    if(task.querySelector('.replace').style.display == 'block')
+        function handle__task__blocks()
+        {
+            let flex__blocks = document.querySelectorAll(".tasks__flex__block")
+            flex__blocks.forEach(flex__block => {
+                // FLEX BLOCK`S ELEMENTS
+                let title = flex__block.querySelector('.title')
+                let flex = flex__block.querySelector('.flex')
+                let tasks = flex.querySelectorAll('.task')
+                tasks.forEach(task => {
+                    if(task.querySelector(".replace"))
                     {
-                        task.style.cursor = 'grab'
+                        if(task.querySelector('.replace').style.display == 'block')
+                        {
+                            task.style.cursor = 'grab'
+                        }
                     }
+                });
+                let image = flex__block.querySelector('.image')
+                // IF BLOCK HAS IMAGE (NOT UNFINISHED) - FIX THE IMAGE
+                if(image && image.querySelector('img'))
+                {
+                    fixImage(image.querySelector('img'))
                 }
-            });
-            let image = flex__block.querySelector('.image')
-            // IF BLOCK HAS IMAGE (NOT UNFINISHED) - FIX THE IMAGE
-            if(image && image.querySelector('img'))
-            {
-                fixImage(image.querySelector('img'))
+                // HANDLING UNFINISHED BLOCK
+                else
+                {
+                    let day_IDs = []
+                    document.querySelectorAll('.days__flex__block .flex').forEach(day => {
+                        day_IDs.push(day.attributes.day_id.value)
+                    })
+                    tasks.forEach(task => {
+                        if(day_IDs.includes(`${task.attributes.day_id.value}`))
+                        {
+                            task.querySelector('.replace').remove()
+                            task.addEventListener('click', task__show__modal__open)
+                        }
+                    });
+                }
                 // FLEX BLOCK`S ORIGINAL HEIGHT
                 flex.style.overflow = 'visible'
                 let flex__height = flex.offsetHeight
@@ -378,7 +398,10 @@ window.addEventListener('load', function () {
                 flex.style.overflow = 'hidden'
                 flex.style.maxHeight = '154px'
                 // SET IMAGE TO DEFAULT POSITION
-                image.style.bottom = (flex.offsetHeight+title.offsetHeight+25)+'px'
+                if(image)
+                {
+                    image.style.bottom = (flex.offsetHeight+title.offsetHeight+25)+'px'
+                }
                 // TIMEOUT TO SET THE FLEX BLOCK TO POSITION RELATIVE
                 let positionRelativeTimeOut = null
                 // ON HOVER WE SHOW WHATS INSIDE THE FLEX BLOCK
@@ -393,7 +416,10 @@ window.addEventListener('load', function () {
                         flex__block.style.position = 'absolute'
                         flex__block.style.zIndex = '60'
                         flex.style.maxHeight = flex__height+'px'
-                        image.style.bottom = (flex__height+title.offsetHeight+25)+'px'
+                        if(image)
+                        {
+                            image.style.bottom = (flex__height+title.offsetHeight+25)+'px'
+                        }
                         flex__block.style.marginLeft = `-${document.querySelector('.tasks__flex').scrollLeft}px`
                     }
                 });
@@ -405,49 +431,47 @@ window.addEventListener('load', function () {
                         flex__block.style.marginLeft = '0'
                         positionRelativeTimeOut = null
                         flex__block.style.zIndex = '20'
-                        image.style.bottom = (flex.offsetHeight+title.offsetHeight+25)+'px'
+                        if(image)
+                        {
+                            image.style.bottom = (flex.offsetHeight+title.offsetHeight+25)+'px'
+                        }
                     }, 300);
                 });
                 // CHECK IF SCROLLING WHILE HOVER
                 flex__block.addEventListener('wheel', function () {
                     flex.style.transition = '0'
-                    image.style.transition = '0'
+                    if(image)
+                    {
+                        image.style.transition = '0'
+                    }
                     flex.style.maxHeight = '154px'
-                    image.style.bottom = (flex__height+title.offsetHeight+25)+'px'
+                    if(image)
+                    {
+                        image.style.bottom = (flex__height+title.offsetHeight+25)+'px'
+                    }
                     positionRelativeTimeOut = setTimeout(() => {
                         flex__block.style.position = 'relative'
                         flex__block.style.marginLeft = '0'
                         positionRelativeTimeOut = null
                         flex.style.transition = '0.3s'
-                        image.style.transition = '0.3s'
+                        if(image)
+                        {
+                            image.style.transition = '0.3s'
+                        }
                     }, 0);
                 })
-            }
-            // HANDLING UNFINISHED BLOCK
-            else
-            {
-                let day_IDs = []
-                document.querySelectorAll('.days__flex__block .flex').forEach(day => {
-                    day_IDs.push(day.attributes.day_id.value)
+            });
+            // REQUIRED BLOCKS ADD CLICK EVENT TO CREATING WITH 5TH PRIORITY
+            let requireds = document.querySelectorAll('.required')
+            requireds.forEach(required => {
+                required.addEventListener('click', function () {
+                    task__create__modal__open(required)
+                    document.querySelectorAll('.priority')[4].dispatchEvent(new MouseEvent('click', { bubbles: true }))
+                    document.querySelectorAll('.priority')[4].dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
                 })
-                tasks.forEach(task => {
-                    if(day_IDs.includes(`${task.attributes.day_id.value}`))
-                    {
-                        task.querySelector('.replace').remove()
-                        task.addEventListener('click', task__show__modal__open)
-                    }
-                });
-            }
-        });
-        // REQUIRED BLOCKS ADD CLICK EVENT TO CREATING WITH 5TH PRIORITY
-        let requireds = document.querySelectorAll('.required')
-        requireds.forEach(required => {
-            required.addEventListener('click', function () {
-                task__create__modal__open(required)
-                document.querySelectorAll('.priority')[4].dispatchEvent(new MouseEvent('click', { bubbles: true }))
-                document.querySelectorAll('.priority')[4].dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
-            })
-        });
+            });
+        }
+        handle__task__blocks()
         // HINT ON REQUIRED TASKS HOVER
             tippy('.required', {
                 placement: 'right',
@@ -507,8 +531,10 @@ window.addEventListener('load', function () {
                 axios.post(`{{ route('task.changeDay') }}`, params)
                 .then(res => {
                     create__alert('Сповіщення', 'Завдання було успішно перенесено.<br><b>Дані збережено</b>')
+                    days__flex__block__handle()
                 })
                 .catch(err => {
+                    console.error(err)
                 })
             }
             if(drop && draggingElement.parentElement.parentElement.classList.contains('days__flex__block'))
@@ -516,7 +542,6 @@ window.addEventListener('load', function () {
                 if(draggingElement.parentElement.querySelectorAll('.task').length == 1)
                 {
                     draggingElement.remove()
-                    days__flex__block__handle()
                 } else
                 {
                     draggingElement.remove()
@@ -639,9 +664,10 @@ window.addEventListener('load', function () {
                             progress.setAttribute('percent', completed__percent)
                         } else if(progress.hasAttribute('percent') && progress.attributes.percent.value !== completed__percent)
                         {
-                            axios.post(`{{ route('day.changeResult') }}`,{ result: completed__percent ,day_id: progress.parentElement.parentElement.parentElement.querySelector('.flex').attributes.day_id.value })
+
+                            axios.post(`{{ route('day.changeResult') }}`,{ result: completed__percent, day_id: progress.parentElement.parentElement.parentElement.querySelector('.flex').attributes.day_id.value })
                             .then(res => {
-                                console.log(res)
+                                // console.log(res)
                             })
                             .catch(err => {
                                 console.error(err);
@@ -716,6 +742,7 @@ window.addEventListener('load', function () {
                     task__show__modal.querySelector('.task_id').value = task.attributes.task_id.value
                     task__show__modal.querySelector('.comment__parent input').value = ''
                     let taskData
+                    console.log(task)
                     axios.post(`{{ route('task.getData') }}`,{id: task.attributes.task_id.value})
                     .then(res => {
                         taskData = res.data
@@ -986,14 +1013,6 @@ window.addEventListener('load', function () {
                     }, 500);
                 }
             })
-            // PREVENTING FORM FROM SENDING IF VALIDATION
-                let task__form = document.querySelector('.task__create__modal form')
-                task__form.addEventListener('submit', function (e) {
-                    if(!task__create__validation())
-                    {
-                        e.preventDefault()
-                    }
-                })
             // FORM VALIDATION FUNCTION
                 function task__create__validation()
                 {
@@ -1028,6 +1047,52 @@ window.addEventListener('load', function () {
                     } else
                     {
                         task__create__submit.removeAttribute('disabled')
+                    }
+                })
+                task__create__submit.addEventListener('click', function () {
+                    if(task__create__validation())
+                    {
+                        let goal_id = task__create__modal.querySelector('.task__goal_id').value
+                        let priority = task__create__modal.querySelector('.task__priority').value
+                        let name = task__create__modal.querySelector('.task__name').value
+                        let desc = task__create__modal.querySelector('.task__desc').value
+                        let flex = document.querySelector(`.flex[goal_id="${goal_id}"]`)
+                        axios.post(`{{ route('task.store') }}`,{goal_id: goal_id, priority: priority, name: name, desc: desc})
+                        .then(res => {
+                            console.log(res)
+                            let new__task = document.createElement('div')
+                            new__task.classList.add('task')
+                            new__task.classList.add(`p${priority}`)
+                            Object.assign(new__task, {
+                                task_id: res.data.id,
+                                day_id: '',
+                                has_day: 0,
+                                completed: 0,
+                            })
+                            // new__task.setAttribute('task_id', res.data.id)
+                            // new__task.setAttribute('day_id', '')
+                            // new__task.setAttribute('has_day', '0')
+                            // new__task.setAttribute('completed', '0')
+                            flex.insertBefore(new__task, flex.querySelector('.task__create'))
+                            new__task.innerHTML = `
+                                <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
+                                <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="{{ $task->day_id ? 'display: none;' : 'display: block;' }}">
+                                <div class="scrolling__parent">
+                                    <p>
+                                        {{ $task->name }}
+                                    </p>
+                                </div>
+                            `
+                            updateDropAreas()
+                            updateScrollingText()
+                            handle__task__blocks()
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        })
+                    } else
+                    {
+                        console.log(2)
                     }
                 })
 

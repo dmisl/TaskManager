@@ -23,7 +23,6 @@ class GoalController extends Controller
     {
         $user = User::find(Auth::id());
         $goals = Auth::user()->goals;
-        Task::find(5)->update(['day_id' => 6]);
 
         $today = Carbon::now('Europe/Warsaw')->format('Y-m-d');
         $week = $user->weeks()->where('start', '<=', $today)->where('end', '>=', $today)->first();
@@ -83,7 +82,7 @@ class GoalController extends Controller
             $notCompletedID = [];
             if(!Check::query()->where('date', $today)->first())
             {
-                $weeksBeforeToday = $user->weeks()->where('end', '<=', $today)->get();
+                $weeksBeforeToday = $user->weeks;
                 foreach ($weeksBeforeToday as $week) {
                     foreach ($week->days as $day) {
                         foreach ($day->tasks as $task) {
@@ -109,14 +108,13 @@ class GoalController extends Controller
             $priorityTasks = [];
             foreach ($week->days as $day) {
                 foreach ($day->tasks as $task) {
-                    if($task->priority == 5) { $priorityTasks[] = $task; }
+                    if($task->priority == 5) { $priorityTasks[] = $task->day; }
                 }
             }
 
             $notCompleted = Task::whereIn('id', $notCompletedID)->get();
 
-
-        return view('goal.show', compact('week', 'days', 'goals', 'notCompleted', 'priorityTasks'));
+        return view('goal.show', compact('week', 'days', 'goals', 'notCompleted', 'notCompletedID', 'priorityTasks'));
     }
     public function create()
     {
