@@ -330,7 +330,7 @@
         </div>
     </div>
 </div>
-
+@vite('resources/js/placeholders.js')
 <script defer>
 
 // ON LOAD OF THE PAGE
@@ -1068,8 +1068,8 @@ window.addEventListener('load', function () {
                             new__task.setAttribute('completed', '0')
                             flex.insertBefore(new__task, flex.querySelector('.task__create'))
                             new__task.innerHTML = `
-                                <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="{{ $task->completed ? 'display: block;' : 'display: none;' }}">
-                                <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="{{ $task->day_id ? 'display: none;' : 'display: block;' }}">
+                                <img class="completed" src="{{ asset('storage/images/completed.png') }}" style="display: none;">
+                                <img class="replace" src="{{ asset('storage/images/replace.png') }}" style="display: block;">
                                 <div class="scrolling__parent">
                                     <p>
                                         ${name}
@@ -1166,7 +1166,6 @@ window.addEventListener('load', function () {
         function updateDropAreas()
         {
             let draggableElements = document.querySelectorAll('.tasks__flex .task[has_day="0"], .days__flex .task, .tasks__flex__block.unfinished .task')
-            console.log(draggableElements)
             draggableElements.forEach(draggable => {
                 draggable.setAttribute('draggable', 'true')
                 draggable.addEventListener('dragstart', day__task__dragstart)

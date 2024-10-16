@@ -14,6 +14,7 @@ export default defineConfig({
                 'resources/css/style.css',
                 'resources/js/app.js',
                 'resources/js/emoji.js',
+                'resources/js/placeholders.js',
             ],
             refresh: true,
         }),
