@@ -383,6 +383,36 @@ window.addEventListener('load', function () {
         });
 
     // HANDLING TASK__BLOCKS` VIEW
+        // TIMEOUT TO SET THE FLEX BLOCK TO POSITION RELATIVE
+        let positionRelativeTimeOut = null
+        let flex__height
+        function task__block__mouseenter(e)
+        {
+            let flex__block = e.currentTarget
+            let title = flex__block.querySelector('.title')
+            let flex = flex__block.querySelector('.flex')
+            let image = flex__block.querySelector('.image')
+            if(!isScrolling)
+            {
+                if(!isElementFullyVisible(document.querySelector('.tasks__flex'), flex__block))
+                {
+                    scrollElementIntoView(document.querySelector('.tasks__flex'), flex__block)
+                }
+                clearTimeout(positionRelativeTimeOut)
+                flex__block.style.position = 'absolute'
+                flex__block.style.zIndex = '60'
+                flex.style.maxHeight = flex__height+'px'
+                if(image)
+                {
+                    image.style.bottom = (flex__height+title.offsetHeight+25)+'px'
+                }
+                flex__block.style.marginLeft = `-${document.querySelector('.tasks__flex').scrollLeft}px`
+            }
+        }
+        function task__block__mouseleave()
+        {
+
+        }
         function handle__task__blocks()
         {
             let flex__blocks = document.querySelectorAll(".tasks__flex__block")
@@ -423,7 +453,7 @@ window.addEventListener('load', function () {
                 }
                 // FLEX BLOCK`S ORIGINAL HEIGHT
                 flex.style.overflow = 'visible'
-                let flex__height = flex.offsetHeight
+                flex__height = flex.offsetHeight
                 // AFTER DECLARING FLEX HEIGHT HIDE IT
                 flex.style.overflow = 'hidden'
                 flex.style.maxHeight = '154px'
@@ -432,27 +462,8 @@ window.addEventListener('load', function () {
                 {
                     image.style.bottom = (flex.offsetHeight+title.offsetHeight+25)+'px'
                 }
-                // TIMEOUT TO SET THE FLEX BLOCK TO POSITION RELATIVE
-                let positionRelativeTimeOut = null
                 // ON HOVER WE SHOW WHATS INSIDE THE FLEX BLOCK
-                flex__block.addEventListener('mouseenter', function () {
-                    if(!isScrolling)
-                    {
-                        if(!isElementFullyVisible(document.querySelector('.tasks__flex'), flex__block))
-                        {
-                            scrollElementIntoView(document.querySelector('.tasks__flex'), flex__block)
-                        }
-                        clearTimeout(positionRelativeTimeOut)
-                        flex__block.style.position = 'absolute'
-                        flex__block.style.zIndex = '60'
-                        flex.style.maxHeight = flex__height+'px'
-                        if(image)
-                        {
-                            image.style.bottom = (flex__height+title.offsetHeight+25)+'px'
-                        }
-                        flex__block.style.marginLeft = `-${document.querySelector('.tasks__flex').scrollLeft}px`
-                    }
-                });
+                flex__block.addEventListener('mouseenter', task__block__mouseenter);
                 // ON LEAVE WE SET FLEX BLOCK TO THE DEFAULT POSITION
                 flex__block.addEventListener('mouseleave', function () {
                     flex.style.maxHeight = '154px'
