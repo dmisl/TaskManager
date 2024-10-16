@@ -14,10 +14,49 @@
     background-color: rgba(255, 255, 255, 0.521);
     border-radius: 50px;
 }
+.tasks__title__parent
+{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 93.20px;
+}
+.tasks__title__parent .menu__left, .tasks__title__parent .menu__right
+{
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+}
+.tasks__title__parent .menu__element
+{
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    top: 20px;
+    text-decoration: none;
+    color: black;
+    width: 50px;
+}
+.tasks__title__parent .menu__element img
+{
+    width: 53px;
+    height: 53px;
+}
+.tasks__title__parent .menu__element p
+{
+    margin: 0;
+    font-size: 15px;
+    text-align: center;
+    white-space: nowrap;
+}
 .tasks__title
 {
     width: 400px;
-    margin: 0 auto;
     border-bottom: 3px solid black;
     padding-bottom: 10px;
 }

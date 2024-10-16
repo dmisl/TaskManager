@@ -75,7 +75,8 @@ class GoalController extends Controller
                     ]);
                 }
             }
-
+        // (FUTURE) CHECKING WEEK RESULTS
+        // dd($user->weeks()->where('result', null)->where('end', '<', $today)->get());
         // GETTING DAYS FROM THIS AND NEXT WEEK
             $days = Day::whereBetween('date', [$today, Carbon::today('Europe/Warsaw')->addDays(4)])->get()->sortBy('date');
         // HANDLING DAY CHECK

@@ -11,8 +11,38 @@
 <div class="content__container">
     <div class="content">
         <div class="tasks">
-            <div class="tasks__title">
-                <h1>Цілі і завдання</h1>
+            <div class="tasks__title__parent">
+                <div class="menu__left">
+                    <a class="menu__element">
+                        <img src="{{ asset('storage/images/goal_mini.png') }}">
+                        <p>Мої цілі</p>
+                    </a>
+                    <a class="menu__element">
+                        <img src="{{ asset('storage/images/tasks_mini.png') }}">
+                        <p>Завдання</p>
+                    </a>
+                    <a class="menu__element">
+                        <img src="{{ asset('storage/images/week_mini.png') }}">
+                        <p>Мій тиждень</p>
+                    </a>
+                </div>
+                <div class="tasks__title">
+                    <h1>Цілі і завдання</h1>
+                </div>
+                <div class="menu__right">
+                    <a class="menu__element">
+                        <img src="{{ asset('storage/images/completed_mini.png') }}">
+                        <p>Виконані</p>
+                    </a>
+                    <a class="menu__element">
+                        <img src="{{ asset('storage/images/settings_mini.png') }}">
+                        <p>Налаштування</p>
+                    </a>
+                    <a class="menu__element">
+                        <img style="border-radius: 100%;" src="{{ asset('storage/images/logout_mini.png') }}">
+                        <p>Вийти</p>
+                    </a>
+                </div>
             </div>
             <div class="tasks__flex__container">
                 <div class="tasks__flex" id="x-custom__scrollbar">
