@@ -81,7 +81,7 @@
                                 <div class="flex" goal_id="{{ $goal->id }}">
                                     {{-- HANDLING 5TH PRIORITY TASKS --}}
                                     {{-- IF THERE IS NO NEEDED AMOUNT OF TASKS --}}
-                                        @for ($i = 0; $i < $goal->tasks_number - $goal->tasks()->whereIn('day_id', $day_IDs)->where('priority', 5)->get()->count(); $i++)
+                                        @for ($i = 0; $i < $goal->tasks_number - $goal->tasks()->whereIn('day_id', $day_IDs)->orWhereNull('day_id')->where('priority', 5)->get()->count(); $i++)
                                             <div class="task p5 required" goal_id="{{ $goal->id }}">
                                                 <div class="scrolling__parent">
                                                     <p>
@@ -1131,6 +1131,11 @@ window.addEventListener('load', function () {
                                     </p>
                                 </div>
                             `
+                            // REMOVING REQUIRED TASK IF NEW TASKS PRIORITY IS 5
+                            if(flex.querySelector('.required') && priority == 5)
+                            {
+                                flex.querySelector('.required').remove()
+                            }
                             create__alert('Сповіщення', `Завдання <b>"${name}"</b> було успішно створене`)
                             task__create__modal.click()
                             updateDropAreas()

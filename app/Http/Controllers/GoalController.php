@@ -112,7 +112,7 @@ class GoalController extends Controller
 
             $notCompleted = Task::whereIn('id', $notCompletedID)->get();
         // GET DAY IDS FROM THIS WEEK FOR PRIORITY TASKS COUNT LOGIC
-            $day_IDs = [];
+            $day_IDs = [null];
             foreach ($week->days as $day) {
                 $day_IDs[] = $day->id;
             }
