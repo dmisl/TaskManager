@@ -453,7 +453,10 @@ window.addEventListener('load', function () {
                     tasks.forEach(task => {
                         if(day_IDs.includes(`${task.attributes.day_id.value}`))
                         {
-                            task.querySelector('.replace').remove()
+                            if(task.querySelector('.replace'))
+                            {
+                                task.querySelector('.replace').remove()
+                            }
                             task.addEventListener('click', task__show__modal__open)
                         }
                     });
@@ -469,22 +472,25 @@ window.addEventListener('load', function () {
                 {
                     image.style.bottom = (flex.offsetHeight+title.offsetHeight+25)+'px'
                 }
-                // ON HOVER WE SHOW WHATS INSIDE THE FLEX BLOCK
-                flex__block.addEventListener('mouseenter', task__block__mouseenter);
-                // ON LEAVE WE SET FLEX BLOCK TO THE DEFAULT POSITION
-                flex__block.addEventListener('mouseleave', function () {
-                    flex.style.maxHeight = '154px'
-                    positionRelativeTimeOut = setTimeout(() => {
-                        flex__block.style.position = 'relative'
-                        flex__block.style.marginLeft = '0'
-                        positionRelativeTimeOut = null
-                        flex__block.style.zIndex = '20'
-                        if(image)
-                        {
-                            image.style.bottom = (flex.offsetHeight+title.offsetHeight+25)+'px'
-                        }
-                    }, 300);
-                });
+                if(flex__height >= 154)
+                {
+                    // ON HOVER WE SHOW WHATS INSIDE THE FLEX BLOCK
+                    flex__block.addEventListener('mouseenter', task__block__mouseenter);
+                    // ON LEAVE WE SET FLEX BLOCK TO THE DEFAULT POSITION
+                    flex__block.addEventListener('mouseleave', function () {
+                        flex.style.maxHeight = '154px'
+                        positionRelativeTimeOut = setTimeout(() => {
+                            flex__block.style.position = 'relative'
+                            flex__block.style.marginLeft = '0'
+                            positionRelativeTimeOut = null
+                            flex__block.style.zIndex = '20'
+                            if(image)
+                            {
+                                image.style.bottom = (flex.offsetHeight+title.offsetHeight+25)+'px'
+                            }
+                        }, 300);
+                    });
+                }
                 // CHECK IF SCROLLING WHILE HOVER
                 flex__block.addEventListener('wheel', function () {
                     flex.style.transition = '0'
@@ -938,6 +944,7 @@ window.addEventListener('load', function () {
                         });
                         updateDropAreas()
                         days__flex__block__handle()
+                        handle__task__blocks()
                         create__alert('Сповіщення', 'Завдання було успішно видалене')
                     })
                     .catch(err => {
