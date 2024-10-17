@@ -22,6 +22,11 @@ class GoalController extends Controller
     public function show($id)
     {
         $user = User::find(Auth::id());
+        $goal = Goal::find($id);
+        if($goal->user_id !== $user->id)
+        {
+            return redirect()->route('home.index');
+        }
         $goals = Auth::user()->goals;
 
         $today = Carbon::now('Europe/Warsaw')->format('Y-m-d');
@@ -115,7 +120,7 @@ class GoalController extends Controller
 
             $notCompleted = Task::whereIn('id', $notCompletedID)->get();
 
-        return view('goal.show', compact('week', 'days', 'goals', 'notCompleted', 'notCompletedID', 'priorityTasks'));
+        return view('goal.show', compact('week', 'days', 'id', 'goals', 'notCompleted', 'notCompletedID', 'priorityTasks'));
     }
     public function create()
     {

@@ -366,6 +366,13 @@
 // ON LOAD OF THE PAGE
 window.addEventListener('load', function () {
 
+    // OPENED GOAL SELECT
+    let selectedGoal = '{{ $id }}'
+    if(selectedGoal !== 0)
+    {
+        document.querySelector(`.flex[goal_id="${selectedGoal}"]`).parentElement.style.border = '2.5px solid black'
+    }
+
     let whole__content = document.querySelector('.whole__content')
     let loader__parent = document.querySelector('.loader__parent')
 
