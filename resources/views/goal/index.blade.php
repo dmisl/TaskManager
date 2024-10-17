@@ -45,30 +45,6 @@
                             <p style="color: white;">Створити нову ціль</p>
                         </div>
                     </a>
-                    <div class="flex__block">
-                        <div class="img__parent">
-                            <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                        </div>
-                        <div class="hidden__content">
-                            <p>Фріланс і ще щось</p>
-                        </div>
-                    </div>
-                    <div class="flex__block">
-                        <div class="img__parent">
-                            <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                        </div>
-                        <div class="hidden__content">
-                            <p>Фріланс і ще щось</p>
-                        </div>
-                    </div>
-                    <div class="flex__block">
-                        <div class="img__parent">
-                            <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                        </div>
-                        <div class="hidden__content">
-                            <p>Фріланс і ще щось</p>
-                        </div>
-                    </div>
                     @foreach ($goals as $goal)
                         <a href="{{ route('goal.show', [$goal->id]) }}" class="flex__block">
                             <div class="img__parent">

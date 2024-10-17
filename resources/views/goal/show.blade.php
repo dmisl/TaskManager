@@ -13,7 +13,7 @@
         <div class="tasks">
             <div class="tasks__title__parent">
                 <div class="menu__left">
-                    <a class="menu__element">
+                    <a href="{{ route('goal.index') }}" class="menu__element">
                         <img src="{{ asset('storage/images/goal_mini.png') }}">
                         <p>Мої цілі</p>
                     </a>
