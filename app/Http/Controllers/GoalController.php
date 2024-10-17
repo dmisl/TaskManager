@@ -110,17 +110,14 @@ class GoalController extends Controller
                 $notCompletedID = Check::query()->where(['date' => $today])->first()->tasks;
             }
 
-        // PRIORITY TASKS
-            $priorityTasks = [];
+            $notCompleted = Task::whereIn('id', $notCompletedID)->get();
+        // GET DAY IDS FROM THIS WEEK FOR PRIORITY TASKS COUNT LOGIC
+            $day_IDs = [];
             foreach ($week->days as $day) {
-                foreach ($day->tasks as $task) {
-                    if($task->priority == 5) { $priorityTasks[] = $task->day; }
-                }
+                $day_IDs[] = $day->id;
             }
 
-            $notCompleted = Task::whereIn('id', $notCompletedID)->get();
-
-        return view('goal.show', compact('week', 'days', 'id', 'goals', 'notCompleted', 'notCompletedID', 'priorityTasks'));
+        return view('goal.show', compact('week', 'days', 'day_IDs', 'id', 'goals', 'notCompleted', 'notCompletedID'));
     }
     public function create()
     {

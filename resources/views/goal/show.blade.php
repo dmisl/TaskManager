@@ -81,7 +81,7 @@
                                 <div class="flex" goal_id="{{ $goal->id }}">
                                     {{-- HANDLING 5TH PRIORITY TASKS --}}
                                     {{-- IF THERE IS NO NEEDED AMOUNT OF TASKS --}}
-                                        @for ($i = 0; $i < $goal->tasks_number - count($priorityTasks); $i++)
+                                        @for ($i = 0; $i < $goal->tasks_number - $goal->tasks()->whereIn('day_id', $day_IDs)->where('priority', 5)->get()->count(); $i++)
                                             <div class="task p5 required" goal_id="{{ $goal->id }}">
                                                 <div class="scrolling__parent">
                                                     <p>
