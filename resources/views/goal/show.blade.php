@@ -370,7 +370,7 @@ window.addEventListener('load', function () {
         let selectedGoal = '{{ $id }}'
         if(selectedGoal !== 0)
         {
-            document.querySelector(`.flex[goal_id="${selectedGoal}"]`).parentElement.style.border = '2.5px solid black'
+            // document.querySelector(`.flex[goal_id="${selectedGoal}"]`).parentElement.style.outline = '1.5px solid black'
         }
 
     let whole__content = document.querySelector('.whole__content')
@@ -379,7 +379,8 @@ window.addEventListener('load', function () {
     // IF TASK FLEX DOESNT HAVE SCROLL BAR
         if(!(document.querySelector('.tasks__flex').scrollWidth > document.querySelector('.tasks__flex').clientWidth))
         {
-            document.querySelector('.tasks__flex').style.height = '234px'
+            document.querySelector('.tasks__flex').style.height = '236.5px'
+            document.querySelector('.tasks__flex').style.paddingTop = '1.5px'
         }
 
     // ADDING SMOOTH SCROLLING
@@ -408,10 +409,10 @@ window.addEventListener('load', function () {
                 clearTimeout(positionRelativeTimeOut)
                 flex__block.style.position = 'absolute'
                 flex__block.style.zIndex = '60'
-                flex.style.maxHeight = flex__height+'px'
+                flex.style.maxHeight = flex__block.attributes.default_height.value+'px'
                 if(image)
                 {
-                    image.style.bottom = (flex__height+title.offsetHeight+25)+'px'
+                    image.style.bottom = (parseInt(flex__block.attributes.default_height.value)+parseInt(title.offsetHeight)+25)+'px'
                 }
                 flex__block.style.marginLeft = `-${document.querySelector('.tasks__flex').scrollLeft}px`
             }
@@ -464,7 +465,16 @@ window.addEventListener('load', function () {
                 }
                 // FLEX BLOCK`S ORIGINAL HEIGHT
                 flex.style.overflow = 'visible'
+                flex.style.maxHeight = ''
                 flex__height = flex.offsetHeight
+                if(!flex__block.hasAttribute('default_height'))
+                {
+                    flex__block.setAttribute('default_height', flex__height)
+                } else if(flex__block.attributes.default_height.value !== flex__height)
+                {
+                    flex__block.setAttribute('default_height', flex__height)
+                }
+                flex__height = flex__block.attributes.default_height.value
                 // AFTER DECLARING FLEX HEIGHT HIDE IT
                 flex.style.overflow = 'hidden'
                 flex.style.maxHeight = '154px'
@@ -575,7 +585,10 @@ window.addEventListener('load', function () {
             {
                 new__task.classList.add('task__preview')
                 appendAfter(new__task, after__task)
-                new__task.querySelector('.replace').remove()
+                if(new__task.querySelector('.replace'))
+                {
+                    new__task.querySelector('.replace').remove()
+                }
             }
             if(drop)
             {
@@ -722,7 +735,6 @@ window.addEventListener('load', function () {
 
                             axios.post(`{{ route('day.changeResult') }}`,{ result: completed__percent, day_id: progress.parentElement.parentElement.parentElement.querySelector('.flex').attributes.day_id.value })
                             .then(res => {
-                                // console.log(res)
                             })
                             .catch(err => {
                                 console.error(err);
@@ -1148,7 +1160,6 @@ window.addEventListener('load', function () {
                         })
                     } else
                     {
-                        console.log(2)
                     }
                 })
 
