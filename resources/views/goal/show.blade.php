@@ -17,11 +17,11 @@
                         <img src="{{ asset('storage/images/goal_mini.png') }}">
                         <p>Мої цілі</p>
                     </a>
-                    <a class="menu__element">
+                    <a class="menu__element" style="background-color: red;">
                         <img src="{{ asset('storage/images/tasks_mini.png') }}">
                         <p>Завдання</p>
                     </a>
-                    <a class="menu__element">
+                    <a class="menu__element" style="background-color: red;">
                         <img src="{{ asset('storage/images/week_mini.png') }}">
                         <p>Мій тиждень</p>
                     </a>
@@ -30,15 +30,15 @@
                     <h1>Цілі і завдання</h1>
                 </div>
                 <div class="menu__right">
-                    <a class="menu__element">
+                    <a class="menu__element" style="background-color: red;">
                         <img src="{{ asset('storage/images/completed_mini.png') }}">
                         <p>Виконані</p>
                     </a>
-                    <a class="menu__element">
+                    <a class="menu__element" style="background-color: red;">
                         <img src="{{ asset('storage/images/settings_mini.png') }}">
                         <p>Налаштування</p>
                     </a>
-                    <a class="menu__element">
+                    <a class="menu__element" style="background-color: red;">
                         <img style="border-radius: 100%;" src="{{ asset('storage/images/logout_mini.png') }}">
                         <p>Вийти</p>
                     </a>
@@ -81,7 +81,7 @@
                                 <div class="flex" goal_id="{{ $goal->id }}">
                                     {{-- HANDLING 5TH PRIORITY TASKS --}}
                                     {{-- IF THERE IS NO NEEDED AMOUNT OF TASKS --}}
-                                        @for ($i = 0; $i < $goal->tasks_number - $goal->tasks()->whereIn('day_id', $day_IDs)->orWhereNull('day_id')->where('priority', 5)->get()->count(); $i++)
+                                        @for ($i = 0; $i < $goal->tasks_number - $goal->tasks()->where(fn($q) => $q->whereIn('day_id', $day_IDs)->orWhereNull('day_id'))->where('priority', 5)->get()->count(); $i++)
                                             <div class="task p5 required" goal_id="{{ $goal->id }}">
                                                 <div class="scrolling__parent">
                                                     <p>
@@ -367,11 +367,11 @@
 window.addEventListener('load', function () {
 
     // OPENED GOAL SELECT
-    let selectedGoal = '{{ $id }}'
-    if(selectedGoal !== 0)
-    {
-        document.querySelector(`.flex[goal_id="${selectedGoal}"]`).parentElement.style.border = '2.5px solid black'
-    }
+        let selectedGoal = '{{ $id }}'
+        if(selectedGoal !== 0)
+        {
+            document.querySelector(`.flex[goal_id="${selectedGoal}"]`).parentElement.style.border = '2.5px solid black'
+        }
 
     let whole__content = document.querySelector('.whole__content')
     let loader__parent = document.querySelector('.loader__parent')
@@ -424,6 +424,7 @@ window.addEventListener('load', function () {
         {
             let flex__blocks = document.querySelectorAll(".tasks__flex__block")
             flex__blocks.forEach(flex__block => {
+
                 // FLEX BLOCK`S ELEMENTS
                 let title = flex__block.querySelector('.title')
                 let flex = flex__block.querySelector('.flex')
@@ -492,7 +493,7 @@ window.addEventListener('load', function () {
                     });
                 }
                 // CHECK IF SCROLLING WHILE HOVER
-                flex__block.addEventListener('wheel', function () {
+                flex__block.addEventListener('wheel', function (e) {
                     flex.style.transition = '0'
                     if(image)
                     {
@@ -1474,7 +1475,7 @@ window.addEventListener('load', function () {
                         if(flex__block.querySelector('.image'))
                         {
                             flex__block.querySelector('.image').style.transition = '0'
-                            flex__block.querySelector('.image').style.bottom = (154+flex__block.querySelector('.title').offsetHeight+25)+'px'
+                            // flex__block.querySelector('.image').style.bottom = (154+flex__block.querySelector('.title').offsetHeight+25)+'px'
                         }
                         flex__block.querySelector('.flex').style.maxHeight = '154px'
                         flex__block.style.position = 'relative'
