@@ -512,7 +512,7 @@ window.addEventListener('load', function () {
                     flex.style.maxHeight = '154px'
                     if(image)
                     {
-                        image.style.bottom = (flex__height+title.offsetHeight+25)+'px'
+                        image.style.bottom = (parseInt(flex__block.attributes.default_height.value)+parseInt(title.offsetHeight)+25)+'px'
                     }
                     positionRelativeTimeOut = setTimeout(() => {
                         flex__block.style.position = 'relative'
