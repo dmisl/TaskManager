@@ -87,7 +87,7 @@ class GoalController extends Controller
             $days = Day::whereBetween('date', [$today, Carbon::today('Europe/Warsaw')->addDays(4)])->get()->sortBy('date');
         // HANDLING DAY CHECK
             $notCompletedID = [];
-            if(!Check::query()->where('date', $today)->first())
+            if(!Check::query()->where('date', $today)->where('user_id', $user->id)->first())
             {
                 $weeksBeforeToday = $user->weeks;
                 foreach ($weeksBeforeToday as $week) {
@@ -151,7 +151,7 @@ class GoalController extends Controller
         $goal = Goal::find($request->goal_id);
         if($goal->user_id == Auth::id())
         {
-            $check = Check::query()->where('date', Carbon::now('Europe/Warsaw')->format('Y-m-d'))->first();
+            $check = Check::query()->where('date', Carbon::now('Europe/Warsaw')->format('Y-m-d'))->where('user_id', Auth::id())->first();
             if($check)
             {
                 $check->delete();

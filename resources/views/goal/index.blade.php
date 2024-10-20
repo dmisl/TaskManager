@@ -18,20 +18,7 @@
         <p class="delete">Видалити</p>
     </div>
 
-    <div class="delete__modal d-none">
-        <h3>Ви дійсно хочете видалити цю ціль?</h3>
-        <p>Всі завдання та статистика, пов’язана з нею, будуть безповоротно видалені.</p>
-        <div class="flex">
-            <div class="yes">
-                <p>Так</p>
-            </div>
-            <div class="no">
-                <p>Ні</p>
-            </div>
-        </div>
-    </div>
-
-    {{-- <home-parent asset="{{ asset('storage/') }}"></home-parent> --}}
+    {{-- MENU OF LEFT --}}
     <div class="menu__parent">
         <div class="menu">
             <div class="card shadow">
@@ -46,6 +33,7 @@
         </div>
     </div>
 
+    {{-- VISIBLE CONTENT --}}
     <div class="content__container__parent">
         <div class="moved__container">
             <div class="left__part">
@@ -77,6 +65,24 @@
                         </a>
                     @endforeach
                 </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- MODAL GOAL EDIT --}}
+    <div class="edit__modal__parent">
+
+    </div>
+    {{-- MODAL GOAL DELETE --}}
+    <div class="delete__modal d-none">
+        <h3>Ви дійсно хочете видалити цю ціль?</h3>
+        <p>Всі завдання та статистика, пов’язана з нею, будуть безповоротно видалені.</p>
+        <div class="flex">
+            <div class="yes">
+                <p>Так</p>
+            </div>
+            <div class="no">
+                <p>Ні</p>
             </div>
         </div>
     </div>
@@ -193,6 +199,10 @@
                 delete__modal.classList.remove('d-none')
                 let top = parseInt(current__block.getBoundingClientRect().y) + current__block.offsetHeight + 17
                 let left = parseInt(current__block.getBoundingClientRect().x) - (current__block.offsetWidth/2)
+                if(current__block.classList.contains('bigger__flex__block'))
+                {
+                    left = parseInt(current__block.getBoundingClientRect().x) - (current__block.offsetWidth/4) - 20
+                }
                 delete__modal.style.left = left+'px'
                 delete__modal.style.top = top+'px'
                 context__menu__close()
