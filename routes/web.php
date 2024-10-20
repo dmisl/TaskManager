@@ -34,6 +34,8 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::get('home/goals/create', [GoalController::class, 'create'])->name('goal.create');
     Route::post('home/goals/create', [GoalController::class, 'store'])->name('goal.store');
     Route::post('home/goals/delete', [GoalController::class, 'delete'])->name('goal.delete');
+    Route::post('home/goals/update', [GoalController::class, 'update'])->name('goal.update');
+    Route::post('home/goals/getData', [GoalController::class, 'getData'])->name('goal.getData');
 
     // TASK ROUTES
 

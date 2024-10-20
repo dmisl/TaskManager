@@ -868,6 +868,7 @@
     position: absolute;
     margin-top: 390px;
     margin-right: 300px;
+    cursor: pointer;
 }
 .goal__create .back
 {
@@ -885,7 +886,23 @@
     width: 70px;
     border-radius: 100%;
 }
-
+.edit__modal__parent
+{
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    background-color: rgba(0, 0, 0, 0.452);
+}
+.edit__modal__parent .preview__parent .preview {
+    border: 2px solid white;
+}
 /* ANIMATIONS */
 @keyframes menu__appear {
     0% {

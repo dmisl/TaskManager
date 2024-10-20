@@ -142,7 +142,31 @@ class GoalController extends Controller
         ]);
         return redirect()->route('goal.show', [$goal->id]);
     }
-
+    public function getData(Request $request)
+    {
+        $validated = $request->validate([
+            'goal_id' => ['required']
+        ]);
+        $goal = Goal::find($request->goal_id);
+        if($goal->user_id == Auth::id())
+        {
+            return response()->json([
+                'name' => $goal->name,
+                'image' => $goal->image,
+                'tasks_number' => $goal->tasks_number,
+                'end_date' => $goal->end_date
+            ]);
+        }
+        return response()->json([
+            'data' => 'error'
+        ]);
+    }
+    public function update(Request $request)
+    {
+        return response()->json([
+            'data' => $request->all()
+        ]);
+    }
     public function delete(Request $request)
     {
         $validated = $request->validate([
