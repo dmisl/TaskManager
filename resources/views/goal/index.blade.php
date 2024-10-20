@@ -231,6 +231,13 @@
         loader__parent.style.display = 'none'
         let whole__content = document.querySelector('.whole__content')
         whole__content.style.animation = 'appear__opacity 0.5s forwards'
+        if(flex__blocks.length == 4)
+        {
+            let flexy = document.querySelector('.right__part .flex')
+            flexy.style.paddingBottom = '0'
+            flexy.style.justifyContent = 'center'
+            flexy.style.overflow = 'visible'
+        }
 
     };
 

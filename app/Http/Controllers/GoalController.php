@@ -30,6 +30,7 @@ class GoalController extends Controller
         $goals = Auth::user()->goals;
 
         $today = Carbon::now('Europe/Warsaw')->format('Y-m-d');
+
         $week = $user->weeks()->where('start', '<=', $today)->where('end', '>=', $today)->first();
 
         // CHECKING AND CREATING WEEKS IF ITS NOT CREATED
@@ -150,6 +151,11 @@ class GoalController extends Controller
         $goal = Goal::find($request->goal_id);
         if($goal->user_id == Auth::id())
         {
+            $check = Check::query()->where('date', Carbon::now('Europe/Warsaw')->format('Y-m-d'))->first();
+            if($check)
+            {
+                $check->delete();
+            }
             foreach ($goal->tasks as $task) {
                 $task->delete();
             }
