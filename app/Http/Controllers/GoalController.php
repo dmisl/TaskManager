@@ -163,9 +163,29 @@ class GoalController extends Controller
     }
     public function update(Request $request)
     {
-        return response()->json([
-            'data' => $request->all()
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'min:5', 'max:45'],
+            'tasks_number' => ['required', 'integer', 'between:1,8'],
+            'end_date' => ['required', 'date'],
+            'image' => ['required', 'string'],
+            'goal_id' => ['required']
         ]);
+        $goal = Goal::find($request->goal_id);
+        if($goal->user_id == Auth::id())
+        {
+            $goal->update([
+                'name' => $request->name,
+                'tasks_number' => $request->tasks_number,
+                'end_date' => $request->end_date,
+                'image' => $request->image,
+            ]);
+            return response()->json([
+                'data' => 'success'
+            ]);
+        }
+        return response()->json([
+            'data' => 'error'
+        ], 404);
     }
     public function delete(Request $request)
     {

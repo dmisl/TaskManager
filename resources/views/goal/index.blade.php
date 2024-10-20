@@ -185,7 +185,7 @@
                 </div>
                 <input class="input__image" type="hidden" name="image">
                 <div class="form-button-parent">
-                    <button class="btn btn-primary btn-lg rounded-5">Зберегти</button>
+                    <button class="btn btn-lg rounded-5" style="background-color: rgb(60, 255, 60);">Зберегти</button>
                 </div>
             </div>
         </div>
@@ -354,20 +354,61 @@
         let edit__modal = document.querySelector('.edit__modal__parent')
         function edit__modal__open()
         {
-            axios.post(`{{ route('goal.getData') }}`,{goal_id: 2})
+            axios.post(`{{ route('goal.getData') }}`,{goal_id: current__block.attributes.goal_id.value})
             .then(res => {
-                console.log(res)
+                edit__modal.classList.add('d-flex')
                 edit__modal.classList.remove('d-none')
                 let back__parent = document.querySelector('.back__parent')
-                edit__modal.querySelector('input[name="name"]').value
-                document.querySelector('.goal__create .preview').style.animation = 'appear_right 1s forwards'
-                document.querySelector('.goal__create .preview img').src = res.data.image
+                edit__modal.querySelector('input[name="name"]').value = res.data.name
+                edit__modal.querySelector('.preview__parent .preview .hidden__content p').innerText = res.data.name
+                edit__modal.querySelector('.preview img').src = res.data.image
+                edit__modal.querySelector('input[name="end_date"]').value = res.data.end_date
+                for (let i = 0; i < edit__modal.querySelector('select').children.length; i++) {
+                    if(edit__modal.querySelector('select').children[i].hasAttribute('selected'))
+                    {
+                        edit__modal.querySelector('select').children[i].removeAttribute('selected')
+                    }
+                    if(edit__modal.querySelector('select').children[i].value == res.data.tasks_number)
+                    {
+                        edit__modal.querySelector('select').children[i].setAttribute('selected', '')
+                    }
+                }
+                edit__modal.classList.add('d-flex')
+                edit__modal.classList.remove('d-none')
+                edit__modal.style.animation = 'appear__opacity 0.5s forwards'
+                edit__modal.querySelector('.goal__create').style.animation = 'appear__bottom 0.5s forwards'
             })
             .catch(err => {
                 console.error(err);
             })
         }
-        edit__modal__open()
+        function edit__modal__close()
+        {
+            edit__modal.style.animation = 'disappear__opacity 0.5s forwards'
+            edit__modal.querySelector('.goal__create').style.animation = 'disappear__bottom 0.5s forwards'
+            setTimeout(() => {
+                edit__modal.classList.remove('d-flex')
+                edit__modal.classList.add('d-none')
+            }, 500);
+        }
+        edit__modal.querySelector('button').addEventListener('click', function () {
+            let name = edit__modal.querySelector('input[name="name"]').value
+            let tasks_number = edit__modal.querySelector('select').value
+            let date = edit__modal.querySelector('input[type="date"]').value
+            let image = edit__modal.querySelector('.preview img').src
+            axios.post(`{{ route('goal.update') }}`,{name: name, tasks_number: tasks_number, end_date: date, image: image, goal_id: current__block.attributes.goal_id.value})
+            .then(res => {
+                current__block.querySelector('img').src = image
+                current__block.querySelector('.hidden__content p').innerText = name
+                create__alert('Сповіщення', `Оновлені дані цілі <br><b>"${name}"</b><br> були успішно збережені`)
+                edit__modal__close()
+            })
+            .catch(err => {
+                console.error(err);
+            })
+        })
+        edit__modal.querySelector('.back__parent p').style.color = 'white'
+        edit__modal.querySelector('.back').addEventListener('click', edit__modal__close)
     };
 
     // SCRIPT NEEDED VARIABLES

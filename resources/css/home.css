@@ -821,6 +821,7 @@
     box-shadow: var(--bs-box-shadow) !important;
     border-radius: 22px;
     overflow: hidden;
+    position: relative;
     transition: 0.5s;
     cursor: pointer;
 }
@@ -902,6 +903,14 @@
 }
 .edit__modal__parent .preview__parent .preview {
     border: 2px solid white;
+}
+.edit__modal__parent .goal__create .preview__parent .preview
+{
+    top: -250px !important;
+}
+.edit__modal__parent .freepick__parent .freepick
+{
+    top: 50px;
 }
 /* ANIMATIONS */
 @keyframes menu__appear {

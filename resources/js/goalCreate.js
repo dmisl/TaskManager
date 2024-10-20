@@ -173,6 +173,11 @@ window.addEventListener('load', function () {
         }
     }
 
+    if(document.querySelector('.edit__modal__parent'))
+    {
+        display_preview()
+    }
+
     // INPUT TYPE TEXT VALUE TO PREVIEW ELEMENT
     let input = goal__create.querySelector('.form-item input[type="text"]') // input of type text
     input.focus() // on load of page focus on text input
