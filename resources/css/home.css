@@ -238,11 +238,11 @@
         bottom: 6.5px;
     }
 }
-.logout
+.menu .logout
 {
     color: white;
 }
-.goals::before
+.menu .goals::before
 {
     content: "🎯";
     z-index: 1;
@@ -252,7 +252,7 @@
     font-size: 55px;
     opacity: 0.4;
 }
-.settings::before
+.menu .settings::before
 {
     content: "⚙️";
     z-index: 1;
@@ -424,6 +424,7 @@
     border-radius: 23px;
     overflow: hidden;
     text-decoration: none;
+    position: relative;
 }
 .right__part .bigger__flex__block
 {
@@ -433,6 +434,7 @@
     overflow: hidden;
     box-shadow: var(--bs-box-shadow) !important;
     text-decoration: none;
+    position: relative;
 }
 .flex__block .hidden__block
 {
@@ -583,6 +585,62 @@
 .some__menu p:hover
 {
     background-color: rgb(123, 147, 253);
+}
+.delete__modal
+{
+    position: absolute;
+    width: 400px;
+    height: 150px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 20px;
+    z-index: 9999;
+    text-align: center;
+}
+.delete__modal h3
+{
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 12px;
+}
+.delete__modal p
+{
+    font-size: 17px;
+    line-height: 1.2;
+    margin: 0;
+    margin-top: 5px;
+}
+.delete__modal .flex
+{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.delete__modal .flex p
+{
+    margin: 0;
+    position: relative;
+    top: 5px;
+    font-size: 20px;
+}
+.delete__modal .flex .yes, .delete__modal .flex .no
+{
+    width: 140px;
+    height: 35px;
+    font-weight: 500;
+    color: white;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.delete__modal .flex .yes
+{
+    background-color: #FF0202;
+}
+.delete__modal .flex .no
+{
+    background-color: #025BFF;
 }
 .goal__create
 {

@@ -141,4 +141,11 @@ class GoalController extends Controller
         ]);
         return redirect()->route('goal.show', [$goal->id]);
     }
+
+    public function delete(Request $request)
+    {
+        return response()->json([
+            'data' => $request->all()
+        ]);
+    }
 }

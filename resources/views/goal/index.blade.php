@@ -10,6 +10,27 @@
 
 @section('content')
 
+    {{-- INTERACTIVE MENU (RMB) --}}
+    <div class="some__menu d-none">
+        <p class="guide">Гайд</p>
+        <p class="stats">Статистика</p>
+        <p class="settings">Налаштування</p>
+        <p class="delete">Видалити</p>
+    </div>
+
+    <div class="delete__modal d-none">
+        <h3>Ви дійсно хочете видалити цю ціль?</h3>
+        <p>Всі завдання та статистика, пов’язана з нею, будуть безповоротно видалені.</p>
+        <div class="flex">
+            <div class="yes">
+                <p>Так</p>
+            </div>
+            <div class="no">
+                <p>Ні</p>
+            </div>
+        </div>
+    </div>
+
     {{-- <home-parent asset="{{ asset('storage/') }}"></home-parent> --}}
     <div class="menu__parent">
         <div class="menu">
@@ -76,83 +97,134 @@
     }
 
     window.onload = function() {
-        let contextMenu = document.querySelector(".some__menu");
 
-        document.addEventListener("click", function (e) {
-            if (!contextMenu.contains(e.target)) {
+        // TASK BLOCKS HANDLING
+            let flex__blocks = document.querySelectorAll('.flex__block')
+            if(flex__blocks.length == 4)
+            {
+                flex__blocks.forEach(block => {
+                    block.classList.remove('flex__block')
+                    block.classList.add('bigger__flex__block')
+                })
+            } else if(flex__blocks.length < 7)
+            {
+                document.querySelector('.flex').style.overflow = 'visible'
+                flex__blocks.forEach(flex__block => {
+                    flex__block.classList.add('shadow')
+                });
+            } else
+            {
+                document.querySelector('.flex').style.overflow = 'auto'
+                flex__blocks.forEach(flex__block => {
+                    flex__block.classList.remove('shadow')
+                });
+            }
+            let block__images = document.querySelectorAll(".flex__block img, .preview img, .freepick__image__parent img")
+            if(block__images.length == 0) {
+                block__images = document.querySelectorAll('.bigger__flex__block img')
+                document.querySelector('.flex').style.overflow = 'visible'
+                document.querySelector('.flex').style.justifyContent = 'center'
+            }
+
+            block__images.forEach(image => {
+                if(image.offsetHeight == image.offsetWidth)
+                {
+                    image.style.width = '100%'
+                } else if(image.offsetWidth > image.offsetHeight)
+                {
+                    image.style.cssText = "height: 100%; object-fit: cover;"
+                    image.parentElement.style.cssText = 'position: relative; display: flex; justify-content: center; align-items: center; flex-direction: column;'
+                } else
+                {
+                    image.style.cssText = "width: 100%; object-fit: cover;"
+                    image.parentElement.style.cssText = 'position: relative; display: flex; justify-content: center; align-items: center; flex-direction: column;'
+                }
+            });
+
+            document.querySelectorAll('.flex__block:not(.goal__create), .bigger__flex__block:not(.goal__create)').forEach(block => {
+                block.addEventListener('mouseenter', () => {
+                    document.querySelector('.right__part__hint p').classList.add('active');
+                });
+
+                block.addEventListener('mouseleave', () => {
+                    document.querySelector('.right__part__hint p').classList.remove('active');
+                });
+            });
+        // RIGHT MOUSE CLICK MENU HANDLING
+            let contextMenu = document.querySelector(".some__menu");
+            document.addEventListener("click", function (e) {
+                if (!contextMenu.contains(e.target)) {
+                    context__menu__close()
+                }
+            });
+            let current__block
+            function context__menu__open(e)
+            {
+                if(e.currentTarget.classList.contains('flex__block') || e.currentTarget.classList.contains('bigger__flex__block'))
+                {
+                    // HANDLING GOAL BLOCK WHICH WAS CLICKED ON
+                    let block = e.currentTarget
+                    current__block = block
+                    // OPENING INTERACTIVE MODAL
+                    let mouseX = e.clientX || e.touches[0].clientX;
+                    let mouseY = e.clientY || e.touches[0].clientY;
+                    let menuHeight = contextMenu.getBoundingClientRect().height;
+                    let menuWidth = contextMenu.getBoundingClientRect().width;
+                    let width = window.innerWidth;
+                    let height = window.innerHeight;
+                    contextMenu.style.left = mouseX + "px";
+                    contextMenu.style.top = mouseY - 226 + "px";
+                    contextMenu.classList.remove('d-none');
+                    contextMenu.classList.add('d-block');
+                }
+            }
+            function context__menu__close()
+            {
                 contextMenu.classList.add('d-none');
                 contextMenu.classList.remove('d-block');
             }
-        });
-
-        let flex__blocks = document.querySelectorAll('.flex__block')
-        if(flex__blocks.length == 4)
-        {
-            flex__blocks.forEach(block => {
-                block.classList.remove('flex__block')
-                block.classList.add('bigger__flex__block')
+            let guide = contextMenu.querySelector('.guide')
+            let stats = contextMenu.querySelector('.stats')
+            let settings = contextMenu.querySelector('.settings')
+            let deleteGoal = contextMenu.querySelector('.delete')
+            let delete__modal = document.querySelector('.delete__modal')
+            // DELETE MODAL
+            deleteGoal.addEventListener('click', function () {
+                console.log(current__block.getBoundingClientRect())
+                delete__modal.classList.remove('d-none')
+                let top = parseInt(current__block.getBoundingClientRect().y) + current__block.offsetHeight + 17
+                let left = parseInt(current__block.getBoundingClientRect().x) - (current__block.offsetWidth/2)
+                console.log(left)
+                delete__modal.style.left = left+'px'
+                delete__modal.style.top = top+'px'
+                context__menu__close()
+                document.querySelectorAll('.flex__block:not(.goal__create), .flex__block:not(.goal__create) *, .bigger__flex__block:not(.goal__create), .bigger__flex__block:not(.goal__create) *').forEach(block => {
+                    block.removeEventListener('contextmenu', context__menu__open, { passive: false } )
+                });
             })
-        } else if(flex__blocks.length < 7)
-        {
-            document.querySelector('.flex').style.overflow = 'visible'
-            flex__blocks.forEach(flex__block => {
-                flex__block.classList.add('shadow')
+            delete__modal.querySelector('.yes').addEventListener('click', () => {
+                axios.post(`{{ route('goal.delete') }}`,{goal_id: 1})
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+                delete__modal.classList.add('d-none')
+                document.querySelectorAll('.flex__block:not(.goal__create), .flex__block:not(.goal__create) *, .bigger__flex__block:not(.goal__create), .bigger__flex__block:not(.goal__create) *').forEach(block => {
+                    block.addEventListener('contextmenu', context__menu__open, { passive: false } )
+                })
+            })
+            delete__modal.querySelector('.no').addEventListener('click', () => {
+                delete__modal.classList.add('d-none')
+                document.querySelectorAll('.flex__block:not(.goal__create), .flex__block:not(.goal__create) *, .bigger__flex__block:not(.goal__create), .bigger__flex__block:not(.goal__create) *').forEach(block => {
+                    block.addEventListener('contextmenu', context__menu__open, { passive: false } )
+                });
+            })
+            document.querySelectorAll('.flex__block:not(.goal__create), .flex__block:not(.goal__create) *, .bigger__flex__block:not(.goal__create), .bigger__flex__block:not(.goal__create) *').forEach(block => {
+                block.addEventListener('contextmenu', context__menu__open, { passive: false } )
+                block.addEventListener('contextmenu', (e) => {e.preventDefault()})
             });
-        } else
-        {
-            document.querySelector('.flex').style.overflow = 'auto'
-            flex__blocks.forEach(flex__block => {
-                flex__block.classList.remove('shadow')
-            });
-        }
-        let block__images = document.querySelectorAll(".flex__block img, .preview img, .freepick__image__parent img")
-        if(block__images.length == 0) {
-            block__images = document.querySelectorAll('.bigger__flex__block img')
-            document.querySelector('.flex').style.overflow = 'visible'
-            document.querySelector('.flex').style.justifyContent = 'center'
-        }
-
-        block__images.forEach(image => {
-            if(image.offsetHeight == image.offsetWidth)
-            {
-                image.style.width = '100%'
-            } else if(image.offsetWidth > image.offsetHeight)
-            {
-                image.style.cssText = "height: 100%; object-fit: cover;"
-                image.parentElement.style.cssText = 'position: relative; display: flex; justify-content: center; align-items: center; flex-direction: column;'
-            } else
-            {
-                image.style.cssText = "width: 100%; object-fit: cover;"
-                image.parentElement.style.cssText = 'position: relative; display: flex; justify-content: center; align-items: center; flex-direction: column;'
-            }
-        });
-
-        document.querySelectorAll('.flex__block:not(.goal__create), .bigger__flex__block:not(.goal__create)').forEach(block => {
-            block.addEventListener('mouseenter', () => {
-                document.querySelector('.right__part__hint p').classList.add('active');
-            });
-
-            block.addEventListener('mouseleave', () => {
-                document.querySelector('.right__part__hint p').classList.remove('active');
-            });
-        });
-        document.querySelectorAll('.flex__block:not(.goal__create), .flex__block:not(.goal__create) *, .bigger__flex__block:not(.goal__create), .bigger__flex__block:not(.goal__create) *').forEach(block => {
-        block.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-                let mouseX = e.clientX || e.touches[0].clientX;
-                let mouseY = e.clientY || e.touches[0].clientY;
-                let menuHeight = contextMenu.getBoundingClientRect().height;
-                let menuWidth = contextMenu.getBoundingClientRect().width;
-                let width = window.innerWidth;
-                let height = window.innerHeight;
-                contextMenu.style.left = mouseX + "px";
-                contextMenu.style.top = mouseY - 226 + "px";
-                contextMenu.classList.remove('d-none');
-                contextMenu.classList.add('d-block');
-            },
-            { passive: false }
-        )
-        });
 
         // ON LOAD AND HANDLE OF ELEMENTS SHOW THEM
         let loader__parent = document.querySelector('.loader__parent')

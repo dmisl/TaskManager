@@ -26,13 +26,6 @@
 </head>
 <body style="background-image: url('{{ asset('storage/images/background.jpg') }}')">
 
-    <div class="some__menu d-none">
-        <p>Гайд</p>
-        <p>Статистика</p>
-        <p>Налаштування</p>
-        <p>Видалити</p>
-    </div>
-
     <div id="app" class="w-100 vh-100" style="display: flex; flex-direction: column;" draggable="false">
 
         <a href="{{ Auth::check() ? route('home.index') : route('login.index') }}" class="header__title user-select-none" draggable="false">
