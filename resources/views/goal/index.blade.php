@@ -67,7 +67,7 @@
                         </div>
                     </a>
                     @foreach ($goals as $goal)
-                        <a href="{{ route('goal.show', [$goal->id]) }}" class="flex__block">
+                        <a href="{{ route('goal.show', [$goal->id]) }}" goal_id="{{ $goal->id }}" class="flex__block">
                             <div class="img__parent">
                                 <img src="{{ $goal->image }}" alt="">
                             </div>
@@ -190,11 +190,9 @@
             let delete__modal = document.querySelector('.delete__modal')
             // DELETE MODAL
             deleteGoal.addEventListener('click', function () {
-                console.log(current__block.getBoundingClientRect())
                 delete__modal.classList.remove('d-none')
                 let top = parseInt(current__block.getBoundingClientRect().y) + current__block.offsetHeight + 17
                 let left = parseInt(current__block.getBoundingClientRect().x) - (current__block.offsetWidth/2)
-                console.log(left)
                 delete__modal.style.left = left+'px'
                 delete__modal.style.top = top+'px'
                 context__menu__close()
@@ -203,17 +201,19 @@
                 });
             })
             delete__modal.querySelector('.yes').addEventListener('click', () => {
-                axios.post(`{{ route('goal.delete') }}`,{goal_id: 1})
+                axios.post(`{{ route('goal.delete') }}`,{goal_id: current__block.attributes.goal_id.value})
                 .then(res => {
-                    console.log(res)
+                    create__alert('Сповіщення', 'Ціль і всі її завдання були успішно видалені')
+                    delete__modal.classList.add('d-none')
+                    current__block.remove()
+                    document.querySelectorAll('.flex__block:not(.goal__create), .flex__block:not(.goal__create) *, .bigger__flex__block:not(.goal__create), .bigger__flex__block:not(.goal__create) *').forEach(block => {
+                        block.addEventListener('contextmenu', context__menu__open, { passive: false } )
+                    })
                 })
                 .catch(err => {
                     console.error(err);
                 })
-                delete__modal.classList.add('d-none')
-                document.querySelectorAll('.flex__block:not(.goal__create), .flex__block:not(.goal__create) *, .bigger__flex__block:not(.goal__create), .bigger__flex__block:not(.goal__create) *').forEach(block => {
-                    block.addEventListener('contextmenu', context__menu__open, { passive: false } )
-                })
+
             })
             delete__modal.querySelector('.no').addEventListener('click', () => {
                 delete__modal.classList.add('d-none')

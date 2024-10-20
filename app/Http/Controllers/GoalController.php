@@ -144,8 +144,22 @@ class GoalController extends Controller
 
     public function delete(Request $request)
     {
-        return response()->json([
-            'data' => $request->all()
+        $validated = $request->validate([
+            'goal_id' => ['required']
         ]);
+        $goal = Goal::find($request->goal_id);
+        if($goal->user_id == Auth::id())
+        {
+            foreach ($goal->tasks as $task) {
+                $task->delete();
+            }
+            $goal->delete();
+            return response()->json([
+                'data' => 'success'
+            ], 200);
+        }
+        return response()->json([
+            'data' => 'error'
+        ], 404);
     }
 }

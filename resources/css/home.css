@@ -262,7 +262,7 @@
     font-size: 55px;
     opacity: 0.4;
 }
-.week::before
+.menu .week::before
 {
     content: "📅";
     z-index: 1;
@@ -272,7 +272,7 @@
     font-size: 55px;
     opacity: 0.4;
 }
-.tasks::before
+.menu .tasks::before
 {
     content: "📝";
     z-index: 1;
@@ -282,7 +282,7 @@
     font-size: 55px;
     opacity: 0.4;
 }
-.completed::before
+.menu .completed::before
 {
     content: "📖";
     z-index: 1;
@@ -292,7 +292,7 @@
     font-size: 55px;
     opacity: 0.4;
 }
-.logout::before
+.menu .logout::before
 {
     content: "🚪";
     z-index: 1;
