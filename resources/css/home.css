@@ -929,10 +929,81 @@
 }
 .guide__modal
 {
-    width: 400px;
-    height: 700px;
+    width: 1100px;
+    height: 570px;
     background-color: white;
-    border-radius: 50px;
+    border-radius: 55px;
+}
+.guide__modal .title__parent
+{
+    padding-left: 50px;
+    padding-top: 32px;
+}
+.guide__modal .title__parent h1
+{
+    margin: 0;
+    font-size: 47px;
+    font-weight: 400;
+}
+.guide__modal .title__parent img
+{
+    width: 34px;
+    height: 34px;
+    position: relative;
+    top: 12px;
+    left: 10px;
+}
+.guide__modal .title__parent h3
+{
+    margin: 0;
+    font-size: 20px;
+    font-weight: 400;
+    position: relative;
+    left: 16px;
+    top: -3px;
+}
+.guide__modal .title__parent h3 span
+{
+    font-weight: 500;
+    color: #0E2EFF;
+}
+.guide__modal .elements__parent
+{
+    margin-left: 54px;
+    margin-top: 41px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+.guide__modal .element .title
+{
+    font-size: 23px;
+    margin: 0;
+    color: black;
+}
+.guide__modal .element .desc__parent
+{
+    height: 133px;
+    margin-left: 9px;
+    width: 435px;
+    overflow: hidden;
+    position: relative;
+}
+.guide__modal .element .desc
+{
+    margin: 0;
+    font-size: 15px;
+    color: black;
+    margin-top: 11px;
+    margin-left: 9px;
+}
+.guide__modal .element .desc__parent .blur
+{
+    position: absolute;
+    width: 100%;
+    height: 93px;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.75) 17%, rgba(255,255,255,1) 78%);
 }
 /* ANIMATIONS */
 @keyframes menu__appear {

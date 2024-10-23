@@ -205,7 +205,33 @@
         </div>
     {{-- MODAL GOAL GUIDE --}}
     <div class="guide__modal__parent">
-        <div class="guide__modal"></div>
+        {{-- MODAL --}}
+        <div class="guide__modal">
+            <div class="d-flex">
+                {{-- LEFT PART --}}
+                <div>
+                    <div class="title__parent">
+                        <div class="d-flex">
+                            <h1>Швидкий старт</h1>
+                            <img src="{{ asset('storage/images/rocket.png') }}">
+                        </div>
+                        <h3>Зроби свій шлях до цілі простішим з <span>Task Buddy</span></h3>
+                    </div>
+                    <div class="elements__parent">
+                        <div class="element">
+                            <div class="title">Як створити нову ціль у Task Buddy?</div>
+                            <div class="desc__parent">
+                                <div class="desc">
+                                    У Task Buddy створити нову ціль дуже просто! Перейдіть до розділу "Цілі", натисніть "Створити ціль", і вкажіть основні параметри: назву, бажану кількість завдань з максимальним пріоритетом, а також оберіть зображення для мотивації. Потім встановіть дедлайн для завершення, і готово — ваша ціль створена!
+                                </div>
+                                <div class="blur"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- RIGHT PART --}}
+            </div>
+        </div>
     </div>
 
 <script defer>
