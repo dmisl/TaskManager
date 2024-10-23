@@ -994,16 +994,34 @@
     margin: 0;
     font-size: 15px;
     color: black;
-    margin-top: 11px;
+    margin-top: 8px;
     margin-left: 9px;
 }
 .guide__modal .element .desc__parent .blur
 {
     position: absolute;
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     height: 93px;
     bottom: 0;
     background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.75) 17%, rgba(255,255,255,1) 78%);
+}
+.guide__modal .element .desc__parent .blur .button
+{
+    width: 211px;
+    height: 22px;
+    text-align: center;
+    background: linear-gradient(90deg, rgba(187,144,255,1) 0%, rgba(61,189,255,1) 50%, rgba(194,155,255,1) 100%);
+    border-radius: 7px;
+    margin-bottom: 9px;
+}
+.guide__modal .element .desc__parent .blur .button svg
+{
+    position: relative;
+    top: -2px;
 }
 /* ANIMATIONS */
 @keyframes menu__appear {
