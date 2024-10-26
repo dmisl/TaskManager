@@ -975,6 +975,12 @@
     flex-direction: column;
     gap: 36px;
 }
+.guide__modal .right .elements__parent
+{
+    margin-left: 0;
+    margin-top: 30px;
+    gap: 22px;
+}
 .guide__modal .element .title
 {
     font-size: 23px;
@@ -983,7 +989,7 @@
 }
 .guide__modal .element .desc__parent
 {
-    height: 133px;
+    height: 120px;
     margin-left: 9px;
     width: 435px;
     overflow: hidden;
@@ -996,6 +1002,7 @@
     color: black;
     margin-top: 8px;
     margin-left: 9px;
+    line-height: 1.2;
 }
 .guide__modal .element .desc__parent .blur
 {
@@ -1005,7 +1012,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 93px;
+    height: 85px;
     bottom: 0;
     background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.75) 17%, rgba(255,255,255,1) 78%);
 }
@@ -1017,12 +1024,24 @@
     background: linear-gradient(90deg, rgba(187,144,255,1) 0%, rgba(61,189,255,1) 50%, rgba(194,155,255,1) 100%);
     border-radius: 7px;
     margin-bottom: 9px;
-    asd
 }
 .guide__modal .element .desc__parent .blur .button svg
 {
     position: relative;
     top: -2px;
+}
+.guide__modal .left
+{
+    width: 540px;
+}
+.guide__modal .middle
+{
+    width: 4px;
+    height: 430px;
+    background-color: #a0adff31;
+    border-radius: 10px;
+    margin: 0 30px;
+    margin-top: 75px;
 }
 /* ANIMATIONS */
 @keyframes menu__appear {
