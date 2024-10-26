@@ -937,7 +937,7 @@
 }
 .guide__modal .title__parent
 {
-    padding-left: 50px;
+    padding-left: 40px;
     padding-top: 32px;
 }
 .guide__modal .title__parent h1
@@ -970,7 +970,7 @@
 }
 .guide__modal .elements__parent
 {
-    margin-left: 54px;
+    margin-left: 49px;
     margin-top: 41px;
     display: flex;
     flex-direction: column;
@@ -990,6 +990,7 @@
 .guide__modal .element
 {
     position: absolute;
+    width: 500px;
 }
 .guide__modal .element .title
 {
@@ -1052,7 +1053,7 @@
 }
 .guide__modal .left
 {
-    width: 540px;
+    width: 525px;
 }
 .guide__modal .middle
 {
@@ -1060,7 +1061,7 @@
     height: 430px;
     background-color: #a0adff31;
     border-radius: 10px;
-    margin: 0 30px;
+    margin: 0 26px;
     margin-top: 75px;
 }
 /* ANIMATIONS */
