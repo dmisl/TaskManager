@@ -934,6 +934,7 @@
     background-color: white;
     border-radius: 55px;
     overflow: hidden;
+    position: relative;
 }
 .guide__modal .title__parent
 {
@@ -1063,6 +1064,16 @@
     border-radius: 10px;
     margin: 0 26px;
     margin-top: 75px;
+}
+.guide__modal .close
+{
+    position: absolute;
+    z-index: 100;
+    width: 36px;
+    height: 36px;
+    right: 39px;
+    top: 30px;
+    cursor: pointer;
 }
 /* ANIMATIONS */
 @keyframes menu__appear {

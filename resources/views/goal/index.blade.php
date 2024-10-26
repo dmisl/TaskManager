@@ -323,6 +323,7 @@
                 </div>
                 {{-- RIGHT PART --}}
             </div>
+            <img class="close" src="{{ asset('storage/images/close.png') }}">
         </div>
     </div>
 
@@ -407,8 +408,6 @@
                 contextMenu.classList.add('d-none');
                 contextMenu.classList.remove('d-block');
             }
-            let guide = contextMenu.querySelector('.guide')
-            let stats = contextMenu.querySelector('.stats')
             let deleteGoal = contextMenu.querySelector('.delete')
             let delete__modal = document.querySelector('.delete__modal')
             // DELETE MODAL
@@ -532,17 +531,24 @@
             edit__modal.querySelector('.back__parent p').style.color = 'white'
             edit__modal.querySelector('.back').addEventListener('click', edit__modal__close)
         // GUIDE MODAL HANDLING
+        let guide = contextMenu.querySelector('.guide')
         let guide__modal__parent = document.querySelector('.guide__modal__parent')
         let guide__modal = document.querySelector('.guide__modal')
+        guide.addEventListener('click', function () {
+            guide__modal__parent.classList.add('d-flex')
+            guide__modal__parent.classList.remove('d-none')
+            guide__modal__parent.style.animation = 'appear__opacity 0.5s forwards'
+            guide__modal.style.animation = 'appear__bottom 0.5s forwards'
+        })
         function guide__modal__close(e)
         {
-            if(e.target.classList.contains('modal__guide__parent'))
+            if(e.target.classList.contains('guide__modal__parent') || e.target.classList.contains('close'))
             {
-                edit__modal.style.animation = 'disappear__opacity 0.5s forwards'
-                edit__modal.querySelector('.goal__create').style.animation = 'disappear__bottom 0.5s forwards'
+                guide__modal__parent.style.animation = 'disappear__opacity 0.5s forwards'
+                guide__modal.style.animation = 'disappear__bottom 0.5s forwards'
                 setTimeout(() => {
-                    edit__modal.classList.remove('d-flex')
-                    edit__modal.classList.add('d-none')
+                    guide__modal__parent.classList.remove('d-flex')
+                    guide__modal__parent.classList.add('d-none')
                 }, 500);
             }
         }
