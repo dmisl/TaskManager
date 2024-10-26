@@ -933,6 +933,7 @@
     height: 570px;
     background-color: white;
     border-radius: 55px;
+    overflow: hidden;
 }
 .guide__modal .title__parent
 {
@@ -978,8 +979,17 @@
 .guide__modal .right .elements__parent
 {
     margin-left: 0;
-    margin-top: 30px;
+    margin-top: 20px;
     gap: 22px;
+}
+.guide__modal .element__parent
+{
+    position: relative;
+    height: 153px;
+}
+.guide__modal .element
+{
+    position: absolute;
 }
 .guide__modal .element .title
 {
@@ -1003,6 +1013,7 @@
     margin-top: 8px;
     margin-left: 9px;
     line-height: 1.2;
+    user-select: text !important;
 }
 .guide__modal .element .desc__parent .blur
 {
@@ -1015,6 +1026,15 @@
     height: 85px;
     bottom: 0;
     background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.75) 17%, rgba(255,255,255,1) 78%);
+    opacity: 1;
+    transition: 0.5s;
+    z-index: 1;
+}
+.guide__modal .element:hover .desc__parent .blur
+{
+    opacity: 0;
+    bottom: -30px;
+    z-index: -1;
 }
 .guide__modal .element .desc__parent .blur .button
 {
