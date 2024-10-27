@@ -204,7 +204,7 @@
             </div>
         </div>
     {{-- MODAL GOAL GUIDE --}}
-    <div class="guide__modal__parent">
+    <div class="guide__modal__parent d-none">
         {{-- MODAL --}}
         <div class="guide__modal">
             <div class="d-flex">
