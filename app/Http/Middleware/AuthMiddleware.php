@@ -36,7 +36,7 @@ class AuthMiddleware
 
                 $today = Carbon::now('Europe/Warsaw')->format('Y-m-d');
 
-                if(!Check::query()->where('date', $today)->where('type', 2)->where('user_id', Auth::id())->first())
+                if(!Check::query()->where('date', $today)->where('type', 2)->where('user_id', $user->id)->first())
                 {
 
                     $week = $user->weeks()->where('start', '<=', $today)->where('end', '>=', $today)->first();
@@ -98,27 +98,116 @@ class AuthMiddleware
 
                 }
 
-
             // HANDLING DAY CHECK
-            if(!Check::query()->where('date', $today)->where('type', 1)->where('user_id', $user->id)->first())
-            {
-                $notCompletedID = [];
-                $weeksBeforeToday = $user->weeks;
-                foreach ($weeksBeforeToday as $week) {
-                    foreach ($week->days as $day) {
-                        foreach ($day->tasks as $task) {
-                            if (!$task->completed && $task->day->date < $today) {
-                                $notCompletedID[] = $task->id;
+                if(!Check::query()->where('date', $today)->where('type', 1)->where('user_id', $user->id)->first())
+                {
+                    $notCompletedID = [];
+                    $weeksBeforeToday = $user->weeks;
+                    foreach ($weeksBeforeToday as $week) {
+                        foreach ($week->days as $day) {
+                            foreach ($day->tasks as $task) {
+                                if (!$task->completed && $task->day->date < $today) {
+                                    $notCompletedID[] = $task->id;
+                                }
                             }
+                        }
+                    }
+
+                    Check::create([
+                        'date' => $today,
+                        'type' => 1,
+                        'user_id' => $user->id,
+                        'tasks' => $notCompletedID,
+                    ]);
+                }
+
+            // WEEKS RESULT
+            $weeks = Week::query()->where('result', null)->where('id', 4)->get();
+            $totalTasks = 0;
+            $completedTasks = 0;
+            $highPriorityTasks = 0;
+            $completedHighPriorityTasks = 0;
+            $lowPriorityTasks = 0;
+            $completedLowPriorityTasks = 0;
+            $transferredTasks = 0;
+            $emptyDays = 0;
+            $totalGoals = 0;
+            $achievedGoals = 0;
+            foreach ($weeks as $weeky) {
+                # code...
+                foreach ($weeky->days as $day) {
+                    $dayTasks = $day->tasks;
+                    $dayTaskCount = $dayTasks->count();
+
+                    // Якщо в день немає завдань, вважаємо його "порожнім"
+                    if ($dayTaskCount === 0) {
+                        $emptyDays++;
+                    }
+
+                    foreach ($dayTasks as $task) {
+                        $totalTasks++;
+
+                        // Рахуємо виконані завдання
+                        if ($task->completed) {
+                            $completedTasks++;
+                            if ($task->priority >= 4) {
+                                $completedHighPriorityTasks++;
+                            } else {
+                                $completedLowPriorityTasks++;
+                            }
+                        }
+
+                        // Рахуємо пріоритети завдань
+                        if ($task->priority >= 4) {
+                            $highPriorityTasks++;
+                        } else {
+                            $lowPriorityTasks++;
+                        }
+
+                        // Перевірка перенесених завдань (completed == false і поточний день != day_id)
+                        if (!$task->completed && $task->day_id != $day->id) {
+                            $transferredTasks++;
                         }
                     }
                 }
 
-                Check::create([
-                    'date' => $today,
-                    'type' => 1,
-                    'user_id' => $user->id,
-                    'tasks' => $notCompletedID,
+                // Перевірка виконання цілей за тиждень
+                foreach ($weeky->user->goals as $goal) {
+                    $totalGoals++;
+                    $goalHighPriorityTasks = $goal->tasks()->where('priority', 5)->count();
+                    $completedGoalHighPriorityTasks = $goal->tasks()->where('priority', 5)->where('completed', true)->count();
+
+                    if ($completedGoalHighPriorityTasks >= $goal->tasks_number) {
+                        $achievedGoals++;
+                    }
+                }
+
+                // Розрахунок коефіцієнтів виконання
+                $K_highPriority = $highPriorityTasks > 0 ? ($completedHighPriorityTasks / $highPriorityTasks) * 100 : 100;
+                $K_lowPriority = $lowPriorityTasks > 0 ? ($completedLowPriorityTasks / $lowPriorityTasks) * 100 : 100;
+                $K_goals = $totalGoals > 0 ? ($achievedGoals / $totalGoals) * 100 : 100;
+                $penaltyTransferred = $totalTasks > 0 ? -($transferredTasks / $totalTasks) * 100 : 0;
+                $bonusEmptyDays = $emptyDays * 2;
+
+                // Підсумкова оцінка тижня
+                $weekScore = ($K_highPriority * 0.5 + $K_lowPriority * 0.2 + $K_goals * 0.2 + $penaltyTransferred) / 3 + $bonusEmptyDays;
+
+                // Округлення до 10-бальної шкали
+                $finalScore = round($weekScore / 10, 1);
+
+                // Збереження оцінки в моделі Week та пояснення
+                // $weeky->result = $finalScore;
+                // $weeky->save();
+
+                dd([
+                    'week_score' => $finalScore,
+                    'details' => [
+                        'high_priority_task_completion' => $K_highPriority,
+                        'low_priority_task_completion' => $K_lowPriority,
+                        'goal_completion' => $K_goals,
+                        'penalty_transferred_tasks' => $penaltyTransferred,
+                        'bonus_empty_days' => $bonusEmptyDays,
+                    ]
                 ]);
             }
 
