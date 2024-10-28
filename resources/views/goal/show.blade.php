@@ -1154,6 +1154,9 @@ window.addEventListener('load', function () {
                             updateDropAreas()
                             updateScrollingText()
                             handle__task__blocks()
+                            // CLEAR INPUTS ON TASK CREATE
+                            name = ''
+                            desc = ''
                         })
                         .catch(err => {
                             console.error(err);
