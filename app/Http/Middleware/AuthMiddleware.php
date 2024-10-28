@@ -122,94 +122,99 @@ class AuthMiddleware
                 }
 
             // WEEKS RESULT
-            $weeks = Week::query()->where('result', null)->where('id', 4)->get();
-            $totalTasks = 0;
-            $completedTasks = 0;
-            $highPriorityTasks = 0;
-            $completedHighPriorityTasks = 0;
-            $lowPriorityTasks = 0;
-            $completedLowPriorityTasks = 0;
-            $transferredTasks = 0;
-            $emptyDays = 0;
-            $totalGoals = 0;
-            $achievedGoals = 0;
-            foreach ($weeks as $weeky) {
-                # code...
-                foreach ($weeky->days as $day) {
-                    $dayTasks = $day->tasks;
-                    $dayTaskCount = $dayTasks->count();
+            if(!Check::query()->where('date', $today)->where('type', 3)->where('user_id', $user->id)->first())
+            {
+                $weeks = Week::query()->where('result', null)->where('end', '<', $today)->get();
+                $totalTasks = 0;
+                $completedTasks = 0;
+                $highPriorityTasks = 0;
+                $completedHighPriorityTasks = 0;
+                $lowPriorityTasks = 0;
+                $completedLowPriorityTasks = 0;
+                $transferredTasks = 0;
+                $emptyDays = 0;
+                $totalGoals = 0;
+                $achievedGoals = 0;
+                foreach ($weeks as $weeky) {
+                    foreach ($weeky->days as $day) {
+                        $dayTasks = $day->tasks;
+                        $dayTaskCount = $dayTasks->count();
 
-                    // Якщо в день немає завдань, вважаємо його "порожнім"
-                    if ($dayTaskCount === 0) {
-                        $emptyDays++;
-                    }
+                        if ($dayTaskCount === 0) {
+                            $emptyDays++;
+                        }
 
-                    foreach ($dayTasks as $task) {
-                        $totalTasks++;
+                        foreach ($dayTasks as $task) {
+                            $totalTasks++;
 
-                        // Рахуємо виконані завдання
-                        if ($task->completed) {
-                            $completedTasks++;
+                            if ($task->completed) {
+                                $completedTasks++;
+                                if ($task->priority >= 4) {
+                                    $completedHighPriorityTasks++;
+                                } else {
+                                    $completedLowPriorityTasks++;
+                                }
+                            }
+
                             if ($task->priority >= 4) {
-                                $completedHighPriorityTasks++;
+                                $highPriorityTasks++;
                             } else {
-                                $completedLowPriorityTasks++;
+                                $lowPriorityTasks++;
+                            }
+
+                            if (!$task->completed && $task->day_id != $day->id) {
+                                $transferredTasks++;
                             }
                         }
+                    }
 
-                        // Рахуємо пріоритети завдань
-                        if ($task->priority >= 4) {
-                            $highPriorityTasks++;
-                        } else {
-                            $lowPriorityTasks++;
-                        }
+                    foreach ($weeky->user->goals as $goal) {
+                        $goalCreatedAt = Carbon::parse($goal->created_at);
 
-                        // Перевірка перенесених завдань (completed == false і поточний день != day_id)
-                        if (!$task->completed && $task->day_id != $day->id) {
-                            $transferredTasks++;
+                        if ($goalCreatedAt->lte($weeky->end)) {
+                            $totalGoals++;
+                            $goalHighPriorityTasks = $goal->tasks()->where('priority', 5)->count();
+                            $completedGoalHighPriorityTasks = $goal->tasks()->where('priority', 5)->where('completed', true)->count();
+
+                            if ($completedGoalHighPriorityTasks >= $goal->tasks_number) {
+                                $achievedGoals++;
+                            }
                         }
                     }
+
+                    // Розрахунок коефіцієнтів виконання
+                    $K_highPriority = $highPriorityTasks > 0 ? ($completedHighPriorityTasks / $highPriorityTasks) * 100 : 100;
+                    $K_lowPriority = $lowPriorityTasks > 0 ? ($completedLowPriorityTasks / $lowPriorityTasks) * 100 : 100;
+                    $K_goals = $totalGoals > 0 ? ($achievedGoals / $totalGoals) * 100 : 100;
+                    $penaltyTransferred = $totalTasks > 0 ? -($transferredTasks / $totalTasks) * 100 : 0;
+                    $bonusEmptyDays = $emptyDays * 2;
+
+                    $weekScore = ($K_highPriority * 0.5 + $K_lowPriority * 0.2 + $K_goals * 0.3 + $penaltyTransferred) + $bonusEmptyDays;
+                    $finalScore = round(min(10, $weekScore / 10), 1);
+
+                    // Збереження оцінки в моделі Week та пояснення
+                    // $weeky->result = $finalScore;
+                    // $weeky->save();
+
+                    dd([
+                        'week_score' => $finalScore,
+                        'details' => [
+                            'high_priority_task_completion' => $K_highPriority,
+                            'low_priority_task_completion' => $K_lowPriority,
+                            'goal_completion' => $K_goals,
+                            'penalty_transferred_tasks' => $penaltyTransferred,
+                            'bonus_empty_days' => $bonusEmptyDays,
+                        ]
+                    ]);
                 }
-
-                // Перевірка виконання цілей за тиждень
-                foreach ($weeky->user->goals as $goal) {
-                    $totalGoals++;
-                    $goalHighPriorityTasks = $goal->tasks()->where('priority', 5)->count();
-                    $completedGoalHighPriorityTasks = $goal->tasks()->where('priority', 5)->where('completed', true)->count();
-
-                    if ($completedGoalHighPriorityTasks >= $goal->tasks_number) {
-                        $achievedGoals++;
-                    }
-                }
-
-                // Розрахунок коефіцієнтів виконання
-                $K_highPriority = $highPriorityTasks > 0 ? ($completedHighPriorityTasks / $highPriorityTasks) * 100 : 100;
-                $K_lowPriority = $lowPriorityTasks > 0 ? ($completedLowPriorityTasks / $lowPriorityTasks) * 100 : 100;
-                $K_goals = $totalGoals > 0 ? ($achievedGoals / $totalGoals) * 100 : 100;
-                $penaltyTransferred = $totalTasks > 0 ? -($transferredTasks / $totalTasks) * 100 : 0;
-                $bonusEmptyDays = $emptyDays * 2;
-
-                // Підсумкова оцінка тижня
-                $weekScore = ($K_highPriority * 0.5 + $K_lowPriority * 0.2 + $K_goals * 0.2 + $penaltyTransferred) / 3 + $bonusEmptyDays;
-
-                // Округлення до 10-бальної шкали
-                $finalScore = round($weekScore / 10, 1);
-
-                // Збереження оцінки в моделі Week та пояснення
-                // $weeky->result = $finalScore;
-                // $weeky->save();
-
-                dd([
-                    'week_score' => $finalScore,
-                    'details' => [
-                        'high_priority_task_completion' => $K_highPriority,
-                        'low_priority_task_completion' => $K_lowPriority,
-                        'goal_completion' => $K_goals,
-                        'penalty_transferred_tasks' => $penaltyTransferred,
-                        'bonus_empty_days' => $bonusEmptyDays,
-                    ]
+                Check::create([
+                    'date' => $today,
+                    'type' => 3,
+                    'user_id' => $user->id,
+                    'tasks' => $notCompletedID,
                 ]);
             }
+
 
             return $next($request);
         } else
