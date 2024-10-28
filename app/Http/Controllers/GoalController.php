@@ -43,7 +43,7 @@ class GoalController extends Controller
 
         // GETTING UNFINISHED TASKS
 
-            $notCompletedID = Check::query()->where(['date' => $today])->first()->tasks;
+            $notCompletedID = Check::query()->where(['date' => $today])->where('type', 1)->first()->tasks;
 
             $notCompleted = Task::whereIn('id', $notCompletedID)->get();
         // GET DAY IDS FROM THIS WEEK FOR PRIORITY TASKS COUNT LOGIC

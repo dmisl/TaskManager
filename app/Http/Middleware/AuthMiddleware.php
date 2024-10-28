@@ -135,6 +135,7 @@ class AuthMiddleware
                 $emptyDays = 0;
                 $totalGoals = 0;
                 $achievedGoals = 0;
+                $details = [];
                 foreach ($weeks as $weeky) {
                     foreach ($weeky->days as $day) {
                         $dayTasks = $day->tasks;
@@ -192,26 +193,23 @@ class AuthMiddleware
                     $weekScore = ($K_highPriority * 0.5 + $K_lowPriority * 0.2 + $K_goals * 0.3 + $penaltyTransferred) + $bonusEmptyDays;
                     $finalScore = round(min(10, $weekScore / 10), 1);
 
-                    // Збереження оцінки в моделі Week та пояснення
-                    // $weeky->result = $finalScore;
-                    // $weeky->save();
+                    $details[$weeky->id] = [
+                        'high_priority' => $K_highPriority,
+                        'low_priority' => $K_lowPriority,
+                        'goal_completion' => $K_goals,
+                        'transferred' => $penaltyTransferred,
+                        'empty' => $bonusEmptyDays,
+                    ];
 
-                    dd([
-                        'week_score' => $finalScore,
-                        'details' => [
-                            'high_priority_task_completion' => $K_highPriority,
-                            'low_priority_task_completion' => $K_lowPriority,
-                            'goal_completion' => $K_goals,
-                            'penalty_transferred_tasks' => $penaltyTransferred,
-                            'bonus_empty_days' => $bonusEmptyDays,
-                        ]
+                    $weeky->update([
+                        'result' => $finalScore,
                     ]);
                 }
                 Check::create([
                     'date' => $today,
                     'type' => 3,
                     'user_id' => $user->id,
-                    'tasks' => $notCompletedID,
+                    'tasks' => $details,
                 ]);
             }
 
