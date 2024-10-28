@@ -629,10 +629,6 @@ window.addEventListener('load', function () {
                 // FLEX BLOCK`S ELEMENTS
                 let title = flex__block.querySelector('.title')
                 let flex = flex__block.querySelector('.flex')
-                if(flex.offsetHeight < 154)
-                {
-                    flex.style.height = '154px'
-                }
                 // BEFORE SHOWING ELEMENT
                 let title__p = title.querySelector('p')
                 if(!isWithinFiveDays(title__p.innerText) && !handled)
@@ -679,6 +675,10 @@ window.addEventListener('load', function () {
                         // FLEX BLOCK`S ORIGINAL HEIGHT
                         flex.style.overflow = 'visible'
                         let flex__height = flex.offsetHeight
+                        if(flex__height < 154)
+                        {
+                            flex.style.height = '154px'
+                        }
                         let flex__top = flex__height-154+'px'
                         // AFTER DECLARING FLEX HEIGHT HIDE IT
                         flex.style.overflow = 'hidden'
@@ -687,19 +687,22 @@ window.addEventListener('load', function () {
                             // TIMEOUT TO SET THE FLEX BLOCK TO POSITION RELATIVE
                             let positionRelativeTimeOut = null
                             // ON HOVER WE SHOW WHATS INSIDE THE FLEX BLOCK
-                            flex__block.addEventListener('mouseenter', function () {
-                                clearTimeout(positionRelativeTimeOut)
-                                flex__block.style.position = 'absolute'
-                                flex.style.maxHeight = flex__height+'px'
-                            });
-                            // ON LEAVE WE SET FLEX BLOCK TO THE DEFAULT POSITION
-                            flex__block.addEventListener('mouseleave', function () {
-                                flex.style.maxHeight = '154px'
-                                positionRelativeTimeOut = setTimeout(() => {
-                                    flex__block.style.position = 'relative'
-                                    positionRelativeTimeOut = null
-                                }, 300);
-                            });
+                            if(flex__height >= 154)
+                            {
+                                flex__block.addEventListener('mouseenter', function () {
+                                    clearTimeout(positionRelativeTimeOut)
+                                    flex__block.style.position = 'absolute'
+                                    flex.style.maxHeight = flex__height+'px'
+                                });
+                                // ON LEAVE WE SET FLEX BLOCK TO THE DEFAULT POSITION
+                                flex__block.addEventListener('mouseleave', function () {
+                                    flex.style.maxHeight = '154px'
+                                    positionRelativeTimeOut = setTimeout(() => {
+                                        flex__block.style.position = 'relative'
+                                        positionRelativeTimeOut = null
+                                    }, 300);
+                                });
+                            }
                     }
                     // progress bar
                     let progress = flex__block.querySelector('.progress-bar')
