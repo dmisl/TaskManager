@@ -5,6 +5,7 @@ use App\Http\Controllers\GoalController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\StatsController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Middleware\AuthMiddleware;
@@ -51,6 +52,10 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     // DAY ROUTES
 
     Route::post('home/day/changeResult', [DayController::class, 'changeResult'])->name('day.changeResult');
+
+    // STATISTIC ROUTES
+
+    Route::get('home/stats', [StatsController::class, 'index'])->name('stats.index');
 
     // FREEPIK
 
