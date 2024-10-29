@@ -70,6 +70,6 @@ Route::fallback(function () {
     return redirect()->route('home.index');
 });
 
-// Route::get('tz', function () {
-//     return view('tz');
-// });
+Route::get('tz', function () {
+    return view('tz');
+});
