@@ -1,6 +1,7 @@
 ![Alt text](https://api.centous.com/wp-content/uploads/2023/08/laravelvuejs.png)
 > [!WARNING]  
 > Note: Task Buddy is currently under development, and we're continuously working on new features and improvements. Stay tuned for updates!
+> Figma: https://www.figma.com/community/file/1432901469163865988
 ---
 ## 📋 Roadmap
 
