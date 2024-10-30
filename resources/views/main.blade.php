@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.6.6/dragula.css" integrity="sha512-gGkweS4I+MDqo1tLZtHl3Nu3PGY7TU8ldedRnu60fY6etWjQ/twRHRG2J92oDj7GDU2XvX8k6G5mbp0yCoyXCA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{-- AXIOS --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js" integrity="sha512-DdX/YwF5e41Ok+AI81HI8f5/5UsoxCVT9GKYZRIzpLxb8Twz4ZwPPX+jQMwMhNQ9b5+zDEefc+dcvQoPWGNZ3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {{-- CHART JS --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js" integrity="sha512-G2IkXzO4sCVjzajm/Tb9kDY7UIh3/OdHvQFJAZto6lEKklMKgxlce6P0ZHna6+a2Gmf/MZImqTURzc8F3UU8MQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body style="background-image: url('{{ asset('storage/images/background.jpg') }}')">
 

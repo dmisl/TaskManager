@@ -1,0 +1,39 @@
+.right__part
+{
+    margin-bottom: 40px !important;
+}
+.right__part .left
+{
+    width: 292px;
+    height: 100%;
+}
+.right__part .total__result
+{
+    font-size: 22px;
+    font-weight: 400;
+    margin: 0;
+    text-align: center;
+}
+.right__part .total__result span
+{
+    font-size: 25px;
+    font-weight: 700;
+    color: #00B728;
+}
+.graph__parent {
+    background: #3b5f95;
+    border-radius: 20px;
+    overflow: hidden;
+    width: 292px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 292px;
+}
+.graph__parent canvas
+{
+    width: 272px !important;
+    height: 272px !important;
+    position: relative;
+    top: 10px;
+}
