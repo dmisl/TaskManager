@@ -99,7 +99,7 @@
         let whole__content = document.querySelector('.whole__content')
         whole__content.style.animation = 'appear__opacity 0.5s forwards'
         const data = {
-        labels: ["FAIR VALUE", "FUTURE", "PAST", "HEALTH", "DIVIDENDS"],
+        labels: ["ВП", "НП", "ОБОВ'ЯЗКОВІ", "ПЕР", "ПУСТІ"],
         datasets: [{
             fill: true,
             borderColor: 'transparent',
