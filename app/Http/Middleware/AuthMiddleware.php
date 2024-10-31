@@ -124,7 +124,7 @@ class AuthMiddleware
             // WEEKS RESULT
             if(!Check::query()->where('date', $today)->where('type', 3)->where('user_id', $user->id)->first())
             {
-                $weeks = Week::query()->where('result', null)->where('id', 2)->where('end', '<', $today)->get();
+                $weeks = Week::query()->where('result', null)->where('end', '<', $today)->get();
                 $details = [];
                 foreach ($weeks as $weeky) {
                     $day_IDs = [];
@@ -177,28 +177,44 @@ class AuthMiddleware
 
                     // CALCULATING DATA
 
-                    $tasks_percentage = $tasks_completed/count($tasks);
-                    $high_percentage = $high_completed/count($high);
-                    $low_percentage = $low_completed/count($low);
-                    $required_percentage = $required_completed/$required;
-                    $unfinished_percentage = $unfinished*7/1000;
+                    if(count($tasks) > 0)
+                    {
+                        $tasks_percentage = $tasks_completed/count($tasks);
+                        $high_percentage = count($high) > 0 ? $high_completed/count($high) : 0;
+                        $low_percentage = count($low) > 0 ? $low_completed/count($low) : 0;
+                        $required_percentage = $required_completed/$required;
+                        $unfinished_percentage = $unfinished*7/1000;
 
-                    $final_percentage = $tasks_percentage*0.2+$high_percentage*0.3+$low_percentage*0.1+$required_percentage*0.4-$unfinished_percentage;
+                        $result = $tasks_percentage*0.2+$high_percentage*0.3+$low_percentage*0.1+$required_percentage*0.4-$unfinished_percentage;
 
-                    $details[$weeky->id] = [
-                        'final' => $finalScore,
-                        'high_priority' => $K_highPriority,
-                        'low_priority' => $K_lowPriority,
-                        'goal_completion' => $K_goals,
-                        'transferred' => $penaltyTransferred,
-                        'empty' => $bonusEmptyDays,
-                    ];
+                        $result = round($result*10, 1);
 
-                    // $weeky->update([
-                    //     'result' => $finalScore,
-                    // ]);
+                        $details[$weeky->id] = [
+                            'tasks' => $tasks_percentage,
+                            'high' => $high_percentage,
+                            'low' => $low_percentage,
+                            'required' => $required_percentage,
+                            'transferred' => $unfinished,
+                        ];
+
+                    } else
+                    {
+                        $details[$weeky->id] = [
+                            'tasks' => 0,
+                            'high' => 0,
+                            'low' => 0,
+                            'required' => 0,
+                            'transferred' => 0,
+                        ];
+
+                        $result = 0.0;
+                    }
+
+                    $weeky->update([
+                        'result' => $result,
+                    ]);
+
                 }
-                dd($details);
                 Check::create([
                     'date' => $today,
                     'type' => 3,
