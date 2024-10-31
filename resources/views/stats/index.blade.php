@@ -45,15 +45,47 @@
             </div>
             <div class="right__part">
                 <h1 class="right__part__title">Історія моїх успіхів</h1>
-                <div class="left">
+                <div class="d-flex">
 
-                    <h3 class="total__result">Загальна оцінка: <span>9.6</span></h3>
-                    <div class="graph__parent">
-                        <canvas class="canvas" width="252" height="252"></canvas>
+                    <div class="left">
+
+                        <h3 class="total__result">Загальна оцінка: <span>9.6</span></h3>
+                        <div class="graph__parent">
+                            <canvas class="canvas" width="252" height="252"></canvas>
+                        </div>
+
+                        <div class="details">
+                            <p>Детальніше:</p>
+                            <div class="d-flex flex-column text-center">
+                                <a class="element" href=""><p>Загальна статистика</p></a>
+                                <a class="element" href=""><p>Обов'язкові завдання</p></a>
+                                <a class="element" href=""><p>Високоприорітетні завдання</p></a>
+                                <a class="element" href=""><p>Низькоприорітетні завдання</p></a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="right">
+
+                        <h1>Результати моїх тижнів</h1>
+
+                        <div class="d-flex" id="custom__scrollbar__small">
+
+                            <div class="item"></div>
+                            <div class="item"></div>
+                            <div class="item"></div>
+                            <div class="item"></div>
+                            <div class="item" style="height: 79px;"></div>
+                            <div class="item" style="height: 79px;"></div>
+                            <div class="item" style="height: 79px;"></div>
+
+                        </div>
+
+                        <a class="more">дізнатися більше на рахунок системи оцінювання</a>
+
                     </div>
 
                 </div>
-                <div class="right"></div>
             </div>
         </div>
     </div>
@@ -71,11 +103,11 @@
         datasets: [{
             fill: true,
             borderColor: 'transparent',
-            backgroundColor: 'rgba(115, 204, 179, 0.65)',
+            backgroundColor: 'rgb(35, 123, 255)',
             pointBackgroundColor: 'rgba(255, 255, 255, 0)',
             pointBorderColor: 'rgba(255, 255, 255, 0)',
             pointBorderWidth: 1,
-            data: [1, 6, 3, 4, 5]
+            data: [10, 5, 7, 3, 7]
         }]
         };
 
@@ -98,25 +130,25 @@
             circular: true,
             color: "rgba(255, 255, 255, 0.1)",
             offsetGridLines: true,
-            lineWidth: 18
+            lineWidth: 11
             },
             ticks: {
             beginAtZero: true,
             maxTicksLimit: 10,
-            min: 0,
+            min: 1,
             max: 10,
             display: false,
             },
             angleLines: {
             display: true,
             lineWidth: 1,
-            color: "rgba(255, 255, 255, 0.1)",
+            color: "rgba(255, 255, 255, 0.5)",
             },
             pointLabels: {
             display: true,
-            fontSize: 12,
-            fontStyle: '300',
-            fontColor: "rgba(255, 255, 255, 0.5)",
+            fontSize: 14,
+            fontStyle: '400',
+            fontColor: "black",
             }
         }
         };

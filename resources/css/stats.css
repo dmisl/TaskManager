@@ -6,22 +6,24 @@
 {
     width: 292px;
     height: 100%;
+    position: relative;
+    top: -17px;
 }
-.right__part .total__result
+.right__part .left .total__result
 {
     font-size: 22px;
     font-weight: 400;
     margin: 0;
     text-align: center;
 }
-.right__part .total__result span
+.right__part .left .total__result span
 {
     font-size: 25px;
     font-weight: 700;
     color: #00B728;
 }
-.graph__parent {
-    background: #3b5f95;
+.right__part .left .graph__parent {
+    background: #9bc3ff;
     border-radius: 20px;
     overflow: hidden;
     width: 292px;
@@ -30,10 +32,115 @@
     align-items: center;
     height: 292px;
 }
-.graph__parent canvas
+.right__part .left .graph__parent canvas
 {
     width: 272px !important;
     height: 272px !important;
     position: relative;
     top: 10px;
+    color: rgb(35, 123, 255);
+}
+.right__part .left .details
+{
+    margin-top: 23px;
+}
+.right__part .left .details p
+{
+    font-size: 23px;
+    margin: 0;
+}
+.right__part .left .details .d-flex
+{
+    gap: 12px;
+}
+.right__part .left .details .element
+{
+    height: 40px;
+    width: 100%;
+    text-decoration: none;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 28px;
+}
+.right__part .left .details .element:nth-child(1)
+{
+    background-color: #84FF7D;
+    font-size: 23px;
+}
+.right__part .left .details .element:nth-child(2)
+{
+    background-color: #5FE0FD;
+}
+.right__part .left .details .element:nth-child(3)
+{
+    background-color: #FF7C7C;
+    font-size: 18px;
+}
+.right__part .left .details .element:nth-child(4)
+{
+    background-color: #FDF05F;
+    font-size: 18px;
+}
+.right__part .left .details .element:nth-child(2)
+{
+    font-size: 21px;
+}
+.right__part .left .details .element:nth-child(3) p
+{
+    font-size: 18px;
+}
+.right__part .left .details .element:nth-child(4) p
+{
+    font-size: 18px;
+}
+.right__part .left .details .element p
+{
+    margin: 0;
+    position: relative;
+    top: 0.5px;
+}
+.right__part .right
+{
+    width: 446px;
+    height: 600px;
+    margin-left: 40px;
+    position: relative;
+    top: -10px;
+}
+.right__part .right h1:nth-child(1)
+{
+    font-size: 30px;
+    margin: 0;
+    text-align: center;
+    font-weight: 400;
+    position: relative;
+    right: 8px;
+}
+.right__part .right .d-flex
+{
+    display: flex;
+    width: 450px;
+    height: 509px;
+    overflow: auto;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 21px 34px;
+    margin-top: 9px;
+}
+.right__part .right .d-flex .item
+{
+    width: 194px;
+    height: 194px;
+    background-color: black;
+    border-radius: 16px;
+}
+.right__part .right .more
+{
+    margin-top: 9px;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
 }

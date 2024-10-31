@@ -129,7 +129,6 @@ body
 {
     background-color: rgb(224, 248, 90);
 }
-
 #custom__scrollbar::-webkit-scrollbar {
     width: 12px;
 }
@@ -178,6 +177,21 @@ body
 #custom__left__scrollbar::-webkit-scrollbar-thumb {
     border-radius: 8px;
     background-color: #740065;
+}
+#custom__scrollbar__small::-webkit-scrollbar {
+    width: 10px;
+}
+
+#custom__scrollbar__small::-webkit-scrollbar-track {
+    border-radius: 8px;
+    background-color: #e7e7e7;
+    border: 1px solid #cacaca;
+    box-shadow: inset 0 0 50px rgb(255, 255, 255);
+}
+
+#custom__scrollbar__small::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #7e7e7e;
 }
 .loader__parent
 {
