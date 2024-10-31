@@ -33,7 +33,7 @@ class StatsController extends Controller
             $high_avg = 0;
             $tasks_avg = 0;
             $required_avg = 0;
-            $transferred_avg = $transferred_count/$tasks_count;
+            $transferred_avg = round($transferred_count/$tasks_count*10) >= 10 ? 10 : round($transferred_count/$tasks_count*10);
             foreach($total_data as $weeks_result)
             {
                 foreach ($weeks_result as $week_result) {
@@ -42,11 +42,11 @@ class StatsController extends Controller
                     $tasks_avg += $week_result['tasks'];
                     $required_avg += $week_result['required'];
                 }
-                $low_avg = $low_avg/count($weeks_result);
-                $high_avg = $high_avg/count($weeks_result);
-                $tasks_avg = $tasks_avg/count($weeks_result);
-                $required_avg = $required_avg/count($weeks_result);
+                $low_avg = round($low_avg/count($weeks_result)*10);
+                $high_avg = round($high_avg/count($weeks_result)*10);
+                $tasks_avg = round($tasks_avg/count($weeks_result)*10);
+                $required_avg = round($required_avg/count($weeks_result)*10);
             }
-        return view('stats.index', compact('low_avg', 'high_avg', 'tasks_avg', 'required_avg', ''));
+        return view('stats.index', compact('low_avg', 'high_avg', 'tasks_avg', 'required_avg', 'transferred_avg'));
     }
 }

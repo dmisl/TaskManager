@@ -49,7 +49,7 @@
 
                     <div class="left">
 
-                        <h3 class="total__result">Загальна оцінка: <span>9.6</span></h3>
+                        <h3 class="total__result">Загальна оцінка: <span class="result">9.6</span></h3>
                         <div class="graph__parent">
                             <canvas class="canvas" width="252" height="252"></canvas>
                         </div>
@@ -98,65 +98,71 @@
         loader__parent.style.display = 'none'
         let whole__content = document.querySelector('.whole__content')
         whole__content.style.animation = 'appear__opacity 0.5s forwards'
+
+        let result = document.querySelector('.total__result .result')
+        result.innerText = ({{ $high_avg }}*0.3+{{ $low_avg }}*0.1+{{ $required_avg }}*0.4+{{ $tasks_avg }}*0.2-{{ $transferred_avg }}*0.1).toFixed(1)
+
         const data = {
-        labels: ["ВП", "НП", "ОБОВ'ЯЗКОВІ", "ПЕР", "ПУСТІ"],
-        datasets: [{
-            fill: true,
-            borderColor: 'transparent',
-            backgroundColor: 'rgb(35, 123, 255)',
-            pointBackgroundColor: 'rgba(255, 255, 255, 0)',
-            pointBorderColor: 'rgba(255, 255, 255, 0)',
-            pointBorderWidth: 1,
-            data: [10, 5, 7, 3, 7]
-        }]
+            labels: ["high", "low", "required", "overall", "late"],
+            datasets: [{
+                fill: true,
+                borderColor: 'transparent',
+                backgroundColor: 'rgba(35, 123, 255, 0.8)',
+                pointBackgroundColor: 'rgba(255, 255, 255, 1)',
+                pointBorderColor: 'black',
+                pointBorderWidth: 1,
+                data: [{{ $high_avg }}, {{ $low_avg }}, {{ $required_avg }}, {{ $tasks_avg }}, {{ $transferred_avg }}]
+            }]
         };
 
+        console.log({{ $high_avg }}, {{ $low_avg }}, {{ $required_avg }}, {{ $tasks_avg }}, {{ $transferred_avg }})
+
         const options = {
-        startAngle: 36,
-        legend: {
-            display: false
-        },
-        elements: {
-            line: {
-            tension: 0.5,
+            startAngle: 20,
+            legend: {
+                display: false
+            },
+            elements: {
+                line: {
+                tension: 0.5,
+                }
+            },
+            tooltips: {
+                enabled: true,
+                animating: true
+            },
+            scale: {
+                gridLines: {
+                circular: true,
+                color: "rgba(255, 255, 255, 0.1)",
+                offsetGridLines: true,
+                lineWidth: 10
+                },
+                ticks: {
+                beginAtZero: true,
+                maxTicksLimit: 10,
+                min: 1,
+                max: 10,
+                display: false,
+                },
+                angleLines: {
+                display: true,
+                lineWidth: 1,
+                color: "rgba(255, 255, 255, 0.5)",
+                },
+                pointLabels: {
+                display: true,
+                fontSize: 14,
+                fontStyle: '400',
+                fontColor: "black",
+                }
             }
-        },
-        tooltips: {
-            enabled: false,
-            animating: false
-        },
-        scale: {
-            gridLines: {
-            circular: true,
-            color: "rgba(255, 255, 255, 0.1)",
-            offsetGridLines: true,
-            lineWidth: 11
-            },
-            ticks: {
-            beginAtZero: true,
-            maxTicksLimit: 10,
-            min: 1,
-            max: 10,
-            display: false,
-            },
-            angleLines: {
-            display: true,
-            lineWidth: 1,
-            color: "rgba(255, 255, 255, 0.5)",
-            },
-            pointLabels: {
-            display: true,
-            fontSize: 14,
-            fontStyle: '400',
-            fontColor: "black",
-            }
-        }
         };
 
         window.chart = new Chart(document.querySelector("canvas"), {
-        type: "radar",
-        options: options,
-        data: data
+            type: "radar",
+            options: options,
+            data: data
         });
     })
 
