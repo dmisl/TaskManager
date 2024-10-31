@@ -127,59 +127,63 @@ class AuthMiddleware
                 $weeks = Week::query()->where('result', null)->where('id', 2)->where('end', '<', $today)->get();
                 $details = [];
                 foreach ($weeks as $weeky) {
-
-                    $tasks = [];
-                    $tasks_completed = 0;
-                    $high = [];
-                    $high_completed = 0;
-                    $low = [];
-                    $low_completed = 0;
-                    foreach($weeky->days as $day)
-                    {
-                        foreach ($day->tasks as $task) {
-                            $tasks[] = $task;
-                            // CHECKING TASK COMPLETANCE / ADDING COMPLETED AMOUNT OF SPECIFIC TASKS
-                            if($task->priority >= 4) {
-                                $high[] = $task;
-                                if ($task->completed && Carbon::parse($task->updated_at)->lt(Carbon::parse($weeky->end)))
+                    $day_IDs = [];
+                    // HANDLING TASKS AND PRIORITIES
+                        $tasks = [];
+                        $tasks_completed = 0;
+                        $high = [];
+                        $high_completed = 0;
+                        $low = [];
+                        $low_completed = 0;
+                        foreach($weeky->days as $day)
+                        {
+                            $day_IDs[] = $day->id;
+                            foreach ($day->tasks as $task) {
+                                $tasks[] = $task;
+                                // CHECKING TASK COMPLETANCE / ADDING COMPLETED AMOUNT OF SPECIFIC TASKS
+                                if($task->priority >= 4) {
+                                    $high[] = $task;
+                                    if ($task->completed && Carbon::parse($task->updated_at)->lt(Carbon::parse($weeky->end)))
+                                    {
+                                        $tasks_completed++;
+                                        $high_completed++;
+                                    }
+                                } else
                                 {
-                                    $tasks_completed++;
-                                    $high_completed++;
-                                }
-                            } else
-                            {
-                                $low[] = $task;
-                                if ($task->completed && Carbon::parse($task->updated_at)->lt(Carbon::parse($weeky->end)))
-                                {
-                                    $tasks_completed++;
-                                    $low_completed++;
+                                    $low[] = $task;
+                                    if ($task->completed && Carbon::parse($task->updated_at)->lt(Carbon::parse($weeky->end)))
+                                    {
+                                        $tasks_completed++;
+                                        $low_completed++;
+                                    }
                                 }
                             }
                         }
-                    }
-                    $transfered = 0;
-                    foreach (Check::query()->whereBetween('date', [$weeky->start, $weeky->end])->where('type', 1)->where('user_id', $user->id)->get() as $check) {
-                        foreach ($check->tasks as $task) {
-                            $transfered++;
+                    // HANDLING UNFINISHED TASKS
+                        $unfinished = 0;
+                        foreach (Check::query()->whereBetween('date', [$weeky->start, $weeky->end])->where('type', 1)->where('user_id', $user->id)->get() as $check) {
+                            foreach ($check->tasks as $task) {
+                                $unfinished++;
+                            }
                         }
+                    // HANDLING REQUIRED TASKS
+                    $required = 0;
+                    $required_completed = 0;
+                    foreach ($user->goals()->where('created_at', '<', $weeky->end)->get() as $goal) {
+                        $required = $required + $goal->tasks_number;
+                        $completed = $goal->tasks()->whereIn('day_id', $day_IDs)->where('priority', '5')->get()->count();
+                        $required_completed = $completed >= $goal->tasks_number ? $required_completed + $goal->tasks_number : $required_completed + $completed;
                     }
 
-                    $tasks_percentage = $tasks_completed/count($tasks)*100;
-                    $high_percentage = $high_completed/count($high)*100;
-                    $low_percentage = $low_completed/count($low)*100;
-                    $transfered_percentage = $transfered > 10 ? $transfered*3 : $transfered;
-                    dd(($tasks_percentage+$high_percentage+$low_percentage-$transfered_percentage)/3);
+                    // CALCULATING DATA
 
-                    // Розрахунок коефіцієнтів виконання
-                    $K_highPriority = $highPriorityTasks > 0 ? ($completedHighPriorityTasks / $highPriorityTasks) * 100 : 100;
-                    $K_lowPriority = $lowPriorityTasks > 0 ? ($completedLowPriorityTasks / $lowPriorityTasks) * 100 : 100;
-                    $K_goals = $totalGoals > 0 ? ($achievedGoals / $totalGoals) * 100 : 100;
-                    $penaltyTransferred = $totalTasks > 0 ? -($transferredTasks / $totalTasks) * 100 : 0;
-                    $bonusEmptyDays = $emptyDays;
+                    $tasks_percentage = $tasks_completed/count($tasks);
+                    $high_percentage = $high_completed/count($high);
+                    $low_percentage = $low_completed/count($low);
+                    $required_percentage = $required_completed/$required;
+                    $unfinished_percentage = $unfinished*7/1000;
 
-                    $weekScore = ($K_highPriority * 0.5 + $K_lowPriority * 0.2 + $K_goals * 0.3 + $penaltyTransferred) + $bonusEmptyDays;
-                    $finalScore = round(min(10, $weekScore / 10), 1);
-                    dd($finalScore);
+                    $final_percentage = $tasks_percentage*0.2+$high_percentage*0.3+$low_percentage*0.1+$required_percentage*0.4-$unfinished_percentage;
 
                     $details[$weeky->id] = [
                         'final' => $finalScore,
@@ -189,7 +193,6 @@ class AuthMiddleware
                         'transferred' => $penaltyTransferred,
                         'empty' => $bonusEmptyDays,
                     ];
-
 
                     // $weeky->update([
                     //     'result' => $finalScore,
