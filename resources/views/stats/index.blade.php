@@ -179,6 +179,23 @@
         {
             fill(flex)
         }
+        let grade
+        for (let i = 0; i < flex.children.length; i++) {
+            grade = flex.children[i].querySelector('.grade')
+            if(grade)
+            {
+                if(grade.innerText >= 7)
+                {
+                    grade.style.color = '#70FE85'
+                } else if (grade.innerText >= 4)
+                {
+                    grade.style.color = '#8E98FF'
+                } else
+                {
+                    grade.style.color = '#FF1818'
+                }
+            }
+        }
 
         // ON LOAD AND HANDLE OF ELEMENTS SHOW THEM
         let loader__parent = document.querySelector('.loader__parent')
