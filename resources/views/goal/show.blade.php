@@ -99,7 +99,7 @@
                                                     @endif
                                                     <div class="scrolling__parent">
                                                         <p>
-                                                            {{ $task->name }}
+                                                            {{ $task->name }} {{ now() }}
                                                         </p>
                                                     </div>
                                                 </div>

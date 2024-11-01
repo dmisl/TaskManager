@@ -21,6 +21,8 @@ class GoalController extends Controller
     }
     public function show($id = 0)
     {
+        // set timezone for view
+        date_default_timezone_set('Europe/Warsaw');
         $user = User::find(Auth::id());
         if($id !== 0)
         {
