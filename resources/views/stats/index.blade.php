@@ -71,13 +71,13 @@
 
                         <div class="d-flex" id="custom__scrollbar__small">
 
-                            <div class="item"></div>
-                            <div class="item"></div>
-                            <div class="item"></div>
-                            <div class="item"></div>
-                            <div class="item" style="height: 79px;"></div>
-                            <div class="item" style="height: 79px;"></div>
-                            <div class="item" style="height: 79px;"></div>
+                            @foreach ($weeks as $week)
+                                <a class="item">
+                                    <div class="background"></div>
+                                    <img src="{{ asset('storage/images/stats.jpg') }}" alt="">
+                                    <h1><span class="grade">{{ $week->result == 0 ? '0.0' : $week->result }}</span><br><span class="start_end">{{ date('d.m', strtotime($week->start)) }} - {{ date('d.m', strtotime($week->end)) }}</span></h1>
+                                </a>
+                            @endforeach
 
                         </div>
 
@@ -93,78 +93,120 @@
 <script>
 
     window.addEventListener('load', function () {
+
+        // CHART
+
+            let result = document.querySelector('.total__result .result')
+            result.innerText = ({{ $high_avg }}*0.3+{{ $low_avg }}*0.1+{{ $required_avg }}*0.4+{{ $tasks_avg }}*0.2-{{ $transferred_avg }}*0.1).toFixed(1)
+            let result_color
+            if(result.innerText >= 7)
+            {
+                result_color = 'rgba(73, 255, 67, 0.8)'
+            } else if (result.innerText >= 4)
+            {
+                result_color = 'rgba(35, 123, 255, 0.8)'
+            } else
+            {
+                result_color = 'rgba(255, 35, 35, 0.8)'
+            }
+            result.style.color = result_color
+
+            const data = {
+                labels: ["high", "low", "required", "overall", "late"],
+                datasets: [{
+                    fill: true,
+                    borderColor: 'transparent',
+                    backgroundColor: result_color,
+                    pointBackgroundColor: 'rgba(255, 255, 255, 1)',
+                    pointBorderColor: 'black',
+                    pointBorderWidth: 1,
+                    data: [{{ $high_avg }}, {{ $low_avg }}, {{ $required_avg }}, {{ $tasks_avg }}, {{ $transferred_avg }}]
+                }]
+            };
+
+            const options = {
+                startAngle: 20,
+                legend: {
+                    display: false
+                },
+                elements: {
+                    line: {
+                    tension: 0.5,
+                    }
+                },
+                tooltips: {
+                    enabled: true,
+                    animating: true
+                },
+                scale: {
+                    gridLines: {
+                    circular: true,
+                    color: "rgba(255, 255, 255, 0.1)",
+                    offsetGridLines: true,
+                    lineWidth: 10
+                    },
+                    ticks: {
+                    beginAtZero: true,
+                    maxTicksLimit: 10,
+                    min: 1,
+                    max: 10,
+                    display: false,
+                    },
+                    angleLines: {
+                    display: true,
+                    lineWidth: 1,
+                    color: "rgba(255, 255, 255, 0.5)",
+                    },
+                    pointLabels: {
+                    display: true,
+                    fontSize: 14,
+                    fontStyle: '400',
+                    fontColor: "black",
+                    }
+                }
+            };
+
+            window.chart = new Chart(document.querySelector("canvas"), {
+                type: "radar",
+                options: options,
+                data: data
+            });
+
+        // BLOCKS
+
+        let flex = document.querySelector('.right__part .right .d-flex')
+        if(flex.children.length < 6)
+        {
+            fill(flex)
+        }
+
         // ON LOAD AND HANDLE OF ELEMENTS SHOW THEM
         let loader__parent = document.querySelector('.loader__parent')
         loader__parent.style.display = 'none'
         let whole__content = document.querySelector('.whole__content')
         whole__content.style.animation = 'appear__opacity 0.5s forwards'
 
-        let result = document.querySelector('.total__result .result')
-        result.innerText = ({{ $high_avg }}*0.3+{{ $low_avg }}*0.1+{{ $required_avg }}*0.4+{{ $tasks_avg }}*0.2-{{ $transferred_avg }}*0.1).toFixed(1)
-
-        const data = {
-            labels: ["high", "low", "required", "overall", "late"],
-            datasets: [{
-                fill: true,
-                borderColor: 'transparent',
-                backgroundColor: 'rgba(35, 123, 255, 0.8)',
-                pointBackgroundColor: 'rgba(255, 255, 255, 1)',
-                pointBorderColor: 'black',
-                pointBorderWidth: 1,
-                data: [{{ $high_avg }}, {{ $low_avg }}, {{ $required_avg }}, {{ $tasks_avg }}, {{ $transferred_avg }}]
-            }]
-        };
-
-        console.log({{ $high_avg }}, {{ $low_avg }}, {{ $required_avg }}, {{ $tasks_avg }}, {{ $transferred_avg }})
-
-        const options = {
-            startAngle: 20,
-            legend: {
-                display: false
-            },
-            elements: {
-                line: {
-                tension: 0.5,
-                }
-            },
-            tooltips: {
-                enabled: true,
-                animating: true
-            },
-            scale: {
-                gridLines: {
-                circular: true,
-                color: "rgba(255, 255, 255, 0.1)",
-                offsetGridLines: true,
-                lineWidth: 10
-                },
-                ticks: {
-                beginAtZero: true,
-                maxTicksLimit: 10,
-                min: 1,
-                max: 10,
-                display: false,
-                },
-                angleLines: {
-                display: true,
-                lineWidth: 1,
-                color: "rgba(255, 255, 255, 0.5)",
-                },
-                pointLabels: {
-                display: true,
-                fontSize: 14,
-                fontStyle: '400',
-                fontColor: "black",
-                }
-            }
-        };
-
-        window.chart = new Chart(document.querySelector("canvas"), {
-            type: "radar",
-            options: options,
-            data: data
-        });
     })
+
+    let handled = false
+
+    function fill(flex)
+    {
+        if(flex.children.length < 4)
+        {
+            let blank = document.createElement('div')
+            blank.classList.add('blank')
+            flex.append(blank)
+            handled = true
+            fill(flex)
+        } else if (flex.children.length < 6)
+        {
+            let blank_small = document.createElement('div')
+            blank_small.classList.add('blank_small')
+            flex.append(blank_small)
+            fill(flex)
+        }
+    }
 
 </script>
 

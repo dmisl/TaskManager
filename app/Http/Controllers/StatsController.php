@@ -6,6 +6,7 @@ use App\Models\Check;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Week;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,6 +48,8 @@ class StatsController extends Controller
                 $tasks_avg = round($tasks_avg/count($weeks_result)*10);
                 $required_avg = round($required_avg/count($weeks_result)*10);
             }
-        return view('stats.index', compact('low_avg', 'high_avg', 'tasks_avg', 'required_avg', 'transferred_avg'));
+        // GETTING WEEKS AND THEIR RESULTS
+        $weeks = $user->weeks()->where('end', '<', Carbon::now('Europe/Warsaw')->format('Y-m-d'))->get();
+        return view('stats.index', compact('low_avg', 'high_avg', 'tasks_avg', 'required_avg', 'transferred_avg', 'weeks'));
     }
 }

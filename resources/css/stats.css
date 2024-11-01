@@ -134,8 +134,63 @@
 {
     width: 194px;
     height: 194px;
-    background-color: black;
     border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-decoration: none;
+    cursor: pointer;
+}
+.right__part .right .d-flex .item img
+{
+    width: 194px;
+    height: 194px;
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+}
+.right__part .right .d-flex .item .background
+{
+    width: 194px;
+    height: 194px;
+    position: absolute;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.479);
+}
+.right__part .right .d-flex .item h1
+{
+    z-index: 2;
+    text-align: center;
+    line-height: 0.7;
+    position: relative;
+    top: 5px;
+}
+.right__part .right .d-flex .item h1 .grade
+{
+    color: #8E98FF;
+    font-size: 46px;
+    font-weight: 600;
+}
+.right__part .right .d-flex .item h1 .start_end
+{
+    color: white;
+    font-size: 25px;
+}
+.right__part .right .d-flex .blank
+{
+    width: 194px;
+    height: 194px;
+    background-color: #D9D9D9;
+}
+.right__part .right .d-flex .blank_small
+{
+    width: 194px;
+    height: 79px;
+    background-color: #D9D9D9;
 }
 .right__part .right .more
 {
