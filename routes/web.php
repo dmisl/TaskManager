@@ -31,7 +31,7 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     // GOAL ROUTES
 
     Route::get('home/goals', [GoalController::class, 'index'])->name('goal.index');
-    Route::get('home/goals/show/{id}', [GoalController::class, 'show'])->name('goal.show');
+    Route::get('home/goals/show/{id?}', [GoalController::class, 'show'])->name('goal.show');
     Route::get('home/goals/create', [GoalController::class, 'create'])->name('goal.create');
     Route::post('home/goals/create', [GoalController::class, 'store'])->name('goal.store');
     Route::post('home/goals/delete', [GoalController::class, 'delete'])->name('goal.delete');

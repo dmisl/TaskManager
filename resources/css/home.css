@@ -573,16 +573,19 @@
     gap: 4px;
     border-radius: 20px 20px 20px 0;
 }
-.some__menu p
+.some__menu p, .some__menu a
 {
     font-size: 27px;
+    display: block;
     font-weight: 600;
     margin: 0;
+    text-decoration: none;
+    color: black;
     cursor: pointer;
     padding: 3px 10px;
     transition: 0.2s;
 }
-.some__menu p:hover
+.some__menu p:hover, .some__menu a:hover
 {
     background-color: rgb(123, 147, 253);
 }

@@ -19,13 +19,16 @@ class GoalController extends Controller
         $goals = Auth::user()->goals;
         return view('goal.index', compact('goals'));
     }
-    public function show($id)
+    public function show($id = 0)
     {
         $user = User::find(Auth::id());
-        $goal = Goal::find($id);
-        if($goal->user_id !== $user->id)
+        if($id !== 0)
         {
-            return redirect()->route('home.index');
+            $goal = Goal::find($id);
+            if($goal->user_id !== $user->id)
+            {
+                return redirect()->route('home.index');
+            }
         }
         $goals = Auth::user()->goals;
 
