@@ -14,7 +14,7 @@
 ## 🧐 About <a id = "about"></a>
 
 **Task Buddy** is a <ins>productivity app</ins> designed to help you stay disciplined and achieve your goals by managing your daily tasks with ease and efficiency. Whether you're setting long-term goals or handling everyday to-dos, Task Buddy offers a robust set of features to keep you on track and make the process effortless. Best of all, it's completely **free to use**!
-Something new
+Something more new
 
 ## 🏗️ Tech Stack <a id = "tech_stack"></a>
 
