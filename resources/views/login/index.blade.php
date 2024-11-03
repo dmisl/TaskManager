@@ -28,9 +28,11 @@
                             <h2 class="m-0">Вітаємо знову!<span style="font-size: 25px;">🥰</span></h2>
                             <div class="text-start mt-3">
                                 <label for="nickname" style="font-size: 20px;">Ваш логін</label>
-                                <input class="auth__first form-control py-1" value="{{ old('name') }}" name="name" autofocus id="nickname" type="text" >
-                                <label for="password" style="font-size: 20px; margin-top: 4px;">Ваш пароль</label>
+                                <input class="auth__first form-control py-1" value="{{ old('name') }}" name="name" autofocus id="nickname" type="text">
+                                <p class="login__error" style="color: red; margin: 0; font-size: 10px; height: 8px;">{{ session()->has('error') ? session('error') : '231' }}</p>
+                                <label for="password" style="font-size: 20px;">Ваш пароль</label>
                                 <input class="form-control py-1" value="{{ old('password') }}" name="password" id="password" type="password">
+                                <p class="password__error" style="color: red; margin: 0; font-size: 10px; height: 10px;"></p>
                                 <div class="remember__parent">
                                     <input class="form-check-input remember__checkbox" checked name="remember" type="checkbox" id="remember">
                                     <label for="remember" class="remember__label">запам'ятай мене</label>
@@ -75,9 +77,9 @@
         let toggle = document.querySelector('.toggle')
         let toggled = false;
 
-        toggle.addEventListener('click', toggleAnimation)
+        toggle.addEventListener('click', switchBlock)
 
-        function toggleAnimation() {
+        function switchBlock() {
             const box = document.querySelector('.auth');
             const box2 = document.querySelector('.reg');
 
@@ -100,6 +102,87 @@
             toggled = !toggled;
         }
 
+        // AUTH VALIDATION
+        let auth = document.querySelector('.auth')
+
+        let login = auth.querySelector('input[type="text"]')
+        let login__error = auth.querySelector('.login__error')
+        let loginTimeOut
+
+        login.addEventListener('change', auth_validate)
+        login.addEventListener('keydown', login__check)
+
+        function login__check(e) 
+        {
+            clearTimeout(loginTimeOut)
+            if(login.value.length > 15)
+            {
+                if(e && e.key !== 'Backspace' && e.key !== 'Delete')
+                {
+                    e.preventDefault()
+                }
+                login__error.innerText = `максимальна довжина логіну - 16 символів`
+                return false
+            } else if(login.value.length < 4)
+            {
+                loginTimeOut = setTimeout(() => {
+                    login__error.innerText = `мінімальна должина логіну - 3 символа`
+                }, 1000);
+                return false
+            } 
+            else
+            {
+                login__error.innerText = ``
+                return true
+            }
+        }
+
+        let password = auth.querySelector('input[type="password"]')
+        let password__error = auth.querySelector('.password__error')
+        let passwordTimeOut
+
+        password.addEventListener('keyup', password__check)
+        password.addEventListener('change', auth_validate)
+
+        function password__check()
+        {
+            clearTimeout(passwordTimeOut)
+            if(password.value.length < 6 && password.value.length !== 0)
+            {
+                passwordTimeOut = setTimeout(() => {
+                    password__error.innerHTML = `мінімальна довжина паролю - 6 символів`
+                }, 1000);
+                return false
+            } else if(password.value.length == 0)
+            {
+                password__error.innerHTML = `це поле є обов'язковим`
+                return false
+            } 
+            else
+            {
+                password__error.innerHTML = ''
+                return true
+            }
+        }
+
+        let button = auth.querySelector('button')
+
+        button.addEventListener('mouseenter', auth_validate)
+
+        function auth_validate()
+        {
+            if(!{{ session()->has('error') ? 1 : 0 }})
+            {
+                if(login__check() && password__check())
+                {
+                    button.removeAttribute('disabled')
+                } else
+                {
+                    button.setAttribute('disabled', '')
+                }
+            }
+        }
+
         // ON LOAD AND HANDLE OF ELEMENTS SHOW THEM
         let loader__parent = document.querySelector('.loader__parent')
         loader__parent.style.display = 'none'
@@ -109,5 +192,7 @@
     })
 
 </script>
+
+@php(session()->forget('error'))
 
 @endsection

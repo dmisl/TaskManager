@@ -15,15 +15,15 @@ class LoginController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:16'],
-            'password' => ['required', 'string'],
+            'name' => ['required', 'string', 'min:3', 'max:16'],
+            'password' => ['required', 'string', 'min:6'],
         ]);
         if(Auth::attempt($validated, $request->remember ? 1 : 0))
         {
             return redirect()->route('home.index');
         } else
         {
-            session(['error' => 'Користувача під таким іменем не знайдено або ж пароль введено неправильно']);
+            session(['error' => 'перевірте правильність паролю або логіну']);
             return back()->withInput();
         }
     }
