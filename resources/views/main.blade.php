@@ -32,7 +32,7 @@
 
         <a href="{{ Auth::check() ? route('home.index') : route('login.index') }}" class="header__title user-select-none" draggable="false">
             <div class="emoji before"></div>
-            <div class="text">Task Buddy</div>
+            <div class="text custom__underline">Task Buddy</div>
             <div class="emoji after"></div>
         </a>
         <p style="text-align: center; margin: 0;">become best version of yourself</p>
