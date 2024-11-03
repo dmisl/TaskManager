@@ -29,7 +29,7 @@
                             <div class="text-start mt-3">
                                 <label for="nickname" style="font-size: 20px;">Ваш логін</label>
                                 <input class="auth__first form-control py-1" value="{{ old('name') }}" name="name" autofocus id="nickname" type="text">
-                                <p class="login__error" style="color: red; margin: 0; font-size: 10px; height: 8px;">{{ session()->has('error') ? session('error') : '231' }}</p>
+                                <p class="login__error" style="color: red; margin: 0; font-size: 10px; height: 8px;">{{ session()->has('error') ? session('error') : '' }}</p>
                                 <label for="password" style="font-size: 20px;">Ваш пароль</label>
                                 <input class="form-control py-1" value="{{ old('password') }}" name="password" id="password" type="password">
                                 <p class="password__error" style="color: red; margin: 0; font-size: 10px; height: 10px;"></p>
@@ -166,12 +166,13 @@
         }
 
         let button = auth.querySelector('button')
+        let buttonAccess = {{ session()->has('error') ? 1 : 0 }}
 
         button.addEventListener('mouseenter', auth_validate)
 
         function auth_validate()
         {
-            if(!{{ session()->has('error') ? 1 : 0 }})
+            if(!buttonAccess)
             {
                 if(login__check() && password__check())
                 {
@@ -180,6 +181,9 @@
                 {
                     button.setAttribute('disabled', '')
                 }
+            } else
+            {
+                buttonAccess = 0
             }
         }
 
