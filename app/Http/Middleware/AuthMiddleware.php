@@ -182,7 +182,7 @@ class AuthMiddleware
                         $tasks_percentage = $tasks_completed/count($tasks);
                         $high_percentage = count($high) > 0 ? $high_completed/count($high) : 0;
                         $low_percentage = count($low) > 0 ? $low_completed/count($low) : 0;
-                        $required_percentage = $required_completed/$required;
+                        $required_percentage = $required_completed > 0 ? $required_completed/$required : 0;
                         $unfinished_percentage = $unfinished*7/1000;
 
                         $result = $tasks_percentage*0.2+$high_percentage*0.3+$low_percentage*0.1+$required_percentage*0.4-$unfinished_percentage;

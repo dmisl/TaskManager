@@ -10,12 +10,9 @@
 
 @section('content')
 
-    {{-- <home-parent asset="{{ asset('storage/') }}"></home-parent> --}}
-
     <div class="content__container__parent">
         <div class="content__container">
             <div class="content">
-                <!-- <component :is='currentComponent'></component> -->
                 <h1 class="content__title">Твій навігатор</h1>
                 <div class="content__flex">
                     <a href="{{ route('goal.index') }}" class="content__flex__block">
