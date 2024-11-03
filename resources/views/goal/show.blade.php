@@ -1130,6 +1130,10 @@ window.addEventListener('load', function () {
                         let flex = document.querySelector(`.flex[goal_id="${goal_id}"]`)
                         axios.post(`{{ route('task.store') }}`,{goal_id: goal_id, priority: priority, name: name, desc: desc})
                         .then(res => {
+                            // CLAERING MODAL INPUTS ON CREATE
+                            document.querySelector('.task__name').value = ''
+                            document.querySelector('.task__desc').value = ''
+                            // CREATING NEW MODEL OF NEW TASK
                             let new__task = document.createElement('div')
                             new__task.classList.add('task')
                             new__task.classList.add(`p${priority}`)
@@ -1157,9 +1161,6 @@ window.addEventListener('load', function () {
                             updateDropAreas()
                             updateScrollingText()
                             handle__task__blocks()
-                            // CLEAR INPUTS ON TASK CREATE
-                            name = ''
-                            desc = ''
                         })
                         .catch(err => {
                             console.error(err);
