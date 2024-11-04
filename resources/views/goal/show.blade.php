@@ -99,7 +99,7 @@
                                                     @endif
                                                     <div class="scrolling__parent">
                                                         <p>
-                                                            {{ $task->name }} {{ now() }}
+                                                            {{ $task->name }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -614,6 +614,9 @@ window.addEventListener('load', function () {
                 {
                     draggingElement.remove()
                 }
+            } else
+            {
+                draggingElement.removeAttribute('draggable')
             }
             updateDropAreas()
             updateScrollingText()
