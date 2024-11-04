@@ -395,34 +395,44 @@ window.addEventListener('load', function () {
     let loader__parent = document.querySelector('.loader__parent')
 
     // LOGOUT CONFIRMATION
-    let logout = document.querySelector('.tasks__title__parent .logout')
-    let logout__confirmation__parent = logout.querySelector('.logout__confirmation__parent')
-    let logout__confirmation = logout.querySelector('.logout__confirmation')
-    let logout__confirmation__bg = document.querySelector('.logout__confirmation__bg')
-    logout.addEventListener('click', function (e) {
-        
-        if(e.target == e.currentTarget || e.target == e.currentTarget.querySelector('img') || e.target == e.currentTarget.querySelector('p'))
-        {
-            console.log('clicked')
+        let logout = document.querySelector('.tasks__title__parent .logout')
+        let logout__confirmation__parent = logout.querySelector('.logout__confirmation__parent')
+        let logout__confirmation = logout.querySelector('.logout__confirmation')
+        let logout__confirmation__bg = document.querySelector('.logout__confirmation__bg')
+        // LOGOUT ON CLICK OPEN MODAL WITH YES/NO
+            logout.addEventListener('click', function (e) {
+                
+                if(e.target == e.currentTarget || e.target == e.currentTarget.querySelector('img') || e.target == e.currentTarget.querySelector('p'))
+                {
+                    logout__confirmation__bg.classList.remove('d-none')
+                    logout__confirmation__bg.style.animation = 'appear__opacity 1s forwards'
+                    logout__confirmation__parent.classList.remove('d-none')
+                    logout__confirmation__parent.querySelector('.clone').style.animation = 'appear__opacity 1s forwards'
+                    logout__confirmation.style.animation = 'appear__bottom 1s forwards'
+                }
 
-            logout__confirmation__bg.classList.remove('d-none')
-            logout__confirmation__bg.style.animation = 'appear__opacity 1s forwards'
-            logout__confirmation__parent.classList.remove('d-none')
-            logout__confirmation__parent.querySelector('.clone').style.animation = 'appear__opacity 1s forwards'
-            logout__confirmation.style.animation = 'appear__bottom 1s forwards'
-        }
-
-
-    })
-    logout__confirmation__bg.addEventListener('click', function (e) {
-        logout__confirmation__bg.style.animation = 'disappear__opacity 1s forwards'
-        logout__confirmation__parent.querySelector('.clone').style.animation = 'disappear__opacity 1s forwards'
-        logout__confirmation.style.animation = 'disappear__bottom 1s forwards'
-        setTimeout(() => {
-            logout__confirmation__bg.classList.add('d-none')
-            logout__confirmation__parent.classList.add('d-none')
-        }, 1000);
-    })
+            })
+        // YES ON CLICK LOGOUT
+            let yes = logout__confirmation.querySelector('.yes')
+            yes.addEventListener('click', function () {
+                window.location.assign('{{ route("login.logout") }}');
+            })
+        // NO ON CLICK CLOSE MODAL
+            let no = logout__confirmation.querySelector('.no')
+            no.addEventListener('click', logout__confirmation__close)
+        // MODAL BACKGROUND ON CLICK
+            logout__confirmation__bg.addEventListener('click', logout__confirmation__close)
+        // CLOSE MODAL FUNCTION
+            function logout__confirmation__close(e)
+            {
+                logout__confirmation__bg.style.animation = 'disappear__opacity 1s forwards'
+                logout__confirmation__parent.querySelector('.clone').style.animation = 'disappear__opacity 1s forwards'
+                logout__confirmation.style.animation = 'disappear__bottom 1s forwards'
+                setTimeout(() => {
+                    logout__confirmation__bg.classList.add('d-none')
+                    logout__confirmation__parent.classList.add('d-none')
+                }, 1000);
+            }
     // IF TASK FLEX DOESNT HAVE SCROLL BAR
         if(!(document.querySelector('.tasks__flex').scrollWidth > document.querySelector('.tasks__flex').clientWidth))
         {
