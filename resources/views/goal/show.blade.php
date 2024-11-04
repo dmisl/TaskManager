@@ -12,7 +12,7 @@
     <div class="content">
         <div class="tasks">
             <div class="tasks__title__parent">
-                <div class="logout__confirmation__bg"></div>
+                <div class="logout__confirmation__bg d-none"></div>
                 <div class="menu__left">
                     <a href="{{ route('goal.index') }}" class="menu__element">
                         <img src="{{ asset('storage/images/goal_mini.png') }}">
@@ -42,7 +42,7 @@
                     <a class="menu__element logout" role="button">
                         <img style="border-radius: 100%;" src="{{ asset('storage/images/logout_mini.png') }}">
                         <p>Вийти</p>
-                        <div class="logout__confirmation__parent">
+                        <div class="logout__confirmation__parent d-none">
                             
                             {{-- CLONE WITH WHITE TEXT AND BORDER ON ICON --}}
                             <div class="clone">
@@ -394,6 +394,35 @@ window.addEventListener('load', function () {
     let whole__content = document.querySelector('.whole__content')
     let loader__parent = document.querySelector('.loader__parent')
 
+    // LOGOUT CONFIRMATION
+    let logout = document.querySelector('.tasks__title__parent .logout')
+    let logout__confirmation__parent = logout.querySelector('.logout__confirmation__parent')
+    let logout__confirmation = logout.querySelector('.logout__confirmation')
+    let logout__confirmation__bg = document.querySelector('.logout__confirmation__bg')
+    logout.addEventListener('click', function (e) {
+        
+        if(e.target == e.currentTarget || e.target == e.currentTarget.querySelector('img') || e.target == e.currentTarget.querySelector('p'))
+        {
+            console.log('clicked')
+
+            logout__confirmation__bg.classList.remove('d-none')
+            logout__confirmation__bg.style.animation = 'appear__opacity 1s forwards'
+            logout__confirmation__parent.classList.remove('d-none')
+            logout__confirmation__parent.querySelector('.clone').style.animation = 'appear__opacity 1s forwards'
+            logout__confirmation.style.animation = 'appear__bottom 1s forwards'
+        }
+
+
+    })
+    logout__confirmation__bg.addEventListener('click', function (e) {
+        logout__confirmation__bg.style.animation = 'disappear__opacity 1s forwards'
+        logout__confirmation__parent.querySelector('.clone').style.animation = 'disappear__opacity 1s forwards'
+        logout__confirmation.style.animation = 'disappear__bottom 1s forwards'
+        setTimeout(() => {
+            logout__confirmation__bg.classList.add('d-none')
+            logout__confirmation__parent.classList.add('d-none')
+        }, 1000);
+    })
     // IF TASK FLEX DOESNT HAVE SCROLL BAR
         if(!(document.querySelector('.tasks__flex').scrollWidth > document.querySelector('.tasks__flex').clientWidth))
         {
