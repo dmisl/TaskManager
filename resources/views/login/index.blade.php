@@ -168,7 +168,7 @@
         let button = auth.querySelector('button')
         let buttonAccess = {{ session()->has('error') ? 1 : 0 }}
 
-        button.addEventListener('mouseenter', auth_validate)
+        button.parentElement.addEventListener('mouseenter', auth_validate)
 
         function auth_validate()
         {
