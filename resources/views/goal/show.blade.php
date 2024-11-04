@@ -21,7 +21,7 @@
                         <img src="{{ asset('storage/images/tasks_mini.png') }}">
                         <p>Завдання</p>
                     </a>
-                    <a class="menu__element" style="background-color: red;">
+                    <a href="{{ route('goal.show') }}" class="menu__element">
                         <img src="{{ asset('storage/images/week_mini.png') }}">
                         <p>Мій тиждень</p>
                     </a>
@@ -30,15 +30,15 @@
                     <h1>Цілі і завдання</h1>
                 </div>
                 <div class="menu__right">
-                    <a class="menu__element" style="background-color: red;">
+                    <a href="{{ route('stats.index') }}" class="menu__element">
                         <img src="{{ asset('storage/images/completed_mini.png') }}">
-                        <p>Виконані</p>
+                        <p>Статистика</p>
                     </a>
                     <a class="menu__element" style="background-color: red;">
                         <img src="{{ asset('storage/images/settings_mini.png') }}">
                         <p>Налаштування</p>
                     </a>
-                    <a class="menu__element" style="background-color: red;">
+                    <a href="{{ route('login.logout') }}" class="menu__element">
                         <img style="border-radius: 100%;" src="{{ asset('storage/images/logout_mini.png') }}">
                         <p>Вийти</p>
                     </a>
