@@ -12,6 +12,7 @@
     <div class="content">
         <div class="tasks">
             <div class="tasks__title__parent">
+                <div class="logout__confirmation__bg"></div>
                 <div class="menu__left">
                     <a href="{{ route('goal.index') }}" class="menu__element">
                         <img src="{{ asset('storage/images/goal_mini.png') }}">
@@ -38,9 +39,26 @@
                         <img src="{{ asset('storage/images/settings_mini.png') }}">
                         <p>Налаштування</p>
                     </a>
-                    <a href="{{ route('login.logout') }}" class="menu__element">
+                    <a class="menu__element logout" role="button">
                         <img style="border-radius: 100%;" src="{{ asset('storage/images/logout_mini.png') }}">
                         <p>Вийти</p>
+                        <div class="logout__confirmation__parent">
+                            
+                            {{-- CLONE WITH WHITE TEXT AND BORDER ON ICON --}}
+                            <div class="clone">
+                                <img style="border-radius: 100%; border: 1px solid black;" src="{{ asset('storage/images/logout_mini.png') }}">
+                                <p style="color: white;">Вийти</p>
+                            </div>
+
+                            <div class="logout__confirmation">
+                                <h1>Вийти з системи ?</h1>
+                                <div class="d-flex">
+                                    <div class="yes"><p>Так</p></div>
+                                    <div class="no"><p>Ні</p></div>
+                                </div>
+                            </div>
+
+                        </div>
                     </a>
                 </div>
             </div>
