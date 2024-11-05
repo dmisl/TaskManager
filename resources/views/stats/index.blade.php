@@ -52,7 +52,7 @@
                         <div class="d-flex" id="custom__scrollbar__small">
 
                             @foreach ($weeks as $week)
-                                <a class="item">
+                                <a href="{{ route('stats.week', [$week->id]) }}" class="item">
                                     <div class="background"></div>
                                     <img src="{{ asset('storage/images/stats.jpg') }}" alt="">
                                     <h1><span class="grade">{{ $week->result == 0 ? '0.0' : $week->result }}</span><br><span class="start_end">{{ date('d.m', strtotime($week->start)) }} - {{ date('d.m', strtotime($week->end)) }}</span></h1>

@@ -56,6 +56,7 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     // STATISTIC ROUTES
 
     Route::get('home/stats', [StatsController::class, 'index'])->name('stats.index');
+    Route::get('home/stats/week/{id}', [StatsController::class, 'week'])->name('stats.week');
 
     // FREEPIK
 

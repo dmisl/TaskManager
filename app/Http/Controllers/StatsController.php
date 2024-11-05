@@ -52,4 +52,14 @@ class StatsController extends Controller
         $weeks = $user->weeks()->where('end', '<', Carbon::now('Europe/Warsaw')->format('Y-m-d'))->get();
         return view('stats.index', compact('low_avg', 'high_avg', 'tasks_avg', 'required_avg', 'transferred_avg', 'weeks'));
     }
+    public function week($id)
+    {
+        $user = User::find(Auth::id());
+        $week = Week::find($id);
+        if($week->user_id == $user->id)
+        {
+            return view('stats.week');
+        }
+        return back();
+    }
 }
