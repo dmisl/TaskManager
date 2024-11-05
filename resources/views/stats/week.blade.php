@@ -26,7 +26,7 @@
             <div class="right__part">
                 <h1 class="right__part__title">Історія моїх успіхів</h1>
                 
-                <canvas class="graph" style="width: 400px;"></canvas>
+                <canvas class="graph" width="400"></canvas>
 
             </div>
         </div>
@@ -39,29 +39,28 @@
         // CHART
         const ctx = document.querySelector('.graph').getContext('2d');
 
-        // Define the chart configuration
         const config = {
-        type: 'line', // Base chart type; each dataset can still specify its type.
+        type: 'line',
         data: {
             labels: ['Понеділок', 'Вівторок', 'Середа', 'Четвер', `П'ятниця`, 'Субота', 'Неділя'],
             datasets: [
             {
                 type: 'line',
                 label: 'К-сть високоприорі. завдань',
-                data: [3, 2, 2, 1, 5, 6, 3], // Data points for the first line
+                data: [3, 2, 2, 1, 5, 6, 3],
                 borderColor: 'rgb(75, 192, 192)',
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                fill: false, // Line only with no fill
-                tension: 0.4 // Smoothing for the line
+                fill: true,
+                tension: 0.4
             },
             {
-                type: 'line', // Type for the second dataset
+                type: 'line',
                 label: 'К-сть виконаних вис. завдань',
-                data: [1, 3, 4, 2, 8, 4, 5], // Data points for the second line
+                data: [1, 3, 4, 2, 8, 4, 5],
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                fill: false,
-                tension: 0.4 // Smoothing for the second line
+                fill: true,
+                tension: 0.4
             }
             ]
         },
