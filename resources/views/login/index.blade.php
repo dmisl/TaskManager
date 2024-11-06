@@ -101,91 +101,99 @@
 
             toggled = !toggled;
         }
+        switchBlock()
 
+        // REG VALIDATION
+        let reg = document.querySelector('.reg')
+        let email = reg.querySelector('input[name="email"]')
+        let name = reg.querySelector('input[name="login"]')
+        let pass = reg.querySelector('input[name="pass"]')
+        let ppass = reg.querySelector('input[name="pass_confirmation"]')
+        console.log(email, name, pass, ppass)
         // AUTH VALIDATION
-        let auth = document.querySelector('.auth')
+            let auth = document.querySelector('.auth')
 
-        let login = auth.querySelector('input[type="text"]')
-        let login__error = auth.querySelector('.login__error')
-        let loginTimeOut
+            let login = auth.querySelector('input[type="text"]')
+            let login__error = auth.querySelector('.login__error')
+            let loginTimeOut
 
-        login.addEventListener('change', auth_validate)
-        login.addEventListener('keydown', login__check)
+            login.addEventListener('change', auth_validate)
+            login.addEventListener('keydown', login__check)
 
-        function login__check(e) 
-        {
-            clearTimeout(loginTimeOut)
-            if(login.value.length > 15)
+            function login__check(e) 
             {
-                if(e && e.key !== 'Backspace' && e.key !== 'Delete')
+                clearTimeout(loginTimeOut)
+                if(login.value.length > 15)
                 {
-                    e.preventDefault()
+                    if(e && e.key !== 'Backspace' && e.key !== 'Delete')
+                    {
+                        e.preventDefault()
+                    }
+                    login__error.innerText = `максимальна довжина логіну - 16 символів`
+                    return false
+                } else if(login.value.length < 4)
+                {
+                    loginTimeOut = setTimeout(() => {
+                        login__error.innerText = `мінімальна должина логіну - 3 символа`
+                    }, 1000);
+                    return false
+                } 
+                else
+                {
+                    login__error.innerText = ``
+                    return true
                 }
-                login__error.innerText = `максимальна довжина логіну - 16 символів`
-                return false
-            } else if(login.value.length < 4)
-            {
-                loginTimeOut = setTimeout(() => {
-                    login__error.innerText = `мінімальна должина логіну - 3 символа`
-                }, 1000);
-                return false
-            } 
-            else
-            {
-                login__error.innerText = ``
-                return true
             }
-        }
 
-        let password = auth.querySelector('input[type="password"]')
-        let password__error = auth.querySelector('.password__error')
-        let passwordTimeOut
+            let password = auth.querySelector('input[type="password"]')
+            let password__error = auth.querySelector('.password__error')
+            let passwordTimeOut
 
-        password.addEventListener('keyup', password__check)
-        password.addEventListener('change', auth_validate)
+            password.addEventListener('keyup', password__check)
+            password.addEventListener('change', auth_validate)
 
-        function password__check()
-        {
-            clearTimeout(passwordTimeOut)
-            if(password.value.length < 6 && password.value.length !== 0)
+            function password__check()
             {
-                passwordTimeOut = setTimeout(() => {
-                    password__error.innerHTML = `мінімальна довжина паролю - 6 символів`
-                }, 1000);
-                return false
-            } else if(password.value.length == 0)
-            {
-                password__error.innerHTML = `це поле є обов'язковим`
-                return false
-            } 
-            else
-            {
-                password__error.innerHTML = ''
-                return true
-            }
-        }
-
-        let button = auth.querySelector('button')
-        let buttonAccess = {{ session()->has('error') ? 1 : 0 }}
-
-        button.parentElement.addEventListener('mouseenter', auth_validate)
-
-        function auth_validate()
-        {
-            if(!buttonAccess)
-            {
-                if(login__check() && password__check())
+                clearTimeout(passwordTimeOut)
+                if(password.value.length < 6 && password.value.length !== 0)
                 {
-                    button.removeAttribute('disabled')
+                    passwordTimeOut = setTimeout(() => {
+                        password__error.innerHTML = `мінімальна довжина паролю - 6 символів`
+                    }, 1000);
+                    return false
+                } else if(password.value.length == 0)
+                {
+                    password__error.innerHTML = `це поле є обов'язковим`
+                    return false
+                } 
+                else
+                {
+                    password__error.innerHTML = ''
+                    return true
+                }
+            }
+
+            let button = auth.querySelector('button')
+            let buttonAccess = {{ session()->has('error') ? 1 : 0 }}
+
+            button.parentElement.addEventListener('mouseenter', auth_validate)
+
+            function auth_validate()
+            {
+                if(!buttonAccess)
+                {
+                    if(login__check() && password__check())
+                    {
+                        button.removeAttribute('disabled')
+                    } else
+                    {
+                        button.setAttribute('disabled', '')
+                    }
                 } else
                 {
-                    button.setAttribute('disabled', '')
+                    buttonAccess = 0
                 }
-            } else
-            {
-                buttonAccess = 0
             }
-        }
 
         // ON LOAD AND HANDLE OF ELEMENTS SHOW THEM
         let loader__parent = document.querySelector('.loader__parent')
