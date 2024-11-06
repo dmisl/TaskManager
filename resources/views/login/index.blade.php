@@ -51,16 +51,16 @@
                             <h2 class="m-0">Реєстрація<span style="font-size: 25px;">🧐</span></h2>
                             <div class="text-start mt-3">
                                 <label for="email" style="font-size: 20px;">E-mail</label>
-                                <input class="form-control py-1 reg__first" value="{{ old('email') }}" name="email" autofocus id="email" type="email">
+                                <input class="form-control py-1 reg__first" placeholder="your_email@gmail.com" value="{{ old('email') }}" name="email" autofocus id="email" type="email">
                                 <p class="email__error" style="color: red; margin: 0; font-size: 10px; height: 8px;"></p>
                                 <label for="login" style="font-size: 20px;">Логін</label>
-                                <input value="{{ old('login') }}" name="login" id="login" class="form-control py-1">
+                                <input value="{{ old('login') }}" placeholder="John Doe" name="login" id="login" class="form-control py-1">
                                 <p class="name__error" style="color: red; margin: 0; font-size: 10px; height: 8px;"></p>
                                 <label for="pass" style="font-size: 20px;">Пароль</label>
-                                <input value="{{ old('pass') }}" name="pass" id="pass" type="password" class="form-control py-1">
+                                <input value="{{ old('pass') }}" placeholder="john_not_doe" name="pass" id="pass" type="password" class="form-control py-1">
                                 <p class="pass__error" style="color: red; margin: 0; font-size: 10px; height: 8px;"></p>
                                 <label for="ppass" style="font-size: 20px;">Повторіть пароль</label>
-                                <input value="{{ old('ppass') }}" name="pass_confirmation" id="ppass" type="password" class="form-control py-1">
+                                <input value="{{ old('ppass') }}" placeholder="john_not_doe" name="pass_confirmation" id="ppass" type="password" class="form-control py-1">
                                 <p class="ppass__error" style="color: red; margin: 0; font-size: 10px; height: 8px;"></p>
                             </div>
                         </div>
@@ -78,42 +78,72 @@
 
     window.addEventListener('load', function () {
 
-        let toggle = document.querySelector('.toggle')
-        let toggled = false;
+        // BLOCK SWITCHING
 
-        toggle.addEventListener('click', switchBlock)
+            let toggle = document.querySelector('.toggle')
+            let toggled = false;
 
-        function switchBlock() {
-            const box = document.querySelector('.auth');
-            const box2 = document.querySelector('.reg');
+            toggle.addEventListener('click', switchBlock)
 
-            if (!toggled) {
-                box.classList.add('animate-out');
-                box2.classList.add('animate-in');
-                setTimeout(() => {
-                    document.querySelector('.reg__first').focus()
-                    toggle.innerText = 'Авторизація >'
-                }, 1000);
-            } else {
-                box.classList.remove('animate-out');
-                box2.classList.remove('animate-in');
-                setTimeout(() => {
-                    document.querySelector('.auth__first').focus()
-                    toggle.innerText = 'Реєстрація >'
-                }, 1000);
+            function switchBlock() {
+                const box = document.querySelector('.auth');
+                const box2 = document.querySelector('.reg');
+
+                if (!toggled) {
+                    box.classList.add('animate-out');
+                    box2.classList.add('animate-in');
+                    setTimeout(() => {
+                        document.querySelector('.reg__first').focus()
+                        toggle.innerText = 'Авторизація >'
+                    }, 1000);
+                } else {
+                    box.classList.remove('animate-out');
+                    box2.classList.remove('animate-in');
+                    setTimeout(() => {
+                        document.querySelector('.auth__first').focus()
+                        toggle.innerText = 'Реєстрація >'
+                    }, 1000);
+                }
+
+                toggled = !toggled;
             }
-
-            toggled = !toggled;
-        }
-        switchBlock()
 
         // REG VALIDATION
         let reg = document.querySelector('.reg')
         let email = reg.querySelector('input[name="email"]')
+        let email__error = reg.querySelector('.email__error')
+        let emailTimeout
+        email.addEventListener('keyup', email__check)
+        function email__check()
+        {
+            clearTimeout(emailTimeout);
+
+            emailTimeout = setTimeout(() => {
+                let emailValue = email.value.trim();
+                let atIndex = emailValue.indexOf('@');
+                
+                if (atIndex < 5) {
+                    email__error.innerText = "щонайменше 5 символів перед '@'.";
+                    return false
+                } else if (!emailValue.endsWith('@gmail.com')) {
+                    email__error.innerText = "Електронна адреса повинна закінчуватися на '@gmail.com'.";
+                    return false
+                } else if (email.value.length == 0)
+                {
+                    email__error.innerText = "Обов'язкове поле"
+                    return false
+                } else
+                {
+                    email__error.innerText = ''
+                    return true
+                }
+            }, 1000);
+        }
+        console.log(email__check())
         let name = reg.querySelector('input[name="login"]')
         let pass = reg.querySelector('input[name="pass"]')
         let ppass = reg.querySelector('input[name="pass_confirmation"]')
-        console.log(email, name, pass, ppass)
+        switchBlock()
         // AUTH VALIDATION
             let auth = document.querySelector('.auth')
 
