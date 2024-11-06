@@ -28,10 +28,10 @@
                             <h2 class="m-0">Вітаємо знову!<span style="font-size: 25px;">🥰</span></h2>
                             <div class="text-start mt-3">
                                 <label for="nickname" style="font-size: 20px;">Ваш логін</label>
-                                <input class="auth__first form-control py-1" value="{{ old('name') }}" name="name" autofocus id="nickname" type="text">
+                                <input class="auth__first form-control py-1" placeholder="Василій Петрович" value="{{ old('name') }}" name="name" autofocus id="nickname" type="text">
                                 <p class="login__error" style="color: red; margin: 0; font-size: 10px; height: 8px;">{{ session()->has('error') ? session('error') : '' }}</p>
                                 <label for="password" style="font-size: 20px;">Ваш пароль</label>
-                                <input class="form-control py-1" value="{{ old('password') }}" name="password" id="password" type="password">
+                                <input class="form-control py-1" value="{{ old('password') }}" placeholder="vasylko123" name="password" id="password" type="password">
                                 <p class="password__error" style="color: red; margin: 0; font-size: 10px; height: 10px;"></p>
                                 <div class="remember__parent">
                                     <input class="form-check-input remember__checkbox" checked name="remember" type="checkbox" id="remember">
@@ -52,15 +52,19 @@
                             <div class="text-start mt-3">
                                 <label for="email" style="font-size: 20px;">E-mail</label>
                                 <input class="form-control py-1 reg__first" value="{{ old('email') }}" name="email" autofocus id="email" type="email">
-                                <label for="login" style="font-size: 20px; margin-top: 4px;">Логін</label>
+                                <p class="email__error" style="color: red; margin: 0; font-size: 10px; height: 8px;"></p>
+                                <label for="login" style="font-size: 20px;">Логін</label>
                                 <input value="{{ old('login') }}" name="login" id="login" class="form-control py-1">
-                                <label for="pass" style="font-size: 20px; margin-top: 4px;">Пароль</label>
+                                <p class="name__error" style="color: red; margin: 0; font-size: 10px; height: 8px;"></p>
+                                <label for="pass" style="font-size: 20px;">Пароль</label>
                                 <input value="{{ old('pass') }}" name="pass" id="pass" type="password" class="form-control py-1">
-                                <label for="ppass" style="font-size: 20px; margin-top: 4px;">Повторіть пароль</label>
+                                <p class="pass__error" style="color: red; margin: 0; font-size: 10px; height: 8px;"></p>
+                                <label for="ppass" style="font-size: 20px;">Повторіть пароль</label>
                                 <input value="{{ old('ppass') }}" name="pass_confirmation" id="ppass" type="password" class="form-control py-1">
+                                <p class="ppass__error" style="color: red; margin: 0; font-size: 10px; height: 8px;"></p>
                             </div>
                         </div>
-                        <div class="card-body text-center">
+                        <div class="text-center" style="padding-bottom: 20px;">
                             <button class="btn btn-primary rounded-5">Зареєструватись</button>
                         </div>
                     </form>
