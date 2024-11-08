@@ -21,7 +21,7 @@
                 <p class="custom__underline toggle" style="margin: 0; font-size: 20px;" role="button">Реєстрація ></p><br>
             </div>
             <div class="toggle__container">
-                <div class="auth card rounded-5 p-2 px-3" style="display: inline-block; margin-right: 15%; margin-top: 10px;">
+                <div class="auth card rounded-5 p-2 px-3" style="display: inline-block; margin-right: 0; margin-top: 10px;">
                     <form action="{{ route('login.store') }}" method="POST">
                         @csrf
                         <div class="card-body text-center">
@@ -44,7 +44,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="reg card rounded-5 p-2 px-4" style="display: inline-block; margin-right: 15%; margin-top: 10px;">
+                <div class="reg card rounded-5 p-2 px-4" style="display: inline-block; margin-right: 0; margin-top: 10px;">
                     <form action="{{ route('register.store') }}" method="POST">
                         @csrf
                         <div class="card-body text-center">
@@ -113,34 +113,57 @@
         let email = reg.querySelector('input[name="email"]')
         let email__error = reg.querySelector('.email__error')
         let emailTimeout
-        email.addEventListener('keyup', email__check)
+        email.addEventListener('keyup', function () {
+            clearTimeout(emailTimeout)
+            emailTimeout = setTimeout(email__check, 1000);
+        })
         function email__check()
         {
-            clearTimeout(emailTimeout);
-
-            emailTimeout = setTimeout(() => {
-                let emailValue = email.value.trim();
-                let atIndex = emailValue.indexOf('@');
-                
-                if (atIndex < 5) {
-                    email__error.innerText = "щонайменше 5 символів перед '@'.";
-                    return false
-                } else if (!emailValue.endsWith('@gmail.com')) {
-                    email__error.innerText = "Електронна адреса повинна закінчуватися на '@gmail.com'.";
-                    return false
-                } else if (email.value.length == 0)
-                {
-                    email__error.innerText = "Обов'язкове поле"
-                    return false
-                } else
-                {
-                    email__error.innerText = ''
-                    return true
-                }
-            }, 1000);
+            let emailValue = email.value.trim();
+            let atIndex = emailValue.indexOf('@');
+            
+            if (atIndex < 5 && email.value.length !== 0) {
+                email__error.innerText = "щонайменше 5 символів перед '@'.";
+                return false
+            } else if (!emailValue.endsWith('@gmail.com') && email.value.length !== 0) {
+                email__error.innerText = "Електронна адреса повинна закінчуватися на '@gmail.com'.";
+                return false
+            } else if (email.value.length == 0)
+            {
+                email__error.innerText = "обов'язкове поле"
+                return false
+            } else
+            {
+                email__error.innerText = ''
+                return true
+            }
         }
-        console.log(email__check())
+
+        illness
+
         let name = reg.querySelector('input[name="login"]')
+        let name__error = reg.querySelector('.name__error')
+        let nameTimeout
+        name.addEventListener('keyup', function () {
+            clearTimeout(nameTimeout)
+            nameTimeout = setTimeout(name__check, 1000);
+        })
+        function name__check()
+        {
+            if(name.value.length == 0)
+            {
+                name__error.innerText = "обов'язкове поле"
+                return false
+            } else if(name.value.length < 6)
+            {
+                name__error.innerText = "мінімум 6 символів"
+                return false
+            } else
+            {
+                name__error.innerText = ""
+                return true
+            }
+        }
         let pass = reg.querySelector('input[name="pass"]')
         let ppass = reg.querySelector('input[name="pass_confirmation"]')
         switchBlock()
