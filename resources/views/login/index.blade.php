@@ -139,8 +139,6 @@
             }
         }
 
-        illness ilness
-
         let name = reg.querySelector('input[name="login"]')
         let name__error = reg.querySelector('.name__error')
         let nameTimeout
