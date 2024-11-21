@@ -152,6 +152,13 @@
     let route__getImages = `{{ route('home.getImages') }}`
     let asset = `{{ asset('storage/images/') }}`
 
+    // let route = `${route__getImages}/Black guy/1/1`
+    // console.log(route)
+    // axios.get(route)
+    //     .then(response => {
+    //         console.log(response.data)
+    //     })
+
 </script>
 
 @vite('resources/js/goalCreate.js')

@@ -15,6 +15,7 @@ class HomeController extends Controller
     }
     public function getImages($text, $limit = 1, $page = 1) : JsonResponse
     {
+
         $curl = curl_init();
 
         $queryParams = [
@@ -24,7 +25,7 @@ class HomeController extends Controller
             'filters[content_type][vector]' => 1,
             'filters[vector][style]' => 'flat',
             // 'filters[license][freemium]' => 1,
-            'filters[license][premium]' => 1,
+            // 'filters[license][premium]' => 1,
             'filters[ai-generated][excluded]' => 1,
         ];
 
@@ -42,9 +43,11 @@ class HomeController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => [
-                "Accept-Language: uk",
+                "Accept-Language: uk-UA",
                 "x-freepik-api-key: FPSXf55d7c1832254bc898fea32e415bea35"
             ],
+            CURLOPT_SSL_VERIFYHOST => false, // Add this line
+            CURLOPT_SSL_VERIFYPEER => false, // Add this line
         ]);
 
         $response = curl_exec($curl);
@@ -54,7 +57,6 @@ class HomeController extends Controller
         if ($err) {
             return response()->json(['error' => "cURL Error: " . $err], 500);
         }
-
 
         $decodedResponse = json_decode($response, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
