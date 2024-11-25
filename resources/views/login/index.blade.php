@@ -160,8 +160,8 @@
             }
             let pass = reg.querySelector('input[name="pass"]')
             let pass__error = reg.querySelector('.pass__error')
-            let ppass = reg.querySelector('input[name="pass_confirmation"]')
             let passTimeout
+            pass.addEventListener('change', reg_validate)
             pass.addEventListener('keyup', function () {
                 clearTimeout(passTimeout)
                 passTimeout = setTimeout(pass__check, 1000)
@@ -182,6 +182,26 @@
                     return true
                 }
             }
+            let ppass = reg.querySelector('input[name="pass_confirmation"]')
+            let ppass__error = reg.querySelector('.ppass__error')
+            let ppassTimeout
+            ppass.addEventListener('change', reg_validate)
+            ppass.addEventListener('keyup', function () {
+                clearTimeout(ppassTimeout)
+                ppassTimeout = setTimeout(ppass__check, 1000);
+            })
+            function ppass__check()
+            {
+                if(ppass.value !== pass.value)
+                {
+                    ppass.innerText = 'паролі не сходяться'
+                    return false
+                } else
+                {
+                    ppass.innerText = ''
+                    return true
+                }
+            }
             
             let reg__submit = reg.querySelector('.btn')
             reg__submit.addEventListener('mouseenter', reg_validate)
@@ -192,7 +212,8 @@
                 email__check()
                 name__check()
                 pass__check()
-                if(email__check() && name__check() && pass__check())
+                ppass__check()
+                if(email__check() && name__check() && pass__check() && ppass__check())
                 {
                     
                 } else
