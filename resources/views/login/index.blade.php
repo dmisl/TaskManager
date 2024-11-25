@@ -83,11 +83,8 @@
             let toggle = document.querySelector('.toggle')
             let toggled = false;
 
-            console.log(toggle)
-
             function switchBlock()
             {
-                console.log(toggled)
                 if(!toggled)
                 {
                     auth.style.animation = 'animate-out 1s forwards'
@@ -109,145 +106,187 @@
 
         // REG VALIDATION
             let reg = document.querySelector('.reg')
-            // let email = reg.querySelector('input[name="email"]')
-            // let email__error = reg.querySelector('.email__error')
-            // let emailTimeout
-            // email.addEventListener('keyup', function () {
-            //     clearTimeout(emailTimeout)
-            //     emailTimeout = setTimeout(email__check, 1000);
-            // })
-            // function email__check()
-            // {
-            //     let emailValue = email.value.trim();
-            //     let atIndex = emailValue.indexOf('@');
-                
-            //     if (atIndex < 5 && email.value.length !== 0) {
-            //         email__error.innerText = "щонайменше 5 символів перед '@'.";
-            //         return false
-            //     } else if (!emailValue.endsWith('@gmail.com') && email.value.length !== 0) {
-            //         email__error.innerText = "Електронна адреса повинна закінчуватися на '@gmail.com'.";
-            //         return false
-            //     } else if (email.value.length == 0)
-            //     {
-            //         email__error.innerText = "обов'язкове поле"
-            //         return false
-            //     } else
-            //     {
-            //         email__error.innerText = ''
-            //         return true
-            //     }
-            // }
+            let email = reg.querySelector('input[name="email"]')
+            let email__error = reg.querySelector('.email__error')
+            let emailTimeout
+            email.addEventListener('change', reg_validate)
+            email.addEventListener('keyup', function () {
+                clearTimeout(emailTimeout)
+                emailTimeout = setTimeout(email__check, 1000);
+            })
+            function email__check()
+            {
+                let emailValue = email.value.trim();
+                let atIndex = emailValue.indexOf('@');
+                if (atIndex < 5 && email.value.length !== 0) {
+                    email__error.innerText = "щонайменше 5 символів перед '@'.";
+                    return false
+                } else if (!emailValue.endsWith('@gmail.com') && email.value.length !== 0) {
+                    email__error.innerText = "Електронна адреса повинна закінчуватися на '@gmail.com'.";
+                    return false
+                } else if (email.value.length == 0)
+                {
+                    email__error.innerText = "обов'язкове поле"
+                    return false
+                } else
+                {
+                    email__error.innerText = ''
+                    return true
+                }
+            }
+            let name = reg.querySelector('input[name="login"]')
+            let name__error = reg.querySelector('.name__error')
+            let nameTimeout
+            name.addEventListener('change', reg_validate)
+            name.addEventListener('keyup', function () {
+                clearTimeout(nameTimeout)
+                nameTimeout = setTimeout(name__check, 1000);
+            })
+            function name__check()
+            {
+                if(name.value.length == 0)
+                {
+                    name__error.innerText = "обов'язкове поле"
+                    return false
+                } else if(name.value.length < 6)
+                {
+                    name__error.innerText = "мінімум 6 символів"
+                    return false
+                } else
+                {
+                    name__error.innerText = ""
+                    return true
+                }
+            }
+            let pass = reg.querySelector('input[name="pass"]')
+            let pass__error = reg.querySelector('.pass__error')
+            let ppass = reg.querySelector('input[name="pass_confirmation"]')
+            let passTimeout
+            pass.addEventListener('keyup', function () {
+                clearTimeout(passTimeout)
+                passTimeout = setTimeout(pass__check, 1000)
+            })
+            function pass__check()
+            {
+                if(pass.value.length == 0)
+                {
+                    pass__error.innerText = "обов'язкове поле"
+                    return false
+                } else if(pass.value.length < 6)
+                {
+                    pass__error.innerText = "мінімум 6 символів"
+                    return false
+                } else
+                {
+                    pass__error.innerText = ""
+                    return true
+                }
+            }
+            
+            let reg__submit = reg.querySelector('.btn')
+            reg__submit.addEventListener('mouseenter', reg_validate)
+            
+            function reg_validate()
+            {
+                console.log('validating')
+                email__check()
+                name__check()
+                pass__check()
+                if(email__check() && name__check() && pass__check())
+                {
+                    
+                } else
+                {
+                    reg__submit.setAttribute('disabled', '')
+                }
+            }
 
-            // let name = reg.querySelector('input[name="login"]')
-            // let name__error = reg.querySelector('.name__error')
-            // let nameTimeout
-            // name.addEventListener('keyup', function () {
-            //     clearTimeout(nameTimeout)
-            //     nameTimeout = setTimeout(name__check, 1000);
-            // })
-            // function name__check()
-            // {
-            //     if(name.value.length == 0)
-            //     {
-            //         name__error.innerText = "обов'язкове поле"
-            //         return false
-            //     } else if(name.value.length < 6)
-            //     {
-            //         name__error.innerText = "мінімум 6 символів"
-            //         return false
-            //     } else
-            //     {
-            //         name__error.innerText = ""
-            //         return true
-            //     }
-            // }
-            // let pass = reg.querySelector('input[name="pass"]')
-            // let ppass = reg.querySelector('input[name="pass_confirmation"]')
-            // switchBlock()
         // AUTH VALIDATION
             let auth = document.querySelector('.auth')
 
-            // let login = auth.querySelector('input[type="text"]')
-            // let login__error = auth.querySelector('.login__error')
-            // let loginTimeOut
+            switchBlock()
 
-            // login.addEventListener('change', auth_validate)
-            // login.addEventListener('keydown', login__check)
+            let login = auth.querySelector('input[type="text"]')
+            let login__error = auth.querySelector('.login__error')
+            let loginTimeOut
 
-            // function login__check(e) 
-            // {
-            //     clearTimeout(loginTimeOut)
-            //     if(login.value.length > 15)
-            //     {
-            //         if(e && e.key !== 'Backspace' && e.key !== 'Delete')
-            //         {
-            //             e.preventDefault()
-            //         }
-            //         login__error.innerText = `максимальна довжина логіну - 16 символів`
-            //         return false
-            //     } else if(login.value.length < 4)
-            //     {
-            //         loginTimeOut = setTimeout(() => {
-            //             login__error.innerText = `мінімальна должина логіну - 3 символа`
-            //         }, 1000);
-            //         return false
-            //     } 
-            //     else
-            //     {
-            //         login__error.innerText = ``
-            //         return true
-            //     }
-            // }
+            login.addEventListener('change', auth_validate)
+            login.addEventListener('keydown', login__check)
 
-            // let password = auth.querySelector('input[type="password"]')
-            // let password__error = auth.querySelector('.password__error')
-            // let passwordTimeOut
+            function login__check(e) 
+            {
+                clearTimeout(loginTimeOut)
+                if(login.value.length > 15)
+                {
+                    if(e && e.key !== 'Backspace' && e.key !== 'Delete')
+                    {
+                        e.preventDefault()
+                    }
+                    login__error.innerText = `максимальна довжина логіну - 16 символів`
+                    return false
+                } else if(login.value.length < 4)
+                {
+                    loginTimeOut = setTimeout(() => {
+                        login__error.innerText = `мінімальна должина логіну - 3 символа`
+                    }, 1000);
+                    return false
+                } 
+                else
+                {
+                    login__error.innerText = ``
+                    return true
+                }
+            }
 
-            // password.addEventListener('keyup', password__check)
-            // password.addEventListener('change', auth_validate)
+            let password = auth.querySelector('input[type="password"]')
+            let password__error = auth.querySelector('.password__error')
+            let passwordTimeOut
 
-            // function password__check()
-            // {
-            //     clearTimeout(passwordTimeOut)
-            //     if(password.value.length < 6 && password.value.length !== 0)
-            //     {
-            //         passwordTimeOut = setTimeout(() => {
-            //             password__error.innerHTML = `мінімальна довжина паролю - 6 символів`
-            //         }, 1000);
-            //         return false
-            //     } else if(password.value.length == 0)
-            //     {
-            //         password__error.innerHTML = `це поле є обов'язковим`
-            //         return false
-            //     } 
-            //     else
-            //     {
-            //         password__error.innerHTML = ''
-            //         return true
-            //     }
-            // }
+            password.addEventListener('keyup', password__check)
+            password.addEventListener('change', auth_validate)
 
-            // let button = auth.querySelector('button')
-            // let buttonAccess = {{ session()->has('error') ? 1 : 0 }}
+            function password__check()
+            {
+                clearTimeout(passwordTimeOut)
+                if(password.value.length < 6 && password.value.length !== 0)
+                {
+                    passwordTimeOut = setTimeout(() => {
+                        password__error.innerHTML = `мінімальна довжина паролю - 6 символів`
+                    }, 1000);
+                    return false
+                } else if(password.value.length == 0)
+                {
+                    password__error.innerHTML = `це поле є обов'язковим`
+                    return false
+                } 
+                else
+                {
+                    password__error.innerHTML = ''
+                    return true
+                }
+            }
 
-            // button.parentElement.addEventListener('mouseenter', auth_validate)
+            let button = auth.querySelector('button')
+            let buttonAccess = {{ session()->has('error') ? 1 : 0 }}
 
-            // function auth_validate()
-            // {
-            //     if(!buttonAccess)
-            //     {
-            //         if(login__check() && password__check())
-            //         {
-            //             button.removeAttribute('disabled')
-            //         } else
-            //         {
-            //             button.setAttribute('disabled', '')
-            //         }
-            //     } else
-            //     {
-            //         buttonAccess = 0
-            //     }
-            // }
+            button.parentElement.addEventListener('mouseenter', auth_validate)
+
+            function auth_validate()
+            {
+                if(!buttonAccess)
+                {
+                    if(login__check() && password__check())
+                    {
+                        button.removeAttribute('disabled')
+                    } else
+                    {
+                        button.setAttribute('disabled', '')
+                    }
+                } else
+                {
+                    buttonAccess = 0
+                }
+            }
 
         // ON LOAD AND HANDLE OF ELEMENTS SHOW THEM
         let loader__parent = document.querySelector('.loader__parent')
