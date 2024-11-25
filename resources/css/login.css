@@ -137,14 +137,34 @@
         position: absolute;
         right: 90px;
         margin-top: 10px;
-        transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+    }
+    @keyframes animate-out
+    {
+        0% {
+            right: 90px;
+            opacity: 1;
+        }
+        100% {
+            right: -150px;
+            opacity: 0;
+        }
+    }
+    @keyframes animate-in
+    {
+        0% {
+            right: -150px;
+            opacity: 0;
+        }
+        100% {
+            right: 90px;
+            opacity: 1;
+        }
     }
     .auth
     {
         width: 335px;
     }
     .reg {
-        transform: translateX(100%);
         opacity: 0;
         width: 301px;
     }
