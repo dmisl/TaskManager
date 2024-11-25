@@ -1,6 +1,8 @@
 # TODO
 - On error from Login(Register)Controller get back and go the current block
-
+- Get information about pet projects policy agreement + add agreement to registration block
+- Add cookie that checks if its first entry to firstly open reg block if not login block
+- Check errors from controller, cuz it just doesnt work
 
 ![Alt text](https://api.centous.com/wp-content/uploads/2023/08/laravelvuejs.png)
 > [!WARNING]  

@@ -194,17 +194,17 @@
             {
                 if(ppass.value !== pass.value)
                 {
-                    ppass.innerText = 'паролі не сходяться'
+                    ppass__error.innerText = 'паролі не сходяться'
                     return false
                 } else
                 {
-                    ppass.innerText = ''
+                    ppass__error.innerText = ''
                     return true
                 }
             }
             
             let reg__submit = reg.querySelector('.btn')
-            reg__submit.addEventListener('mouseenter', reg_validate)
+            reg__submit.parentElement.addEventListener('mouseenter', reg_validate)
             
             function reg_validate()
             {
@@ -215,7 +215,7 @@
                 ppass__check()
                 if(email__check() && name__check() && pass__check() && ppass__check())
                 {
-                    
+                    reg__submit.removeAttribute('disabled')
                 } else
                 {
                     reg__submit.setAttribute('disabled', '')
