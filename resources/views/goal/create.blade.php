@@ -17,13 +17,13 @@
             <div class="back__parent">
                 <a href="{{ route('goal.index') }}" class="back">
                     <img src="{{ asset('storage/images/back.png') }}" alt="">
-                    <p>Назад</p>
+                    <p>{{ __('goal.back') }}</p>
                 </a>
             </div>
             <div class="preview__parent">
                 <div class="preview">
                     <div class="hidden__content">
-                        <p>Суть цілі</p>
+                        <p>{{ __('goal.goal_essence') }}</p>
                     </div>
                     <div class="img__parent">
                         <img src="{{ asset('storage/images/empty.jpg') }}" alt="">
@@ -33,38 +33,38 @@
             <div class="freepick__parent">
                 <div class="freepick">
                     <div class="freepick__content">
-                        <h2>Змініть картинку заднього фону</h2>
+                        <h2>{{ __('goal.change_the_background_image') }}</h2>
                         <div class="freepick__flex">
                             <div class="loader__mini__parent">
                                 <div class="loader__mini"></div>
                             </div>
                             <div class="freepick__image__parent">
                                 <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                                <div><p>Вибрати</p></div>
+                                <div><p>{{ __('goal.choose') }}</p></div>
                             </div>
                             <div class="freepick__image__parent">
                                 <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                                <div><p>Вибрати</p></div>
+                                <div><p>{{ __('goal.choose') }}</p></div>
                             </div>
                             <div class="freepick__image__parent">
                                 <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                                <div><p>Вибрати</p></div>
+                                <div><p>{{ __('goal.choose') }}</p></div>
                             </div>
                             <div class="freepick__image__parent">
                                 <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                                <div><p>Вибрати</p></div>
+                                <div><p>{{ __('goal.choose') }}</p></div>
                             </div>
                         </div>
-                        <p class="freepick__load">завантажити інші варіанти</p>
+                        <p class="freepick__load">{{ __('goal.load_other_options') }}</p>
                     </div>
                 </div>
             </div>
-            <h1>Створення цілі 🎯</h1>
+            <h1>{{ __('goal.goal_creation') }} 🎯</h1>
             <form class="form" action="{{ route('goal.create') }}" method="POST">
                 @csrf
                 <div class="form-item">
                     <div class="label__icon">
-                        <p>Суть цілі</p>
+                        <p>{{ __('goal.goal_essence') }}</p>
                         <svg class="name__hint" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
 
                             <defs>
@@ -83,7 +83,7 @@
                 </div>
                 <div class="form-item">
                     <div class="label__icon">
-                        <p>Кількість завдань</p>
+                        <p>{{ __('goal.number_of_tasks') }}</p>
                         <svg class="tasks__hint" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
 
                             <defs>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="form-item">
                     <div class="label__icon">
-                        <p>Бажана дата завершення</p>
+                        <p>{{ __('goal.preferred_end_date') }}</p>
                         <svg class="date__hint" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
 
                             <defs>
@@ -128,7 +128,7 @@
                 </div>
                 <input class="input__image" type="hidden" name="image">
                 <div class="form-button-parent">
-                    <button type="submit" class="btn btn-primary btn-lg rounded-5">Створити</button>
+                    <button type="submit" class="btn btn-primary btn-lg rounded-5">{{ __('goal.create') }}</button>
                 </div>
             </form>
         </div>
