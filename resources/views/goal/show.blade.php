@@ -24,37 +24,37 @@
                     </a>
                     <a href="{{ route('goal.show') }}" class="menu__element">
                         <img src="{{ asset('storage/images/week_mini.png') }}">
-                        <p>Мій тиждень</p>
+                        <p>{{ __('goal.my_week') }}</p>
                     </a>
                 </div>
                 <div class="tasks__title">
-                    <h1>Цілі і завдання</h1>
+                    <h1>{{ __('goal.goals_and_tasks') }}</h1>
                 </div>
                 <div class="menu__right">
                     <a href="{{ route('stats.index') }}" class="menu__element">
                         <img src="{{ asset('storage/images/completed_mini.png') }}">
-                        <p>Статистика</p>
+                        <p>{{ __('goal.statistics') }}</p>
                     </a>
                     <a class="menu__element" style="background-color: red;">
                         <img src="{{ asset('storage/images/settings_mini.png') }}">
-                        <p>Налаштування</p>
+                        <p>{{ __('goal.statistics') }}</p>
                     </a>
                     <a class="menu__element logout" role="button">
                         <img style="border-radius: 100%;" src="{{ asset('storage/images/logout_mini.png') }}">
-                        <p>Вийти</p>
+                        <p>{{ __('menu.logout') }}</p>
                         <div class="logout__confirmation__parent d-none">
                             
                             {{-- CLONE WITH WHITE TEXT AND BORDER ON ICON --}}
                             <div class="clone">
                                 <img style="border-radius: 100%; border: 1px solid black;" src="{{ asset('storage/images/logout_mini.png') }}">
-                                <p style="color: white;">Вийти</p>
+                                <p style="color: white;">{{ __('menu.logout') }}</p>
                             </div>
 
                             <div class="logout__confirmation">
-                                <h1>Вийти з системи ?</h1>
+                                <h1>{{ __('goal.logout_q') }}</h1>
                                 <div class="d-flex">
-                                    <div class="yes"><p>Так</p></div>
-                                    <div class="no"><p>Ні</p></div>
+                                    <div class="yes"><p>{{ __('main.yes') }}</p></div>
+                                    <div class="no"><p>{{ __('main.no') }}</p></div>
                                 </div>
                             </div>
 
@@ -69,7 +69,7 @@
                         <div class="tasks__flex__block__parent">
                             <div class="tasks__flex__block unfinished">
                                 <div class="title unfinished">
-                                    Незавершені
+                                    {{ __('goal.unfinished') }}
                                 </div>
                                 <div class="flex">
                                     @foreach($notCompleted as $task)
@@ -103,7 +103,7 @@
                                             <div class="task p5 required" goal_id="{{ $goal->id }}">
                                                 <div class="scrolling__parent">
                                                     <p>
-                                                        Обов'язкове завдання
+                                                        {{ __('goal.required_task') }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -153,7 +153,7 @@
         </div>
         <div class="days">
             <div class="days__title">
-                <h1>Дні тижня</h1>
+                <h1>{{ __('goal.week_days') }}</h1>
             </div>
             <div class="days__flex__container">
                 <div class="days__flex" id="x-custom__scrollbar">
@@ -188,12 +188,12 @@
             <div class="task__create">
                 <div class="form">
                     <div class="title">
-                        <h1>Нове завдання<span>🚀</span></h1>
+                        <h1>{{ __('goal.new_task') }}<span>🚀</span></h1>
                     </div>
                     <input class="task__goal_id" type="hidden" name="goal_id">
                     <div class="priority__parent">
                         <div class="d-flex justify-content-between">
-                            <label for="priority">Рівень приорітету<span style="color: red;">*</span></label>
+                            <label for="priority">{{ __('goal.priority_level') }}<span style="color: red;">*</span></label>
                             <svg class="priority__hint" style="position: relative; top: 5px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="20" width="20" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
 
                                 <defs>
@@ -237,7 +237,7 @@
                     <p class="error priority__error"></p>
                     <div class="form-item">
                         <div class="d-flex justify-content-between">
-                            <label for="name">Суть завдання<span style="color: red;">*</span></label>
+                            <label for="name">{{ __('goal.task_essence') }}<span style="color: red;">*</span></label>
                             <svg class="name__hint" style="position: relative; top: 5px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="20" width="20" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
 
                                 <defs>
@@ -254,7 +254,7 @@
                     <p class="error name__error"></p>
                     <div class="form-item">
                         <div class="d-flex justify-content-between">
-                            <label for="desc">Детальніший опис завдання</label>
+                            <label for="desc">{{ __('goal.detailed_task_description') }}</label>
                             <svg class="desc__hint" style="position: relative; top: 5px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="20" width="20" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
 
                                 <defs>
@@ -269,7 +269,7 @@
                         <textarea class="form-control task__desc" name="desc" id="desc" maxlength="100" placeholder="Не забуди піти до діда взяти якоїсь лопати та й граблі шоби шось почати" rows="3"></textarea>
                     </div>
                     <div class="form-submit">
-                        <button type="submit"><p>Створити</p></button>
+                        <button type="submit"><p>{{ __('goal.create') }}</p></button>
                     </div>
                 </div>
             </div>
@@ -279,7 +279,7 @@
             <div class="d-flex task__show__delete__parent">
                 <div class="task__show">
                     <div class="title">
-                        <div class="name">Назва завдання</div>
+                        <div class="name">{{ __('goal.task_name') }}</div>
                         <div class="flex">
                             <img class="edit" src="{{ asset('storage/images/edit.png') }}">
                             <img class="delete" src="{{ asset('storage/images/delete.png') }}">
@@ -289,7 +289,7 @@
                     <div class="content">
                         <div class="d-flex">
                             <div class="priority">
-                                <h1>Рівень приорітету</h1>
+                                <h1>{{ __('goal.priority_level') }}</h1>
                                 <div class="priority__levels">
                                     <svg class="priority__level" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="26" viewBox="0 0 256 256" xml:space="preserve">
                                         <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
@@ -319,19 +319,19 @@
                                 </div>
                             </div>
                             <div class="date">
-                                <h1>Потрібно виконати до</h1>
+                                <h1>{{ __('goal.must_be_completed_by') }}</h1>
                                 <h1 class="text">6 жовтня, 2024</h1>
                             </div>
                         </div>
                         <div class="flex__parent">
                             <div class="left">
                                 <div class="desc" style="font-size: 0;">
-                                    <h1>Детальніший опис</h1>
-                                    <p>Якийсь більш детальніший опис цього завдання типу щось там доробити чи більше описані кроки до виконання</p>
-                                    <textarea class="input d-none" placeholder="Впишіть новий опис до вашого завдання. (Зміни застосуються автоматично)" cols="3" rows="10">Якийсь більш детальніший опис цього завдання типу щось там доробити чи більше описані кроки до виконання</textarea>
+                                    <h1>{{ __('goal.detailed_description') }}</h1>
+                                    <p>{{ __('goal.detailed_description_desc') }}</p>
+                                    <textarea class="input d-none" placeholder="Впишіть новий опис до вашого завдання. (Зміни застосуються автоматично)" cols="3" rows="10">{{ __('goal.detailed_description_desc') }}</textarea>
                                 </div>
                                 <div class="goal">
-                                    <h1>Відноситься до цілі:</h1>
+                                    <h1>{{ __('goal.refers_to_the_goal') }}</h1>
                                     <div class="scrolling__parent">
                                         <p class="text">Знайти роботу програмістом</p>
                                     </div>
@@ -341,12 +341,12 @@
                                 <div class="comment__parent">
                                     <div class="comments" id="custom__left__scrollbar">
                                         <div class="comment" style="font-size: 0;">
-                                            <p>Якийсь справді дуже цікавий коментар доданий до завдання</p>
+                                            <p>{{ __('goal.some_really_very_interesting_comment_added_to_the_task') }}</p>
                                             <p class="datetime">2022-02-24 04:00:00</p>
                                         </div>
                                     </div>
                                     <div class="comment__input__parent">
-                                        <input type="text" placeholder="Додати коментар">
+                                        <input type="text" placeholder="{{ __('goal.add_a_comment') }}">
                                         <div class="submit__parent">
                                             <img src="{{ asset('storage/images/send.png') }}">
                                         </div>
@@ -361,16 +361,16 @@
                     </div>
                     <div class="complete__parent">
                         <div class="complete">
-                            <p>Позначити як виконане</p>
+                            <p>{{ __('goal.mark_as_completed') }}</p>
                             <img src="{{ asset('storage/images/complete__background.jpg') }}">
                         </div>
                     </div>
                 </div>
                 <div class="task__show__delete d-none">
-                    <p>Ви справді хочете <span>видалити це завдання</span></p>
+                    <p>{{ __('goal.do_you_really_want') }} <span>{{ __('goal.delete_this_task') }}</span></p>
                     <div class="d-flex text-center">
-                        <button class="yes"><p>Так</p></button>
-                        <button class="no"><p>Ні</p></button>
+                        <button class="yes"><p>{{ __('main.yes') }}</p></button>
+                        <button class="no"><p>{{ __('main.no') }}</p></button>
                     </div>
                     <img src="{{ asset('storage/images/delete_background.jpg') }}" style="width: 268px; position: absolute; top: 0; z-index: -1;">
                 </div>
