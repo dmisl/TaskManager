@@ -13,14 +13,14 @@
     <div class="content__container__parent">
         <div class="content__container">
             <div class="content">
-                <h1 class="content__title">Твій навігатор</h1>
+                <h1 class="content__title">{{ __('goal.your_navigator') }}</h1>
                 <div class="content__flex">
                     <a href="{{ route('goal.index') }}" class="content__flex__block">
                         <div class="content__flex__block-image">
                             <img src="{{ asset('storage/images/goals.png') }}" style="height: 100%;">
                         </div>
                         <div class="content__flex__block-title">
-                            <h2>Мої цілі</h2>
+                            <h2>{{ __('goal.my_goals') }}</h2>
                         </div>
                     </a>
                     <a href="#tasks" class="content__flex__block">
@@ -28,7 +28,7 @@
                             <img src="{{ asset('storage/images/todays tasks.jpg') }}" style="width: 101%;">
                         </div>
                         <div class="content__flex__block-title">
-                            <h2>Сьогоднішні завдання</h2>
+                            <h2>{{ __('goal.todays_tasks') }}</h2>
                         </div>
                     </a>
                     <a href="#week" class="content__flex__block">
@@ -36,7 +36,7 @@
                             <img src="{{ asset('storage/images/my_week.jpg') }}" style="width: 101%;">
                         </div>
                         <div class="content__flex__block-title">
-                            <h2>Мій тиждень</h2>
+                            <h2>{{ __('goal.my_week') }}</h2>
                         </div>
                     </a>
                     <a href="#completed" class="content__flex__block">
@@ -44,7 +44,7 @@
                             <img src="{{ asset('storage/images/completed_tasks.jpg') }}" style="width: 101%;">
                         </div>
                         <div class="content__flex__block-title">
-                            <h2>Виконані завдання</h2>
+                            <h2>{{ __('goal.completed_tasks') }}</h2>
                         </div>
                     </a>
                     <a href="#settings" class="content__flex__block">
@@ -52,7 +52,7 @@
                             <img src="{{ asset('storage/images/settings.jpg') }}" style="width: 101%;">
                         </div>
                         <div class="content__flex__block-title">
-                            <h2>Налаштування</h2>
+                            <h2>{{ __('goal.settings') }}</h2>
                         </div>
                     </a>
                     <a href="#logout" class="content__flex__block">
@@ -60,7 +60,7 @@
                             <img src="{{ asset('storage/images/logout.jpg') }}" style="width: 101%;">
                         </div>
                         <div class="content__flex__block-title">
-                            <h2>Вийти з системи</h2>
+                            <h2>{{ __('goal.logout') }}</h2>
                         </div>
                     </a>
                 </div>

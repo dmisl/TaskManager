@@ -5,6 +5,7 @@
 - Check errors from controller, cuz it just doesnt work
 - Localize scripts
 - Dont forget about date localization for dates (task creation)
+- Check placeholders` localization
 
 ![Alt text](https://api.centous.com/wp-content/uploads/2023/08/laravelvuejs.png)
 > [!WARNING]  
