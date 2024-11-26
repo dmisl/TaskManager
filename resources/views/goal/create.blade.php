@@ -17,7 +17,7 @@
             <div class="back__parent">
                 <a href="{{ route('goal.index') }}" class="back">
                     <img src="{{ asset('storage/images/back.png') }}" alt="">
-                    <p>{{ __('goal.back') }}</p>
+                    <p>{{ __('main.back') }}</p>
                 </a>
             </div>
             <div class="preview__parent">
@@ -128,7 +128,7 @@
                 </div>
                 <input class="input__image" type="hidden" name="image">
                 <div class="form-button-parent">
-                    <button type="submit" class="btn btn-primary btn-lg rounded-5">{{ __('goal.create') }}</button>
+                    <button type="submit" class="btn btn-primary btn-lg rounded-5">{{ __('main.create') }}</button>
                 </div>
             </form>
         </div>

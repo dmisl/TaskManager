@@ -12,10 +12,10 @@
 
     {{-- INTERACTIVE MENU (RMB) --}}
     <div class="some__menu d-none">
-        <p class="guide">Гайд</p>
-        <a class="stats" href="{{ route('stats.index') }}">Статистика</a>
-        <p class="settings">Налаштування</p>
-        <p class="delete">Видалити</p>
+        <p class="guide">{{ __('goal.guide') }}</p>
+        <a class="stats" href="{{ route('stats.index') }}">{{ __('goal.statistics') }}</a>
+        <p class="settings">{{ __('goal.settings') }}</p>
+        <p class="delete">{{ __('main.delete') }}</p>
     </div>
 
     {{-- MENU OF LEFT --}}
@@ -27,19 +27,19 @@
             <div class="left__part">
                 <a class="left__part__back" href="{{ route('home.index') }}">
                     <img src="{{ asset('storage/images/back.png') }}" alt="">
-                    <p>назад</p>
+                    <p>{{ __('main.back') }}</p>
                 </a>
             </div>
             <div class="right__part">
-                <h1 class="right__part__title">Список моїх цілей</h1>
+                <h1 class="right__part__title">{{ __('goal.my_goal_list') }}</h1>
                 <div class="right__part__hint">
-                    <p>нажміть пкм для висвітлення меню</p>
+                    <p>{{ __('goal.right_click_to_highlight_the_menu') }}</p>
                 </div>
                 <div class="flex" id="custom__scrollbar">
                     <a href="{{ route('goal.create') }}" class="flex__block goal__create">
                         <img src="{{ asset('storage/images/new goal.jpg') }}" alt="">
                         <div class="hidden__block">
-                            <p style="color: white;">Створити нову ціль</p>
+                            <p style="color: white;">{{ __('goal.create_new_goal') }}</p>
                         </div>
                     </a>
                     @foreach ($goals as $goal)
@@ -63,13 +63,13 @@
                 <div class="back__parent">
                     <a class="back">
                         <img src="{{ asset('storage/images/back.png') }}" alt="">
-                        <p>Назад</p>
+                        <p>{{ __('goal.back') }}</p>
                     </a>
                 </div>
                 <div class="preview__parent">
                     <div class="preview">
                         <div class="hidden__content">
-                            <p>Суть цілі</p>
+                            <p>{{ __('goal.goal_essence') }}</p>
                         </div>
                         <div class="img__parent">
                             <img src="{{ asset('storage/images/empty.jpg') }}" alt="">
@@ -79,37 +79,37 @@
                 <div class="freepick__parent">
                     <div class="freepick">
                         <div class="freepick__content">
-                            <h2>Змініть картинку заднього фону</h2>
+                            <h2>{{ __('goal.change_the_background_image') }}</h2>
                             <div class="freepick__flex">
                                 <div class="loader__mini__parent">
                                     <div class="loader__mini"></div>
                                 </div>
                                 <div class="freepick__image__parent">
                                     <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                                    <div><p>Вибрати</p></div>
+                                    <div><p>{{ __('goal.change') }}</p></div>
                                 </div>
                                 <div class="freepick__image__parent">
                                     <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                                    <div><p>Вибрати</p></div>
+                                    <div><p>{{ __('goal.change') }}</p></div>
                                 </div>
                                 <div class="freepick__image__parent">
                                     <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                                    <div><p>Вибрати</p></div>
+                                    <div><p>{{ __('goal.change') }}</p></div>
                                 </div>
                                 <div class="freepick__image__parent">
                                     <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                                    <div><p>Вибрати</p></div>
+                                    <div><p>{{ __('goal.change') }}</p></div>
                                 </div>
                             </div>
-                            <p class="freepick__load">завантажити інші варіанти</p>
+                            <p class="freepick__load">{{ __('goal.load_other_options') }}</p>
                         </div>
                     </div>
                 </div>
-                <h1>Редагування цілі 🎯</h1>
+                <h1>{{ __('goal.goal_editing') }} 🎯</h1>
                 <div class="form">
                     <div class="form-item">
                         <div class="label__icon">
-                            <p>Суть цілі</p>
+                            <p>{{ __('goal.goal_essence') }}</p>
                             <svg class="name__hint" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
 
                                 <defs>
@@ -128,7 +128,7 @@
                     </div>
                     <div class="form-item">
                         <div class="label__icon">
-                            <p>Кількість завдань</p>
+                            <p>{{ __('goal.number_of_tasks') }}</p>
                             <svg class="tasks__hint" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
 
                                 <defs>
@@ -154,7 +154,7 @@
                     </div>
                     <div class="form-item">
                         <div class="label__icon">
-                            <p>Бажана дата завершення</p>
+                            <p>{{ __('goal.preferred_end_date') }}</p>
                             <svg class="date__hint" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
 
                                 <defs>
@@ -173,21 +173,21 @@
                     </div>
                     <input class="input__image" type="hidden" name="image">
                     <div class="form-button-parent">
-                        <button class="btn btn-lg rounded-5" style="background-color: rgb(60, 255, 60);">Зберегти</button>
+                        <button class="btn btn-lg rounded-5" style="background-color: rgb(60, 255, 60);">{{ __('main.save') }}</button>
                     </div>
                 </div>
             </div>
         </div>
     {{-- MODAL GOAL DELETE --}}
         <div class="delete__modal d-none">
-            <h3>Ви дійсно хочете видалити цю ціль?</h3>
-            <p>Всі завдання та статистика, пов’язана з нею, будуть безповоротно видалені.</p>
+            <h3>{{ __('goal.are_you_sure_you_want_to_delete_this_goal') }}</h3>
+            <p>{{ __('goal.all_tasks_and_statistics_associated_with_it_will_be_permanently_deleted') }}</p>
             <div class="flex">
                 <div class="yes">
-                    <p>Так</p>
+                    <p>{{ __('main.yes') }}</p>
                 </div>
                 <div class="no">
-                    <p>Ні</p>
+                    <p>{{ __('main.no') }}</p>
                 </div>
             </div>
         </div>
@@ -200,18 +200,18 @@
                 <div class="left">
                     <div class="title__parent">
                         <div class="d-flex">
-                            <h1>Швидкий старт</h1>
+                            <h1>{{ __('goal.quick_start') }}</h1>
                             <img src="{{ asset('storage/images/rocket.png') }}">
                         </div>
-                        <h3>Зроби свій шлях до цілі простішим з <span>Task Buddy</span></h3>
+                        <h3>{{ __('goal.make_your_path_to_your_goal_easier_with') }} <span>Task Buddy</span></h3>
                     </div>
                     <div class="elements__parent">
                         <div class="element__parent">
                             <div class="element">
-                                <div class="title">Як створити нову ціль у Task Buddy?</div>
+                                <div class="title">{{ __('goal.how_do_i_create_new_goal_in_task_buddy') }}</div>
                                 <div class="desc__parent">
                                     <div class="desc">
-                                        У Task Buddy створити нову ціль дуже просто! Перейдіть до розділу "Цілі", натисніть "Створити ціль", і вкажіть основні параметри: назву, бажану кількість завдань з максимальним пріоритетом, а також оберіть зображення для мотивації. Потім встановіть дедлайн для завершення, і готово — ваша ціль створена!
+                                        {{ __('goal.how_do_i_create_desc') }}
                                     </div>
                                     <div class="blur">
                                         <div class="button">
@@ -227,10 +227,10 @@
                         </div>
                         <div class="element__parent">
                             <div class="element">
-                                <div class="title">Як відслідковувати прогрес у Task Buddy?</div>
+                                <div class="title">{{ __('goal.how_do_i_track_my_progress_in_task_buddy') }}</div>
                                 <div class="desc__parent">
                                     <div class="desc">
-                                        У вкладці "Мої цілі" ви можете бачити стан виконання кожної з ваших цілей і завдань. Task Buddy відображає, скільки завдань вже виконано і скільки залишилось, допомагаючи вам краще планувати свій час і розподіляти зусилля.
+                                        {{ __('goal.how_do_i_track_desc') }}
                                     </div>
                                     <div class="blur">
                                         <div class="button">
@@ -252,10 +252,10 @@
                     <div class="elements__parent">
                         <div class="element__parent">
                             <div class="element">
-                                <div class="title">Як редагувати мої цілі?</div>
+                                <div class="title">{{ __('goal.how_do_i_edit_my_goals') }}</div>
                                 <div class="desc__parent">
                                     <div class="desc">
-                                        Ви завжди можете повернутися до будь-якої цілі і змінити її параметри. Для цього перейдіть у вкладку "Мої цілі", натисніть правою кнопкою миші на потрібну ціль і оберіть "Редагувати". У Task Buddy ви можете змінювати зображення, кількість пріоритетних завдань або дату завершення цілі.
+                                        {{ __('goal.how_do_i_edit_my_goals_desc') }}
                                     </div>
                                     <div class="blur">
                                         <div class="button">
@@ -271,10 +271,10 @@
                         </div>
                         <div class="element__parent">
                             <div class="element">
-                                <div class="title">Як додати завдання до цілі?</div>
+                                <div class="title">{{ __('goal.how_do_i_add_a_task_to_a_goal') }}</div>
                                 <div class="desc__parent">
                                     <div class="desc">
-                                        Після того, як ви створили ціль, відкрийте її у розділі "Мої цілі" та натисніть кнопку "Додати завдання". У Task Buddy ви можете не лише додавати нові завдання, а й встановлювати для них пріоритет, щоб сфокусуватися на найважливіших кроках до досягнення мети.
+                                        {{ __('goal.how_do_i_add_a_task_to_a_goal_desc') }}
                                     </div>
                                     <div class="blur">
                                         <div class="button">
@@ -290,10 +290,10 @@
                         </div>
                         <div class="element__parent">
                             <div class="element">
-                                <div class="title">Як Task Buddy підтримує вашу дисципліну?</div>
+                                <div class="title">{{ __('goal.how_does_task_buddy_help_you_stay_disciplined') }}</div>
                                 <div class="desc__parent">
                                     <div class="desc">
-                                        Task Buddy мотивує вас, надаючи можливість створювати чіткі, структуровані цілі з дедлайнами та пріоритетами. Кожен день, ви бачите свої основні завдання та зосереджуєтесь на найважливішому. Це допомагає вам залишатися в тонусі та дисциплінованим у виконанні задач.
+                                        {{ __('goal.how_does_task_buddy_help_you_stay_disciplined_desc') }}
                                     </div>
                                     <div class="blur">
                                         <div class="button">
