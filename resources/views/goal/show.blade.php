@@ -16,11 +16,11 @@
                 <div class="menu__left">
                     <a href="{{ route('goal.index') }}" class="menu__element">
                         <img src="{{ asset('storage/images/goal_mini.png') }}">
-                        <p>Мої цілі</p>
+                        <p>{{ __('menu.my_goals') }}</p>
                     </a>
                     <a class="menu__element" style="background-color: red;">
                         <img src="{{ asset('storage/images/tasks_mini.png') }}">
-                        <p>Завдання</p>
+                        <p>{{ __('menu.tasks') }}</p>
                     </a>
                     <a href="{{ route('goal.show') }}" class="menu__element">
                         <img src="{{ asset('storage/images/week_mini.png') }}">
