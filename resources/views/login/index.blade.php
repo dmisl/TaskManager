@@ -225,8 +225,6 @@
         // AUTH VALIDATION
             let auth = document.querySelector('.auth')
 
-            switchBlock()
-
             let login = auth.querySelector('input[type="text"]')
             let login__error = auth.querySelector('.login__error')
             let loginTimeOut
