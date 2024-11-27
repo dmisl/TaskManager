@@ -12,35 +12,35 @@
 
         <div style="width: 55%;">
             <h1 class="login__text">
-                Стань <span style="color: rgb(24 127 255); text-decoration: underline;">менеджером</span> свого часу разом з <div class="rainbow__parent"><span class="title__rainbow">Task Buddy</span>!</div>
+                {!! __('login.hero_text') !!}
             </h1>
         </div>
 
         <div style="width: 45%; text-align: right; position: relative; overflow: hidden; height: 100%;">
             <div class="custom__underline__parent" style="">
-                <p class="custom__underline toggle" style="margin: 0; font-size: 20px;" role="button">Реєстрація ></p><br>
+                <p class="custom__underline toggle" style="margin: 0; font-size: 20px;" role="button">{{ __('login.registration') }} ></p><br>
             </div>
             <div class="switch__container">
                 <div class="auth card rounded-5 p-2 px-3">
                     <form action="{{ route('login.store') }}" method="POST">
                         @csrf
                         <div class="card-body text-center">
-                            <h2 class="m-0">Вітаємо знову!<span style="font-size: 25px;">🥰</span></h2>
+                            <h2 class="m-0">{{ __('login.welcome_back') }}<span style="font-size: 25px;">🥰</span></h2>
                             <div class="text-start mt-3">
-                                <label for="nickname" style="font-size: 20px;">Ваш логін</label>
-                                <input class="auth__first form-control py-1" placeholder="Василій Петрович" value="{{ old('name') }}" name="name" autofocus id="nickname" type="text">
+                                <label for="nickname" style="font-size: 20px;">{{ __('login.your_login') }}</label>
+                                <input class="auth__first form-control py-1" placeholder="Donald Tusk" value="{{ old('name') }}" name="name" autofocus id="nickname" type="text">
                                 <p class="login__error" style="color: red; margin: 0; font-size: 10px; height: 8px;">{{ session()->has('error') ? session('error') : '' }}</p>
-                                <label for="password" style="font-size: 20px;">Ваш пароль</label>
-                                <input class="form-control py-1" value="{{ old('password') }}" placeholder="vasylko123" name="password" id="password" type="password">
+                                <label for="password" style="font-size: 20px;">{{ __('login.your_password') }}</label>
+                                <input class="form-control py-1" value="{{ old('password') }}" placeholder="president2077" name="password" id="password" type="password">
                                 <p class="password__error" style="color: red; margin: 0; font-size: 10px; height: 10px;"></p>
                                 <div class="remember__parent">
                                     <input class="form-check-input remember__checkbox" checked name="remember" type="checkbox" id="remember">
-                                    <label for="remember" class="remember__label">запам'ятай мене</label>
+                                    <label for="remember" class="remember__label">{{ __('login.remember_me') }}</label>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body pt-1 text-center">
-                            <button class="btn btn-primary rounded-5">Авторизуватись</button>
+                            <button class="btn btn-primary rounded-5">{{ __('login.sign_in') }}</button>
                         </div>
                     </form>
                 </div>
@@ -48,24 +48,24 @@
                     <form action="{{ route('register.store') }}" method="POST">
                         @csrf
                         <div class="card-body text-center">
-                            <h2 class="m-0">Реєстрація<span style="font-size: 25px;">🧐</span></h2>
+                            <h2 class="m-0">{{ __('login.registration') }}<span style="font-size: 25px;">🧐</span></h2>
                             <div class="text-start mt-3">
                                 <label for="email" style="font-size: 20px;">E-mail</label>
                                 <input class="form-control py-1 reg__first" placeholder="your_email@gmail.com" value="{{ old('email') }}" name="email" autofocus id="email" type="email">
                                 <p class="email__error" style="color: red; margin: 0; font-size: 10px; height: 8px;"></p>
-                                <label for="login" style="font-size: 20px;">Логін</label>
+                                <label for="login" style="font-size: 20px;">{{ __('login.login') }}</label>
                                 <input value="{{ old('login') }}" placeholder="John Doe" name="login" id="login" class="form-control py-1">
                                 <p class="name__error" style="color: red; margin: 0; font-size: 10px; height: 8px;"></p>
-                                <label for="pass" style="font-size: 20px;">Пароль</label>
+                                <label for="pass" style="font-size: 20px;">{{ __('login.password') }}</label>
                                 <input value="{{ old('pass') }}" placeholder="john_not_doe" name="pass" id="pass" type="password" class="form-control py-1">
                                 <p class="pass__error" style="color: red; margin: 0; font-size: 10px; height: 8px;"></p>
-                                <label for="ppass" style="font-size: 20px;">Повторіть пароль</label>
+                                <label for="ppass" style="font-size: 20px;">{{ __('login.repeat_the_password') }}</label>
                                 <input value="{{ old('ppass') }}" placeholder="john_not_doe" name="pass_confirmation" id="ppass" type="password" class="form-control py-1">
                                 <p class="ppass__error" style="color: red; margin: 0; font-size: 10px; height: 8px;"></p>
                             </div>
                         </div>
                         <div class="text-center" style="padding-bottom: 20px;">
-                            <button class="btn btn-primary rounded-5">Зареєструватись</button>
+                            <button class="btn btn-primary rounded-5">{{ __('login.register') }}</button>
                         </div>
                     </form>
                 </div>

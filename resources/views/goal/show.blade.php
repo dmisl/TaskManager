@@ -16,7 +16,7 @@
                 <div class="menu__left">
                     <a href="{{ route('goal.index') }}" class="menu__element">
                         <img src="{{ asset('storage/images/goal_mini.png') }}">
-                        <p>{{ __('menu.my_goals') }}</p>
+                        <p>{{ __('home.my_goals') }}</p>
                     </a>
                     <a class="menu__element" style="background-color: red;">
                         <img src="{{ asset('storage/images/tasks_mini.png') }}">
