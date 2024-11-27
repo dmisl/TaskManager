@@ -97,7 +97,7 @@
                 toggle.removeEventListener('click', switchBlock)
                 setTimeout(() => {
                     toggle.addEventListener('click', switchBlock)
-                    toggle.innerText = toggled ? 'Реєстрація >' : 'Авторизація >'
+                    toggle.innerText = toggled ? `{{ __('login.registration') }} >` : `{{ __('login.sign_in') }} >`
                     toggled = toggled ? false : true
                 }, 1000);
             }
@@ -126,7 +126,7 @@
                     return false
                 } else if (email.value.length == 0)
                 {
-                    email__error.innerText = "обов'язкове поле"
+                    email__error.innerText = @json(__('login.required_field'));
                     return false
                 } else
                 {
@@ -146,11 +146,11 @@
             {
                 if(name.value.length == 0)
                 {
-                    name__error.innerText = "обов'язкове поле"
+                    name__error.innerText = @json(__('login.required_field'));
                     return false
                 } else if(name.value.length < 6)
                 {
-                    name__error.innerText = "мінімум 6 символів"
+                    name__error.innerText = `{{ __('login.min_6_characters') }}`
                     return false
                 } else
                 {
@@ -170,11 +170,11 @@
             {
                 if(pass.value.length == 0)
                 {
-                    pass__error.innerText = "обов'язкове поле"
+                    pass__error.innerText = @json(__('login.required_field'));
                     return false
                 } else if(pass.value.length < 6)
                 {
-                    pass__error.innerText = "мінімум 6 символів"
+                    pass__error.innerText = `{{ __('login.min_6_characters') }}`
                     return false
                 } else
                 {
@@ -194,7 +194,7 @@
             {
                 if(ppass.value !== pass.value)
                 {
-                    ppass__error.innerText = 'паролі не сходяться'
+                    ppass__error.innerText = `{{ __('login.passwords_dont_match') }}`
                     return false
                 } else
                 {
@@ -241,12 +241,12 @@
                     {
                         e.preventDefault()
                     }
-                    login__error.innerText = `максимальна довжина логіну - 16 символів`
+                    login__error.innerText = `{{ __('login.max_login_length_16_characters') }}`
                     return false
                 } else if(login.value.length < 4)
                 {
                     loginTimeOut = setTimeout(() => {
-                        login__error.innerText = `мінімальна должина логіну - 3 символа`
+                        login__error.innerText = `{{ __('login.min_login_length_3_characters') }}`
                     }, 1000);
                     return false
                 } 
@@ -270,12 +270,12 @@
                 if(password.value.length < 6 && password.value.length !== 0)
                 {
                     passwordTimeOut = setTimeout(() => {
-                        password__error.innerHTML = `мінімальна довжина паролю - 6 символів`
+                        password__error.innerHTML = `{{ __('login.min_password_length_6_characters') }}`
                     }, 1000);
                     return false
                 } else if(password.value.length == 0)
                 {
-                    password__error.innerHTML = `це поле є обов'язковим`
+                    password__error.innerHTML = @json(__('login.required_field'));
                     return false
                 } 
                 else

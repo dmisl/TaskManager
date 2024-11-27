@@ -13,6 +13,12 @@ return [
     'password' => 'Пароль',
     'repeat_the_password' => 'Повторіть пароль',
     'register' => 'Зареєструватись',
+    'required_field' => "обов'язкове поле",
+    'min_6_characters' => 'мінімум 6 символів',
+    'passwords_dont_match' => 'паролі не сходяться',
+    'max_login_length_16_characters' => 'максимальна довжина логіну - 16 символів',
+    'min_login_length_3_characters' => 'мінімальна должина логіну - 3 символа',
+    'min_password_length_6_characters' => 'мінімальна довжина паролю - 6 символів',
     
 
 ];
