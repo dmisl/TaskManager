@@ -44,7 +44,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="reg card rounded-5 p-2 px-4" style="display: inline-block; margin-right: 0; margin-top: 10px;">
+                <div class="reg d-none card rounded-5 p-2 px-4" style="display: inline-block; margin-right: 0; margin-top: 10px;">
                     <form action="{{ route('register.store') }}" method="POST">
                         @csrf
                         <div class="card-body text-center">
@@ -87,12 +87,16 @@
             {
                 if(!toggled)
                 {
+                    reg.classList.remove('d-none')
                     auth.style.animation = 'animate-out 1s forwards'
                     reg.style.animation = 'animate-in 1s forwards'
+                    setTimeout(() => {auth.classList.add('d-none')}, 1000);
                 } else
                 {
+                    auth.classList.remove('d-none')
                     reg.style.animation = 'animate-out 1s forwards'
                     auth.style.animation = 'animate-in 1s forwards'
+                    setTimeout(() => {reg.classList.add('d-none')}, 1000);
                 }
                 toggle.removeEventListener('click', switchBlock)
                 setTimeout(() => {

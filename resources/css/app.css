@@ -11,6 +11,21 @@ body
     height: 100vh;
     overflow: hidden;
 }
+.lang
+{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    display: flex;
+    padding: 5px 20px;
+    background-color: white;
+    border-radius: 20px;
+}
+.lang svg
+{
+    width: 35px;
+    height: 35px;
+}
 .header__title {
     display: flex;
     align-items: center;
