@@ -63,7 +63,7 @@
                 <div class="back__parent">
                     <a class="back">
                         <img src="{{ asset('storage/images/back.png') }}" alt="">
-                        <p>{{ __('goal.back') }}</p>
+                        <p>{{ __('main.back') }}</p>
                     </a>
                 </div>
                 <div class="preview__parent">
