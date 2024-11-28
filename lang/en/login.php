@@ -19,6 +19,7 @@ return [
     'max_login_length_16_characters' => 'максимальна довжина логіну - 16 символів',
     'min_login_length_3_characters' => 'мінімальна должина логіну - 3 символа',
     'min_password_length_6_characters' => 'мінімальна довжина паролю - 6 символів',
-    
+    'at_least_5_characters_before_@' => "щонайменше 5 символів перед '@'.",
+    'email_address_must_end_in_gmail_com' => "Електронна адреса повинна закінчуватися на '@gmail.com'.",
 
 ];

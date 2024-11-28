@@ -123,10 +123,10 @@
                 let emailValue = email.value.trim();
                 let atIndex = emailValue.indexOf('@');
                 if (atIndex < 5 && email.value.length !== 0) {
-                    email__error.innerText = "щонайменше 5 символів перед '@'.";
+                    email__error.innerText = @json(__('login.at_least_5_characters_before_@'));
                     return false
                 } else if (!emailValue.endsWith('@gmail.com') && email.value.length !== 0) {
-                    email__error.innerText = "Електронна адреса повинна закінчуватися на '@gmail.com'.";
+                    email__error.innerText = @json(__('login.email_address_must_end_in_gmail_com'));
                     return false
                 } else if (email.value.length == 0)
                 {
