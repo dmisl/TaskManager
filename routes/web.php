@@ -72,6 +72,8 @@ Route::middleware([AuthMiddleware::class])->group(function () {
 
 // });
 
+Route::post('lang', [HomeController::class, 'lang'])->name('home.lang');
+
 Route::fallback(function () {
     return redirect()->route('home.index');
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
@@ -12,6 +13,14 @@ class HomeController extends Controller
     public function index()
     {
         return view('home.index');
+    }
+    public function lang(Request $request)
+    {
+        $validated = $request->validate([
+            'lang' => ['in:en,ua']
+        ]);
+        session(['locale' => $request->lang]);
+        return back();
     }
     public function getImages($text, $limit = 1, $page = 1) : JsonResponse
     {

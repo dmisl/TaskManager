@@ -30,7 +30,9 @@
 
     <div id="app" class="w-100 vh-100" style="display: flex; flex-direction: column;" draggable="false">
 
-        <div class="lang">
+        <form class="lang" action="{{ route('home.lang') }}" method="POST">
+
+            @csrf
 
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="30" viewBox="0 0 256 256" xml:space="preserve">
     
@@ -42,11 +44,13 @@
             </svg>
 
             <select name="lang" id="select">
-                <option value="EN">EN</option>
-                <option value="UA">UA</option>
+                <option value="en" {{ session('locale') == 'en' ? 'selected' : '' }}>EN</option>
+                <option value="ua" {{ session('locale') == 'ua' ? 'selected' : '' }}>UA</option>
             </select>
+
+            <button class="d-none" type="submit"></button>
             
-        </div>
+        </form>
 
         <a href="{{ Auth::check() ? route('home.index') : route('login.index') }}" class="header__title user-select-none" draggable="false">
             <div class="emoji before"></div>
@@ -70,6 +74,12 @@
 @vite('resources/js/emoji.js')
 @vite('resources/js/app.js')
 <script>
+    window.addEventListener('load', function () {
+        let lang = document.querySelector('.lang')
+        lang.querySelector('select').addEventListener('change', function () {
+            lang.querySelector('button').click()
+        })
+    })
     // CREATE ALERT
     function create__alert(header, text)
     {
