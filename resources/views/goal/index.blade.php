@@ -121,7 +121,7 @@
                                 </g>
                             </svg>
                         </div>
-                        <input name="name" type="text" class="form-control" placeholder="Знайти роботу">
+                        <input name="name" type="text" class="form-control" placeholder="Touch some grass">
                         <div class="error input__error">
                             <p></p>
                         </div>

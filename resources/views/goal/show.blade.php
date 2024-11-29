@@ -249,7 +249,7 @@
                                 </g>
                             </svg>
                         </div>
-                        <input class="form-control task__name" name="name" id="name" type="text" placeholder="Посадити редиску">
+                        <input class="form-control task__name" name="name" id="name" type="text" placeholder="Plant radishes">
                     </div>
                     <p class="error name__error"></p>
                     <div class="form-item">
@@ -266,7 +266,7 @@
                                 </g>
                             </svg>
                         </div>
-                        <textarea class="form-control task__desc" name="desc" id="desc" maxlength="100" placeholder="Не забуди піти до діда взяти якоїсь лопати та й граблі шоби шось почати" rows="3"></textarea>
+                        <textarea class="form-control task__desc" name="desc" id="desc" maxlength="100" placeholder="Don't forget to go to your grandfather's house and get a shovel and a rake to start something" rows="3"></textarea>
                     </div>
                     <div class="form-submit">
                         <button type="submit"><p>{{ __('goal.create') }}</p></button>
@@ -328,7 +328,7 @@
                                 <div class="desc" style="font-size: 0;">
                                     <h1>{{ __('goal.detailed_description') }}</h1>
                                     <p>{{ __('goal.detailed_description_desc') }}</p>
-                                    <textarea class="input d-none" placeholder="Впишіть новий опис до вашого завдання. (Зміни застосуються автоматично)" cols="3" rows="10">{{ __('goal.detailed_description_desc') }}</textarea>
+                                    <textarea class="input d-none" placeholder="Enter a new description for your task. (Changes will be applied automatically.)" cols="3" rows="10">{{ __('goal.detailed_description_desc') }}</textarea>
                                 </div>
                                 <div class="goal">
                                     <h1>{{ __('goal.refers_to_the_goal') }}</h1>
@@ -1347,7 +1347,7 @@ window.addEventListener('load', function () {
             ]
             tippy(priority__flex, {
                 placement: parent.classList.contains('task__show__modal') ? 'left' : 'right',
-                content: level ? priority_levels[level-1] : 'Виберіть',
+                content: level ? priority_levels[level-1] : `{{ __('goal.choose') }}`,
                 sticky: true,
                 interactive: true,
                 hideOnClick: false,
@@ -1420,7 +1420,7 @@ window.addEventListener('load', function () {
                         }
                     } else
                     {
-                        priority__flex._tippy.setContent('Виберіть')
+                        priority__flex._tippy.setContent(`{{ __('goal.choose') }}`)
                     }
                 })
             });

@@ -76,7 +76,7 @@
                             </g>
                         </svg>
                     </div>
-                    <input name="name" type="text" class="form-control" placeholder="Знайти роботу">
+                    <input name="name" type="text" class="form-control" placeholder="Find a job">
                     <div class="error input__error">
                         <p></p>
                     </div>
