@@ -417,7 +417,7 @@
             delete__modal.querySelector('.yes').addEventListener('click', () => {
                 axios.post(`{{ route('goal.delete') }}`,{goal_id: current__block.attributes.goal_id.value})
                 .then(res => {
-                    create__alert('Сповіщення', 'Ціль і всі її завдання були успішно видалені')
+                    create__alert(`{{ __('goal.notification') }}`, `{{ __('goal.the_goal_and_all_its_tasks_have_been_successfully_deleted') }}`)
                     delete__modal.classList.add('d-none')
                     current__block.remove()
                     document.querySelectorAll('.flex__block:not(.goal__create), .flex__block:not(.goal__create) *, .bigger__flex__block:not(.goal__create), .bigger__flex__block:not(.goal__create) *').forEach(block => {
@@ -509,7 +509,7 @@
                 .then(res => {
                     current__block.querySelector('img').src = image
                     current__block.querySelector('.hidden__content p').innerText = name
-                    create__alert('Сповіщення', `Оновлені дані цілі <br><b>"${name}"</b><br> були успішно збережені`)
+                    create__alert(`{{ __('goal.notification') }}`, `{!! __('goal.the_updated_data_of_goal_was_sucessfully_saved') !!}`)
                     edit__modal__close()
                 })
                 .catch(err => {
