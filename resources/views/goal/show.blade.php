@@ -597,22 +597,22 @@ window.addEventListener('load', function () {
         // HINT ON REQUIRED TASKS HOVER
             tippy('.required', {
                 placement: 'right',
-                content: 'Це важливе завдання для досягнення вашої цілі цього тижня. Натисніть на нього, щоб внести необхідну інформацію.',
+                content: `{{ __('goal.this_is_an_important_task') }}`,
                 sticky: true,
             })
             tippy('.tasks__flex__block .task__create', {
                 placement: 'right',
-                content: 'Створити нове завдання',
+                content: `{{ __('goal.create_new_task') }}`,
                 sticky: true,
             })
             tippy('.tasks__flex__block .completed', {
                 placement: 'right',
-                content: 'Це завдання виконано',
+                content: `{{ __('goal.this_task_has_been_completed') }}`,
                 sticky: true,
             })
             tippy('.tasks__flex__block .replace', {
                 placement: 'right',
-                content: 'Перетягніть це завдання на день, до якого ви хотіли б його виконати',
+                content: `{{ __('goal.drag_and_drop_this_task') }}`,
                 sticky: true,
             })
 
@@ -655,7 +655,7 @@ window.addEventListener('load', function () {
                 }
                 axios.post(`{{ route('task.changeDay') }}`, params)
                 .then(res => {
-                    create__alert('Сповіщення', 'Завдання було успішно перенесено.<br><b>Дані збережено</b>')
+                    create__alert(`{{ __('goal.notification') }}`, `{!! __('goal.the_task_was_successfully_transfered') !!}`)
                     days__flex__block__handle()
                 })
                 .catch(err => {
@@ -713,13 +713,13 @@ window.addEventListener('load', function () {
                         let first__task
                         first__task = document.createElement('div')
                         first__task.classList.add('first__task')
-                        first__task.innerHTML = `Перетягніть сюди своє перше завдання`
+                        first__task.innerHTML = `{{ __('goal.drag_and_drop_your_first_task_here') }}`
                         flex.append(first__task)
                         first__task.addEventListener('dragenter', function () {
-                            first__task.innerHTML = `Відпустіть мишку щоб розмістити тут своє завдання`
+                            first__task.innerHTML = `{{ __('goal.release_the_mouse') }}`
                         })
                         first__task.addEventListener('dragleave', function () {
-                            first__task.innerHTML = `Перетягніть сюди своє перше завдання`
+                            first__task.innerHTML = `{{ __('goal.drag_and_drop_your_first_task_here') }}`
                         })
                         first__task.addEventListener('drop', function () {
                             first__task.remove()
@@ -820,10 +820,10 @@ window.addEventListener('load', function () {
                 task__show__modal.addEventListener('click', task__show__modal__close)
                 let priority__level
                 tippy('.task__show__modal .edit', {
-                    content: "Редагувати завдання",
+                    content: `{{ __('goal.edit_the_task') }}`,
                 });
                 tippy('.task__show__modal .delete', {
-                    content: "Видалити завдання",
+                    content: `{{ __('goal.delete_the_task') }}`,
                 });
                 function task__show__modal__close(e) {
                     if(e.target.classList.contains('task__show__modal') || e.target.classList.contains('close') || e.target.classList.contains('task__show__delete__parent'))
@@ -897,7 +897,7 @@ window.addEventListener('load', function () {
                         let desc = task__show__modal.querySelector('.desc p')
                         if(taskData.desc.length == 0)
                         {
-                            desc.innerHTML = 'Тут може бути ваш більш детальніший опис завдання або його перебігу'
+                            desc.innerHTML = `{{ __('goal.this_can_be_your_more_detailed') }}`
                         } else
                         {
                             desc.innerHTML = taskData.desc
@@ -908,7 +908,7 @@ window.addEventListener('load', function () {
                         comments.innerHTML = ``
                         if(taskData.comments.length == 0)
                         {
-                            task__show__create__comment(`Додайте коментар до завдання за допомогою поля нижче`, `2022-02-24 04:20:00`)
+                            task__show__create__comment(`{{ __('goal.add_a_comment_to_the_task') }}`, `2022-02-24 04:20:00`)
                         } else
                         {
                             taskData.comments.forEach(comment => {
@@ -972,7 +972,7 @@ window.addEventListener('load', function () {
                         if(default__comment && comments.querySelector('.comment .datetime').innerHTML !== '2022-02-24 04:20:00' && e.code !== 'Enter')
                         {
                             default__comment = false
-                            task__show__create__comment(`Додайте коментар до завдання за допомогою поля нижче`, `2022-02-24 04:20:00`)
+                            task__show__create__comment(`{{ __('goal.add_a_comment_to_the_task') }}`, `2022-02-24 04:20:00`)
                         }
                         if(comments.querySelector('.comment__preview'))
                         {
@@ -1021,7 +1021,7 @@ window.addEventListener('load', function () {
                         updateDropAreas()
                         days__flex__block__handle()
                         handle__task__blocks()
-                        create__alert('Сповіщення', 'Завдання було успішно видалене')
+                        create__alert(`{{ __('goal.notification') }}`, `{{ __('goal.the_task_was_successfully_deleted') }}`)
                     })
                     .catch(err => {
                         console.error(err);
@@ -1056,7 +1056,7 @@ window.addEventListener('load', function () {
                     let desc__input = desc.querySelector('.input')
                     let desc__p = desc.querySelector('p')
                     desc__input.classList.remove('d-none')
-                    desc__input.value = desc__p.innerText == 'Тут може бути ваш більш детальніший опис завдання або його перебігу' ? '' : desc__p.innerText
+                    desc__input.value = desc__p.innerText == `{{ __('goal.this_can_be_your_more_detailed') }}` ? '' : desc__p.innerText
                     desc__p.classList.add('d-none')
                     let timeout
                     let previous_value = desc__input.value
@@ -1067,7 +1067,7 @@ window.addEventListener('load', function () {
                             timeout = setTimeout(() => {
                                 axios.post(`{{ route('task.changeDesc') }}`,{desc: desc__input.value, task_id: document.querySelector('.task__show__modal .task_id').value})
                                 .then(res => {
-                                    create__alert('Сповіщення', `Зміна детальнішого опису завдання <b>"${res.data.name}"</b> успішно збережена`)
+                                    create__alert(`{{ __('goal.notification') }}`, `{!! __('goal.changing_the_task_detail_desc') !!}`)
                                     desc__p.innerText = desc__input.value
                                     previous_value = desc__input.value
                                 })
@@ -1153,7 +1153,7 @@ window.addEventListener('load', function () {
                     let task__name__error = document.querySelector('.task__create__modal .name__error')
                     if(!task__priority.value)
                     {
-                        task__priority__error.innerHTML = `виберіть рівень приорітету`
+                        task__priority__error.innerHTML = `{{ __('goal.choose_priority_level') }}`
                         return false
                     } else
                     {
@@ -1161,7 +1161,7 @@ window.addEventListener('load', function () {
                     }
                     if(task__name.value.length < 5)
                     {
-                        task__name__error.innerHTML = `впишіть суть завдання`
+                        task__name__error.innerHTML = `{{ __('goal.enter_the_essence_of_task') }}`
                         return false
                     } else
                     {
@@ -1216,7 +1216,7 @@ window.addEventListener('load', function () {
                             {
                                 flex.querySelector('.required').remove()
                             }
-                            create__alert('Сповіщення', `Завдання <b>"${name}"</b> було успішно створене`)
+                            create__alert(`{{ __('goal.notification') }}`, `{!! __('goal.the_task_was_successfully_created') !!}`)
                             task__create__modal.click()
                             updateDropAreas()
                             updateScrollingText()
@@ -1234,17 +1234,17 @@ window.addEventListener('load', function () {
 
                 tippy('.task__create__modal .priority__hint', {
                     placement: 'top',
-                    content: `Рівень пріоритету відображає важливість цього завдання для найшвидшого досягнення вашої мети. Рекомендуємо розглянути справжню вартість цього завдання для досягнення вашої цілі і наскільки воно вам допоможе.`,
+                    content: `{{ __('goal.priority_level_desc') }}`,
                     hideOnClick: false,
                 })
                 tippy('.task__create__modal .name__hint', {
                     placement: 'top',
-                    content: `Короткий опис суті вашого завдання: наприклад, вам потрібно прибрати в кімнаті (позбутися непотрібних речей та прибрати підлогу). Якщо ви хочете додати більше деталей, скористайтеся полем нижче.`,
+                    content: `{{ __('task_essence_desc') }}`,
                     hideOnClick: false,
                 })
                 tippy('.task__create__modal .desc__hint', {
                     placement: 'top',
-                    content: `Введіть більш детальніший опис завдання (необов'язково), включаючи важливі деталі та кроки, які потрібно виконати.`,
+                    content: @json(__("goal.task_detailed_desc_desc")),
                     hideOnClick: false,
                 })
 
@@ -1339,11 +1339,11 @@ window.addEventListener('load', function () {
         {
             let priority__flex = parent.classList.contains('task__show__modal') ? parent.querySelector('.priority__levels') : parent.querySelector('.priority__parent .flex')
             let priority_levels = [
-                "Можна зробити пізніше",
-                "Бажано виконати",
-                "Корисно зробити",
-                "Потрібно зробити",
-                "Надзвичайно важливо"
+                `{{ __('goal.can_be_done_later') }}`,
+                `{{ __('goal.its_recommended_to_perform') }}`,
+                `{{ __('goal.useful_to_do') }}`,
+                `{{ __('goal.you_need_to_do') }}`,
+                `{{ __('goal.extremely_important') }}`
             ]
             tippy(priority__flex, {
                 placement: parent.classList.contains('task__show__modal') ? 'left' : 'right',
@@ -1374,7 +1374,7 @@ window.addEventListener('load', function () {
                                 })
                                 tasky.classList.add(`p${index+1}`)
                             })
-                            create__alert('Сповіщення', `Зміна рівня приорітету завдання <b>"${res.data.name}"</b> успішно збережена`)
+                            create__alert(`{{ __('goal.notification') }}`, `{{ __('goal.changing_the_priority_level') }}`)
                         })
                         .catch(err => {
                             console.error(err);
@@ -1487,10 +1487,10 @@ window.addEventListener('load', function () {
         function isWithinFiveDays(dateString) {
             let givenDate = new Date(dateString);
             let today = new Date();
-            today.setHours(0, 0, 0, 0); // Reset to midnight for accurate comparison
+            today.setHours(0, 0, 0, 0);
 
             let fiveDaysLater = new Date(today);
-            fiveDaysLater.setDate(today.getDate() + 5); // Calculate date 5 days later
+            fiveDaysLater.setDate(today.getDate() + 5);
 
             return givenDate >= today && givenDate <= fiveDaysLater;
         }
