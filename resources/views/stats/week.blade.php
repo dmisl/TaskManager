@@ -20,11 +20,11 @@
             <div class="left__part">
                 <a class="left__part__back" href="{{ route('stats.index') }}">
                     <img src="{{ asset('storage/images/back.png') }}" alt="">
-                    <p>назад</p>
+                    <p>{{ __('main.back') }}</p>
                 </a>
             </div>
             <div class="right__part">
-                <h1 class="right__part__title">Історія моїх успіхів</h1>
+                <h1 class="right__part__title">{{ __('stats.story_of_my_success') }}</h1>
                 
                 <canvas class="graph" width="400"></canvas>
 
@@ -42,11 +42,11 @@
         const config = {
         type: 'line',
         data: {
-            labels: ['Понеділок', 'Вівторок', 'Середа', 'Четвер', `П'ятниця`, 'Субота', 'Неділя'],
+            labels: [`{{ __('stats.monday') }}`, `{{ __('stats.tuesday') }}`, `{{ __('stats.wednesday') }}`, `{{ __('stats.thursday') }}`, `{{ __('stats.friday') }}`, `{{ __('stats.saturday') }}`, `{{ __stats.sunday }}`],
             datasets: [
             {
                 type: 'line',
-                label: 'К-сть високоприорі. завдань',
+                label: `{{ __('stats.no_of_high-pri_tasks') }}`,
                 data: [3, 2, 2, 1, 5, 6, 3],
                 borderColor: 'rgb(75, 192, 192)',
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -55,7 +55,7 @@
             },
             {
                 type: 'line',
-                label: 'К-сть виконаних вис. завдань',
+                label: `{{ __('stats.no_of_completed_high-pri_tasks') }}`,
                 data: [1, 3, 4, 2, 8, 4, 5],
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
