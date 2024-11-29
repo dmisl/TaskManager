@@ -2,11 +2,11 @@
 
 return [
 
-    'goals' => 'Мої цілі',
-    'tasks' => 'Завдання',
-    'week' => 'Мій тиждень',
-    'completed' => 'Виконані завдання',
-    'settings' => 'Налаштування',
-    'logout' => 'Вийти з системи',
-    'try_me' => 'спробуй',
+    'goals' => 'My goals',
+    'tasks' => 'Tasks',
+    'week' => 'My week',
+    'completed' => 'Completed tasks',
+    'settings' => 'Settings',
+    'logout' => 'Log out',
+    'try_me' => 'try me',
 ];

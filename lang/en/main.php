@@ -2,11 +2,11 @@
 
 return [
 
-    'create' => 'Створити',
-    'back' => 'Назад',
-    'save' => 'Зберегти',
-    'delete' => 'Видалити',
-    'yes' => 'Так',
-    'no' => 'Ні'
+    'create' => 'Create',
+    'back' => 'Back',
+    'save' => 'Save',
+    'delete' => 'Delete',
+    'yes' => 'Yes',
+    'no' => 'No'
 
 ];
