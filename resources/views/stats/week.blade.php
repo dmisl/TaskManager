@@ -42,7 +42,7 @@
         const config = {
         type: 'line',
         data: {
-            labels: [`{{ __('stats.monday') }}`, `{{ __('stats.tuesday') }}`, `{{ __('stats.wednesday') }}`, `{{ __('stats.thursday') }}`, `{{ __('stats.friday') }}`, `{{ __('stats.saturday') }}`, `{{ __stats.sunday }}`],
+            labels: [`{{ __('stats.monday') }}`, `{{ __('stats.tuesday') }}`, `{{ __('stats.wednesday') }}`, `{{ __('stats.thursday') }}`, `{{ __('stats.friday') }}`, `{{ __('stats.saturday') }}`, `{{ __('stats.sunday') }}`],
             datasets: [
             {
                 type: 'line',
