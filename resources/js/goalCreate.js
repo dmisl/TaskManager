@@ -25,21 +25,21 @@ window.addEventListener('load', function () {
     // ADDING HINTS
     tippy('.name__hint', {
         theme: 'gradient',
-        content: "Впишіть сюди суть вашої цілі. Вона буде відображатися в списку ваших цілей. Після написання зліва з'явиться попередній перегляд того, як це виглядатиме. З назви вашої цілі також буде згенеровано кілька картинок, з яких ви зможете вибрати фон — персоналізуйте все під себе!",
+        content: goal_essence_desc,
         placement: 'top',
         animation: 'shift-away',
     });
 
     tippy('.tasks__hint', {
         theme: 'gradient',
-        content: "Вибрана вами кількість завдань потрібна для виконання кожного тижня. Подумайте, перш ніж вибрати: намагайтеся робити якомога більше для швидшого досягнення цілі, але не перестарайтеся. Згодом у налаштуваннях ви зможете змінити цю кількість.",
+        content: number_of_tasks_desc,
         placement: 'top',
         animation: 'shift-away',
     });
 
     tippy('.date__hint', {
         theme: 'gradient',
-        content: `Виберіть бажану для вас дату досягнення цілі. Поміркуйте, враховуючи всі "за" і "проти". Це допоможе вам налаштувати реалістичні терміни для успіху!`,
+        content: date_desc,
         placement: 'top',
         animation: 'shift-away',
     });
@@ -60,10 +60,10 @@ window.addEventListener('load', function () {
                 goal__create.querySelector('.selected').classList.remove('selected')
             }
             freepick__image__clickables.forEach(element => {
-                element.querySelector('p').innerText = `Вибрати`
+                element.querySelector('p').innerText = choose_translation
             });
             e.target.classList.add('selected')
-            e.target.querySelector('p').innerText = `Вибране`
+            e.target.querySelector('p').innerText = selected_translation
             preview__image.src = e.target.parentElement.querySelector('img').src
             input__image.value = e.target.parentElement.querySelector('img').src
             fixImage(preview__image)
@@ -123,10 +123,10 @@ window.addEventListener('load', function () {
                             goal__create.querySelector('.selected').classList.remove('selected')
                         }
                         freepick__image__clickables.forEach(element => {
-                            element.querySelector('p').innerText = `Вибрати`
+                            element.querySelector('p').innerText = choose_translation
                         });
                         freepick__image__parents[i].querySelector('div').classList.add('selected')
-                        freepick__image__parents[i].querySelector('p').innerText = `Вибране`
+                        freepick__image__parents[i].querySelector('p').innerText = selected_translation
                         preview__image.src = freepick__image__parents[i].querySelector('img').src
                         preview__image.src = data.images[i]
                         input__image.value = data.images[i]
@@ -188,7 +188,7 @@ window.addEventListener('load', function () {
         preview__text.innerText = input.value // set to input value preview to text
         if(input.value.length == 0) // if input is empty set default value
         {
-            preview__text.innerText = `Суть цілі`
+            preview__text.innerText = goal_essence_translation
         }
         clearTimeout(typingTimer) // prevent function before text is written
         typingTimer = setTimeout(async () => {
@@ -245,7 +245,7 @@ window.addEventListener('load', function () {
         let goal__date__error = form.querySelector('.date__error p')
         if(goal__name.value.length < 5)
         {
-            goal__name__error.innerText = `мінімум 5 символів`
+            goal__name__error.innerText = min_5_characters
             form__button.setAttribute('disabled', '')
             return false
         } else
@@ -254,7 +254,7 @@ window.addEventListener('load', function () {
         }
         if(new Date().toISOString().split('T')[0] >= goal__date.value)
         {
-            goal__date__error.innerText = `бажана дата завершення цілі не може бути меншою за сьогоднішню `
+            goal__date__error.innerText = the_preferred_completion_date_of_the_goal_cannot_be_less_than_today
             form__button.setAttribute('disabled', '')
             return false
         } else
