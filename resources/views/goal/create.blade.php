@@ -161,7 +161,6 @@
     let goal_essence_translation = @json(__('goal.goal_essence'));
     let min_5_characters = @json(__('goal.min_5_characters'));
     let the_preferred_completion_date_of_the_goal_cannot_be_less_than_today = @json(__('goal.the_preferred_completion_date_of_the_goal_cannot_be_less_than_today'))
-    let min_5_characters = @json(__('goal.min_5_characters'));
 
 </script>
 

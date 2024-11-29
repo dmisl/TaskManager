@@ -548,6 +548,16 @@
     let route__getImages = `{{ route('home.getImages') }}`
     let asset = `{{ asset('storage/images/') }}`
 
+    // TRANSLATIONS
+    let goal_essence_desc = @json(__('goal.goal_essence_desc'));
+    let number_of_tasks_desc = @json(__('goal.number_of_tasks_desc'));
+    let date_desc = @json(__('goal.date_desc'));
+    let choose_translation = @json(__('goal.choose'));
+    let selected_translation = @json(__('goal.selected'));
+    let goal_essence_translation = @json(__('goal.goal_essence'));
+    let min_5_characters = @json(__('goal.min_5_characters'));
+    let the_preferred_completion_date_of_the_goal_cannot_be_less_than_today = @json(__('goal.the_preferred_completion_date_of_the_goal_cannot_be_less_than_today'))
+
 </script>
 
 @vite('resources/js/goalCreate.js')
