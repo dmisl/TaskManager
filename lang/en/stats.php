@@ -2,24 +2,24 @@
 
 return [
 
-    'story_of_my_success' => 'Історія моїх успіхів',
-    'overall_rating' => 'Загальна оцінка',
-    'details' => 'Детальніше',
-    'general_statistics' => 'Загальна статистика',
-    'required_tasks' => "Обов'язкові завдання",
-    'high-priority_tasks' => 'Високоприорітетні завдання',
-    'low-priority_tasks' => 'Низькоприорітетні завдання',
-    'results_of_my_weeks' => 'Результати моїх тижнів',
-    'learn_more_about_the_evaluation_system' => 'дізнатися більше на рахунок системи оцінювання',
-    'monday' => 'Понеділок', 
-    'tuesday' => 'Вівторок', 
-    'wednesday' => 'Середа', 
-    'thursday' => 'Четвер', 
-    'friday' => "П'ятниця",
-    'saturday' => 'Субота',
-    'sunday' => 'Неділя',
-    'no_of_high-pri_tasks' => 'К-сть високоприорі. завдань',
-    'no_of_completed_high-pri_tasks' => 'К-сть виконаних вис. завдань',
-    
+    'story_of_my_success' => 'Story of my success',
+    'overall_rating' => 'Overall rating',
+    'details' => 'Details',
+    'general_statistics' => 'General statistics',
+    'required_tasks' => "Required tasks",
+    'high-priority_tasks' => 'High-priority tasks',
+    'low-priority_tasks' => 'Low-priority tasks',
+    'results_of_my_weeks' => 'Results of my week',
+    'learn_more_about_the_evaluation_system' => 'learn more about the evaluation system',
+    'monday' => 'Monday', 
+    'tuesday' => 'Tuesday', 
+    'wednesday' => 'Wednesday', 
+    'thursday' => 'Thursday', 
+    'friday' => "Friday",
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'no_of_high-pri_tasks' => 'No. of high-pri. tasks',
+    'no_of_completed_high-pri_tasks' => 'No. of completed high-pri. tasks',
+
 
 ];
