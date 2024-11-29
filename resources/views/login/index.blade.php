@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         <div class="card-body pt-1 text-center">
-                            <button class="btn btn-primary rounded-5">{{ __('login.sign_in') }}</button>
+                            <button class="btn btn-primary rounded-5 px-4">{{ __('login.sign_in') }}</button>
                         </div>
                     </form>
                 </div>
@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="text-center" style="padding-bottom: 20px;">
-                            <button class="btn btn-primary rounded-5">{{ __('login.register') }}</button>
+                            <button class="btn btn-primary rounded-5 px-3">{{ __('login.register') }}</button>
                         </div>
                     </form>
                 </div>
