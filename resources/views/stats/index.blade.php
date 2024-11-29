@@ -20,34 +20,34 @@
             <div class="left__part">
                 <a class="left__part__back" href="{{ route('home.index') }}">
                     <img src="{{ asset('storage/images/back.png') }}" alt="">
-                    <p>назад</p>
+                    <p>{{ __('main.back') }}</p>
                 </a>
             </div>
             <div class="right__part">
-                <h1 class="right__part__title">Історія моїх успіхів</h1>
+                <h1 class="right__part__title">{{ __('stats.story_of_my_success') }}</h1>
                 <div class="d-flex">
 
                     <div class="left">
 
-                        <h3 class="total__result">Загальна оцінка: <span class="result">9.6</span></h3>
+                        <h3 class="total__result">{{ __('stats.overall_rating') }}: <span class="result">9.6</span></h3>
                         <div class="graph__parent">
                             <canvas class="canvas" width="252" height="252"></canvas>
                         </div>
 
                         <div class="details">
-                            <p>Детальніше:</p>
+                            <p>{{ __('stats.details') }}:</p>
                             <div class="d-flex flex-column text-center">
-                                <a class="element" href=""><p>Загальна статистика</p></a>
-                                <a class="element" href=""><p>Обов'язкові завдання</p></a>
-                                <a class="element" href=""><p>Високоприорітетні завдання</p></a>
-                                <a class="element" href=""><p>Низькоприорітетні завдання</p></a>
+                                <a class="element" href=""><p>{{ __('stats.general_statistics') }}</p></a>
+                                <a class="element" href=""><p>{{ __('stats.required_tasks') }}</p></a>
+                                <a class="element" href=""><p>{{ __('stats.high-priority_tasks') }}</p></a>
+                                <a class="element" href=""><p>{{ __('stats.low-priority_tasks') }}</p></a>
                             </div>
                         </div>
 
                     </div>
                     <div class="right">
 
-                        <h1>Результати моїх тижнів</h1>
+                        <h1>{{ __('stats.results_of_my_weeks') }}</h1>
 
                         <div class="d-flex" id="custom__scrollbar__small">
 
@@ -61,7 +61,7 @@
 
                         </div>
 
-                        <a class="more">дізнатися більше на рахунок системи оцінювання</a>
+                        <a class="more">{{ __('stats.learn_more_about_the_evaluation_system') }}</a>
 
                     </div>
 
