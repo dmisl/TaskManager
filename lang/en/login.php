@@ -2,7 +2,7 @@
 
 return [
 
-    'hero_text' => 'Become <span style="color: rgb(24 127 255); text-decoration: underline; margin-right: 130px;">manager </span> of your time with <div class="rainbow__parent"><span class="title__rainbow">Task Buddy</span>!</div>',
+    'hero_text' => 'Become <span style="color: rgb(24 127 255); text-decoration: underline; margin-right: 130px;">manager</span><br>of your time with <div class="rainbow__parent"><span class="title__rainbow">Task Buddy</span>!</div>',
     'registration' => 'Registration',
     'welcome_back' => 'Welcome back!',
     'your_login' => 'Your login',

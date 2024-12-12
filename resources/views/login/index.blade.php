@@ -8,16 +8,16 @@
 
 @section('content')
 
-    <div class="d-flex user-select-none h-100">
+    <div class="d-flex user-select-none h-100 w-100">
 
-        <div style="width: 55%;">
+        <div style="flex-grow: 1;">
             <h1 class="login__text">
                 {!! __('login.hero_text') !!}
             </h1>
         </div>
 
-        <div style="width: 45%; text-align: right; position: relative; overflow: hidden; height: 100%;">
-            <div class="custom__underline__parent" style="">
+        <div style="width: 600px; text-align: right; position: relative; overflow: hidden; height: 100%;">
+            <div class="custom__underline__parent">
                 <p class="custom__underline toggle" style="margin: 0; font-size: 20px;" role="button">{{ __('login.registration') }} ></p><br>
             </div>
             <div class="switch__container">
@@ -318,6 +318,8 @@
         whole__content.style.opacity = '1'
 
     })
+
+    console.log(window.screen.width)
 
 </script>
 
