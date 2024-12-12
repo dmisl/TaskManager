@@ -2,7 +2,7 @@
 
 return [
 
-    'hero_text' => 'Стань <span style="color: rgb(24 127 255); text-decoration: underline;">менеджером</span> свого часу разом з <div class="rainbow__parent"><span class="title__rainbow">Task Buddy</span>!</div>',
+    'hero_text' => 'Стань <span style="color: rgb(24 127 255); text-decoration: underline;">менеджером</span><br>свого часу разом з <div class="rainbow__parent"><span class="title__rainbow">Task Buddy</span>!</div>',
     'registration' => 'Реєстрація',
     'welcome_back' => 'Вітаємо знову!',
     'your_login' => 'Ваш логін',
