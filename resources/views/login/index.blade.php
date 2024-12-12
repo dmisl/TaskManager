@@ -212,7 +212,6 @@
             
             function reg_validate()
             {
-                console.log('validating')
                 email__check()
                 name__check()
                 pass__check()
@@ -319,7 +318,7 @@
 
     })
 
-    console.log(window.screen.width)
+    console.log(window.screen.height)
 
 </script>
 
