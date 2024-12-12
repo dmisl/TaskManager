@@ -16,7 +16,7 @@
             </h1>
         </div>
 
-        <div style="width: 760px; text-align: right; position: relative; height: 100%;">
+        <div style="width: 650px; text-align: right; position: relative; height: 100%;">
             <div class="custom__underline__parent">
                 <p class="custom__underline toggle" style="margin: 0; font-size: 20px;" role="button">{{ __('login.registration') }} ></p><br>
             </div>
