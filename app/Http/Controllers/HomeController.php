@@ -16,9 +16,6 @@ class HomeController extends Controller
     }
     public function lang(Request $request)
     {
-        $validated = $request->validate([
-            'lang' => ['in:en,ua']
-        ]);
         session(['locale' => $request->lang]);
         return back();
     }

@@ -19,28 +19,31 @@ body
     display: flex;
     z-index: 99999;
     cursor: pointer;
+    background-color: white;
+    border-radius: 20px;
+    cursor: pointer;
 }
 .lang select
 {
+    cursor: pointer;
     border: 0;
     outline: 0;
     font-size: 22px;
-    background-color: white;
-    border-radius: 20px;
     padding: 5px 35px 5px 50px;
     position: relative;
     top: -0.5px;
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
-    background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="%23000000"><path d="M128 160a8 8 0 0 1-5.66-2.34l-72-72a8 8 0 0 1 11.32-11.32L128 141.34l66.34-66.34a8 8 0 0 1 11.32 11.32l-72 72A8 8 0 0 1 128 160z"/></svg>') no-repeat;
+    background: #ffffff00 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="%23000000"><path d="M128 160a8 8 0 0 1-5.66-2.34l-72-72a8 8 0 0 1 11.32-11.32L128 141.34l66.34-66.34a8 8 0 0 1 11.32 11.32l-72 72A8 8 0 0 1 128 160z"/></svg>') no-repeat;
     background-position: right 10px bottom 9.5px; /* Adjust arrow position */
     background-size: 20px; /* Adjust arrow size */
 }
 .lang svg
 {
+    cursor: pointer;
     position: absolute;
-    z-index: 10;
+    z-index: 0;
     top: 7px;
     left: 13px;
     width: 30px;
