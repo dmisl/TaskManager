@@ -342,13 +342,12 @@
                 })
             } else if(flex__blocks.length < 7)
             {
-                document.querySelector('.flex').style.overflow = 'visible'
                 flex__blocks.forEach(flex__block => {
                     flex__block.classList.add('shadow')
                 });
             } else
             {
-                document.querySelector('.flex').style.overflow = 'auto'
+                // document.querySelector('.flex').style.overflow = 'auto'
                 flex__blocks.forEach(flex__block => {
                     flex__block.classList.remove('shadow')
                 });
