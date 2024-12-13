@@ -1146,6 +1146,29 @@
     {
         top: -150px !important;
     }
+    .delete__modal
+    {
+        width: 350px;
+        height: 135px;
+    }
+    .delete__modal h3
+    {
+        font-size: 18px;
+        margin-top: 10px;
+    }
+    .delete__modal p
+    {
+        font-size: 16px;
+    }
+    .delete__modal .flex p
+    {
+        font-size: 18px;
+        top: 3.5px;
+    }
+    .delete__modal .flex .yes, .delete__modal .flex .no
+    {
+        height: 30px;
+    }
 }
 /* ANIMATIONS */
 @keyframes menu__appear {
