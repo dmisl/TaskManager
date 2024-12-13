@@ -1142,7 +1142,10 @@
         opacity: 1;
         transform: translateY(0);
     }
-
+    .edit__modal__parent .goal__create .preview__parent .preview
+    {
+        top: -150px !important;
+    }
 }
 /* ANIMATIONS */
 @keyframes menu__appear {
