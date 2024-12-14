@@ -334,34 +334,38 @@
 
         // TASK BLOCKS HANDLING
             let flex__blocks = document.querySelectorAll('.flex__block')
-            if(flex__blocks.length == 4)
+            function handle__blocks()
             {
-                flex__blocks.forEach(block => {
-                    block.classList.remove('flex__block')
-                    block.classList.add('bigger__flex__block')
-                })
-            } else if(flex__blocks.length < 7)
-            {
-                flex__blocks.forEach(flex__block => {
-                    flex__block.classList.add('shadow')
-                });
-            } else
-            {
-                // document.querySelector('.flex').style.overflow = 'auto'
-                flex__blocks.forEach(flex__block => {
-                    flex__block.classList.remove('shadow')
+                flex__blocks = document.querySelectorAll('.flex__block, .bigger__flex__block')
+                if(flex__blocks.length == 4)
+                {
+                    flex__blocks.forEach(block => {
+                        block.classList.remove('flex__block')
+                        block.classList.add('bigger__flex__block')
+                    })
+                    flex__blocks[0].parentElement.style.overflow = 'visible'
+                } else if(flex__blocks.length < 7)
+                {
+                    flex__blocks.forEach(flex__block => {
+                        flex__block.classList.add('shadow')
+                    });
+                } else
+                {
+                    flex__blocks.forEach(flex__block => {
+                        flex__block.classList.remove('shadow')
+                    });
+                }
+                document.querySelectorAll('.flex__block:not(.goal__create), .bigger__flex__block:not(.goal__create)').forEach(block => {
+                    block.addEventListener('mouseenter', () => {
+                        document.querySelector('.right__part__hint p').classList.add('active');
+                    });
+    
+                    block.addEventListener('mouseleave', () => {
+                        document.querySelector('.right__part__hint p').classList.remove('active');
+                    });
                 });
             }
-
-            document.querySelectorAll('.flex__block:not(.goal__create), .bigger__flex__block:not(.goal__create)').forEach(block => {
-                block.addEventListener('mouseenter', () => {
-                    document.querySelector('.right__part__hint p').classList.add('active');
-                });
-
-                block.addEventListener('mouseleave', () => {
-                    document.querySelector('.right__part__hint p').classList.remove('active');
-                });
-            });
+            handle__blocks()
         // RIGHT MOUSE CLICK MENU HANDLING
             let contextMenu = document.querySelector(".some__menu");
             document.addEventListener("click", function (e) {
@@ -397,7 +401,7 @@
             }
             let deleteGoal = contextMenu.querySelector('.delete')
             let delete__modal = document.querySelector('.delete__modal')
-            // DELETE MODAL
+        // DELETE MODAL
             deleteGoal.addEventListener('click', function () {
                 delete__modal.classList.remove('d-none')
                 let top = parseInt(current__block.getBoundingClientRect().y) + current__block.offsetHeight + 17
@@ -422,6 +426,7 @@
                     document.querySelectorAll('.flex__block:not(.goal__create), .flex__block:not(.goal__create) *, .bigger__flex__block:not(.goal__create), .bigger__flex__block:not(.goal__create) *').forEach(block => {
                         block.addEventListener('contextmenu', context__menu__open, { passive: false } )
                     })
+                    handle__blocks()
                 })
                 .catch(err => {
                     console.error(err);
@@ -518,28 +523,28 @@
             edit__modal.querySelector('.back__parent p').style.color = 'white'
             edit__modal.querySelector('.back').addEventListener('click', edit__modal__close)
         // GUIDE MODAL HANDLING
-        let guide = contextMenu.querySelector('.guide')
-        let guide__modal__parent = document.querySelector('.guide__modal__parent')
-        let guide__modal = document.querySelector('.guide__modal')
-        guide.addEventListener('click', function () {
-            guide__modal__parent.classList.add('d-flex')
-            guide__modal__parent.classList.remove('d-none')
-            guide__modal__parent.style.animation = 'appear__opacity 0.5s forwards'
-            guide__modal.style.animation = 'appear__bottom 0.5s forwards'
-        })
-        function guide__modal__close(e)
-        {
-            if(e.target.classList.contains('guide__modal__parent') || e.target.classList.contains('close'))
+            let guide = contextMenu.querySelector('.guide')
+            let guide__modal__parent = document.querySelector('.guide__modal__parent')
+            let guide__modal = document.querySelector('.guide__modal')
+            guide.addEventListener('click', function () {
+                guide__modal__parent.classList.add('d-flex')
+                guide__modal__parent.classList.remove('d-none')
+                guide__modal__parent.style.animation = 'appear__opacity 0.5s forwards'
+                guide__modal.style.animation = 'appear__bottom 0.5s forwards'
+            })
+            function guide__modal__close(e)
             {
-                guide__modal__parent.style.animation = 'disappear__opacity 0.5s forwards'
-                guide__modal.style.animation = 'disappear__bottom 0.5s forwards'
-                setTimeout(() => {
-                    guide__modal__parent.classList.remove('d-flex')
-                    guide__modal__parent.classList.add('d-none')
-                }, 500);
+                if(e.target.classList.contains('guide__modal__parent') || e.target.classList.contains('close'))
+                {
+                    guide__modal__parent.style.animation = 'disappear__opacity 0.5s forwards'
+                    guide__modal.style.animation = 'disappear__bottom 0.5s forwards'
+                    setTimeout(() => {
+                        guide__modal__parent.classList.remove('d-flex')
+                        guide__modal__parent.classList.add('d-none')
+                    }, 500);
+                }
             }
-        }
-        guide__modal__parent.addEventListener('click', guide__modal__close)
+            guide__modal__parent.addEventListener('click', guide__modal__close)
 
     };
 
