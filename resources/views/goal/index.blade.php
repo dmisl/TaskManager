@@ -343,7 +343,14 @@
                         block.classList.remove('flex__block')
                         block.classList.add('bigger__flex__block')
                     })
-                    flex__blocks[0].parentElement.style.overflow = 'visible'
+                    let flexy = document.querySelector('.right__part .flex')
+                    flexy.style.paddingBottom = '0'
+                    flexy.style.justifyContent = 'center'
+                    flexy.style.overflow = 'hidden'
+                    let images = document.querySelectorAll('.right__part img')
+                    images.forEach(image => {
+                        fixImage(image)
+                    });
                 } else if(flex__blocks.length < 7)
                 {
                     flex__blocks.forEach(flex__block => {
@@ -449,17 +456,6 @@
             loader__parent.style.display = 'none'
             let whole__content = document.querySelector('.whole__content')
             whole__content.style.animation = 'appear__opacity 0.5s forwards'
-            if(flex__blocks.length == 4)
-            {
-                let flexy = document.querySelector('.right__part .flex')
-                flexy.style.paddingBottom = '0'
-                flexy.style.justifyContent = 'center'
-                flexy.style.overflow = 'visible'
-            }
-            let images = document.querySelectorAll('.right__part img')
-            images.forEach(image => {
-                fixImage(image)
-            });
 
         // EDITING MODAL HANDLING
             let settings = contextMenu.querySelector('.settings')

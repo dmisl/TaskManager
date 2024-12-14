@@ -1169,6 +1169,29 @@
     {
         height: 30px;
     }
+    .right__part .bigger__flex__block
+    {
+        width: 210px;
+        height: 210px;
+        border-radius: 20px;
+    }
+    .bigger__flex__block .img__parent
+    {
+        width: 210px;
+        height: 210px;
+    }
+    .bigger__flex__block .hidden__content
+    {
+        height: 630px;
+    }
+    .bigger__flex__block .hidden__content p
+    {
+        font-size: 25px;
+    }
+    .bigger__flex__block .hidden__content:hover
+    {
+        height: 210px;
+    }
 }
 /* ANIMATIONS */
 @keyframes menu__appear {
