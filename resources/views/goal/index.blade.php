@@ -360,6 +360,7 @@
                     flexy.style.overflow = 'visible'
                     flexy.style.gap = "15px 25px"
                     flexy.querySelector('.laptop__hero').style.display = 'block'
+                    document.querySelector('.right__part__hint').style.top = '450px'
                     let images = document.querySelectorAll('.right__part img')
                     images.forEach(image => {
                         fixImage(image)

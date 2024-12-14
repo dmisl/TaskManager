@@ -1141,11 +1141,6 @@
         top: 430px;
         left: 155px;
     }
-    .right__part__hint p
-    {
-        opacity: 1;
-        transform: translateY(0);
-    }
     .edit__modal__parent .goal__create .preview__parent .preview
     {
         top: -150px !important;
@@ -1186,7 +1181,8 @@
     }
     .bigger__flex__block .hidden__content
     {
-        height: 630px;
+        height: 220px;
+        opacity: 1;
     }
     .bigger__flex__block .hidden__content p
     {
@@ -1238,6 +1234,15 @@
     {
         position: relative;
         top: 10px;
+    }
+    .bigger__flex__block .hidden__block
+    {
+        bottom: 120%;
+    }
+    .bigger__flex__block .hidden__block p
+    {
+        width: 100%;
+        padding: 6px 0;
     }
 }
 /* ANIMATIONS */
