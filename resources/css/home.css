@@ -1114,7 +1114,7 @@
     .right__part__title
     {
         font-size: 52px;
-        top: -90px;
+        top: -81px;
         left: -30px;
     }
     .left__part__back
@@ -1124,7 +1124,7 @@
     }
     .moved__container .right__part
     {
-        margin-top: 40px;
+        margin-top: 30px;
     }
     .right__part .flex
     {
@@ -1139,7 +1139,11 @@
     .right__part__hint
     {
         top: 430px;
-        left: 155px;
+        left: 175px;
+    }
+    .right__part__hint p
+    {
+        
     }
     .edit__modal__parent .goal__create .preview__parent .preview
     {

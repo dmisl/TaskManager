@@ -361,6 +361,7 @@
                     flexy.style.gap = "15px 25px"
                     flexy.querySelector('.laptop__hero').style.display = 'block'
                     document.querySelector('.right__part__hint').style.top = '450px'
+                    document.querySelector('.right__part__hint p').style.cssText = `font-size: 21px; right: -50px;`
                     let images = document.querySelectorAll('.right__part img')
                     images.forEach(image => {
                         fixImage(image)
