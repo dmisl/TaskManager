@@ -341,6 +341,8 @@
         }
     }
 
+    // smth
+
     window.onload = function() {
 
         // TASK BLOCKS HANDLING
