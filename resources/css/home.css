@@ -417,6 +417,10 @@
     padding-bottom: 30px;
     pointer-events: auto;
 }
+.right__part .flex .laptop__hero
+{
+    display: none;
+}
 .right__part .flex__block
 {
     width: 190px;
@@ -1191,6 +1195,49 @@
     .bigger__flex__block .hidden__content:hover
     {
         height: 210px;
+    }
+    .right__part .flex .laptop__hero
+    {
+        width: 445px;
+        height: 210px;
+    }
+    .right__part .flex .laptop__hero .title
+    {
+        font-size: 40px;
+        font-weight: 600;
+        white-space: nowrap;
+        position: relative;
+        top: -10px;
+        height: 46px;
+    }
+    .right__part .flex .laptop__hero .text__parent
+    {
+        display: flex;
+        flex-direction: column;
+        width: 210px;
+        gap: 19px;
+        margin-top: 15px;
+    }
+    .right__part .flex .laptop__hero .text__parent h3
+    {
+        font-size: 24px;
+        font-weight: 400;
+        white-space: nowrap;
+        margin: 0;
+        letter-spacing: 1.5px;
+    }
+    .right__part .flex .laptop__hero .text__parent h3:nth-child(3)
+    {
+        letter-spacing: 0;
+    }
+    .right__part .flex .laptop__hero .text__parent h3 span
+    {
+        text-decoration: underline;
+    }
+    .right__part .flex .laptop__hero object
+    {
+        position: relative;
+        top: 10px;
     }
 }
 /* ANIMATIONS */

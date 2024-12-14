@@ -36,6 +36,17 @@
                     <p>{{ __('goal.right_click_to_highlight_the_menu') }}</p>
                 </div>
                 <div class="flex" id="custom__scrollbar">
+                    <div class="laptop__hero">
+                        <div class="title">Focus on What Matters</div>
+                        <div class="d-flex w-100">
+                            <div class="text__parent">
+                                <h3>Set clear goals</h3>
+                                <h3>track your progress</h3>
+                                <h3>and <span>achieve more</span>.</h3>
+                            </div>
+                            <object data="{{ asset('storage/images/goal__hero.png') }}" style="width: 256px; height: 171px;" type=""></object>
+                        </div>
+                    </div>
                     <a href="{{ route('goal.create') }}" class="flex__block goal__create">
                         <img src="{{ asset('storage/images/new goal.jpg') }}" alt="">
                         <div class="hidden__block">
@@ -346,18 +357,22 @@
                     let flexy = document.querySelector('.right__part .flex')
                     flexy.style.paddingBottom = '0'
                     flexy.style.justifyContent = 'center'
-                    flexy.style.overflow = 'hidden'
+                    flexy.style.overflow = 'visible'
+                    flexy.style.gap = "15px 25px"
+                    flexy.querySelector('.laptop__hero').style.display = 'block'
                     let images = document.querySelectorAll('.right__part img')
                     images.forEach(image => {
                         fixImage(image)
                     });
                 } else if(flex__blocks.length < 7)
                 {
+                    document.querySelector('.right__part .flex .laptop__hero').style.display = 'none'
                     flex__blocks.forEach(flex__block => {
                         flex__block.classList.add('shadow')
                     });
                 } else
                 {
+                    document.querySelector('.right__part .flex .laptop__hero').style.display = 'none'
                     flex__blocks.forEach(flex__block => {
                         flex__block.classList.remove('shadow')
                     });
