@@ -1214,6 +1214,123 @@
         width: 100%;
         padding: 6px 0;
     }
+    .goal__create
+    {
+        width: 406px;
+        border-radius: 55px;
+    }
+    .goal__create h1
+    {
+        padding-top: 20px;
+        font-size: 38px;
+        letter-spacing: 0.3px;
+    }
+    .goal__create .form
+    {
+        margin: 20px 31px 0 31px;
+    }
+    .goal__create .form-item
+    {
+        width: 344px;
+    }
+    .goal__create .form-item .label__icon p
+    {
+        font-size: 25px;
+        margin-left: 3px;
+    }
+    .goal__create .form-item .label__icon svg
+    {
+        width: 18px;
+        height: 18px;
+        top: 12px;
+        right: 5px;
+    }
+    .goal__create .form-item input, .goal__create .form-item select
+    {
+        margin-top: 2.5px;
+        padding: 5px 14px;
+        font-size: 21px;
+    }
+    .goal__create .form-item .error
+    {
+        height: 8px;
+    }
+    .goal__create .form-item .error
+    {
+        position: relative;
+        top: -3px;
+    }
+    .goal__create .form-button-parent
+    {
+        margin-top: 27px;
+    }
+    .goal__create .form-button-parent button
+    {
+        font-size: 24px;
+        padding: 4px 70px;
+    }
+    .goal__create .preview
+    {
+        width: 270px;
+        height: 270px;
+        top: 33px;
+        left: -288px;
+    }
+    .goal__create .preview .hidden__content
+    {
+        width: 270px;
+        height: 270px;
+    }
+    .goal__create .preview .hidden__content p
+    {
+        font-size: 30px;
+    }
+    .goal__create .preview .img__parent
+    {
+        width: 270px;
+        height: 270px;
+    }
+    .goal__create .back
+    {
+        top: 320px;
+        left: -75px;
+    }
+    .goal__create .back img
+    {
+        width: 55px;
+        height: 55px;
+    }
+    .goal__create .freepick
+    {
+        width: 310px;
+        height: 374px;
+        top: 33px;
+        left: 424px;
+    }
+    .goal__create .freepick__content
+    {
+        padding: 13px 18px 17px 18px;
+    }
+    .goal__create .freepick__content h2
+    {
+        font-size: 16px;
+        margin: 0;
+    }
+    .goal__create .freepick__flex
+    {
+        gap: 17px;
+        height: auto;
+    }
+    .goal__create .freepick__image__parent
+    {
+        width: 128px;
+        height: 128px;
+    }
+    .loader__mini__parent
+    {
+        width: 274px;
+        height: 273px;
+    }
 }
 /* ANIMATIONS */
 @keyframes menu__appear {
