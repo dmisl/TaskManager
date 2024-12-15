@@ -2,7 +2,8 @@
 
 window.addEventListener('load', function () {
 
-    let goal__create = document.querySelector('.freepick__parent').parentElement
+    let goal__create = document.querySelector('.goal__create')
+    goal__create.parentElement.style.paddingBottom = '40px'
 
     // FIXING IMAGES ON LOAD
     let block__images = document.querySelectorAll(".preview img, .freepick__image__parent img")
@@ -181,7 +182,7 @@ window.addEventListener('load', function () {
     // INPUT TYPE TEXT VALUE TO PREVIEW ELEMENT
     let input = goal__create.querySelector('.form-item input[type="text"]') // input of type text
     input.focus() // on load of page focus on text input
-    let preview__text = goal__create.querySelector('.preview__parent .preview .hidden__content p') // preview text element
+    let preview__text = goal__create.querySelector('.preview .hidden__content p') // preview text element
     let typingTimer // timer of ending typing
     let input__error = goal__create.querySelector('.form-item .input__error p')
     input.addEventListener('keyup', function () {

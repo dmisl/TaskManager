@@ -651,6 +651,7 @@
 }
 .goal__create
 {
+    position: relative;
     background-color: white;
     border-radius: 60px;
     z-index: 10;
@@ -721,24 +722,11 @@
     font-size: 27px;
     padding: 7px 70px;
 }
-.goal__create .preview__parent
+.goal__create .preview
 {
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: -1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-.goal__create .preview__parent .preview
-{
-    position: relative;
-    left: -410px;
-    top: -70px;
+    position: absolute;
+    top: 67px;
+    left: -325px;
     width: 310px;
     height: 310px;
     background-color: white;
@@ -746,7 +734,7 @@
     opacity: 0;
     border-radius: 35px;
 }
-.goal__create .preview__parent .preview .img__parent
+.goal__create .preview .img__parent
 {
     width: 310px;
     height: 310px;
@@ -756,7 +744,7 @@
     align-items: center;
     flex-direction: column;
 }
-.goal__create .preview__parent .preview .hidden__content
+.goal__create .preview .hidden__content
 {
     height: 310px;
     position: absolute;
@@ -768,7 +756,7 @@
     align-items: center;
     justify-content: center;
 }
-.goal__create .preview__parent .preview .hidden__content p
+.goal__create .preview .hidden__content p
 {
     font-size: 36px;
     color: white;
@@ -777,25 +765,13 @@
     line-height: 1.1;
     margin: 0;
 }
-.goal__create .freepick__parent
-{
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: -1;
-}
 .goal__create .freepick
 {
+    position: absolute;
     width: 356px;
+    left: 497px;
+    top: 67px;
     background-color: white;
-    position: fixed;
-    margin-left: 865px;
     border-radius: 26px;
     z-index: 10;
     opacity: 0;
@@ -871,21 +847,15 @@
     margin-top: 17px;
     text-decoration: underline;
 }
-.goal__create .back__parent
-{
-    position: absolute;
-    margin-top: 390px;
-    margin-right: 300px;
-    cursor: pointer;
-}
 .goal__create .back
 {
+    position: absolute;
     text-decoration: none;
     color: rgba(0, 0, 0, 0.74);
     text-align: center;
     font-size: 18px;
     z-index: 15;
-    position: relative;
+    top: 405px;
     left: -100px;
 }
 .goal__create .back img
@@ -1140,10 +1110,6 @@
     {
         top: 430px;
         left: 175px;
-    }
-    .right__part__hint p
-    {
-        
     }
     .edit__modal__parent .goal__create .preview__parent .preview
     {

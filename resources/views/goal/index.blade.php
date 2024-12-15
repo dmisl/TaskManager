@@ -341,8 +341,6 @@
         }
     }
 
-    // smth
-
     window.onload = function() {
 
         // TASK BLOCKS HANDLING
@@ -364,10 +362,6 @@
                     flexy.querySelector('.laptop__hero').style.display = 'block'
                     document.querySelector('.right__part__hint').style.top = '450px'
                     document.querySelector('.right__part__hint p').style.cssText = `font-size: 21px; right: -50px;`
-                    let images = document.querySelectorAll('.right__part img')
-                    images.forEach(image => {
-                        fixImage(image)
-                    });
                 } else if(flex__blocks.length < 7)
                 {
                     document.querySelector('.right__part .flex .laptop__hero').style.display = 'none'
@@ -381,6 +375,10 @@
                         flex__block.classList.remove('shadow')
                     });
                 }
+                let images = document.querySelectorAll('.right__part img')
+                images.forEach(image => {
+                    fixImage(image)
+                });
                 document.querySelectorAll('.flex__block:not(.goal__create), .bigger__flex__block:not(.goal__create)').forEach(block => {
                     block.addEventListener('mouseenter', () => {
                         document.querySelector('.right__part__hint p').classList.add('active');

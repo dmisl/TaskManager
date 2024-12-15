@@ -14,49 +14,43 @@
 
     <div class="content__container__parent">
         <div class="goal__create">
-            <div class="back__parent">
-                <a href="{{ route('goal.index') }}" class="back">
-                    <img src="{{ asset('storage/images/back.png') }}" alt="">
-                    <p>{{ __('main.back') }}</p>
-                </a>
-            </div>
-            <div class="preview__parent">
-                <div class="preview">
-                    <div class="hidden__content">
-                        <p>{{ __('goal.goal_essence') }}</p>
-                    </div>
-                    <div class="img__parent">
-                        <img src="{{ asset('storage/images/empty.jpg') }}" alt="">
-                    </div>
+            <a href="{{ route('goal.index') }}" class="back">
+                <img src="{{ asset('storage/images/back.png') }}" alt="">
+                <p>{{ __('main.back') }}</p>
+            </a>
+            <div class="preview">
+                <div class="hidden__content">
+                    <p>{{ __('goal.goal_essence') }}</p>
+                </div>
+                <div class="img__parent">
+                    <img src="{{ asset('storage/images/empty.jpg') }}" alt="">
                 </div>
             </div>
-            <div class="freepick__parent">
-                <div class="freepick">
-                    <div class="freepick__content">
-                        <h2>{{ __('goal.change_the_background_image') }}</h2>
-                        <div class="freepick__flex">
-                            <div class="loader__mini__parent">
-                                <div class="loader__mini"></div>
-                            </div>
-                            <div class="freepick__image__parent">
-                                <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                                <div><p>{{ __('goal.choose') }}</p></div>
-                            </div>
-                            <div class="freepick__image__parent">
-                                <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                                <div><p>{{ __('goal.choose') }}</p></div>
-                            </div>
-                            <div class="freepick__image__parent">
-                                <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                                <div><p>{{ __('goal.choose') }}</p></div>
-                            </div>
-                            <div class="freepick__image__parent">
-                                <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                                <div><p>{{ __('goal.choose') }}</p></div>
-                            </div>
+            <div class="freepick">
+                <div class="freepick__content">
+                    <h2>{{ __('goal.change_the_background_image') }}</h2>
+                    <div class="freepick__flex">
+                        <div class="loader__mini__parent">
+                            <div class="loader__mini"></div>
                         </div>
-                        <p class="freepick__load">{{ __('goal.load_other_options') }}</p>
+                        <div class="freepick__image__parent">
+                            <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
+                            <div><p>{{ __('goal.choose') }}</p></div>
+                        </div>
+                        <div class="freepick__image__parent">
+                            <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
+                            <div><p>{{ __('goal.choose') }}</p></div>
+                        </div>
+                        <div class="freepick__image__parent">
+                            <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
+                            <div><p>{{ __('goal.choose') }}</p></div>
+                        </div>
+                        <div class="freepick__image__parent">
+                            <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
+                            <div><p>{{ __('goal.choose') }}</p></div>
+                        </div>
                     </div>
+                    <p class="freepick__load">{{ __('goal.load_other_options') }}</p>
                 </div>
             </div>
             <h1>{{ __('goal.goal_creation') }} 🎯</h1>
