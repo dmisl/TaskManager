@@ -857,6 +857,7 @@
     z-index: 15;
     top: 405px;
     left: -100px;
+    cursor: pointer;
 }
 .goal__create .back img
 {
