@@ -71,49 +71,43 @@
     {{-- MODAL GOAL EDIT --}}
         <div class="edit__modal__parent d-none">
             <div class="goal__create">
-                <div class="back__parent">
-                    <a class="back">
-                        <img src="{{ asset('storage/images/back.png') }}" alt="">
-                        <p>{{ __('main.back') }}</p>
-                    </a>
-                </div>
-                <div class="preview__parent">
-                    <div class="preview">
-                        <div class="hidden__content">
-                            <p>{{ __('goal.goal_essence') }}</p>
-                        </div>
-                        <div class="img__parent">
-                            <img src="{{ asset('storage/images/empty.jpg') }}" alt="">
-                        </div>
+                <a class="back">
+                    <img src="{{ asset('storage/images/back.png') }}" alt="">
+                    <p>{{ __('main.back') }}</p>
+                </a>
+                <div class="preview">
+                    <div class="hidden__content">
+                        <p>{{ __('goal.goal_essence') }}</p>
+                    </div>
+                    <div class="img__parent">
+                        <img src="{{ asset('storage/images/empty.jpg') }}" alt="">
                     </div>
                 </div>
-                <div class="freepick__parent">
-                    <div class="freepick">
-                        <div class="freepick__content">
-                            <h2>{{ __('goal.change_the_background_image') }}</h2>
-                            <div class="freepick__flex">
-                                <div class="loader__mini__parent">
-                                    <div class="loader__mini"></div>
-                                </div>
-                                <div class="freepick__image__parent">
-                                    <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                                    <div><p>{{ __('goal.change') }}</p></div>
-                                </div>
-                                <div class="freepick__image__parent">
-                                    <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                                    <div><p>{{ __('goal.change') }}</p></div>
-                                </div>
-                                <div class="freepick__image__parent">
-                                    <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                                    <div><p>{{ __('goal.change') }}</p></div>
-                                </div>
-                                <div class="freepick__image__parent">
-                                    <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
-                                    <div><p>{{ __('goal.change') }}</p></div>
-                                </div>
+                <div class="freepick">
+                    <div class="freepick__content">
+                        <h2>{{ __('goal.change_the_background_image') }}</h2>
+                        <div class="freepick__flex">
+                            <div class="loader__mini__parent">
+                                <div class="loader__mini"></div>
                             </div>
-                            <p class="freepick__load">{{ __('goal.load_other_options') }}</p>
+                            <div class="freepick__image__parent">
+                                <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
+                                <div><p>{{ __('goal.change') }}</p></div>
+                            </div>
+                            <div class="freepick__image__parent">
+                                <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
+                                <div><p>{{ __('goal.change') }}</p></div>
+                            </div>
+                            <div class="freepick__image__parent">
+                                <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
+                                <div><p>{{ __('goal.change') }}</p></div>
+                            </div>
+                            <div class="freepick__image__parent">
+                                <img src="{{ asset('storage/images/freelance.jpg') }}" alt="">
+                                <div><p>{{ __('goal.change') }}</p></div>
+                            </div>
                         </div>
+                        <p class="freepick__load">{{ __('goal.load_other_options') }}</p>
                     </div>
                 </div>
                 <h1>{{ __('goal.goal_editing') }} 🎯</h1>
@@ -486,7 +480,7 @@
                     edit__modal.classList.remove('d-none')
                     let back__parent = document.querySelector('.back__parent')
                     edit__modal.querySelector('input[name="name"]').value = res.data.name
-                    edit__modal.querySelector('.preview__parent .preview .hidden__content p').innerText = res.data.name
+                    edit__modal.querySelector('.preview .hidden__content p').innerText = res.data.name
                     edit__modal.querySelector('.preview img').src = res.data.image
                     edit__modal.querySelector('input[name="end_date"]').value = res.data.end_date
                     for (let i = 0; i < edit__modal.querySelector('select').children.length; i++) {
