@@ -478,7 +478,6 @@
                 .then(res => {
                     edit__modal.classList.add('d-flex')
                     edit__modal.classList.remove('d-none')
-                    let back__parent = document.querySelector('.back__parent')
                     edit__modal.querySelector('input[name="name"]').value = res.data.name
                     edit__modal.querySelector('.preview .hidden__content p').innerText = res.data.name
                     edit__modal.querySelector('.preview img').src = res.data.image
@@ -527,7 +526,7 @@
                     console.error(err);
                 })
             })
-            edit__modal.querySelector('.back__parent p').style.color = 'white'
+            edit__modal.querySelector('.back p').style.color = 'white'
             edit__modal.querySelector('.back').addEventListener('click', edit__modal__close)
         // GUIDE MODAL HANDLING
             let guide = contextMenu.querySelector('.guide')

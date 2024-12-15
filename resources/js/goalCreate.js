@@ -2,7 +2,7 @@
 
 window.addEventListener('load', function () {
 
-    let goal__create = document.querySelector('.goal__create')
+    let goal__create = document.querySelector('.goal__create:not(.flex__block, .bigger__flex__block)')
     goal__create.parentElement.style.paddingBottom = '40px'
 
     // FIXING IMAGES ON LOAD

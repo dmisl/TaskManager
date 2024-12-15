@@ -881,14 +881,6 @@
 .edit__modal__parent .preview {
     border: 2px solid white;
 }
-.edit__modal__parent .goal__create .preview
-{
-    top: -250px !important;
-}
-.edit__modal__parent .freepick
-{
-    top: 50px;
-}
 /* GUIDE MODAL */
 .guide__modal__parent
 {
@@ -1112,10 +1104,6 @@
         top: 430px;
         left: 175px;
     }
-    .edit__modal__parent .goal__create .preview
-    {
-        top: -150px !important;
-    }
     .delete__modal
     {
         width: 350px;
@@ -1331,6 +1319,10 @@
     {
         width: 274px;
         height: 273px;
+    }
+    .edit__modal__parent h1
+    {
+        font-size: 33px;
     }
 }
 /* ANIMATIONS */
