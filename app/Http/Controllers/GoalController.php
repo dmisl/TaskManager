@@ -139,8 +139,11 @@ class GoalController extends Controller
             {
                 $check->delete();
             }
-            foreach ($goal->tasks as $task) {
-                $task->delete();
+            if($goal->tasks->count() !== 0)
+            {
+                foreach ($goal->tasks as $task) {
+                    $task->delete();
+                }
             }
             $goal->delete();
             return response()->json([
