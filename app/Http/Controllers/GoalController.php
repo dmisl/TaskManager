@@ -142,6 +142,12 @@ class GoalController extends Controller
             if($goal->tasks->count() !== 0)
             {
                 foreach ($goal->tasks as $task) {
+                    if($task->comments->count() !== 0)
+                    {
+                        foreach ($task->comments as $comment) {
+                            $comment->delete();
+                        }
+                    }
                     $task->delete();
                 }
             }
