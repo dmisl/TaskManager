@@ -101,7 +101,7 @@
 {
     font-size: 25px;
 }
-@media screen and (min-width: 1000px) and (max-width: 1400px)
+@media screen and (min-width: 1000px) and (max-width: 1600px)
 {
     .content__container
     {
@@ -216,7 +216,7 @@
     padding: 0;
     user-select: none;
 }
-@media screen and (min-width: 1000px) and (max-width: 1400px)
+@media screen and (min-width: 1000px) and (max-width: 1600px)
 {
     .menu
     {
@@ -369,7 +369,7 @@
     width: 700px;
     text-align: right;
 }
-@media screen and (min-width: 1000px) and (max-width: 1400px)
+@media screen and (min-width: 1000px) and (max-width: 1600px)
 {
     .moved__container
     {
